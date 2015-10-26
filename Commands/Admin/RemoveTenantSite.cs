@@ -4,23 +4,25 @@ using Microsoft.SharePoint.Client;
 using OfficeDevPnP.PowerShell.CmdletHelpAttributes;
 using OfficeDevPnP.PowerShell.Commands.Base;
 using Resources = OfficeDevPnP.PowerShell.Commands.Properties.Resources;
+using System;
 
 namespace OfficeDevPnP.PowerShell.Commands
 {
     [Cmdlet(VerbsCommon.Remove, "SPOTenantSite", ConfirmImpact = ConfirmImpact.High, SupportsShouldProcess = true)]
-    [CmdletHelp("Office365 only: Removes a site collection from the current tenant", 
-        DetailedDescription = "", 
+    [CmdletHelp("Office365 only: Removes a site collection from the current tenant",
+        DetailedDescription = "",
         Category = CmdletHelpCategory.TenantAdmin)]
     public class RemoveSite : SPOAdminCmdlet
     {
-        [Parameter(Mandatory = true, Position=0, ValueFromPipeline=true)]
+        [Parameter(Mandatory = true, Position = 0, ValueFromPipeline = true)]
         public string Url;
 
         [Parameter(Mandatory = false, HelpMessage = "Do not add to the trashcan if selected.")]
         [Alias("SkipTrash")]
         public SwitchParameter SkipRecycleBin;
 
-        [Parameter(Mandatory = false, HelpMessage = "OBSOLETE: If true, will wait for the site to be deleted before processing continues", DontShow=true)]
+        [Parameter(Mandatory = false, HelpMessage = "OBSOLETE: If true, will wait for the site to be deleted before processing continues")]
+        [Obsolete("This parameter is obsolete. The cmdlet will always wait for the site to be deleted first")]
         public SwitchParameter Wait;
 
         [Parameter(Mandatory = false, HelpMessage = "If specified, will search for the site in the Recycle Bin and remove it from there.")]

@@ -76,7 +76,8 @@ SortOrder = 5)]
         [Parameter(Mandatory = false, HelpMessage = "Overwrites the output file if it exists.")]
         public SwitchParameter Force;
 
-        [Parameter(Mandatory = false, DontShow = true, HelpMessage = "Exports the template without the use of a base template, causing all OOTB artifacts to be included. Using this switch is generally not required/recommended.")]
+        [Parameter(Mandatory = false, HelpMessage = "Exports the template without the use of a base template, causing all OOTB artifacts to be included. Using this switch is generally not required/recommended.")]
+        [Obsolete("Use of this method is generally not required/recommended")]
         public SwitchParameter NoBaseTemplate;
 
         [Parameter(Mandatory = false)]
@@ -129,6 +130,7 @@ SortOrder = 5)]
 
             creationInformation.FileConnector = new FileSystemConnector(path, "");
 
+#pragma warning disable CS0618 // Type or member is obsolete
             if (NoBaseTemplate)
             {
                 creationInformation.BaseTemplate = null;
@@ -137,6 +139,7 @@ SortOrder = 5)]
             {
                 creationInformation.BaseTemplate = this.SelectedWeb.GetBaseTemplate();
             }
+#pragma warning restore CS0618 // Type or member is obsolete
 
             creationInformation.ProgressDelegate = (message, step, total) =>
             {
@@ -174,7 +177,9 @@ SortOrder = 5)]
                     }
                 case XMLPnPSchemaVersion.V201503:
                     {
+#pragma warning disable CS0618 // Type or member is obsolete
                         formatter = XMLPnPSchemaFormatter.GetSpecificFormatter(XMLConstants.PROVISIONING_SCHEMA_NAMESPACE_2015_03);
+#pragma warning restore CS0618 // Type or member is obsolete
                         break;
                     }
                 case XMLPnPSchemaVersion.V201505:
