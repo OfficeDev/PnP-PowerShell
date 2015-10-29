@@ -7,6 +7,7 @@ using OfficeDevPnP.PowerShell.CmdletHelpAttributes;
 using OfficeDevPnP.PowerShell.Commands.Base.PipeBinds;
 using File = System.IO.File;
 using Resources = OfficeDevPnP.PowerShell.Commands.Properties.Resources;
+using OfficeDevPnP.PowerShell.Commands.Enums;
 
 namespace OfficeDevPnP.PowerShell.Commands
 {
@@ -14,15 +15,15 @@ namespace OfficeDevPnP.PowerShell.Commands
     [CmdletHelp("Exports a taxonomy to either the output or to a file.",
         Category = CmdletHelpCategory.Taxonomy)]
     [CmdletExample
-        (Code = @"PS:> Export-SPOTaxonomy", 
+        (Code = @"PS:> Export-SPOTaxonomy",
         Remarks = "Exports the full taxonomy to the standard output",
         SortOrder = 1)]
     [CmdletExample(
-        Code = @"PS:> Export-SPOTaxonomy -Path c:\output.txt", 
+        Code = @"PS:> Export-SPOTaxonomy -Path c:\output.txt",
         Remarks = "Exports the full taxonomy the file output.txt",
         SortOrder = 2)]
     [CmdletExample(
-        Code = @"PS:> Export-SPOTaxonomy -Path c:\output.txt -TermSet f6f43025-7242-4f7a-b739-41fa32847254 ", 
+        Code = @"PS:> Export-SPOTaxonomy -Path c:\output.txt -TermSet f6f43025-7242-4f7a-b739-41fa32847254 ",
         Remarks = "Exports the term set with the specified id",
         SortOrder = 3)]
     public class ExportTaxonomy : SPOCmdlet
@@ -44,6 +45,9 @@ namespace OfficeDevPnP.PowerShell.Commands
 
         [Parameter(Mandatory = false)]
         public string Delimiter = "|";
+
+        [Parameter(Mandatory = false)]
+        public Encoding Encoding = Encoding.Unicode;
 
 
         protected override void ExecuteCmdlet()
@@ -82,16 +86,53 @@ namespace OfficeDevPnP.PowerShell.Commands
                     Path = System.IO.Path.Combine(SessionState.Path.CurrentFileSystemLocation.Path, Path);
                 }
 
+                System.Text.Encoding textEncoding = System.Text.Encoding.Unicode;
+                switch (Encoding)
+                {
+                    case Encoding.ASCII:
+                        {
+                            textEncoding = System.Text.Encoding.ASCII;
+                            break;
+                        }
+
+                    case Encoding.BigEndianUnicode:
+                        {
+                            textEncoding = System.Text.Encoding.BigEndianUnicode;
+                            break;
+                        }
+                    case Encoding.UTF32:
+                        {
+                            textEncoding = System.Text.Encoding.UTF32;
+                            break;
+                        }
+                    case Encoding.UTF7:
+                        {
+                            textEncoding = System.Text.Encoding.UTF7;
+                            break;
+                        }
+                    case Encoding.UTF8:
+                        {
+                            textEncoding = System.Text.Encoding.UTF8;
+                            break;
+                        }
+                    case Encoding.Unicode:
+                        {
+                            textEncoding = System.Text.Encoding.Unicode;
+                            break;
+                        }
+
+                }
+
                 if (File.Exists(Path))
                 {
                     if (Force || ShouldContinue(string.Format(Resources.File0ExistsOverwrite, Path), Resources.Confirm))
                     {
-                        File.WriteAllLines(Path, exportedTerms);
+                        File.WriteAllLines(Path, exportedTerms, textEncoding);
                     }
                 }
                 else
                 {
-                    File.WriteAllLines(Path, exportedTerms);
+                    File.WriteAllLines(Path, exportedTerms, textEncoding);
                 }
             }
         }

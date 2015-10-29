@@ -269,6 +269,7 @@
     <Compile Include="Enums\ConnectionType.cs" />
     <Compile Include="Enums\CredentialType.cs" />
     <Compile Include="Enums\DocumentSetFieldScope.cs" />
+    <Compile Include="Enums\Encoding.cs" />
     <Compile Include="Enums\SearchConfigurationScope.cs" />
     <Compile Include="Enums\CustomActionScope.cs" />
     <Compile Include="Enums\FeatureScope.cs" />

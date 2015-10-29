@@ -1,8 +1,13 @@
 # OfficeDevPnP.PowerShell Changelog #
 
+**2015-10-14**
+
+* Added optional -Encoding parameter to Export-SPOTaxonomy
+
 **2015-09-23**
 
 * Update Get-SPOSearchConfiguration and Set-SPOSearchConfiguration to support Path parameter to export to or import from a file
+
 **2015-09-21**
 
 * Added -Parameters parameter to Apply-SPOProvisioningTemplate. See help for the cmdlet for more info.
