@@ -8,7 +8,7 @@ using OfficeDevPnP.PowerShell.CmdletHelpAttributes;
 namespace OfficeDevPnP.PowerShell.Commands
 {
     [Cmdlet(VerbsCommon.Add, "SPOField")]
-    [CmdletHelp("Adds a field to a list or as a site column", 
+    [CmdletHelp("Adds a field to a list or as a site column",
         Category = CmdletHelpCategory.Fields)]
     [CmdletExample(
      Code = @"PS:> Add-SPOField -List ""Demo list"" -DisplayName ""Location"" -InternalName ""SPSLocation"" -Type Choice -Group ""Demo Group"" -AddToDefaultView -Choices ""Stockholm"",""Helsinki"",""Oslo""",
@@ -53,7 +53,7 @@ Remarks = @"This will add field of type Multiple Choice to a the list ""Demo Lis
         [Parameter(Mandatory = false, ParameterSetName = "ListXML")]
         public string Group;
 
-        [Parameter(Mandatory = false, DontShow = true)]
+        [Parameter(Mandatory = false)]
         [Obsolete("Not in use")]
         public AddFieldOptions FieldOptions = AddFieldOptions.DefaultValue;
 

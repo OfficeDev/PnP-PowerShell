@@ -187,6 +187,7 @@
             <Alignment>left</Alignment>
           </TableColumnHeader>
           <TableColumnHeader>
+            <Label>Url</Label>
             <Width>30</Width>
             <Alignment>left</Alignment>
           </TableColumnHeader>
@@ -201,7 +202,7 @@
                 <PropertyName>Id</PropertyName>
               </TableColumnItem>
               <TableColumnItem>
-                <PropertyName>DefaultViewUrl</PropertyName>
+                <ScriptBlock>$_.RootFolder.ServerRelativeUrl</ScriptBlock>
               </TableColumnItem>
             </TableColumnItems>
           </TableRowEntry>

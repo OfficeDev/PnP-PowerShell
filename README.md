@@ -16,12 +16,7 @@ In order to generate the generate the Cmdlet help you need Windows Management Fr
 ### Solution ###
 Solution | Author(s)
 ---------|----------
-OfficeDevPnP.PowerShell | Erwin van Hunen (**Knowit Reaktor Stockholm AB**)
-
-### Version history ###
-Version  | Date | Comments
----------| -----| --------
-1.0  | August 18th 2014 | Initial release
+OfficeDevPnP.PowerShell | Erwin van Hunen
 
 ### Disclaimer ###
 **THIS CODE IS PROVIDED *AS IS* WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.**

@@ -5,6 +5,7 @@ using Microsoft.SharePoint.Client;
 using OfficeDevPnP.Core.Utilities;
 using OfficeDevPnP.PowerShell.Commands.Base;
 using Resources = OfficeDevPnP.PowerShell.Commands.Properties.Resources;
+using System.Collections.Generic;
 
 namespace OfficeDevPnP.PowerShell.Commands
 {
@@ -27,6 +28,7 @@ namespace OfficeDevPnP.PowerShell.Commands
             {
                 throw new InvalidOperationException(Resources.NoConnection);
             }
+
         }
 
         protected virtual void ExecuteCmdlet()
@@ -79,7 +81,7 @@ namespace OfficeDevPnP.PowerShell.Commands
             catch (Exception ex)
             {
                 SPOnlineConnection.CurrentConnection.RestoreCachedContext(SPOnlineConnection.CurrentConnection.Url);
-                WriteError(new ErrorRecord(ex, "EXCEPTION", ErrorCategory.WriteError,null));
+                WriteError(new ErrorRecord(ex, "EXCEPTION", ErrorCategory.WriteError, null));
             }
         }
 

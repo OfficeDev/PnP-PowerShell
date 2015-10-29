@@ -1,14 +1,33 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
-  <PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'debug' Or '$(Configuration)' == 'release' ">
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{1DDE6F0A-CA49-419A-9CE8-A6CA02F43CE0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>OfficeDevPnP.PowerShell.Commands</RootNamespace>
-    <AssemblyName>OfficeDevPnP.PowerShell.Commands</AssemblyName>
+    <AssemblyName>OfficeDevPnP.PowerShell.V16.Commands</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'debug15' Or '$(Configuration)' == 'release15' ">
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{1DDE6F0A-CA49-419A-9CE8-A6CA02F43CE0}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>OfficeDevPnP.PowerShell.Commands</RootNamespace>
+    <AssemblyName>OfficeDevPnP.PowerShell.V15.Commands</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>
@@ -258,6 +277,7 @@
     <Compile Include="Branding\GetJavaScriptLink.cs" />
     <Compile Include="Branding\ApplyProvisioningTemplate.cs" />
     <Compile Include="Branding\GetProvisioningTemplate.cs" />
+    <Compile Include="Branding\NewProvisioningTemplateFromFolder.cs" />
     <Compile Include="ContentTypes\RemoveContentTypeFromList.cs" />
     <Compile Include="ContentTypes\SetDefaultContentTypeToList.cs" />
     <Compile Include="ContentTypes\AddContentTypeToList.cs" />
@@ -269,6 +289,7 @@
     <Compile Include="Enums\ConnectionType.cs" />
     <Compile Include="Enums\CredentialType.cs" />
     <Compile Include="Enums\DocumentSetFieldScope.cs" />
+    <Compile Include="Enums\Encoding.cs" />
     <Compile Include="Enums\SearchConfigurationScope.cs" />
     <Compile Include="Enums\CustomActionScope.cs" />
     <Compile Include="Enums\FeatureScope.cs" />
@@ -331,9 +352,6 @@
     <Compile Include="Workflows\GetWorkflowDefinition.cs" />
     <Compile Include="Workflows\GetWorkflowSubscription.cs" />
     <None Include="app.config" />
-    <None Include="ModuleFiles\OfficeDevPnP.PowerShell.Commands.Format.ps1xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="packages.config" />
     <None Include="Samples\Connections.ps1" />
     <None Include="Samples\GetContext.ps1" />
@@ -429,7 +447,16 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="ModuleFiles\OfficeDevPnP.PowerShell.Commands.psd1">
+    <None Include="ModuleFiles\OfficeDevPnP.PowerShell.V16.Commands.psd1">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ModuleFiles\OfficeDevPnP.PowerShell.V16.Commands.Format.ps1xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ModuleFiles\OfficeDevPnP.PowerShell.V15.Commands.psd1">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ModuleFiles\OfficeDevPnP.PowerShell.V15.Commands.Format.ps1xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

@@ -4,11 +4,19 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("OfficeDevPnP.PowerShell.Commands")]
+#if !CLIENTSDKV15
+[assembly: AssemblyTitle("OfficeDevPnP.PowerShell.V16.Commands")]
+#else
+[assembly: AssemblyTitle("OfficeDevPnP.PowerShell.V15.Commands")]
+#endif
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("OfficeDevPnP.PowerShell.Commands")]
+#if !CLIENTSDKV15
+[assembly: AssemblyProduct("OfficeDevPnP.PowerShell.V16.Commands")]
+#else
+[assembly: AssemblyProduct("OfficeDevPnP.PowerShell.V15.Commands")]
+#endif
 [assembly: AssemblyCopyright("")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

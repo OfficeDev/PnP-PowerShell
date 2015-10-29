@@ -2,10 +2,13 @@
 <?if $(var.OfficeDevPnP.PowerShell.Commands.Configuration) = Release OR $(var.OfficeDevPnP.PowerShell.Commands.Configuration) = Debug ?>
 <?define AssemblyVersion = "16.0.0.0" ?>
 <?define ProductName = "Office 365 Developer PnP PowerShell Commands" ?>
+<?define ProductAssemblyName = "OfficeDevPnP.PowerShell.V16.Commands" ?>
 <?else ?>
 <?define AssemblyVersion = "15.0.0.0" ?>
 <?define ProductName = "Office 365 Developer PnP PowerShell Commands (On-Premises)" ?>
+<?define ProductAssemblyName = "OfficeDevPnP.PowerShell.V15.Commands" ?>
 <?endif ?>
+
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
      xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension"
      xmlns:util="http://schemas.microsoft.com/wix/UtilExtension"
@@ -13,7 +16,7 @@
   <Product Id="*"
            Name="$(var.ProductName)"
            Language="1033"
-           Version="1.7.1015.0"
+           Version="1.8.1115.0"
            Manufacturer="OfficeDev PnP"
            UpgradeCode="630fe2af-dc42-467d-94c8-6eefd065cbfa">
 
@@ -52,9 +55,9 @@
 
   <Fragment>
     <Directory Id="TARGETDIR" Name="SourceDir">
-      <Directory Id="APPLICATIONFOLDER" Name="OfficeDevPnP.PowerShell.Commands" >
+      <Directory Id="APPLICATIONFOLDER" Name="$(var.ProductAssemblyName)" >
         <Directory Id="Modules2" Name="Modules">
-          <Directory Id="MODULEFOLDER" Name="OfficeDevPnP.PowerShell.Commands"></Directory>
+          <Directory Id="MODULEFOLDER" Name="$(var.ProductAssemblyName)"></Directory>
         </Directory>
       </Directory>
     </Directory>
@@ -63,8 +66,9 @@
     <WixVariable Id="WixUIDialogBmp" Value="officedevpnp.bmp"/>
     <WixVariable Id="WixUIBannerBmp" Value="setupbanner.png"/>
 
-    <Property Id="ApplicationFolderName" Value="OfficeDevPnP.PowerShell.Commands" />
+    <Property Id="ApplicationFolderName" Value="$(var.ProductAssemblyName)" />
     <Property Id="WixAppFolder" Value="WixPerMachineFolder" />
+
     <UIRef Id="WixUI_Advanced" />
 
   </Fragment>
@@ -76,8 +80,8 @@
         <File Id="CommandsHelp" Source="$(var.OfficeDevPnP.PowerShell.Commands.TargetPath)-help.xml"/>
         <File Id="Core" Source="$(var.OfficeDevPnP.PowerShell.Commands.ProjectDir)bin\$(var.OfficeDevPnP.PowerShell.Commands.Configuration)\OfficeDevPnP.Core.dll"/>
         <File Id="CmdletHelpAttributes" Source="$(var.OfficeDevPnP.PowerShell.CmdletHelpAttributes.TargetPath)"/>
-        <File Id="FormatFile" Source="$(var.OfficeDevPnP.PowerShell.Commands.ProjectDir)bin\$(var.OfficeDevPnP.PowerShell.Commands.Configuration)\ModuleFiles\OfficeDevPnP.PowerShell.Commands.Format.ps1xml" />
-        <File Id="PSD1File" Source="$(var.OfficeDevPnP.PowerShell.Commands.ProjectDir)bin\$(var.OfficeDevPnP.PowerShell.Commands.Configuration)\ModuleFiles\OfficeDevPnP.PowerShell.Commands.psd1" />
+        <File Id="FormatFile" Source="$(var.OfficeDevPnP.PowerShell.Commands.ProjectDir)bin\$(var.OfficeDevPnP.PowerShell.Commands.Configuration)\ModuleFiles\$(var.ProductAssemblyName).Format.ps1xml" />
+        <File Id="PSD1File" Source="$(var.OfficeDevPnP.PowerShell.Commands.ProjectDir)bin\$(var.OfficeDevPnP.PowerShell.Commands.Configuration)\ModuleFiles\$(var.ProductAssemblyName).psd1" />
         <File Id="ClientSDK.Client" Source="$(var.OfficeDevPnP.PowerShell.Commands.ProjectDir)bin\$(var.OfficeDevPnP.PowerShell.Commands.Configuration)\Microsoft.SharePoint.Client.dll" />
         <File Id="ClientSDK.Client.Runtime" Source="$(var.OfficeDevPnP.PowerShell.Commands.ProjectDir)bin\$(var.OfficeDevPnP.PowerShell.Commands.Configuration)\Microsoft.SharePoint.Client.Runtime.dll" />
         <File Id="ClientSDK.Client.Taxonomy" Source="$(var.OfficeDevPnP.PowerShell.Commands.ProjectDir)bin\$(var.OfficeDevPnP.PowerShell.Commands.Configuration)\Microsoft.SharePoint.Client.Taxonomy.dll" />

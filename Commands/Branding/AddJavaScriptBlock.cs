@@ -2,12 +2,13 @@
 using Microsoft.SharePoint.Client;
 using OfficeDevPnP.PowerShell.CmdletHelpAttributes;
 using OfficeDevPnP.PowerShell.Commands.Enums;
+using System;
 
 namespace OfficeDevPnP.PowerShell.Commands
 {
     [Cmdlet(VerbsCommon.Add, "SPOJavaScriptBlock")]
-    [CmdletHelp("Adds a link to a JavaScript snippet/block to a web or site collection", 
-        DetailedDescription = "Specify a scope as 'Site' to add the custom action to all sites in a site collection.", 
+    [CmdletHelp("Adds a link to a JavaScript snippet/block to a web or site collection",
+        DetailedDescription = "Specify a scope as 'Site' to add the custom action to all sites in a site collection.",
         Category = CmdletHelpCategory.Branding)]
     public class AddJavaScriptBlock : SPOWebCmdlet
     {
@@ -21,7 +22,8 @@ namespace OfficeDevPnP.PowerShell.Commands
         [Parameter(Mandatory = false)]
         public int Sequence = 0;
 
-        [Parameter(Mandatory = false, DontShow = true)]
+        [Parameter(Mandatory = false)]
+        [Obsolete("Use Scope instead")]
         [Alias("AddToSite")]
         public SwitchParameter SiteScoped;
 
