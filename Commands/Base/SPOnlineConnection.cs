@@ -33,7 +33,7 @@ namespace OfficeDevPnP.PowerShell.Commands.Base
             PSCredential = credential;
             ContextCache = new List<ClientContext>();
             ContextCache.Add(context);
-            Url = url;
+            Url = (new Uri(url)).AbsoluteUri;
         }
 
         public void RestoreCachedContext(string url)

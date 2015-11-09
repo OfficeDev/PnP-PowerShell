@@ -4,8 +4,12 @@ if($ConfigurationName -like "Debug*")
 {
 	$documentsFolder = [environment]::getfolderpath("mydocuments");
 
-	$PSModuleHome = "$documentsFolder\WindowsPowerShell\Modules\OfficeDevPnP.PowerShell.Commands"
-
+	if($ConfigurationName -like "Debug15")
+	{
+		$PSModuleHome = "$documentsFolder\WindowsPowerShell\Modules\OfficeDevPnP.PowerShell.V15.Commands"
+	} else {
+		$PSModuleHome = "$documentsFolder\WindowsPowerShell\Modules\OfficeDevPnP.PowerShell.V16.Commands"
+	}
 	# Module folder there?
 	if(Test-Path $PSModuleHome)
 	{
@@ -19,28 +23,45 @@ if($ConfigurationName -like "Debug*")
 	Write-Host "Copying files from $TargetDir to $PSModuleHome"
 	Copy-Item "$TargetDir\*.dll" -Destination "$PSModuleHome"
 	Copy-Item "$TargetDir\*help.xml" -Destination "$PSModuleHome"
-	Copy-Item "$TargetDir\ModuleFiles\*.psd1" -Destination  "$PSModuleHome"
-	Copy-Item "$TargetDir\ModuleFiles\*.ps1xml" -Destination "$PSModuleHome"
+	if($ConfigurationName -like "Debug15")
+	{
+		Copy-Item "$TargetDir\ModuleFiles\OfficeDevPnP.PowerShell.V15.Commands.psd1" -Destination  "$PSModuleHome"
+		Copy-Item "$TargetDir\ModuleFiles\OfficeDevPnP.PowerShell.V15.Commands.Format.ps1xml" -Destination "$PSModuleHome"
+	} else {
+		Copy-Item "$TargetDir\ModuleFiles\OfficeDevPnP.PowerShell.V16.Commands.psd1" -Destination  "$PSModuleHome"
+		Copy-Item "$TargetDir\ModuleFiles\OfficeDevPnP.PowerShell.V16.Commands.Format.ps1xml" -Destination "$PSModuleHome"
+	}
 } elseif ($ConfigurationName -like "Release*")
 {
-	$distDir = "$SolutionDir\dist";
+    $documentsFolder = [environment]::getfolderpath("mydocuments");
 
-	# Dist folder there? If so, empty it.
-	if(Test-Path $distDir)
+	if($ConfigurationName -like "Release15")
 	{
-		Remove-Item $distDir\*
+		$PSModuleHome = "$documentsFolder\WindowsPowerShell\Modules\OfficeDevPnP.PowerShell.V15.Commands"
 	} else {
-		# Create folder
-		New-Item -Path "$distDir" -ItemType Directory -Force >$null # Suppress output
+		$PSModuleHome = "$documentsFolder\WindowsPowerShell\Modules\OfficeDevPnP.PowerShell.V16.Commands"
 	}
-	# Copy files to 'dist' folder
-	Write-Host "Copying files from $TargetDir to $distDir"
-	Copy-Item "$TargetDir\*.dll" -Destination "$distDir"
-	Copy-Item "$TargetDir\*help.xml" -Destination "$distDir"
-	Copy-Item "$TargetDir\ModuleFiles\*.psd1" -Destination  "$distDir"
-	Copy-Item "$TargetDir\ModuleFiles\*.ps1xml" -Destination "$distDir"
-	Copy-Item "$SolutionDir\install.ps1" -Destination "$distDir"
-	ii $distDir
+	# Module folder there?
+	if(Test-Path $PSModuleHome)
+	{
+		# Yes, empty it
+		Remove-Item $PSModuleHome\*
+	} else {
+		# No, create it
+		New-Item -Path $PSModuleHome -ItemType Directory -Force >$null # Suppress output
+	}
+
+	Write-Host "Copying files from $TargetDir to $PSModuleHome"
+	Copy-Item "$TargetDir\*.dll" -Destination "$PSModuleHome"
+	Copy-Item "$TargetDir\*help.xml" -Destination "$PSModuleHome"
+	if($ConfigurationName -like "Release15")
+	{
+		Copy-Item "$TargetDir\ModuleFiles\OfficeDevPnP.PowerShell.V15.Commands.psd1" -Destination  "$PSModuleHome"
+		Copy-Item "$TargetDir\ModuleFiles\OfficeDevPnP.PowerShell.V15.Commands.Format.ps1xml" -Destination "$PSModuleHome"
+	} else {
+		Copy-Item "$TargetDir\ModuleFiles\OfficeDevPnP.PowerShell.V16.Commands.psd1" -Destination  "$PSModuleHome"
+		Copy-Item "$TargetDir\ModuleFiles\OfficeDevPnP.PowerShell.V16.Commands.Format.ps1xml" -Destination "$PSModuleHome"
+	}
 }
 
 	

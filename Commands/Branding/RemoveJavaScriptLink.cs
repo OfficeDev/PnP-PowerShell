@@ -4,11 +4,12 @@ using Microsoft.SharePoint.Client;
 using OfficeDevPnP.PowerShell.CmdletHelpAttributes;
 using OfficeDevPnP.PowerShell.Commands.Enums;
 using Resources = OfficeDevPnP.PowerShell.Commands.Properties.Resources;
+using System;
 
 namespace OfficeDevPnP.PowerShell.Commands
 {
     [Cmdlet(VerbsCommon.Remove, "SPOJavaScriptLink", SupportsShouldProcess = true)]
-    [CmdletHelp("Removes a JavaScript link or block from a web or sitecollection", 
+    [CmdletHelp("Removes a JavaScript link or block from a web or sitecollection",
         Category = CmdletHelpCategory.Branding)]
     public class RemoveJavaScriptLink : SPOWebCmdlet
     {
@@ -16,7 +17,8 @@ namespace OfficeDevPnP.PowerShell.Commands
         [Alias("Key")]
         public string Name = string.Empty;
 
-        [Parameter(Mandatory = false, DontShow = true)]
+        [Parameter(Mandatory = false)]
+        [Obsolete("Use Scope parameter")]
         public SwitchParameter FromSite;
 
         [Parameter(Mandatory = false)]
@@ -43,7 +45,7 @@ namespace OfficeDevPnP.PowerShell.Commands
             var action = setScope == CustomActionScope.Web ? SelectedWeb.GetCustomActions().FirstOrDefault(c => c.Name == Name) : ClientContext.Site.GetCustomActions().FirstOrDefault(c => c.Name == Name);
             if (action != null)
             {
-                if (Force || ShouldContinue(string.Format(Resources.RemoveJavaScript0,action.Name), Resources.Confirm))
+                if (Force || ShouldContinue(string.Format(Resources.RemoveJavaScript0, action.Name), Resources.Confirm))
                 {
                     if (setScope == CustomActionScope.Web)
                     {

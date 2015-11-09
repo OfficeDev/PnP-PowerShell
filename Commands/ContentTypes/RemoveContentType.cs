@@ -10,7 +10,9 @@ namespace OfficeDevPnP.PowerShell.Commands
     [CmdletHelp("Removes a content type", 
         Category = CmdletHelpCategory.ContentTypes)]
     [CmdletExample(
-     Code = @"PS:> Remove-SPOContentType -Identity ""Project Document""", SortOrder = 1)]
+        Code = @"PS:> Remove-SPOContentType -Identity ""Project Document""",
+        Remarks = @"This will remove a content type called ""Project Document"" from the current web",
+        SortOrder = 1)]
     public class RemoveContentType : SPOWebCmdlet
     {
 

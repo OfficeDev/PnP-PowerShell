@@ -1,5 +1,5 @@
 #Remove-SPOContentType
-*Topic automatically generated on: 2015-10-13*
+*Topic automatically generated on: 2015-10-26*
 
 Removes a content type
 ##Syntax
@@ -20,4 +20,4 @@ Parameter|Type|Required|Description
 ```powershell
 PS:> Remove-SPOContentType -Identity "Project Document"
 ```
-
+This will remove a content type called "Project Document" from the current web

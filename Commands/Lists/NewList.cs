@@ -1,6 +1,7 @@
 ﻿using OfficeDevPnP.PowerShell.CmdletHelpAttributes;
 using Microsoft.SharePoint.Client;
 using System.Management.Automation;
+using System;
 
 namespace OfficeDevPnP.PowerShell.Commands
 {
@@ -8,11 +9,11 @@ namespace OfficeDevPnP.PowerShell.Commands
     [CmdletHelp("Creates a new list",
         Category = CmdletHelpCategory.Lists)]
     [CmdletExample(
-        Code = "PS:> New-SPOList -Title Announcements -Template Announcements", 
+        Code = "PS:> New-SPOList -Title Announcements -Template Announcements",
         SortOrder = 1)]
     [CmdletExample(
-        Code = @"PS:> New-SPOList -Title ""Demo List"" -Url ""DemoList"" -Template Announcements", 
-        SortOrder = 2, 
+        Code = @"PS:> New-SPOList -Title ""Demo List"" -Url ""DemoList"" -Template Announcements",
+        SortOrder = 2,
         Remarks = "Create a list with a title that is different from the url")]
     public class NewList : SPOWebCmdlet
     {
@@ -28,7 +29,8 @@ namespace OfficeDevPnP.PowerShell.Commands
         [Parameter(Mandatory = false)]
         public SwitchParameter EnableVersioning;
 
-        [Parameter(Mandatory = false, HelpMessage = "Obsolete", DontShow = true)]
+        [Parameter(Mandatory = false, HelpMessage = "Obsolete")]
+        [Obsolete("Not in use")]
         public QuickLaunchOptions QuickLaunchOptions;
 
         [Parameter(Mandatory = false)]

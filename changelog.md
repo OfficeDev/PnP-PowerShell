@@ -1,5 +1,9 @@
 # OfficeDevPnP.PowerShell Changelog #
 
+**2015-10-26**
+
+* Added New-SPOProvisioningTemplateFromFolder cmdlet
+
 **2015-10-14**
 
 * Added optional -Encoding parameter to Export-SPOTaxonomy

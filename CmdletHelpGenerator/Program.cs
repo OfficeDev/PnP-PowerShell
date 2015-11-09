@@ -130,13 +130,23 @@ namespace OfficeDevPnP.PowerShell.CmdletHelpGenerator
                     var syntaxItems = new List<SyntaxItem>();
                     foreach (var field in fields)
                     {
+                        var dontShow = false;
+                        foreach (Attribute attr in field.GetCustomAttributes(typeof(ObsoleteAttribute), true))
+                        {
+                            if (attr is ObsoleteAttribute)
+                            {
+                                dontShow = true;
+                                break;
+                            }
+                        }
+
                         foreach (Attribute attr in field.GetCustomAttributes(typeof(ParameterAttribute), true))
                         {
                             if (attr is ParameterAttribute)
                             {
                                 var a = (ParameterAttribute)attr;
 
-                                if (!a.DontShow)
+                                if (!dontShow)
                                 {
                                     if (a.ParameterSetName != ParameterAttribute.AllParameterSets)
                                     {
@@ -167,12 +177,22 @@ namespace OfficeDevPnP.PowerShell.CmdletHelpGenerator
                     // Add AllParameterSets to all CmdletInfo syntax sets and syntaxItems sets (first checking there is at least one, i.e. if all are marked AllParameterSets)
                     foreach (var field in fields)
                     {
+                        var dontShow = false;
+                        foreach (Attribute attr in field.GetCustomAttributes(typeof(ObsoleteAttribute), true))
+                        {
+                            if (attr is ObsoleteAttribute)
+                            {
+                                dontShow = true;
+                                break;
+                            }
+                        }
+
                         foreach (Attribute attr in field.GetCustomAttributes(typeof(ParameterAttribute), true))
                         {
                             if (attr is ParameterAttribute)
                             {
                                 var a = (ParameterAttribute)attr;
-                                if (!a.DontShow)
+                                if (!dontShow)
                                 {
                                     if (a.ParameterSetName == ParameterAttribute.AllParameterSets)
                                     {
@@ -226,12 +246,21 @@ namespace OfficeDevPnP.PowerShell.CmdletHelpGenerator
 
                     foreach (var field in fields)
                     {
+                        var dontShow = false;
+                        foreach (Attribute attr in field.GetCustomAttributes(typeof(ObsoleteAttribute), true))
+                        {
+                            if (attr is ObsoleteAttribute)
+                            {
+                                dontShow = true;
+                                break;
+                            }
+                        }
                         foreach (Attribute attr in field.GetCustomAttributes(typeof(ParameterAttribute), true))
                         {
                             if (attr is ParameterAttribute)
                             {
                                 var a = (ParameterAttribute)attr;
-                                if (!a.DontShow)
+                                if (!dontShow)
                                 {
                                     cmdletInfo.Parameters.Add(new CmdletParameterInfo() { Name = field.Name, Description = a.HelpMessage, Position = a.Position, Required = a.Mandatory, Type = field.FieldType.Name });
 
@@ -329,21 +358,7 @@ namespace OfficeDevPnP.PowerShell.CmdletHelpGenerator
                             if (System.IO.File.Exists(mdFilePath))
                             {
                                 originalMd = System.IO.File.ReadAllText(mdFilePath);
-                                //// Calculate hashcode
-                                //var existingFileText = System.IO.File.ReadAllText(mdFilePath);
-                                //var refPosition = existingFileText.IndexOf("<!-- Ref:");
-                                //if (refPosition > -1)
-                                //{
-                                //    var refEndPosition = existingFileText.IndexOf("-->", refPosition);
-                                //    if (refEndPosition > -1)
-                                //    {
-                                //        var refCode = existingFileText.Substring(refPosition + 9, refEndPosition - refPosition - 9).Trim();
-                                //        if (!string.IsNullOrEmpty(refCode))
-                                //        {
-                                //            existingHashCode = refCode;
-                                //        }
-                                //    }
-                                //}
+                              
                             }
                             var docHeaderBuilder = new StringBuilder();
 

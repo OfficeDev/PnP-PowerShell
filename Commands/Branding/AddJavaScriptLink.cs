@@ -2,11 +2,12 @@
 using Microsoft.SharePoint.Client;
 using OfficeDevPnP.PowerShell.CmdletHelpAttributes;
 using OfficeDevPnP.PowerShell.Commands.Enums;
+using System;
 
 namespace OfficeDevPnP.PowerShell.Commands
 {
     [Cmdlet(VerbsCommon.Add, "SPOJavaScriptLink")]
-    [CmdletHelp("Adds a link to a JavaScript file to a web or sitecollection", 
+    [CmdletHelp("Adds a link to a JavaScript file to a web or sitecollection",
         Category = CmdletHelpCategory.Branding)]
     public class AddJavaScriptLink : SPOWebCmdlet
     {
@@ -19,7 +20,8 @@ namespace OfficeDevPnP.PowerShell.Commands
         [Parameter(Mandatory = false)]
         public int Sequence = 0;
 
-        [Parameter(Mandatory = false, DontShow = true)]
+        [Parameter(Mandatory = false)]
+        [Obsolete("Use Scope")]
         [Alias("AddToSite")]
         public SwitchParameter SiteScoped;
 

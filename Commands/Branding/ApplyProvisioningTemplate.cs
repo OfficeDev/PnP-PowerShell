@@ -97,7 +97,14 @@ For instance with the example above, specifying {parameter:ListTitle} in your te
                 {
                     foreach (var parameter in Parameters.Keys)
                     {
-                        provisioningTemplate.Parameters.Add(parameter.ToString(), Parameters[parameter].ToString());
+                        if (provisioningTemplate.Parameters.ContainsKey(parameter.ToString()))
+                        {
+                            provisioningTemplate.Parameters[parameter.ToString()] = Parameters[parameter].ToString();
+                        }
+                        else
+                        {
+                            provisioningTemplate.Parameters.Add(parameter.ToString(), Parameters[parameter].ToString());
+                        }
                     }
                 }
 
