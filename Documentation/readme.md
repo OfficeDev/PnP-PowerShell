@@ -116,7 +116,7 @@ Cmdlet|Description
 ##Search
 Cmdlet|Description
 :-----|:----------
-**[Set&#8209;SPOSearchConfiguration](SetSPOSearchConfiguration.md)** |Returns the search configuration
+**[Set&#8209;SPOSearchConfiguration](SetSPOSearchConfiguration.md)** |Sets the search configuration
 **[Get&#8209;SPOSearchConfiguration](GetSPOSearchConfiguration.md)** |Returns the search configuration
 ##Sites
 Cmdlet|Description
