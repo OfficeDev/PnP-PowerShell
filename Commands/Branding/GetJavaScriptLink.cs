@@ -11,26 +11,38 @@ namespace OfficeDevPnP.PowerShell.Commands
     [Cmdlet(VerbsCommon.Get, "SPOJavaScriptLink")]
     [CmdletHelp("Returns all or a specific custom action(s) with location type ScriptLink", 
         Category = CmdletHelpCategory.Branding)]
+    [CmdletExample(Code = "PS:> Get-SPOJavaScriptLink",
+                Remarks = "Returns all web and site scoped JavaScriptLinks",
+                SortOrder = 1)]
+    [CmdletExample(Code = "PS:> Get-SPOJavaScriptLink -Scope Web",
+                Remarks = "Returns all site scoped JavaScriptLinks",
+                SortOrder = 2)]
+    [CmdletExample(Code = "PS:> Get-SPOJavaScriptLink -Scope Site",
+                Remarks = "Returns all web scoped JavaScriptLinks",
+                SortOrder = 3)]
+    [CmdletExample(Code = "PS:> Get-SPOJavaScriptLink -Name Test",
+                Remarks = "Returns the JavaScriptLink named Test",
+                SortOrder = 4)]
     public class GetJavaScriptLink : SPOWebCmdlet
     {
         [Parameter(Mandatory = false, ValueFromPipeline = true, Position = 0, HelpMessage = "Name of the Javascript link. Omit this parameter to retrieve all script links")]
         [Alias("Key")]
         public string Name = string.Empty;
 
-        [Parameter(Mandatory = false, HelpMessage = "Scope of the action, either Web (default) or Site")]
-        public CustomActionScope Scope = CustomActionScope.Web;
+        [Parameter(Mandatory = false, HelpMessage = "Scope of the action, either Web, Site or omit to return both")]
+        public CustomActionScope? Scope = null;
 
         protected override void ExecuteCmdlet()
         {
-            IEnumerable<UserCustomAction> actions = null;
+            List<UserCustomAction> actions = new List<UserCustomAction>();
 
-            if (Scope == CustomActionScope.Web)
+            if (!Scope.HasValue || Scope == CustomActionScope.Web)
             {
-                actions = SelectedWeb.GetCustomActions().Where(c => c.Location == "ScriptLink");
+                actions.AddRange(SelectedWeb.GetCustomActions().Where(c => c.Location == "ScriptLink"));
             }
-            else
+            if (!Scope.HasValue || Scope == CustomActionScope.Site)
             {
-                actions = ClientContext.Site.GetCustomActions().Where(c => c.Location == "ScriptLink");
+                actions.AddRange(ClientContext.Site.GetCustomActions().Where(c => c.Location == "ScriptLink"));
             }
 
             if (!string.IsNullOrEmpty(Name))
@@ -40,7 +52,7 @@ namespace OfficeDevPnP.PowerShell.Commands
             }
             else
             {
-                WriteObject(actions,true);
+                WriteObject(actions, true);
             }
         }
     }
