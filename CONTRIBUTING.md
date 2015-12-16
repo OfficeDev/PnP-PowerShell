@@ -30,7 +30,7 @@ Please see following page for additional insights on the model.
 
 
 ##Code contributions
-In order to succesfully compile the PnP PowerShell solution you will _also_ have to download the [PnP-Sites-Core](https://github.com/OfficeDev/PnP-Sites-Core) repository and make the dev branch available. The PowerShell solution depends on it. In order to succesfully 
+In order to succesfully compile the PnP PowerShell solution you will _also_ have to download *and build in Visual Studio* the [PnP-Sites-Core](https://github.com/OfficeDev/PnP-Sites-Core) repository and make the dev branch available. The PowerShell solution depends on it. In order to succesfully 
 compile it, make sure that PnP-Sites-Core is located at the same level as PnP-PowerShell.
 
 So:
