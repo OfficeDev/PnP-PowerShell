@@ -109,3 +109,7 @@ Connect-SPOnline –Url https://yoursite.sharepoint.com –Credentials yourlabel
 
 Alternatively you can create a credential manager entry with an internet or network address starting with your tenant url, e.g. https://mytenant.sharepoint.com. If you then use Connect-SPOnline -Url https://mytenant.sharepoint.com/sites/yoursite
 to create a new connection, the cmdlet will resolve the credentials to use based upon the URL.
+
+# Contributing #
+
+If you want to contribute to this OfficeDevPnP PowerShel library, please [proceed here](CONTRIBUTING.md)
