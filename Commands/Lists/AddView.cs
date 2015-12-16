@@ -34,15 +34,18 @@ namespace OfficeDevPnP.PowerShell.Commands
         [Parameter(Mandatory = false, HelpMessage = "If specified, a personal view will be created.")]
         public SwitchParameter Personal;
 
-        [Parameter(Mandatory = false, HelpMessage = "If specified the view will be set as the default view for the list.")]
+        [Parameter(Mandatory = false, HelpMessage = "If specified, the view will be set as the default view for the list.")]
         public SwitchParameter SetAsDefault;
+        
+        [Parameter(Mandatory = false, HelpMessage = "If specified, the view will have paging.")]
+        public SwitchParameter Paged;        
 
         protected override void ExecuteCmdlet()
         {
             var list = List.GetList(SelectedWeb);
             if (list != null)
             {
-                var view = list.CreateView(Title, ViewType, Fields, RowLimit, SetAsDefault, Query, Personal);
+                var view = list.CreateView(Title, ViewType, Fields, RowLimit, SetAsDefault, Query, Paged, Personal);
 
                 WriteObject(view);
             }
