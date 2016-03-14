@@ -24,7 +24,7 @@ PS:> Get-SPOTenantSite -Url http://tenant.sharepoint.com/sites/projects", Remark
         [Alias("Identity")]
         public string Url;
 
-        [Parameter(Mandatory = false)]
+        [Parameter(Mandatory = false), HelpMessage = "By default, not all returned attributes are populated. This switch populates all attributes. It can take several seconds to run. Without this, some attributes will show default values that may not be correct."]
         public SwitchParameter Detailed;
 
         [Parameter(Mandatory = false)]
