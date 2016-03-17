@@ -83,7 +83,9 @@ namespace OfficeDevPnP.PowerShell.Commands
 
             var completeTemplate = XMLPnPSchemaFormatter.LatestFormatter.ToProvisioningTemplate(stream);
 
-            ClientContext.Web.ApplyProvisioningTemplate(completeTemplate);
+            ProvisioningTemplateApplyingInformation templateAI = new ProvisioningTemplateApplyingInformation();
+            templateAI.HandlersToProcess = Handlers.TermGroups;
+            ClientContext.Web.ApplyProvisioningTemplate(completeTemplate, templateAI);
 
         }
 

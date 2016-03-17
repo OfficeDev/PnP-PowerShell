@@ -1,5 +1,5 @@
 #New-SPOGroup
-Adds a user to the build-in Site User Info List and returns a user object
+Adds group to the Site Groups List and returns a group object
 ##Syntax
 ```powershell
 New-SPOGroup -Title <String> [-Description <String>] [-Owner <String>] [-AllowRequestToJoinLeave [<SwitchParameter>]] [-AutoAcceptRequestToJoinLeave [<SwitchParameter>]] [-AllowMembersEditMembership [<SwitchParameter>]] [-OnlyAllowMembersViewMembership [<SwitchParameter>]] [-RequestToJoinEmail <String>] [-Web <WebPipeBind>]
@@ -22,6 +22,6 @@ Parameter|Type|Required|Description
 
 ###Example 1
 ```powershell
-PS:> New-SPOUser -LogonName user@company.com
+PS:> New-SPOGroup -Title "My Site Users"
 ```
 

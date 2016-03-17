@@ -17,7 +17,16 @@ namespace OfficeDevPnP.PowerShell.Tests
         {
             using (var scope = new PSTestScope(false))
             {
-                var results = scope.ExecuteCommand("Connect-SPOnline", new CommandParameter("Url", ConfigurationManager.AppSettings["SPODevSiteUrl"]));
+                
+
+                var script = String.Format(@" [ValidateNotNullOrEmpty()] $userPassword = ""{1}""
+                                              $userPassword = ConvertTo-SecureString -String {1} -AsPlainText -Force
+                                              $cred = New-Object –TypeName System.Management.Automation.PSCredential –ArgumentList {0}, $userPassword
+                                              Connect-SPOnline -Url {2} -Credentials $cred"
+                                    , ConfigurationManager.AppSettings["SPOUserName"],
+                                    ConfigurationManager.AppSettings["SPOPassword"],
+                                    ConfigurationManager.AppSettings["SPODevSiteUrl"]);
+                var results = scope.ExecuteScript(script);
                 Assert.IsTrue(results.Count == 0);
             }
         }
@@ -30,7 +39,7 @@ namespace OfficeDevPnP.PowerShell.Tests
                 var results = scope.ExecuteCommand("Get-SPOContext");
 
                 Assert.IsTrue(results.Count == 1);
-                Assert.IsTrue(results[0].BaseObject.GetType() == typeof(Microsoft.SharePoint.Client.ClientContext));
+                Assert.IsTrue(results[0].BaseObject.GetType().BaseType == typeof(Microsoft.SharePoint.Client.ClientContext));
 
             }
         }

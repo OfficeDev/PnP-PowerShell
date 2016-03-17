@@ -4,6 +4,7 @@ using Microsoft.SharePoint.Client;
 using System.Management.Automation.Runspaces;
 using System.Linq;
 using System.Xml.Linq;
+using OfficeDevPnP.Core.Utilities;
 
 namespace OfficeDevPnP.PowerShell.Tests
 {

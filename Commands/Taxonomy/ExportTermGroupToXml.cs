@@ -56,6 +56,8 @@ namespace OfficeDevPnP.PowerShell.Commands
 
             var templateCi = new ProvisioningTemplateCreationInformation(ClientContext.Web) { IncludeAllTermGroups = true };
 
+            templateCi.HandlersToProcess = Handlers.TermGroups;
+
             var template = ClientContext.Web.GetProvisioningTemplate(templateCi);
            
             template.Security = null;

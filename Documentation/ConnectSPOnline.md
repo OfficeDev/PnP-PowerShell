@@ -44,8 +44,8 @@ Parameter|Type|Required|Description
 |Realm|String|False|Authentication realm. If not specified will be resolved from the url specified.|
 |RedirectUri|String|True|The Redirect URI of the Azure AD Application|
 |RequestTimeout|Int32|False|The request timeout. Default is 180000|
-|RetryCount|Int32|False|Defines how often a retry should be executed if the server healthscore is not sufficient.|
-|RetryWait|Int32|False|Defines how many seconds to wait before each retry. Default is 5 seconds.|
+|RetryCount|Int32|False|Defines how often a retry should be executed if the server healthscore is not sufficient. Default is 10 times.|
+|RetryWait|Int32|False|Defines how many seconds to wait before each retry. Default is 1 second.|
 |SkipTenantAdminCheck|SwitchParameter|False||
 |Tenant|String|True|The Azure AD Tenant name,e.g. mycompany.onmicrosoft.com|
 |Url|String|True|The Url of the site collection to connect to.|
@@ -55,23 +55,29 @@ Parameter|Type|Required|Description
 
 ###Example 1
 ```powershell
-PS:> Connect-SPOnline -Url https://yourtenant.sharepoint.com -Credentials (Get-Credential)
+PS:> Connect-SPOnline -Url https://contoso.sharepoint.com
+```
+This will prompt for username and password and creates a context for the other PowerShell commands to use. When a generic credential is added to the Windows Credential Manager with https://contoso.sharepoint.com, PowerShell will not prompt for username and password.
+
+###Example 2
+```powershell
+PS:> Connect-SPOnline -Url https://contoso.sharepoint.com -Credentials (Get-Credential)
 ```
 This will prompt for username and password and creates a context for the other PowerShell commands to use. 
 
-###Example 2
+###Example 3
 ```powershell
 PS:> Connect-SPOnline -Url http://yourlocalserver -CurrentCredentials
 ```
 This will use the current user credentials and connects to the server specified by the Url parameter.
 
-###Example 3
+###Example 4
 ```powershell
 PS:> Connect-SPOnline -Url http://yourlocalserver -Credentials 'O365Creds'
 ```
 This will use credentials from the Windows Credential Manager, as defined by the label 'O365Creds'.
 
-###Example 4
+###Example 5
 ```powershell
 PS:> Connect-SPOnline -Url http://yourlocalserver -Credentials (Get-Credential) -UseAdfs
 ```

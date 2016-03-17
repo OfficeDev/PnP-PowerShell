@@ -9,8 +9,9 @@ namespace OfficeDevPnP.PowerShell.Commands
     [CmdletHelp("Adds a new content type", 
         Category = CmdletHelpCategory.ContentTypes)]
     [CmdletExample(
-      Code = @"PS:> Add-SPOContentType -Name ""Project Document"" -Description ""Use for Contoso projects"" -Group ""Contoso Content Types"" -ParentContentType $ct",
-      Remarks = @"This will add a new content type based on the parent content type stored in the $ct variable.", SortOrder = 1)]
+        Code = @"PS:> Add-SPOContentType -Name ""Project Document"" -Description ""Use for Contoso projects"" -Group ""Contoso Content Types"" -ParentContentType $ct",
+        Remarks = @"This will add a new content type based on the parent content type stored in the $ct variable.", 
+        SortOrder = 1)]
     public class AddContentType : SPOWebCmdlet
     {
         [Parameter(Mandatory = true)]

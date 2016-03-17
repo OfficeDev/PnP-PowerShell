@@ -7,10 +7,10 @@ using System;
 namespace OfficeDevPnP.PowerShell.Commands.Principals
 {
     [Cmdlet("New", "SPOGroup")]
-    [CmdletHelp("Adds a user to the build-in Site User Info List and returns a user object",
+    [CmdletHelp("Adds group to the Site Groups List and returns a group object",
         Category = CmdletHelpCategory.Principals)]
     [CmdletExample(
-        Code = @"PS:> New-SPOUser -LogonName user@company.com",
+        Code = @"PS:> New-SPOGroup -Title ""My Site Users""",
         SortOrder = 1)]
     public class NewGroup : SPOWebCmdlet
     {

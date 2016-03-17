@@ -16,4 +16,4 @@ Parameter|Type|Required|Description
 ```powershell
 PS:> Get-SPOAuthenticationRealm -Url https://contoso.sharepoint.com
 ```
-
+This will get the authentication realm for https://contoso.sharepoint.com

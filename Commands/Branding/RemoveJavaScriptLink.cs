@@ -21,9 +21,12 @@ namespace OfficeDevPnP.PowerShell.Commands
     [CmdletExample(Code = "PS:> Remove-SPOJavaScriptLink -Name jQuery -Scope Site -Force",
                 Remarks = "Removes the injected JavaScript file with the name jQuery from the current site collection and will not ask for confirmation",
                 SortOrder = 3)]
+    [CmdletExample(Code = "PS:> Remove-SPOJavaScriptLink -Scope Site",
+                Remarks = "Removes all the injected JavaScript files with from the current site collection after confirmation for each of them",
+                SortOrder = 4)]
     public class RemoveJavaScriptLink : SPOWebCmdlet
     {
-        [Parameter(Mandatory = true, ValueFromPipeline = true, Position = 0, HelpMessage = "Name of the JavaScriptLink to remove")]
+        [Parameter(Mandatory = false, ValueFromPipeline = true, Position = 0, HelpMessage = "Name of the JavaScriptLink to remove. Omit if you want to remove all JavaScript Links.")]
         [Alias("Key")]
         public string Name = string.Empty;
 
@@ -58,16 +61,21 @@ namespace OfficeDevPnP.PowerShell.Commands
 
             if (!actions.Any()) return;
 
+            if(!string.IsNullOrEmpty(Name))
+            {
+                actions = actions.Where(action => action.Name == Name).ToList();
+            }
+
             foreach (var action in actions.Where(action => Force || ShouldContinue(string.Format(Resources.RemoveJavaScript0, action.Name), Resources.Confirm)))
             {
                 switch (action.Scope)
                 {
                     case UserCustomActionScope.Web:
-                        SelectedWeb.DeleteJsLink(Name);
+                        SelectedWeb.DeleteJsLink(action.Name);
                         break;
 
                     case UserCustomActionScope.Site:
-                        ClientContext.Site.DeleteJsLink(Name);
+                        ClientContext.Site.DeleteJsLink(action.Name);
                         break;
                 }
             }

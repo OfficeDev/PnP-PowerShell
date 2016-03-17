@@ -11,8 +11,9 @@ namespace OfficeDevPnP.PowerShell.Commands
     [CmdletHelp("Adds an existing site column to a content type", 
         Category = CmdletHelpCategory.ContentTypes)]
     [CmdletExample(
-     Code = @"PS:> Add-SPOFieldToContentType -Field ""Project_Name"" -ContentType ""Project Document""",
-     Remarks = @"This will add an existing site column with an internal name of ""Project_Name"" to a content type called ""Project Document""", SortOrder = 1)]
+        Code = @"PS:> Add-SPOFieldToContentType -Field ""Project_Name"" -ContentType ""Project Document""",
+        Remarks = @"This will add an existing site column with an internal name of ""Project_Name"" to a content type called ""Project Document""", 
+        SortOrder = 1)]
     public class AddFieldToContentType : SPOWebCmdlet
     {
         [Parameter(Mandatory = true)]
@@ -63,7 +64,7 @@ namespace OfficeDevPnP.PowerShell.Commands
                     }
                     if (ct != null)
                     {
-                        SelectedWeb.AddFieldToContentType(ct, field, Required, false);
+                        SelectedWeb.AddFieldToContentType(ct, field, Required, Hidden);
                     }
                 }
             }

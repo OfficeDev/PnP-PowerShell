@@ -56,6 +56,7 @@ Cmdlet|Description
 **[Remove&#8209;SPOContentTypeFromList](RemoveSPOContentTypeFromList.md)** |Removes a content type from a list
 **[Add&#8209;SPOContentTypeToList](AddSPOContentTypeToList.md)** |Adds a new content type to a list
 **[Set&#8209;SPODefaultContentTypeToList](SetSPODefaultContentTypeToList.md)** |Sets the default content type for a list
+**[Remove&#8209;SPOFieldFromContentType](RemoveSPOFieldFromContentType.md)** |Removes a site column from a content type
 **[Add&#8209;SPOFieldToContentType](AddSPOFieldToContentType.md)** |Adds an existing site column to a content type
 ##Document Sets
 Cmdlet|Description
@@ -98,6 +99,7 @@ Cmdlet|Description
 **[New&#8209;SPOList](NewSPOList.md)** |Creates a new list
 **[Set&#8209;SPOList](SetSPOList.md)** |Updates list settings
 **[Add&#8209;SPOListItem](AddSPOListItem.md)** |Adds an item to a list
+**[Remove&#8209;SPOListItem](RemoveSPOListItem.md)** |Deletes an item from a list
 **[Set&#8209;SPOListItem](SetSPOListItem.md)** |Updates a list item
 **[Get&#8209;SPOListItem](GetSPOListItem.md)** |Retrieves list items
 **[Set&#8209;SPOListPermission](SetSPOListPermission.md)** |Sets list permissions
@@ -121,6 +123,7 @@ Cmdlet|Description
 :-----|:----------
 **[Set&#8209;SPOSearchConfiguration](SetSPOSearchConfiguration.md)** |Sets the search configuration
 **[Get&#8209;SPOSearchConfiguration](GetSPOSearchConfiguration.md)** |Returns the search configuration
+**[Get&#8209;SPOSiteSearchQueryResults](GetSPOSiteSearchQueryResults.md)** |Executes a search query to retrieve indexed site collections
 ##Sites
 Cmdlet|Description
 :-----|:----------
@@ -157,7 +160,7 @@ Cmdlet|Description
 :-----|:----------
 **[Remove&#8209;SPOGroup](RemoveSPOGroup.md)** |Removes a group.
 **[Set&#8209;SPOGroup](SetSPOGroup.md)** |Updates a group
-**[New&#8209;SPOGroup](NewSPOGroup.md)** |Adds a user to the build-in Site User Info List and returns a user object
+**[New&#8209;SPOGroup](NewSPOGroup.md)** |Adds group to the Site Groups List and returns a group object
 **[Get&#8209;SPOGroup](GetSPOGroup.md)** |Returns a specific group or all groups.
 **[Set&#8209;SPOGroupPermissions](SetSPOGroupPermissions.md)** |Adds and/or removes permissions of a specific SharePoint group
 **[Get&#8209;SPOGroupPermissions](GetSPOGroupPermissions.md)** |Returns the permissions for a specific SharePoint group
@@ -193,6 +196,7 @@ Cmdlet|Description
 **[Add&#8209;SPOFile](AddSPOFile.md)** |Uploads a file to Web
 **[Set&#8209;SPOFileCheckedIn](SetSPOFileCheckedIn.md)** |Checks in a file
 **[Set&#8209;SPOFileCheckedOut](SetSPOFileCheckedOut.md)** |Checks out a file
+**[Ensure&#8209;SPOFolder](EnsureSPOFolder.md)** |Returns a folder given a site relative path, and will create it if it not exists.
 **[Add&#8209;SPOFolder](AddSPOFolder.md)** |Creates a folder within a parent folder
 **[Set&#8209;SPOIndexedProperties](SetSPOIndexedProperties.md)** |Marks values of the propertybag to be indexed by search. Notice that this will overwrite the existing flags, e.g. only the properties you define with the cmdlet will be indexed.
 **[Remove&#8209;SPOIndexedProperty](RemoveSPOIndexedProperty.md)** |Removes a key from propertybag to be indexed by search. The key and it's value retain in the propertybag, however it will not be indexed anymore.
