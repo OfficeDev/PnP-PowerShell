@@ -91,6 +91,16 @@ namespace OfficeDevPnP.PowerShell.Tests
 
         }
 
+        public Collection<PSObject> ExecuteScript(string script)
+        {
+            var pipeLine = _runSpace.CreatePipeline();
+
+            pipeLine.Commands.AddScript(script);
+            
+            return pipeLine.Invoke();
+
+        }
+
         public void Dispose()
         {
             //if (_powerShell != null)
