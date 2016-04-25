@@ -15,8 +15,6 @@ Parameter|Type|Required|Description
 
 ###Example 1
 ```powershell
-
-    PS:> Set-SPOHomePage -RootFolderRelativeUrl SitePages/Home.aspx
-
+PS:> Set-SPOHomePage -RootFolderRelativeUrl SitePages/Home.aspx
 ```
 Sets the home page to the home.aspx file which resides in the SitePages library

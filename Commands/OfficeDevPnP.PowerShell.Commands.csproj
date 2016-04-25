@@ -207,8 +207,7 @@
     <Reference Include="System.IdentityModel" />
     <Reference Include="System.IdentityModel.Selectors" />
     <Reference Include="System.Management.Automation, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\WindowsPowerShell\3.0\System.Management.Automation.dll</HintPath>
+      <HintPath>$(programfiles32)\Reference Assemblies\Microsoft\WindowsPowerShell\3.0\System.Management.Automation.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -274,6 +273,7 @@
     <Compile Include="Branding\GetProvisioningTemplate.cs" />
     <Compile Include="Branding\NewProvisioningTemplateFromFolder.cs" />
     <Compile Include="Branding\GetTheme.cs" />
+    <Compile Include="ContentTypes\RemoveFieldFromContentType.cs" />
     <Compile Include="ContentTypes\RemoveContentTypeFromList.cs" />
     <Compile Include="ContentTypes\SetDefaultContentTypeToList.cs" />
     <Compile Include="ContentTypes\AddContentTypeToList.cs" />
@@ -290,6 +290,7 @@
     <Compile Include="Enums\CustomActionScope.cs" />
     <Compile Include="Enums\FeatureScope.cs" />
     <Compile Include="Enums\NavigationNodeTypeEnum.cs" />
+    <Compile Include="Extensibility\NewExtensibilityHandlerObject.cs" />
     <Compile Include="Extensions\ClientExtensions.cs" />
     <Compile Include="ContentTypes\AddFieldToContentType.cs" />
     <Compile Include="ContentTypes\RemoveContentType.cs" />
@@ -309,6 +310,7 @@
     <Compile Include="InformationManagement\SetSitePolicy.cs" />
     <Compile Include="Lists\AddListItem.cs" />
     <Compile Include="Lists\AddView.cs" />
+    <Compile Include="Lists\RemoveListItem.cs" />
     <Compile Include="Lists\SetListItem.cs" />
     <Compile Include="Lists\GetListItem.cs" />
     <Compile Include="Lists\RequestReIndexList.cs" />
@@ -324,6 +326,7 @@
     <Compile Include="Principals\RemoveGroup.cs" />
     <Compile Include="Principals\SetGroup.cs" />
     <Compile Include="Publishing\AddMasterPage.cs" />
+    <Compile Include="Search\GetSiteSearchQueryResults.cs" />
     <Compile Include="Search\SetSearchConfiguration.cs" />
     <Compile Include="Search\GetSearchConfiguration.cs" />
     <Compile Include="Site\GetAuditing.cs" />
@@ -339,6 +342,7 @@
     <Compile Include="Branding\AddJavaScriptLink.cs" />
     <Compile Include="Branding\AddJavaScriptBlock.cs" />
     <Compile Include="WebParts\GetWebPartXml.cs" />
+    <Compile Include="Web\EnsureFolder.cs" />
     <Compile Include="Web\AddFolder.cs" />
     <Compile Include="Web\RemovedIndexedProperty.cs" />
     <Compile Include="Web\RemoveFile.cs" />

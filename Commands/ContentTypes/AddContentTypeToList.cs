@@ -10,8 +10,9 @@ namespace OfficeDevPnP.PowerShell.Commands
     [CmdletHelp("Adds a new content type to a list", 
         Category = CmdletHelpCategory.ContentTypes)]
     [CmdletExample(
-     Code = @"PS:> Add-SPOContentTypeToList -List ""Documents"" -ContentType ""Project Document"" -DefaultContentType",
-     Remarks = @"This will add an existing content type to a list and sets it as the default content type", SortOrder = 1)]
+        Code = @"PS:> Add-SPOContentTypeToList -List ""Documents"" -ContentType ""Project Document"" -DefaultContentType",
+        Remarks = @"This will add an existing content type to a list and sets it as the default content type", 
+        SortOrder = 1)]
     public class AddContentTypeToList : SPOWebCmdlet
     {
         [Parameter(Mandatory = true)]

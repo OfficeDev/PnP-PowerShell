@@ -10,7 +10,7 @@ Get-SPOTenantSite [-Detailed [<SwitchParameter>]] [-IncludeOneDriveSites [<Switc
 ##Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
-|Detailed|SwitchParameter|False||
+|Detailed|SwitchParameter|False|By default, not all returned attributes are populated. This switch populates all attributes. It can take several seconds to run. Without this, some attributes will show default values that may not be correct.|
 |Force|SwitchParameter|False||
 |IncludeOneDriveSites|SwitchParameter|False||
 |Url|String|False|The URL of the site|

@@ -10,6 +10,7 @@ namespace OfficeDevPnP.PowerShell.Commands
         Category = CmdletHelpCategory.Base)]
     [CmdletExample(
         Code = @"PS:> Get-SPOAuthenticationRealm -Url https://contoso.sharepoint.com", 
+        Remarks = @"This will get the authentication realm for https://contoso.sharepoint.com",
         SortOrder = 1)]
     public class GetAuthenticationRealm : SPOCmdlet
     {

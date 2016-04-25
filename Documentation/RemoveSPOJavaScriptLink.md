@@ -2,7 +2,7 @@
 Removes a JavaScript link or block from a web or sitecollection
 ##Syntax
 ```powershell
-Remove-SPOJavaScriptLink [-Force [<SwitchParameter>]] [-Scope <CustomActionScope>] [-Web <WebPipeBind>] -Name <String>
+Remove-SPOJavaScriptLink [-Force [<SwitchParameter>]] [-Scope <CustomActionScope>] [-Web <WebPipeBind>] [-Name <String>]
 ```
 
 
@@ -10,7 +10,7 @@ Remove-SPOJavaScriptLink [-Force [<SwitchParameter>]] [-Scope <CustomActionScope
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |Force|SwitchParameter|False|Use the -Force flag to bypass the confirmation question|
-|Name|String|True|Name of the JavaScriptLink to remove|
+|Name|String|False|Name of the JavaScriptLink to remove. Omit if you want to remove all JavaScript Links.|
 |Scope|CustomActionScope|False|Define if the JavaScriptLink is to be found at the web or site collection scope. Specify All to allow deletion from either web or site collection.|
 |Web|WebPipeBind|False|The web to apply the command to. Omit this parameter to use the current web.|
 ##Examples
@@ -32,3 +32,9 @@ Removes the injected JavaScript file with the name jQuery from the current site 
 PS:> Remove-SPOJavaScriptLink -Name jQuery -Scope Site -Force
 ```
 Removes the injected JavaScript file with the name jQuery from the current site collection and will not ask for confirmation
+
+###Example 4
+```powershell
+PS:> Remove-SPOJavaScriptLink -Scope Site
+```
+Removes all the injected JavaScript files with from the current site collection after confirmation for each of them

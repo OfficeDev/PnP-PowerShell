@@ -47,6 +47,13 @@ namespace OfficeDevPnP.PowerShell.Commands.Branding
         Code = @"PS:> Get-SPOProvisioningTemplate -Out template.xml -Handlers Lists, SiteSecurity",
         Remarks = "Extracts a provisioning template in XML format from the current web, but only processes lists and site security when generating the template.",
         SortOrder = 5)]
+    [CmdletExample(
+        Code = @"
+PS:> $handler1 = New-SPOExtensibilityHandlerObject -Assembly Contoso.Core.Handlers -Type Contoso.Core.Handlers.MyExtensibilityHandler1
+PS:> $handler2 = New-SPOExtensibilityHandlerObject -Assembly Contoso.Core.Handlers -Type Contoso.Core.Handlers.MyExtensibilityHandler1
+PS:> Get-SPOProvisioningTemplate -Out NewTemplate.xml -ExtensibilityHandlers $handler1,$handler2",
+        Remarks = @"This will create two new ExtensibilityHandler objects that are run during extraction of the template",
+        SortOrder = 6)]
 
     public class GetProvisioningTemplate : SPOWebCmdlet
     {
@@ -84,6 +91,9 @@ namespace OfficeDevPnP.PowerShell.Commands.Branding
         [Parameter(Mandatory = false, HelpMessage = "Allows you to run all handlers, excluding the ones specified.")]
         public Handlers ExcludeHandlers;
 
+        [Parameter(Mandatory = false, HelpMessage = "Allows you to specify ExtensbilityHandlers to execute while extracting a template")]
+        public ExtensibilityHandler[] ExtensibilityHandlers;
+
         [Parameter(Mandatory = false, HelpMessage = "Overwrites the output file if it exists.")]
         public SwitchParameter Force;
 
@@ -94,7 +104,7 @@ namespace OfficeDevPnP.PowerShell.Commands.Branding
         [Parameter(Mandatory = false)]
         public System.Text.Encoding Encoding = System.Text.Encoding.Unicode;
 
-     
+
 
         protected override void ExecuteCmdlet()
         {
@@ -154,7 +164,10 @@ namespace OfficeDevPnP.PowerShell.Commands.Branding
             creationInformation.PersistPublishingFiles = PersistPublishingFiles;
             creationInformation.IncludeNativePublishingFiles = IncludeNativePublishingFiles;
             creationInformation.IncludeSiteGroups = IncludeSiteGroups;
-
+            if (ExtensibilityHandlers != null)
+            {
+                creationInformation.ExtensibilityHandlers = ExtensibilityHandlers.ToList<ExtensibilityHandler>();
+            }
             creationInformation.FileConnector = new FileSystemConnector(path, "");
 
 #pragma warning disable CS0618 // Type or member is obsolete

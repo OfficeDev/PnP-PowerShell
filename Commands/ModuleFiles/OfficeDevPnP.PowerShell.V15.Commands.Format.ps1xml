@@ -87,7 +87,7 @@
                 <PropertyName>Title</PropertyName>
               </TableColumnItem>
               <TableColumnItem>
-                <PropertyName>Url</PropertyName>
+                <PropertyName>ServerRelativeUrl</PropertyName>
               </TableColumnItem>
               <TableColumnItem>
                 <PropertyName>Id</PropertyName>
@@ -589,6 +589,70 @@
               </TableColumnItem>
               <TableColumnItem>
                 <PropertyName>Length</PropertyName>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+      </TableControl>
+    </View>
+    <View>
+      <Name>Folder</Name>
+      <ViewSelectedBy>
+        <TypeName>Microsoft.SharePoint.Client.Folder</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableHeaders>
+          <TableColumnHeader>
+            <Label>Name</Label>
+            <Width>30</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+        </TableHeaders>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <PropertyName>Name</PropertyName>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+      </TableControl>
+    </View>
+    <View>
+      <Name>ExtensibilityHandler</Name>
+      <ViewSelectedBy>
+        <TypeName>OfficeDevPnP.Core.Framework.Provisioning.Model.ExtensibilityHandler</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableHeaders>
+          <TableColumnHeader>
+            <Label>Assembly</Label>
+            <Width>30</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Type</Label>
+            <Width>30</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Enabled</Label>
+            <Width>7</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+        </TableHeaders>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <PropertyName>Assembly</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Type</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Enabled</PropertyName>
               </TableColumnItem>
             </TableColumnItems>
           </TableRowEntry>

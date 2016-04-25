@@ -7,35 +7,35 @@ using System;
 namespace OfficeDevPnP.PowerShell.Commands.Principals
 {
     [Cmdlet("New", "SPOGroup")]
-    [CmdletHelp("Adds a user to the build-in Site User Info List and returns a user object",
+    [CmdletHelp("Adds group to the Site Groups List and returns a group object",
         Category = CmdletHelpCategory.Principals)]
     [CmdletExample(
-        Code = @"PS:> New-SPOUser -LogonName user@company.com",
+        Code = @"PS:> New-SPOGroup -Title ""My Site Users""",
         SortOrder = 1)]
     public class NewGroup : SPOWebCmdlet
     {
         [Parameter(Mandatory = true)]
         public string Title = string.Empty;
 
-        [Parameter(Mandatory = false)]
+        [Parameter(Mandatory = false, HelpMessage = "The description for the group")]
         public string Description;
 
-        [Parameter(Mandatory = false)]
+        [Parameter(Mandatory = false, HelpMessage = "The owner for the group, which can be a user or another group")]
         public string Owner;
 
-        [Parameter(Mandatory = false)]
+        [Parameter(Mandatory = false, HelpMessage = "A switch parameter that specifies whether to allow users to request membership in the group and to allow users to request to leave the group")]
         public SwitchParameter AllowRequestToJoinLeave;
 
-        [Parameter(Mandatory = false)]
+        [Parameter(Mandatory = false, HelpMessage = "A switch parameter that specifies whether users are automatically added or removed when they make a request")]
         public SwitchParameter AutoAcceptRequestToJoinLeave;
 
-        [Parameter(Mandatory = false)]
+        [Parameter(Mandatory = false, HelpMessage = "A switch parameter that specifies whether group members can modify membership in the group")]
         public SwitchParameter AllowMembersEditMembership;
 
-        [Parameter(Mandatory = false)]
+        [Parameter(Mandatory = false, HelpMessage = "A switch parameter that specifies whether only group members are allowed to view the list of members in the group")]
         public SwitchParameter OnlyAllowMembersViewMembership;
 
-        [Parameter(Mandatory = false)]
+        [Parameter(Mandatory = false, HelpMessage = "The e-mail address to which membership requests are sent")]
         public string RequestToJoinEmail;
 
         [Parameter(Mandatory = false)] // Not promoted to use anymore. Use Set-SPOGroup

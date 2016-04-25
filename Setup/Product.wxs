@@ -16,7 +16,7 @@
   <Product Id="*"
            Name="$(var.ProductName)"
            Language="1033"
-           Version="2.2.1603.0"
+           Version="2.3.1604.1"
            Manufacturer="OfficeDev PnP"
            UpgradeCode="630fe2af-dc42-467d-94c8-6eefd065cbfa">
 

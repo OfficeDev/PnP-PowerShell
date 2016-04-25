@@ -35,11 +35,13 @@ PS:> Get-SPOProperty -ClientObject $list -Property Views",
 
         protected override void ExecuteCmdlet()
         {
+
             var loadRequired = false;
             foreach (var property in Property)
             {
                 var expression = GetClientObjectExpression(ClientObject, property);
-                if (!ClientObject.IsPropertyAvailable(expression) && !ClientObject.IsObjectPropertyInstantiated(expression))
+
+                if (!ClientObject.IsPropertyAvailable(expression))
                 {
                     ClientObject.Context.Load(ClientObject, expression);
                     loadRequired = true;
@@ -69,5 +71,6 @@ PS:> Get-SPOProperty -ClientObject $list -Property Views",
             return exp;
 
         }
+
     }
 }

@@ -25,7 +25,7 @@ namespace OfficeDevPnP.PowerShell.Commands
         public SwitchParameter SkipRecycleBin;
 
         [Parameter(Mandatory = false, HelpMessage = "OBSOLETE: If true, will wait for the site to be deleted before processing continues")]
-        [Obsolete("This parameter is obsolete. The cmdlet will always wait for the site to be deleted first")]
+        [Obsolete("The cmdlet will always wait for the site to be deleted first")]
         public SwitchParameter Wait;
 
         [Parameter(Mandatory = false, HelpMessage = "If specified, will search for the site in the Recycle Bin and remove it from there.")]

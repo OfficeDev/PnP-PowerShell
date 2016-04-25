@@ -269,6 +269,15 @@ namespace OfficeDevPnP.PowerShell.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Remove list item with ID {0}?.
+        /// </summary>
+        internal static string RemoveListItemWithId0 {
+            get {
+                return ResourceManager.GetString("RemoveListItemWithId0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Remove Navigation Node &apos;{0}&apos;.
         /// </summary>
         internal static string RemoveNavigationNode0 {

@@ -17,21 +17,25 @@ namespace OfficeDevPnP.PowerShell.Commands.Base
         DetailedDescription = "If no credentials have been specified, and the CurrentCredentials parameter has not been specified, you will be prompted for credentials.", 
         Category = CmdletHelpCategory.Base)]
     [CmdletExample(
-        Code = @"PS:> Connect-SPOnline -Url https://yourtenant.sharepoint.com -Credentials (Get-Credential)",
-        Remarks = @"This will prompt for username and password and creates a context for the other PowerShell commands to use. ",
+        Code = @"PS:> Connect-SPOnline -Url https://contoso.sharepoint.com",
+        Remarks = @"This will prompt for username and password and creates a context for the other PowerShell commands to use. When a generic credential is added to the Windows Credential Manager with https://contoso.sharepoint.com, PowerShell will not prompt for username and password.",
         SortOrder = 1)]
+    [CmdletExample(
+        Code = @"PS:> Connect-SPOnline -Url https://contoso.sharepoint.com -Credentials (Get-Credential)",
+        Remarks = @"This will prompt for username and password and creates a context for the other PowerShell commands to use. ",
+        SortOrder = 2)]
     [CmdletExample(
         Code = @"PS:> Connect-SPOnline -Url http://yourlocalserver -CurrentCredentials",
         Remarks = @"This will use the current user credentials and connects to the server specified by the Url parameter.", 
-        SortOrder = 2)]
+        SortOrder = 3)]
     [CmdletExample(
         Code = @"PS:> Connect-SPOnline -Url http://yourlocalserver -Credentials 'O365Creds'",
         Remarks = @"This will use credentials from the Windows Credential Manager, as defined by the label 'O365Creds'.",
-        SortOrder = 3)]
+        SortOrder = 4)]
     [CmdletExample(
         Code = @"PS:> Connect-SPOnline -Url http://yourlocalserver -Credentials (Get-Credential) -UseAdfs",
         Remarks = @"This will prompt for username and password and creates a context using ADFS to authenticate.", 
-        SortOrder = 4)]
+        SortOrder = 5)]
     public class ConnectSPOnline : PSCmdlet
     {
         [Parameter(Mandatory = true, Position = 0, ParameterSetName = ParameterAttribute.AllParameterSets, ValueFromPipeline = true, HelpMessage = "The Url of the site collection to connect to.")]
@@ -49,11 +53,11 @@ namespace OfficeDevPnP.PowerShell.Commands.Base
         [Parameter(Mandatory = false, ParameterSetName = ParameterAttribute.AllParameterSets, HelpMessage = "Specifies a minimal server healthscore before any requests are executed.")]
         public int MinimalHealthScore = -1;
 
-        [Parameter(Mandatory = false, ParameterSetName = ParameterAttribute.AllParameterSets, HelpMessage = "Defines how often a retry should be executed if the server healthscore is not sufficient.")]
-        public int RetryCount = -1;
+        [Parameter(Mandatory = false, ParameterSetName = ParameterAttribute.AllParameterSets, HelpMessage = "Defines how often a retry should be executed if the server healthscore is not sufficient. Default is 10 times.")]
+        public int RetryCount = 10;
 
-        [Parameter(Mandatory = false, ParameterSetName = ParameterAttribute.AllParameterSets, HelpMessage = "Defines how many seconds to wait before each retry. Default is 5 seconds.")]
-        public int RetryWait = 5;
+        [Parameter(Mandatory = false, ParameterSetName = ParameterAttribute.AllParameterSets, HelpMessage = "Defines how many seconds to wait before each retry. Default is 1 second.")]
+        public int RetryWait = 1;
 
         [Parameter(Mandatory = false, ParameterSetName = ParameterAttribute.AllParameterSets, HelpMessage = "The request timeout. Default is 180000")]
         public int RequestTimeout = 1800000;

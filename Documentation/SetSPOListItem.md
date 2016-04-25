@@ -24,12 +24,12 @@ Sets fields value in the list item with ID 1 in the "Demo List". It sets both th
 
 ###Example 2
 ```powershell
-Add-SPOListItem -List "Demo List" -Identity 1 -ContentType "Company" -Values @{"Title" = "Test Title"; "Category"="Test Category"}
+Set-SPOListItem -List "Demo List" -Identity 1 -ContentType "Company" -Values @{"Title" = "Test Title"; "Category"="Test Category"}
 ```
 Sets fields value in the list item with ID 1 in the "Demo List". It sets the content type of the item to "Company" and it sets both the Title and Category fields with the specified values. Notice, use the internal names of fields.
 
 ###Example 3
 ```powershell
-Add-SPOListItem -List "Demo List" -Identity $item -Values @{"Title" = "Test Title"; "Category"="Test Category"}
+Set-SPOListItem -List "Demo List" -Identity $item -Values @{"Title" = "Test Title"; "Category"="Test Category"}
 ```
 Sets fields value in the list item which has been retrieved by for instance Get-SPOListItem.. It sets the content type of the item to "Company" and it sets both the Title and Category fields with the specified values. Notice, use the internal names of fields.

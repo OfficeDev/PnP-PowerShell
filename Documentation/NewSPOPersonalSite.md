@@ -9,4 +9,12 @@ New-SPOPersonalSite -Email <String[]>
 ##Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
-|Email|String[]|True|The email address of the user|
+|Email|String[]|True|The UserPrincipalName (UPN) of the user|
+##Examples
+
+###Example 1
+```powershell
+PS:> $users = ('katiej@contoso.onmicrosoft.com','garth@contoso.onmicrosoft.com')
+                 PS:> New-SPOPersonalSite -Email $users
+```
+Creates a personal / OneDrive For Business site for the 2 users in the variable $users
