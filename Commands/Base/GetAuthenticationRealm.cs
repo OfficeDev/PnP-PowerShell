@@ -9,13 +9,17 @@ namespace OfficeDevPnP.PowerShell.Commands
     [CmdletHelp("Gets the authentication realm for the current web", 
         Category = CmdletHelpCategory.Base)]
     [CmdletExample(
-        Code = @"PS:> Get-SPOAuthenticationRealm -Url https://contoso.sharepoint.com", 
-        Remarks = @"This will get the authentication realm for https://contoso.sharepoint.com",
+        Code = @"PS:> Get-SPOAuthenticationRealm", 
+        Remarks = @"This will get the authentication realm for the current connected site",
         SortOrder = 1)]
+    [CmdletExample(
+        Code = @"PS:> Get-SPOAuthenticationRealm -Url https://contoso.sharepoint.com",
+        Remarks = @"This will get the authentication realm for https://contoso.sharepoint.com",
+        SortOrder = 2)]
     public class GetAuthenticationRealm : SPOCmdlet
     {
 
-        [Parameter(Mandatory = false, Position=0, ValueFromPipeline=true)]
+        [Parameter(Mandatory = false, Position=0, ValueFromPipeline=true, HelpMessage = "Specifies the URL of the site")]
         public string Url;
 
         protected override void ProcessRecord()

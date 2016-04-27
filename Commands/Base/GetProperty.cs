@@ -27,7 +27,7 @@ PS:> Get-SPOProperty -ClientObject $list -Property Views",
         SortOrder = 2)]
     public class EnsureProperty : SPOCmdlet
     {
-        [Parameter(Mandatory = true, Position = 0)]
+        [Parameter(Mandatory = true, Position = 0, HelpMessage = "Specifies the object where the properties of should be retrieved")]
         public ClientObject ClientObject;
 
         [Parameter(Mandatory = true, Position = 1, HelpMessage = "The properties to load. If one property is specified its value will be returned to the output.")]

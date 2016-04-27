@@ -8,17 +8,11 @@ namespace OfficeDevPnP.PowerShell.Commands
 {
     [Cmdlet(VerbsCommon.Get, "SPOTimeZoneId")]
     [CmdletHelp("Returns a time zone ID", Category = CmdletHelpCategory.TenantAdmin)]
-    [CmdletExample(
-        Code = @"PS:> Get-SPOTimeZoneId",
-        Remarks = @"This will return all time zone IDs in use by Office 365.
- ", SortOrder = 1)]
-    [CmdletExample(
-        Code = @"PS:> Get-SPOTimeZoneId -Match Stockholm",
-        Remarks = @"This will return the time zone IDs for Stockholm
-    ", SortOrder = 2)]
+    [CmdletExample(Code = @"PS:> Get-SPOTimeZoneId",Remarks = @"This will return all time zone IDs in use by Office 365.", SortOrder = 1)]
+    [CmdletExample(Code = @"PS:> Get-SPOTimeZoneId -Match Stockholm", Remarks = @"This will return the time zone IDs for Stockholm", SortOrder = 2)]
     public class GetTimeZoneId : PSCmdlet
     {
-        [Parameter(Mandatory = false, Position=0)]
+        [Parameter(Mandatory = false, Position=0, HelpMessage = "A string to search for like 'Stockholm'")]
         public string Match;
 
         protected override void ProcessRecord()

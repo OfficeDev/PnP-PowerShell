@@ -10,7 +10,7 @@ using OfficeDevPnP.Core.Framework.Provisioning.Providers;
 namespace OfficeDevPnP.PowerShell.Commands.Branding
 {
     [Cmdlet(VerbsData.Convert, "SPOProvisioningTemplate")]
-    [CmdletHelp("Converts a provisioning template to a web",
+    [CmdletHelp("Converts a provisioning template to a other schema version",
         Category = CmdletHelpCategory.Branding)]
     [CmdletExample(
      Code = @"PS:> Convert-SPOProvisioningTemplate -Path template.xml",

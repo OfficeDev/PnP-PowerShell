@@ -23,7 +23,7 @@ namespace OfficeDevPnP.PowerShell.Commands.Base
         SortOrder = 2)]
     public class GetAzureADManifestKeyCredentials : PSCmdlet
     {
-        [Parameter(Mandatory = true)]
+        [Parameter(Mandatory = true, HelpMessage = @"Specifies the path to the certificate like .\mycert.cer")]
         public string CertPath;
 
         protected override void ProcessRecord()

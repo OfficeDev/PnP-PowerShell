@@ -10,6 +10,9 @@ namespace OfficeDevPnP.PowerShell.Commands
     [Cmdlet(VerbsCommon.Remove, "SPOCustomAction", ConfirmImpact = ConfirmImpact.High, SupportsShouldProcess = true)]
     [CmdletHelp("Removes a custom action", 
         Category = CmdletHelpCategory.Branding)]
+    [CmdletExample(Code = @"PS:> Remove-SPOCustomAction -Identity aa66f67e-46c0-4474-8a82-42bf467d07f2", Remarks = @"Removes the custom action with the id 'aa66f67e-46c0-4474-8a82-42bf467d07f2'.", SortOrder = 1)]
+    [CmdletExample(Code = @"PS:> Remove-SPOCustomAction -Identity aa66f67e-46c0-4474-8a82-42bf467d07f2 -scope web", Remarks = @"Removes the custom action with the id 'aa66f67e-46c0-4474-8a82-42bf467d07f2' from the current web.", SortOrder = 2)]
+    [CmdletExample(Code = @"PS:> Remove-SPOCustomAction -Identity aa66f67e-46c0-4474-8a82-42bf467d07f2 -force", Remarks = @"Removes the custom action with the id 'aa66f67e-46c0-4474-8a82-42bf467d07f2' without asking for confirmation.", SortOrder = 3)]
     public class RemoveCustomAction : SPOWebCmdlet
     {
         [Parameter(Mandatory = true, Position=0, ValueFromPipeline=true, HelpMessage = "The identifier of the CustomAction that needs to be removed")]

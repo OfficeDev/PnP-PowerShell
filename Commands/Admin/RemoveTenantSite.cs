@@ -10,14 +10,19 @@ namespace OfficeDevPnP.PowerShell.Commands
 {
     [Cmdlet(VerbsCommon.Remove, "SPOTenantSite", ConfirmImpact = ConfirmImpact.High, SupportsShouldProcess = true)]
     [CmdletHelp("Office365 only: Removes a site collection from the current tenant",
-        DetailedDescription = "",
         Category = CmdletHelpCategory.TenantAdmin)]
     [CmdletExample(
+      Code = @"PS:> Remove-SPOTenantSite -Url https://tenant.sharepoint.com/sites/contoso",
+      Remarks = @"This will remove the site collection with the url 'https://tenant.sharepoint.com/sites/contoso'  and put it in the recycle bin.", SortOrder = 1)]
+    [CmdletExample(
       Code = @"PS:> Remove-SPOTenantSite -Url https://tenant.sharepoint.com/sites/contoso -Force -SkipRecycleBin",
-      Remarks = @"This will remove the site collection with the url 'https://tenant.sharepoint.com/sites/contoso' with force and it will skip the recycle bin.", SortOrder = 1)]        
+      Remarks = @"This will remove the site collection with the url 'https://tenant.sharepoint.com/sites/contoso' with force and it will skip the recycle bin.", SortOrder = 2)]
+    [CmdletExample(
+      Code = @"PS:> Remove-SPOTenantSite -Url https://tenant.sharepoint.com/sites/contoso -FromRecycleBin",
+      Remarks = @"This will remove the site collection with the url 'https://tenant.sharepoint.com/sites/contoso' from the recycle bin.", SortOrder = 3)]
     public class RemoveSite : SPOAdminCmdlet
     {
-        [Parameter(Mandatory = true, Position = 0, ValueFromPipeline = true)]
+        [Parameter(Mandatory = true, Position = 0, ValueFromPipeline = true, HelpMessage = "Specifies the full URL of the site collection that needs to be deleted")]
         public string Url;
 
         [Parameter(Mandatory = false, HelpMessage = "Do not add to the trashcan if selected.")]

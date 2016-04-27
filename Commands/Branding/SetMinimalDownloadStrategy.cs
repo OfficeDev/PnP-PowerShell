@@ -13,6 +13,10 @@ namespace OfficeDevPnP.PowerShell.Commands
         Code = @"PS:> Set-SPOMinimalDownloadStrategy -Off",
         Remarks = "Will deactivate minimal download strategy (MDS) for the current web.",
         SortOrder = 1)]
+    [CmdletExample(
+        Code = @"PS:> Set-SPOMinimalDownloadStrategy -On",
+        Remarks = "Will activate minimal download strategy (MDS) for the current web.",
+        SortOrder = 2)]
     public class SetMDS : SPOWebCmdlet
     {
         [Parameter(ParameterSetName = "On", Mandatory = true)]

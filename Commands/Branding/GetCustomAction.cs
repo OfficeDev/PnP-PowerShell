@@ -11,6 +11,9 @@ namespace OfficeDevPnP.PowerShell.Commands
     [Cmdlet(VerbsCommon.Get, "SPOCustomAction")]
     [CmdletHelp("Returns all or a specific custom action(s)", 
         Category = CmdletHelpCategory.Branding)]
+    [CmdletExample(Code = @"PS:> Get-SPOCustomAction", Remarks = @"Returns all custom actions of the current site.", SortOrder = 1)]
+    [CmdletExample(Code = @"PS:> Get-SPOCustomAction -Identity aa66f67e-46c0-4474-8a82-42bf467d07f2", Remarks = @"Returns the custom action with the id 'aa66f67e-46c0-4474-8a82-42bf467d07f2'.", SortOrder = 2)]
+    [CmdletExample(Code = @"PS:> Get-SPOCustomAction -Scope web", Remarks = @"Returns all custom actions for the current web object.", SortOrder = 3)]
     public class GetCustomAction : SPOWebCmdlet
     {
         [Parameter(Mandatory = false, HelpMessage = "Identity of the CustomAction to return. Omit to return all CustomActions.")]
