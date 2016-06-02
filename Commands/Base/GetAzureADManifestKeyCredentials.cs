@@ -39,7 +39,7 @@ namespace SharePointPnP.PowerShell.Commands.Base
 
             var keyId = Guid.NewGuid().ToString();
             
-            var thumbPrint = cert.Thumbprint
+            var thumbPrint = cert.Thumbprint;
 
             var output = string.Format("\"keyCredentials\": [\n\t{{\n\t\t\"customKeyIdentifier\": \"{0}\",\n\t\t\"keyId\": \"{1}\",\n\t\t\"type\": \"AsymmetricX509Cert\",\n\t\t\"usage\": \"Verify\",\n\t\t\"value\": \"{2}\"\n\t}}\n],\n\nCertificate Thumbprint: {3}\n", base64CertHash, keyId, base64Cert, thumbPrint);
 
