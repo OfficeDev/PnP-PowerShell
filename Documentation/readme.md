@@ -154,6 +154,11 @@ Cmdlet|Description
 **[Import&#8209;SPOTermGroupFromXml](ImportSPOTermGroupFromXml.md)** |Imports a taxonomy TermGroup from either the input or from an XML file.
 **[Export&#8209;SPOTermGroupToXml](ExportSPOTermGroupToXml.md)** |Exports a taxonomy TermGroup to either the output or to an XML file.
 **[Import&#8209;SPOTermSet](ImportSPOTermSet.md)** |Imports a taxonomy term set from a file in the standard format.
+##Templates
+Cmdlet|Description
+:-----|:----------
+**[Apply&#8209;SPOProvisioningTemplate](ApplySPOProvisioningTemplate.md)**|Apply a provisioning template to an existing site.
+**[Get&#8209;SPOProvisioningTemplate](GetSPOProvisioningTemplate.md)**|Get a provisioning template from an existing site.
 ##Tenant Administration
 Cmdlet|Description
 :-----|:----------
