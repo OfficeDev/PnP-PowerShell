@@ -200,6 +200,8 @@ namespace SharePointPnP.PowerShell.Commands.Base
                 if (credentials != null)
                 {
                     context.Credentials = new NetworkCredential(credentials.UserName, credentials.Password);
+                } else {
+                    context.Credentials = CredentialCache.DefaultCredentials;
                 }
             }
             var connectionType = ConnectionType.OnPrem;
@@ -215,6 +217,32 @@ namespace SharePointPnP.PowerShell.Commands.Base
                 }
             }
             return new SPOnlineConnection(context, connectionType, minimalHealthScore, retryCount, retryWait, credentials, url.ToString());
+        }
+
+        internal static SPOnlineConnection InstantiateAdfsConnection(Uri url, NetworkCredential credentials, PSHost host, int minimalHealthScore, int retryCount, int retryWait, int requestTimeout, bool skipAdminCheck = false) {
+            Core.AuthenticationManager authManager = new Core.AuthenticationManager();
+
+            string adfsHost;
+            string adfsRelyingParty;
+            GetAdfsConfigurationFromTargetUri(url, out adfsHost, out adfsRelyingParty);
+
+            if (string.IsNullOrEmpty(adfsHost) || string.IsNullOrEmpty(adfsRelyingParty)) {
+                throw new Exception("Cannot retrieve ADFS settings.");
+            }
+
+            var context = authManager.GetADFSWindowsTransportAuthenticatedContext(url.ToString(), credentials, adfsHost, adfsRelyingParty);
+
+            context.ApplicationName = Properties.Resources.ApplicationName;
+            context.RequestTimeout = requestTimeout;
+
+            var connectionType = ConnectionType.OnPrem;
+
+            if (skipAdminCheck == false) {
+                if (IsTenantAdminSite(context)) {
+                    connectionType = ConnectionType.TenantAdmin;
+                }
+            }
+            return new SPOnlineConnection(context, connectionType, minimalHealthScore, retryCount, retryWait, null, url.ToString());
         }
 
         internal static SPOnlineConnection InstantiateAdfsConnection(Uri url, PSCredential credentials, PSHost host, int minimalHealthScore, int retryCount, int retryWait, int requestTimeout, bool skipAdminCheck = false)

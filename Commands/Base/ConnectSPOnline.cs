@@ -128,12 +128,16 @@ dir",
             }
             else if (UseAdfs)
             {
-                creds = GetCredentials();
-                if (creds == null)
-                {
-                    creds = Host.UI.PromptForCredential(Properties.Resources.EnterYourCredentials, "", "", "");
+                if (CurrentCredentials) {
+                    var windowsCredentials = CredentialCache.DefaultNetworkCredentials;
+                    SPOnlineConnection.CurrentConnection = SPOnlineConnectionHelper.InstantiateAdfsConnection(new Uri(Url), windowsCredentials, Host, MinimalHealthScore, RetryCount, RetryWait, RequestTimeout, SkipTenantAdminCheck);
+                } else {
+                    creds = GetCredentials();
+                    if (creds == null) {
+                        creds = Host.UI.PromptForCredential(Properties.Resources.EnterYourCredentials, "", "", "");
+                        SPOnlineConnection.CurrentConnection = SPOnlineConnectionHelper.InstantiateAdfsConnection(new Uri(Url), creds, Host, MinimalHealthScore, RetryCount, RetryWait, RequestTimeout, SkipTenantAdminCheck);
+                    }
                 }
-                SPOnlineConnection.CurrentConnection = SPOnlineConnectionHelper.InstantiateAdfsConnection(new Uri(Url), creds, Host, MinimalHealthScore, RetryCount, RetryWait, RequestTimeout, SkipTenantAdminCheck);
             }
 #if !ONPREMISES
             else if (ParameterSetName == "NativeAAD")
