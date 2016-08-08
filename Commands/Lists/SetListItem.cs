@@ -30,7 +30,7 @@ namespace SharePointPnP.PowerShell.Commands.Lists
         [Parameter(Mandatory = true, ValueFromPipeline = true, Position = 0, HelpMessage = "The ID, Title or Url of the list.")]
         public ListPipeBind List;
 
-        [Parameter(Mandatory = true, HelpMessage = "The ID of the listitem, or actual ListItem object")]
+        [Parameter(Mandatory = true, ValueFromPipeline = true, HelpMessage = "The ID of the listitem, or actual ListItem object")]
         public ListItemPipeBind Identity;
 
         [Parameter(Mandatory = false, HelpMessage = "Specify either the name, ID or an actual content type")]
@@ -90,9 +90,11 @@ namespace SharePointPnP.PowerShell.Commands.Lists
                     }
                 }
 
-                foreach (var key in Values.Keys)
+                Hashtable values = Values ?? new Hashtable();
+
+                foreach (var key in values.Keys)
                 {
-                    item[key as string] = Values[key];
+                    item[key as string] = values[key];
                 }
 
 
