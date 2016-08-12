@@ -27,9 +27,6 @@ namespace SharePointPnP.PowerShell.Commands
         [Parameter(Mandatory = false)]
         public string CustomMasterUrl;
 
-        [Parameter(Mandatory = false)]
-        public string RequestAccessEmail;
-
         protected override void ExecuteCmdlet()
         {
             if (SiteLogoUrl != null)
@@ -63,12 +60,6 @@ namespace SharePointPnP.PowerShell.Commands
             if (!string.IsNullOrEmpty(CustomMasterUrl))
             {
                 SelectedWeb.CustomMasterUrl = CustomMasterUrl;
-                SelectedWeb.Update();
-            }
-
-            if (!string.IsNullOrEmpty(RequestAccessEmail))
-            {
-                SelectedWeb.RequestAccessEmail = RequestAccessEmail;
                 SelectedWeb.Update();
             }
 
