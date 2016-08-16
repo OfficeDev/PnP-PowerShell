@@ -121,6 +121,6 @@ to create a new connection, the cmdlet will resolve the credentials to use based
 
 # Contributing #
 
-If you want to contribute to this OfficeDevPnP PowerShel library, please [proceed here](CONTRIBUTING.md)
+If you want to contribute to this OfficeDevPnP PowerShell library, please [proceed here](CONTRIBUTING.md)
 
 This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
