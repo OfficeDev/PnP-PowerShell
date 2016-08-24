@@ -2,27 +2,27 @@
 Connects to a SharePoint site and creates an in-memory context
 ##Syntax
 ```powershell
-Connect-SPOnline -ClientId <String> -Tenant <String> -CertificatePath <String> -CertificatePassword <SecureString> [-MinimalHealthScore <Int32>] [-RetryCount <Int32>] [-RetryWait <Int32>] [-RequestTimeout <Int32>] [-CreateDrive [<SwitchParameter>]] [-DriveName <String>] [-SkipTenantAdminCheck [<SwitchParameter>]] -Url <String>
+Connect-SPOnline -ClientId <String> -Tenant <String> -CertificatePath <String> -CertificatePassword <SecureString> [-MinimalHealthScore <Int32>] [-RetryCount <Int32>] [-RetryWait <Int32>] [-RequestTimeout <Int32>] [-CreateDrive [<SwitchParameter>]] [-DriveName <String>] [-TenantAdminUrl <String>] [-SkipTenantAdminCheck [<SwitchParameter>]] -Url <String>
 ```
 
 
 ```powershell
-Connect-SPOnline [-Credentials <CredentialPipeBind>] [-CurrentCredentials [<SwitchParameter>]] [-UseAdfs [<SwitchParameter>]] [-AuthenticationMode <ClientAuthenticationMode>] [-MinimalHealthScore <Int32>] [-RetryCount <Int32>] [-RetryWait <Int32>] [-RequestTimeout <Int32>] [-CreateDrive [<SwitchParameter>]] [-DriveName <String>] [-SkipTenantAdminCheck [<SwitchParameter>]] -Url <String>
+Connect-SPOnline [-Credentials <CredentialPipeBind>] [-CurrentCredentials [<SwitchParameter>]] [-UseAdfs [<SwitchParameter>]] [-AuthenticationMode <ClientAuthenticationMode>] [-MinimalHealthScore <Int32>] [-RetryCount <Int32>] [-RetryWait <Int32>] [-RequestTimeout <Int32>] [-CreateDrive [<SwitchParameter>]] [-DriveName <String>] [-TenantAdminUrl <String>] [-SkipTenantAdminCheck [<SwitchParameter>]] -Url <String>
 ```
 
 
 ```powershell
-Connect-SPOnline -ClientId <String> -RedirectUri <String> [-ClearTokenCache [<SwitchParameter>]] [-MinimalHealthScore <Int32>] [-RetryCount <Int32>] [-RetryWait <Int32>] [-RequestTimeout <Int32>] [-CreateDrive [<SwitchParameter>]] [-DriveName <String>] [-SkipTenantAdminCheck [<SwitchParameter>]] -Url <String>
+Connect-SPOnline -ClientId <String> -RedirectUri <String> [-ClearTokenCache [<SwitchParameter>]] [-MinimalHealthScore <Int32>] [-RetryCount <Int32>] [-RetryWait <Int32>] [-RequestTimeout <Int32>] [-CreateDrive [<SwitchParameter>]] [-DriveName <String>] [-TenantAdminUrl <String>] [-SkipTenantAdminCheck [<SwitchParameter>]] -Url <String>
 ```
 
 
 ```powershell
-Connect-SPOnline [-Realm <String>] -AppId <String> -AppSecret <String> [-MinimalHealthScore <Int32>] [-RetryCount <Int32>] [-RetryWait <Int32>] [-RequestTimeout <Int32>] [-CreateDrive [<SwitchParameter>]] [-DriveName <String>] [-SkipTenantAdminCheck [<SwitchParameter>]] -Url <String>
+Connect-SPOnline [-Realm <String>] -AppId <String> -AppSecret <String> [-MinimalHealthScore <Int32>] [-RetryCount <Int32>] [-RetryWait <Int32>] [-RequestTimeout <Int32>] [-CreateDrive [<SwitchParameter>]] [-DriveName <String>] [-TenantAdminUrl <String>] [-SkipTenantAdminCheck [<SwitchParameter>]] -Url <String>
 ```
 
 
 ```powershell
-Connect-SPOnline -UseWebLogin [<SwitchParameter>] [-MinimalHealthScore <Int32>] [-RetryCount <Int32>] [-RetryWait <Int32>] [-RequestTimeout <Int32>] [-CreateDrive [<SwitchParameter>]] [-DriveName <String>] [-SkipTenantAdminCheck [<SwitchParameter>]] -Url <String>
+Connect-SPOnline -UseWebLogin [<SwitchParameter>] [-MinimalHealthScore <Int32>] [-RetryCount <Int32>] [-RetryWait <Int32>] [-RequestTimeout <Int32>] [-CreateDrive [<SwitchParameter>]] [-DriveName <String>] [-TenantAdminUrl <String>] [-SkipTenantAdminCheck [<SwitchParameter>]] -Url <String>
 ```
 
 
@@ -51,6 +51,7 @@ Parameter|Type|Required|Description
 |RetryWait|Int32|False|Defines how many seconds to wait before each retry. Default is 1 second.|
 |SkipTenantAdminCheck|SwitchParameter|False|Should we skip the check if this site is the Tenant admin site. Default is false|
 |Tenant|String|True|The Azure AD Tenant name,e.g. mycompany.onmicrosoft.com|
+|TenantAdminUrl|String|False|The url to the Tenant Admin site. If not specified, the cmdlets will assume to connect automatically to https://<tenantname>-admin.sharepoint.com where appropriate.|
 |Url|String|True|The Url of the site collection to connect to.|
 |UseAdfs|SwitchParameter|False|If you want to connect to your on-premises SharePoint farm using ADFS|
 |UseWebLogin|SwitchParameter|True|If you want to connect to SharePoint with browser based login|
