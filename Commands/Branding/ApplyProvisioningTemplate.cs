@@ -233,7 +233,8 @@ PS:> Apply-SPOProvisioningTemplate -Path NewTemplate.xml -ExtensibilityHandlers 
 
                 applyingInformation.ProgressDelegate = (message, step, total) =>
                 {
-                    WriteProgress(new ProgressRecord(0, $"Applying template to {SelectedWeb.Url}", message) { PercentComplete = (100 / total) * step });
+                    //workaround to exception that prevent to overcome 100%
+                    WriteProgress(new ProgressRecord(0, $"Applying template to {SelectedWeb.Url}", message) { PercentComplete = ((100 / total) * step > 100 ? 100 : (100 / total) * step) });
                 };
 
             applyingInformation.MessagesDelegate = (message, type) =>
