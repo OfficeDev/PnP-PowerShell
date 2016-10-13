@@ -15,7 +15,7 @@ namespace SharePointPnP.PowerShell.Commands.Files
         SortOrder = 1)]
     public class EnsureFolder : SPOWebCmdlet
     {
-        [Parameter(Mandatory = true, HelpMessage = "Site Relative Folder Path")]
+        [Parameter(Mandatory = true, HelpMessage = "Site Relative Folder Path", Position = 0)]
         public string SiteRelativePath = string.Empty;
 
         protected override void ExecuteCmdlet()

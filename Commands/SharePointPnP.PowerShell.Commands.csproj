@@ -354,6 +354,7 @@
     <Compile Include="Base\PipeBinds\DocumentSetPipeBind.cs" />
     <Compile Include="Base\PipeBinds\FeaturePipeBind.cs" />
     <Compile Include="Base\PipeBinds\ListItemPipeBind.cs" />
+    <Compile Include="Base\PipeBinds\FolderPipeBind.cs" />
     <Compile Include="Base\PipeBinds\TermGroupPipeBind.cs" />
     <Compile Include="Base\PipeBinds\WorkflowInstancePipeBind.cs" />
     <Compile Include="Base\PipeBinds\WorkflowDefinitionPipeBind.cs" />
