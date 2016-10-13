@@ -34,8 +34,8 @@ namespace SharePointPnP.PowerShell.Commands.Principals
         [Parameter(Mandatory = false, HelpMessage = "A switch parameter that specifies whether group members can modify membership in the group")]
         public SwitchParameter AllowMembersEditMembership;
 
-        [Parameter(Mandatory = false, HelpMessage = "A switch parameter that specifies whether only group members are allowed to view the list of members in the group")]
-        public SwitchParameter OnlyAllowMembersViewMembership;
+        [Parameter(Mandatory = false, HelpMessage = "A boolean parameter that specifies whether only group members are allowed to view the list of members in the group")]
+        public bool OnlyAllowMembersViewMembership = true;
 
         [Parameter(Mandatory = false, HelpMessage = "The e-mail address to which membership requests are sent")]
         public string RequestToJoinEmail;
@@ -72,9 +72,9 @@ namespace SharePointPnP.PowerShell.Commands.Principals
                 group.AllowMembersEditMembership = true;
                 dirty = true;
             }
-            if (OnlyAllowMembersViewMembership)
+            if (!OnlyAllowMembersViewMembership)
             {
-                group.OnlyAllowMembersViewMembership = true;
+                group.OnlyAllowMembersViewMembership = OnlyAllowMembersViewMembership;
                 dirty = true;
             }
             if (!string.IsNullOrEmpty(RequestToJoinEmail))
