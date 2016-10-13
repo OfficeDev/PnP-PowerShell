@@ -39,7 +39,7 @@ Date and Time: -Values @{"DateAndTime" = "03/10/2015 14:16"}
 
 Lookup (id of lookup value): -Values @{"Lookup" = "2"}
 
-Yes/No: -Values @{"YesNo" = "No"}
+Yes/No: -Values @{"YesNo" = "False"}
 
 Person/Group (id of user/group in Site User Info List or email of the user, seperate multiple values with a comma): -Values @{"Person" = "user1@domain.com","21"}
 
