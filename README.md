@@ -79,13 +79,13 @@ This will automatically load the module after starting PowerShell 3.0.
 You can check the installed PnP-PowerShell versions with the following command:
 
 ```powershell
-Get-Module OfficeDevPnP.Powershell.* -ListAvailable | Select-Object Name,Version | Sort-Object Version -Descending
+Get-Module SharePointPnPPowerShell* -ListAvailable | Select-Object Name,Version | Sort-Object Version -Descending
 ```
 
 ## HOW TO USE DURING DEVELOPMENT ##
 
 A build script will copy the required files to a folder in your users folder, called:
-*C:\Users\<YourUserName>\Documents\WindowsPowerShell\Modules\OfficeDevPnP.PowerShell.V16.Commands*
+*C:\Users\\\<YourUserName\>\Documents\WindowsPowerShell\Modules\SharePointPnPPowerShell\<Platform\>*
 
 # GETTING STARTED #
 

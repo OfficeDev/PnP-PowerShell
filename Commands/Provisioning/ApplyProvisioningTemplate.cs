@@ -239,7 +239,9 @@ PS:> Apply-SPOProvisioningTemplate -Path NewTemplate.xml -ExtensibilityHandlers 
 
             applyingInformation.OverwriteSystemPropertyBagValues = OverwriteSystemPropertyBagValues;
             SelectedWeb.ApplyProvisioningTemplate(provisioningTemplate, applyingInformation);
-        }
+
+			WriteProgress(new ProgressRecord(0, $"Applying template to {SelectedWeb.Url}", " ") { RecordType = ProgressRecordType.Completed });
+		}
 
         internal static bool IsOpenOfficeFile(Stream stream)
         {

@@ -3,6 +3,7 @@ using Microsoft.SharePoint.Client;
 using Microsoft.SharePoint.Client.Taxonomy;
 using SharePointPnP.PowerShell.CmdletHelpAttributes;
 using File = System.IO.File;
+using System.Linq;
 
 namespace SharePointPnP.PowerShell.Commands.Taxonomy
 {
@@ -54,6 +55,9 @@ namespace SharePointPnP.PowerShell.Commands.Taxonomy
             {
                 lines = Terms;
             }
+
+            lines = lines.Where(line => !string.IsNullOrWhiteSpace(line)).ToArray();
+
             if (!string.IsNullOrEmpty(TermStoreName))
             {
                 var taxSession = TaxonomySession.GetTaxonomySession(ClientContext);

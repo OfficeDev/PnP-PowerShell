@@ -29,41 +29,49 @@ namespace SharePointPnP.PowerShell.Commands
 
         protected override void ExecuteCmdlet()
         {
-            if (SiteLogoUrl != null)
+            var dirty = false;
+            
+            foreach (var key in MyInvocation.BoundParameters.Keys)
             {
-                SelectedWeb.SiteLogoUrl = SiteLogoUrl;
-                SelectedWeb.Update();
-            }
-            if (!string.IsNullOrEmpty(AlternateCssUrl))
-            {
-                SelectedWeb.AlternateCssUrl = AlternateCssUrl;
-                SelectedWeb.Update();
-            }
-            if(!string.IsNullOrEmpty(Title))
-            {
-                SelectedWeb.Title = Title;
-                SelectedWeb.Update();
+                switch (key)
+                {
+                    case "SiteLogoUrl":
+                        SelectedWeb.SiteLogoUrl = SiteLogoUrl;
+                        dirty = true;
+                        break;
+
+                    case "AlternateCssUrl":
+                        SelectedWeb.AlternateCssUrl = AlternateCssUrl;
+                        dirty = true;
+                        break;
+
+                    case "Title":
+                        SelectedWeb.Title = Title;
+                        dirty = true;
+                        break;
+
+                    case "Description":
+                        SelectedWeb.Description = Description;
+                        dirty = true;
+                        break;
+
+                    case "MasterUrl":
+                        SelectedWeb.MasterUrl = MasterUrl;
+                        dirty = true;
+                        break;
+
+                    case "CustomMasterUrl":
+                        SelectedWeb.CustomMasterUrl = CustomMasterUrl;
+                        dirty = true;
+                        break;
+                }
             }
 
-            if (!string.IsNullOrEmpty(Description))
+            if (dirty)
             {
-                SelectedWeb.Description = Description;
                 SelectedWeb.Update();
+                ClientContext.ExecuteQueryRetry();
             }
-
-            if (!string.IsNullOrEmpty(MasterUrl))
-            {
-                SelectedWeb.MasterUrl = MasterUrl;
-                SelectedWeb.Update();
-            }
-
-            if (!string.IsNullOrEmpty(CustomMasterUrl))
-            {
-                SelectedWeb.CustomMasterUrl = CustomMasterUrl;
-                SelectedWeb.Update();
-            }
-
-            ClientContext.ExecuteQueryRetry();
         }
     }
 

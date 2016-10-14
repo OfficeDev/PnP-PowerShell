@@ -94,6 +94,7 @@ Cmdlet|Description
 **[Add&#8209;SPOFile](AddSPOFile.md)** |Uploads a file to Web
 **[Set&#8209;SPOFileCheckedIn](SetSPOFileCheckedIn.md)** |Checks in a file
 **[Set&#8209;SPOFileCheckedOut](SetSPOFileCheckedOut.md)** |Checks out a file
+**[Get&#8209;SPOFolder](GetSPOFolder.md)** |Return a folder object
 **[Ensure&#8209;SPOFolder](EnsureSPOFolder.md)** |Returns a folder given a site relative path, and will create it does not exist.
 **[Add&#8209;SPOFolder](AddSPOFolder.md)** |Creates a folder within a parent folder
 **[Remove&#8209;SPOFolder](RemoveSPOFolder.md)** |Deletes a folder within a parent folder

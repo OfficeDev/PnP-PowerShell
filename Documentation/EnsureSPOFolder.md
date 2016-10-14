@@ -2,10 +2,13 @@
 Returns a folder given a site relative path, and will create it does not exist.
 ##Syntax
 ```powershell
-Ensure-SPOFolder -SiteRelativePath <String>
-                 [-Web <WebPipeBind>]
+Ensure-SPOFolder [-Web <WebPipeBind>]
+                 -SiteRelativePath <String>
 ```
 
+
+##Detailed Description
+If you do not want the folder to be created, for instance just to test if a folder exists, check Get-SPOFolder
 
 ##Returns
 >[Microsoft.SharePoint.Client.Folder](https://msdn.microsoft.com/en-us/library/microsoft.sharepoint.client.folder.aspx)

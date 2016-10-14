@@ -139,11 +139,14 @@ dir",
             }
             else if (UseAdfs)
             {
-                creds = GetCredentials();
                 if (creds == null)
                 {
-                    creds = Host.UI.PromptForCredential(Properties.Resources.EnterYourCredentials, "", "", "");
+                    if ((creds = GetCredentials()) == null)
+                    {
+                        creds = Host.UI.PromptForCredential(Properties.Resources.EnterYourCredentials, "", "", "");
+                    }
                 }
+                
                 SPOnlineConnection.CurrentConnection = SPOnlineConnectionHelper.InstantiateAdfsConnection(new Uri(Url), creds, Host, MinimalHealthScore, RetryCount, RetryWait, RequestTimeout, TenantAdminUrl, SkipTenantAdminCheck);
             }
 #if !ONPREMISES
