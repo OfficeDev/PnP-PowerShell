@@ -354,6 +354,7 @@
     <Compile Include="Base\PipeBinds\DocumentSetPipeBind.cs" />
     <Compile Include="Base\PipeBinds\FeaturePipeBind.cs" />
     <Compile Include="Base\PipeBinds\ListItemPipeBind.cs" />
+    <Compile Include="Base\PipeBinds\FolderPipeBind.cs" />
     <Compile Include="Base\PipeBinds\TermGroupPipeBind.cs" />
     <Compile Include="Base\PipeBinds\WorkflowInstancePipeBind.cs" />
     <Compile Include="Base\PipeBinds\WorkflowDefinitionPipeBind.cs" />
@@ -379,6 +380,7 @@
     <Compile Include="Base\ConnectSPOnline.cs" />
     <Compile Include="Admin\GetTenantSite.cs" />
     <Compile Include="Base\SetTraceLog.cs" />
+    <Compile Include="Files\GetFolder.cs" />
     <Compile Include="Provisioning\AddFileToProvisioningTemplate.cs" />
     <Compile Include="Provisioning\LoadProvisioningTemplate.cs" />
     <Compile Include="Provisioning\NewProvisioningTemplate.cs" />
