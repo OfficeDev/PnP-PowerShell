@@ -31,7 +31,25 @@ namespace SharePointPnP.PowerShell.Commands.Lists
         public SwitchParameter ClearSubscopes;
 
         [Parameter(Mandatory = false, HelpMessage = "The title of the list")]
-        public string Title = string.Empty;
+        public string Title;
+
+        [Parameter(Mandatory = false, HelpMessage = "The description of the list")]
+        public string Description;
+
+        [Parameter(Mandatory = false, HelpMessage = "Enable attachments for the list, set to $false to disable")]
+        public SwitchParameter EnableAttachments;
+
+        [Parameter(Mandatory = false, HelpMessage = "Enable folder creation for the list, set to $false to disable")]
+        public SwitchParameter EnableFolderCreation;
+
+        [Parameter(Mandatory = false, HelpMessage = "Enable minor versions for the list, set to $false to disable")]
+        public SwitchParameter EnableMinorVersions;
+
+        [Parameter(Mandatory = false, HelpMessage = "Enable content approval for the list, set to $false to disable")]
+        public SwitchParameter EnableModeration;
+
+        [Parameter(Mandatory = false, HelpMessage = "Enable versioning for the list, set to $false to disable")]
+        public SwitchParameter EnableVersioning;
 
         protected override void ExecuteCmdlet()
         {
@@ -39,26 +57,50 @@ namespace SharePointPnP.PowerShell.Commands.Lists
 
             if(list != null)
             {
-                if(BreakRoleInheritance)
+                foreach (var key in MyInvocation.BoundParameters.Keys)
                 {
-                    list.BreakRoleInheritance(CopyRoleAssignments, ClearSubscopes);
-                    list.Update();
-                    ClientContext.ExecuteQueryRetry();
-                }
+                    switch (key)
+                    {
+                        case "BreakRoleInheritance":
+                            list.BreakRoleInheritance(CopyRoleAssignments, ClearSubscopes);
+                            break;
 
-                if (!string.IsNullOrEmpty(Title))
-                {
-                    list.Title = Title;
-                    list.Update();
-                    ClientContext.ExecuteQueryRetry();
-                }
+                        case "Description":
+                            list.Description = Description;
+                            break;
 
-                if (list.ContentTypesEnabled != EnableContentTypes)
-                {
-                    list.ContentTypesEnabled = EnableContentTypes;
-                    list.Update();
-                    ClientContext.ExecuteQueryRetry();
-                }
+                        case "EnableAttachments":
+                            list.EnableAttachments = EnableAttachments;
+                            break;
+
+                        case "EnableContentTypes":
+                            list.ContentTypesEnabled = EnableContentTypes;
+                            break;
+
+                        case "EnableFolderCreation":
+                            list.EnableFolderCreation = EnableFolderCreation;
+                            break;
+
+                        case "EnableMinorVersions":
+                            list.EnableMinorVersions = EnableMinorVersions;
+                            break;
+
+                        case "EnableModeration":
+                            list.EnableModeration = EnableModeration;
+                            break;
+
+                        case "EnableVersioning":
+                            list.EnableVersioning = EnableVersioning;
+                            break;
+
+                        case "Title":
+                            list.Title = Title;
+                            break;
+                    } // switch
+                } // keys
+
+                list.Update();
+                ClientContext.ExecuteQueryRetry(); 
             }
         }
     }
