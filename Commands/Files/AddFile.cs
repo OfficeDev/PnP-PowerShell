@@ -18,7 +18,7 @@ namespace SharePointPnP.PowerShell.Commands.Files
         SortOrder = 1)]
     [CmdletExample(
         Code = @"PS:> Add-SPOFile -Path .\displaytemplate.html -Folder ""_catalogs/masterpage/display templates/test""", 
-        Remarks = "This will upload the file displaytemplate.html to the test folder in the display templates folder. If the test folder not exists it will create it.",
+        Remarks = "This will upload the file displaytemplate.html to the test folder in the display templates folder. If the test folder does not exist it will create it.",
         SortOrder = 2)]
     [CmdletExample(
         Code = @"PS:> Add-SPOFile -Path .\sample.doc -Folder ""Shared Documents"" -Values @{Modified=""1/1/2016""}",
