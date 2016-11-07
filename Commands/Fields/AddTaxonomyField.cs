@@ -52,7 +52,7 @@ namespace SharePointPnP.PowerShell.Commands.Fields
         [Parameter(Mandatory = false, ParameterSetName = ParameterAttribute.AllParameterSets, HelpMessage = "Switch Parameter if the field is a required field")]
         public SwitchParameter Required;
 
-        [Parameter(Mandatory = false, ParameterSetName = ParameterAttribute.AllParameterSets)]
+        [Parameter(Mandatory = false, ParameterSetName = ParameterAttribute.AllParameterSets, HelpMessage = "Specifies the control settings while adding a field. See https://msdn.microsoft.com/en-us/library/microsoft.sharepoint.client.addfieldoptions.aspx for details")]
         public AddFieldOptions FieldOptions = AddFieldOptions.DefaultValue;
 
 

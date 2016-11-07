@@ -5,7 +5,7 @@ using SharePointPnP.PowerShell.CmdletHelpAttributes;
 namespace SharePointPnP.PowerShell.Commands.Files
 {
     [Cmdlet("Ensure", "SPOFolder")]
-    [CmdletHelp("Returns a folder given a site relative path, and will create it does not exist.",
+    [CmdletHelp("Returns a folder from a given site relative path, and will create it if it does not exist.",
         Category = CmdletHelpCategory.Files,
         OutputType = typeof(Folder),
         OutputTypeLink = "https://msdn.microsoft.com/en-us/library/microsoft.sharepoint.client.folder.aspx")]

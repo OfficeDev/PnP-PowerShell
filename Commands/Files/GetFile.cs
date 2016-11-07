@@ -28,19 +28,19 @@ namespace SharePointPnP.PowerShell.Commands.Files
 
     public class GetFile : SPOWebCmdlet
     {
-        [Parameter(Mandatory = true, ParameterSetName = "SERVER", Position = 0, ValueFromPipeline = true)]
+        [Parameter(Mandatory = true, ParameterSetName = "SERVER", Position = 0, ValueFromPipeline = true), HelpMessage = "Server relative URL to the file"]
         public string ServerRelativeUrl = string.Empty;
 
-        [Parameter(Mandatory = true, ParameterSetName = "SITE", Position = 0, ValueFromPipeline = true)]
+        [Parameter(Mandatory = true, ParameterSetName = "SITE", Position = 0, ValueFromPipeline = true), HelpMessage = "Site relative URL to the file"]
         public string SiteRelativeUrl = string.Empty;
 
-        [Parameter(Mandatory = false)]
+        [Parameter(Mandatory = false), HelpMessage = "Local path where the file should be saved"]
         public string Path = string.Empty;
 
-        [Parameter(Mandatory = false)]
+        [Parameter(Mandatory = false), HelpMessage = "Name for the local file"]
         public string Filename = string.Empty;
 
-        [Parameter(Mandatory = false)]
+        [Parameter(Mandatory = false), HelpMessage = "Retrieve the file contents as a string"]
         public SwitchParameter AsString;
 
         protected override void ExecuteCmdlet()

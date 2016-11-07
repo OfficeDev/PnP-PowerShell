@@ -28,10 +28,10 @@ namespace SharePointPnP.PowerShell.Commands.Features
         [Parameter(Mandatory = false, HelpMessage = "Forcibly enable the feature.")]
         public SwitchParameter Force;
 
-        [Parameter(Mandatory = false, HelpMessage = "Specify the scope of the feature to active, either Web or Site. Defaults to Web.")]
+        [Parameter(Mandatory = false, HelpMessage = "Specify the scope of the feature to activate, either Web or Site. Defaults to Web.")]
         public FeatureScope Scope = FeatureScope.Web;
 
-        [Parameter(Mandatory = false, HelpMessage = "Specify this parameter if the feature you're trying to active is part of a sandboxed solution.")]
+        [Parameter(Mandatory = false, HelpMessage = "Specify this parameter if the feature you're trying to activate is part of a sandboxed solution.")]
         public SwitchParameter Sandboxed;
 
 

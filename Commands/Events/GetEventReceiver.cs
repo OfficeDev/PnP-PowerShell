@@ -16,7 +16,7 @@ namespace SharePointPnP.PowerShell.Commands.Events
       Remarks = @"This will return all registered event receivers on the current web", SortOrder = 1)]
     [CmdletExample(
       Code = @"PS:> Get-SPOEventReceiver -Identity fb689d0e-eb99-4f13-beb3-86692fd39f22",
-      Remarks = @"This will return a specific registered event receivers from the current web", SortOrder = 2)]
+      Remarks = @"This will return a specific registered event receiver from the current web", SortOrder = 2)]
     [CmdletExample(
       Code = @"PS:> Get-SPOEventReceiver -List ""ProjectList""",
       Remarks = @"This will return all registered event receivers in the list with the name ProjectList", SortOrder = 3)]
@@ -25,7 +25,7 @@ namespace SharePointPnP.PowerShell.Commands.Events
       Remarks = @"This will return a specific registered event receiver in the list with the name ProjectList", SortOrder = 4)]
     public class GetEventReceiver : SPOWebCmdlet
     {
-        [Parameter(Mandatory = false, ParameterSetName = "List", HelpMessage = "The list object from where to get the event receiver object")]
+        [Parameter(Mandatory = false, ParameterSetName = "List", HelpMessage = "The list object from which to get the event receiver object")]
         public ListPipeBind List;
 
         [Parameter(Mandatory = false, HelpMessage = "The Guid of the event receiver on the list")]

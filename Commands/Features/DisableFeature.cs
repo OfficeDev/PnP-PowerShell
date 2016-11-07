@@ -11,15 +11,15 @@ namespace SharePointPnP.PowerShell.Commands.Features
     [CmdletHelp("Disables a feature", Category = CmdletHelpCategory.Features)]
     [CmdletExample(
         Code = "PS:> Disable-SPOFeature -Identity 99a00f6e-fb81-4dc7-8eac-e09c6f9132fe",
-        Remarks = @"This will enable the feature with the id ""99a00f6e-fb81-4dc7-8eac-e09c6f9132fe""",          
+        Remarks = @"This will disable the feature with the id ""99a00f6e-fb81-4dc7-8eac-e09c6f9132fe""",          
         SortOrder = 1)]
     [CmdletExample(
         Code = "PS:> Disable-SPOFeature -Identity 99a00f6e-fb81-4dc7-8eac-e09c6f9132fe -Force", 
-        Remarks = @"This will enable the feature with the id ""99a00f6e-fb81-4dc7-8eac-e09c6f9132fe"" with force.", 
+        Remarks = @"This will disable the feature with the id ""99a00f6e-fb81-4dc7-8eac-e09c6f9132fe"" with force.", 
         SortOrder = 2)]
     [CmdletExample(
         Code = "PS:> Disable-SPOFeature -Identity 99a00f6e-fb81-4dc7-8eac-e09c6f9132fe -Scope Web", 
-        Remarks = @"This will enable the feature with the id ""99a00f6e-fb81-4dc7-8eac-e09c6f9132fe"" with the web scope.", 
+        Remarks = @"This will disable the feature with the id ""99a00f6e-fb81-4dc7-8eac-e09c6f9132fe"" with the web scope.", 
         SortOrder = 3)]
     public class DisableFeature : SPOWebCmdlet
     {

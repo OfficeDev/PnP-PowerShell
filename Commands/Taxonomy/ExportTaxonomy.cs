@@ -43,10 +43,10 @@ namespace SharePointPnP.PowerShell.Commands.Taxonomy
         [Parameter(Mandatory = false, HelpMessage = "Overwrites the output file if it exists.")]
         public SwitchParameter Force;
 
-        [Parameter(Mandatory = false)]
+        [Parameter(Mandatory = false), HelpMessage = "Defaults to |"]
         public string Delimiter = "|";
 
-        [Parameter(Mandatory = false)]
+        [Parameter(Mandatory = false), HelpMessage = "Defaults to Unicode"]
         public Encoding Encoding = Encoding.Unicode;
 
 
