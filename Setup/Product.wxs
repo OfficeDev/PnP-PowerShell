@@ -86,10 +86,10 @@
       <Component Id="PowerShellCommands" Guid="{1F5CA574-E185-49D2-9A91-CD46A8548D3E}">
         <File Id="Commands" Source="$(var.SharePointPnP.PowerShell.Commands.TargetPath)" />
         <File Id="CommandsHelp" Source="$(var.SharePointPnP.PowerShell.Commands.TargetPath)-help.xml"/>
-        <File Id="Core" Source="$(var.SharePointPnP.PowerShell.Commands.ProjectDir)bin\$(var.SharePointPnP.PowerShell.Commands.Configuration)\OfficePnP.Core.dll"/>
+        <File Id="Core" Source="$(var.SharePointPnP.PowerShell.Commands.ProjectDir)bin\$(var.SharePointPnP.PowerShell.Commands.Configuration)\OfficeDevPnP.Core.dll"/>
         <File Id="CmdletHelpAttributes" Source="$(var.SharePointPnP.PowerShell.CmdletHelpAttributes.TargetPath)"/>
         <File Id="FormatFile" Source="$(var.SharePointPnP.PowerShell.Commands.ProjectDir)bin\$(var.SharePointPnP.PowerShell.Commands.Configuration)\ModuleFiles\$(var.ProductAssemblyName).Format.ps1xml" />
-        <File Id="PSD1File" Source="$(var.SharePointPnP.PowerShell.Commands.ProjectDir)bin\$(var.SharePointPnP.PowerShell.Commands.Configuration)\ModuleFiles\$(var.ProductAssemblyName).psd1" />
+        <File Id="PSD1File" Source="$(var.SharePointPnP.PowerShell.Commands.ProjectDir)bin\$(var.SharePointPnP.PowerShell.Commands.Configuration)\ModuleFiles\SharePointPnPPowerShellOnline.psd1" />
         <File Id="ClientSDK.Client" Source="$(var.SharePointPnP.PowerShell.Commands.ProjectDir)bin\$(var.SharePointPnP.PowerShell.Commands.Configuration)\Microsoft.SharePoint.Client.dll" />
         <File Id="ClientSDK.Client.Runtime" Source="$(var.SharePointPnP.PowerShell.Commands.ProjectDir)bin\$(var.SharePointPnP.PowerShell.Commands.Configuration)\Microsoft.SharePoint.Client.Runtime.dll" />
         <File Id="ClientSDK.Client.Taxonomy" Source="$(var.SharePointPnP.PowerShell.Commands.ProjectDir)bin\$(var.SharePointPnP.PowerShell.Commands.Configuration)\Microsoft.SharePoint.Client.Taxonomy.dll" />
