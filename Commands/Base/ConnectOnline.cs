@@ -160,13 +160,15 @@ dir",
             }
             else if(UseAdfsCert)
             {
+                ///Modal Dialog to enable a user to select a certificate to use to authenticate against ADFS.
                 X509Store store = new X509Store("MY", StoreLocation.CurrentUser);
                 store.Open(OpenFlags.ReadOnly | OpenFlags.OpenExistingOnly);
                 var certs = X509Certificate2UI.SelectFromCollection(store.Certificates, "Select ADFS User Certificate", "Selec the certificate to use to authenticate to ADFS", X509SelectionFlag.SingleSelection);
+
                 if (certs[0] != null)
                 {
                     var serialNumber = certs[0].SerialNumber;
-                    //TODO Popup modal to enable certificate selection.
+                    
                     SPOnlineConnection.CurrentConnection = SPOnlineConnectionHelper.InstantiateAdfsCertificateConnection(new Uri(Url), serialNumber, Host, MinimalHealthScore, RetryCount, RetryWait, RequestTimeout, TenantAdminUrl, SkipTenantAdminCheck);
                 }
             }
