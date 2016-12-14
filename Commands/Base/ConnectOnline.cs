@@ -167,7 +167,7 @@ dir",
                 {
                     var serialNumber = certs[0].SerialNumber;
                     //TODO Popup modal to enable certificate selection.
-                    SPOnlineConnection.CurrentConnection = SPOnlineConnectionHelper.InstantiateAdfsCertificateConnection(new Uri(Url), serialNumber, Host, MinimalHealthScore, RetryCount, RetryWait, RequestTimeout, SkipTenantAdminCheck);
+                    SPOnlineConnection.CurrentConnection = SPOnlineConnectionHelper.InstantiateAdfsCertificateConnection(new Uri(Url), serialNumber, Host, MinimalHealthScore, RetryCount, RetryWait, RequestTimeout, TenantAdminUrl, SkipTenantAdminCheck);
                 }
             }
 #if !ONPREMISES
