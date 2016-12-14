@@ -7,6 +7,7 @@ using System.Security;
 using System.Linq;
 using Microsoft.SharePoint.Client;
 using File = System.IO.File;
+using System.Security.Cryptography.X509Certificates;
 #if !ONPREMISES
 using Microsoft.SharePoint.Client.CompliancePolicy;
 #endif
@@ -39,6 +40,10 @@ namespace SharePointPnP.PowerShell.Commands.Base
         Remarks = @"This will prompt for username and password and creates a context using ADFS to authenticate.",
         SortOrder = 5)]
     [CmdletExample(
+        Code = @"PS:> Connect-PnPOnline -Url http://yourlocalserver  -UseAdfsCert",
+        Remarks = @"This will enable you to select a certificate to create a context using ADFS to authenticate.",
+        SortOrder = 6)]
+    [CmdletExample(
         Code = @"PS:> Connect-PnPOnline -Url https://yourserver -Credentials (Get-Credential) -CreateDrive
 cd SPO:\\
 dir",
@@ -61,6 +66,9 @@ dir",
 
         [Parameter(Mandatory = false, ParameterSetName = "Main", HelpMessage = "If you want to connect to your on-premises SharePoint farm using ADFS")]
         public SwitchParameter UseAdfs;
+
+        [Parameter(Mandatory = false, ParameterSetName = "Main", HelpMessage = "If you want to connect to your on-premises SharePoint farm using ADFS with Certificate Authentication")]
+        public SwitchParameter UseAdfsCert;
 
         [Parameter(Mandatory = false, ParameterSetName = ParameterAttribute.AllParameterSets, HelpMessage = "Specifies a minimal server healthscore before any requests are executed.")]
         public int MinimalHealthScore = -1;
@@ -149,6 +157,18 @@ dir",
                 }
                 
                 SPOnlineConnection.CurrentConnection = SPOnlineConnectionHelper.InstantiateAdfsConnection(new Uri(Url), creds, Host, MinimalHealthScore, RetryCount, RetryWait, RequestTimeout, TenantAdminUrl, SkipTenantAdminCheck);
+            }
+            else if(UseAdfsCert)
+            {
+                X509Store store = new X509Store("MY", StoreLocation.CurrentUser);
+                store.Open(OpenFlags.ReadOnly | OpenFlags.OpenExistingOnly);
+                var certs = X509Certificate2UI.SelectFromCollection(store.Certificates, "Select ADFS User Certificate", "Selec the certificate to use to authenticate to ADFS", X509SelectionFlag.SingleSelection);
+                if (certs[0] != null)
+                {
+                    var serialNumber = certs[0].SerialNumber;
+                    //TODO Popup modal to enable certificate selection.
+                    SPOnlineConnection.CurrentConnection = SPOnlineConnectionHelper.InstantiateAdfsCertificateConnection(new Uri(Url), serialNumber, Host, MinimalHealthScore, RetryCount, RetryWait, RequestTimeout, SkipTenantAdminCheck);
+                }
             }
 #if !ONPREMISES
             else if (ParameterSetName == "NativeAAD")

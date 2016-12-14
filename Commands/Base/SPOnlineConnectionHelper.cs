@@ -271,6 +271,44 @@ namespace SharePointPnP.PowerShell.Commands.Base
             return new SPOnlineConnection(context, connectionType, minimalHealthScore, retryCount, retryWait, null, url.ToString(), tenantAdminUrl, PnPPSVersionTag);
         }
 
+        internal static SPOnlineConnection InstantiateAdfsCertificateConnection(Uri url, string serialNumber, PSHost host, int minimalHealthScore, int retryCount, int retryWait, int requestTimeout, bool skipAdminCheck = false)
+        {
+            var authManager = new OfficeDevPnP.Core.AuthenticationManager();
+
+            string adfsHost;
+            string adfsRelyingParty;
+            GetAdfsConfigurationFromTargetUri(url, out adfsHost, out adfsRelyingParty);
+
+            if (string.IsNullOrEmpty(adfsHost) || string.IsNullOrEmpty(adfsRelyingParty))
+            {
+                throw new Exception("Cannot retrieve ADFS settings.");
+            }
+
+            var context = authManager.GetADFSCertificateMixedAuthenticationContext(url.ToString(), serialNumber, adfsHost, adfsRelyingParty);
+
+            context.ApplicationName = Properties.Resources.ApplicationName;
+            context.RequestTimeout = requestTimeout;
+#if !ONPREMISES
+            context.DisableReturnValueCache = true;
+#elif SP2016
+            context.DisableReturnValueCache = true;
+#endif
+            var connectionType = ConnectionType.OnPrem;
+
+            if (skipAdminCheck == false)
+            {
+                if (IsTenantAdminSite(context))
+                {
+                    connectionType = ConnectionType.TenantAdmin;
+                }
+            }
+            return new SPOnlineConnection(context, connectionType, minimalHealthScore, retryCount, retryWait, null, url.ToString());
+
+
+
+        }
+
+
         public static string GetRealmFromTargetUrl(Uri targetApplicationUri)
         {
             WebRequest request = WebRequest.Create(targetApplicationUri + "/_vti_bin/client.svc");
