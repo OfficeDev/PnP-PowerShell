@@ -1,4 +1,49 @@
-# OfficeDevPnP.PowerShell Changelog #
+# SharePointPnP.PowerShell Changelog #
+
+**2016-11-21**
+* Added support to enable versionining and set the maximum number of versions to keep on a list and library with Set-PnPList
+* Updated Add-PnPUserToGroup to allow to send invites to external users
+
+**2016-11-09**
+* Added Set-PnPUnifiedGroup cmdlet
+
+**2016-11-01**
+* Exposed ResetSubwebsToInherit and UpdateRootwebOnly parameters to Set-PnPTheme.
+
+**2016-10-29**
+* Marked Get-SPOSite as deprecated. We will remove this cmdlet in the January 2017 release. Please switch as soon as possible to Get-PnPSite instead. A warning will be shown the moment Get-SPOSite is used.
+* Renamed all cmdlet verbs from -SPO* to -PnP*. From now all cmdlets follow the *Verb*-PnP*Noun* pattern. There are corresponding aliases available now that allow existing scripts to continue to work.
+
+**2016-10-19**
+* Added Get-SPOProvisioningTemplateFromGallery cmdlet
+
+**2016-10-13**
+* Added Get-SPOFolder cmdlet
+* Minor update to Set-SPOListItem
+* Added attributes to Get-SPOFile
+* Added return type to generated documentation for those cmdlets that return an object or value
+
+**2016-10-01**
+* Added Load-SPOPRovisioningTemplate
+* Added Save-SPOProvisioningTemplate
+
+**2016-09-29**
+* Live from MS Ignite: Added Remove-SPOTaxonomyItem cmdlet
+* Live from MS Ignite: Added Remove-SPOTermGroup cmdlet
+
+**2016-06-03**
+* Added Add-SPODocumentSet cmdlet
+
+**2016-06-02**
+* Added Enable-SPOResponsiveUI and Disable-SPOResponsiveUI cmdlets
+* Added -CreateDrive parameter to Connect-SPOnline cmdlet, allowing to create a virtual drive into a SharePoint site
+* Added Invoke-SPOWebAction cmdlet
+
+**2016-05-09**
+* Namespace, Assembly and Project rename from OfficeDevPnP.PowerShell to SharePointPnP.PowerShell
+
+**2016-04-08**
+* Added -ExtensibilityHandlers parameter to Get-SPOPRovisioningTemplate
 
 **2016-03-11**
 * Added List parameter to Get-SPOContentType, allowing to retrieve the ContentTypes added to a list.

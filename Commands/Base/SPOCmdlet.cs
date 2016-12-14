@@ -3,11 +3,10 @@ using System.Management.Automation;
 using System.Threading;
 using Microsoft.SharePoint.Client;
 using OfficeDevPnP.Core.Utilities;
-using OfficeDevPnP.PowerShell.Commands.Base;
-using Resources = OfficeDevPnP.PowerShell.Commands.Properties.Resources;
-using System.Collections.Generic;
+using SharePointPnP.PowerShell.Commands.Base;
+using Resources = SharePointPnP.PowerShell.Commands.Properties.Resources;
 
-namespace OfficeDevPnP.PowerShell.Commands
+namespace SharePointPnP.PowerShell.Commands
 {
     public class SPOCmdlet : PSCmdlet
     {
@@ -57,6 +56,14 @@ namespace OfficeDevPnP.PowerShell.Commands
                                 healthScore = Utility.GetHealthScore(SPOnlineConnection.CurrentConnection.Url);
                                 if (healthScore <= SPOnlineConnection.CurrentConnection.MinimalHealthScore)
                                 {
+                                    var tag = SPOnlineConnection.CurrentConnection.PnPVersionTag + ":" + MyInvocation.MyCommand.Name.Replace("SPO", "");
+                                    if (tag.Length > 32)
+                                    {
+                                        tag = tag.Substring(0, 32);
+                                    }
+                                    ClientContext.ClientTag = tag;
+
+
                                     ExecuteCmdlet();
                                     break;
                                 }
@@ -75,6 +82,13 @@ namespace OfficeDevPnP.PowerShell.Commands
                 }
                 else
                 {
+                    var tag = SPOnlineConnection.CurrentConnection.PnPVersionTag + ":" + MyInvocation.MyCommand.Name.Replace("SPO", "");
+                    if (tag.Length > 32)
+                    {
+                        tag = tag.Substring(0, 32);
+                    }
+                    ClientContext.ClientTag = tag;
+
                     ExecuteCmdlet();
                 }
             }

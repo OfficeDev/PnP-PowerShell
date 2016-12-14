@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace OfficeDevPnP.PowerShell.Commands.Base.PipeBinds
+namespace SharePointPnP.PowerShell.Commands.Base.PipeBinds
 {
     public sealed class GuidPipeBind
     {

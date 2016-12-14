@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace OfficeDevPnP.PowerShell.CmdletHelpAttributes
+namespace SharePointPnP.PowerShell.CmdletHelpAttributes
 {
     [AttributeUsage(AttributeTargets.Class,
                       AllowMultiple = true)]
@@ -11,10 +11,5 @@ namespace OfficeDevPnP.PowerShell.CmdletHelpAttributes
         public string Introduction { get; set; }
         public string Remarks { get; set; }
         public int SortOrder { get; set; }
-        
-        public CmdletExampleAttribute()
-        {
-           
-        }
     }
 }

@@ -1,25 +1,26 @@
-﻿#if !CLIENTSDKV15
+﻿#if !ONPREMISES
 using System.Management.Automation;
 using Microsoft.SharePoint.Client;
 using Microsoft.SharePoint.Client.UserProfiles;
-using OfficeDevPnP.PowerShell.CmdletHelpAttributes;
-using OfficeDevPnP.PowerShell.Commands.Base;
+using SharePointPnP.PowerShell.CmdletHelpAttributes;
+using SharePointPnP.PowerShell.Commands.Base;
 using System.Linq;
 
-namespace OfficeDevPnP.PowerShell.Commands.UserProfiles
+namespace SharePointPnP.PowerShell.Commands.UserProfiles
 {
-    [Cmdlet(VerbsCommon.Set, "SPOUserProfileProperty")]
+    [Cmdlet(VerbsCommon.Set, "PnPUserProfileProperty")]
+    [CmdletAlias("Set-SPOUserProfileProperty")]
     [CmdletHelp(@"Office365 only: Uses the tenant API to retrieve site information.
 
-You must connect to the admin website (https://:<tenant>-admin.sharepoint.com) with Connect-SPOnline in order to use this command. 
+You must connect to the tenant admin website (https://:<tenant>-admin.sharepoint.com) with Connect-PnPOnline in order to use this command. 
 ", DetailedDescription = "Requires a connection to a SharePoint Tenant Admin site.",
         Category = CmdletHelpCategory.UserProfiles)]
     [CmdletExample(
-        Code = @"PS:> Set-SPOUserProfileProperty -Account 'user@domain.com' -Property 'SPS-Location' -Value 'Stockholm'",
+        Code = @"PS:> Set-PnPUserProfileProperty -Account 'user@domain.com' -Property 'SPS-Location' -Value 'Stockholm'",
         Remarks = "Sets the SPS-Location property for the user as specified by the Account parameter",
         SortOrder = 1)]
     [CmdletExample(
-        Code = @"PS:> Set-SPOUserProfileProperty -Account 'user@domain.com' -Property 'MyProperty' -Values 'Value 1','Value 2'",
+        Code = @"PS:> Set-PnPUserProfileProperty -Account 'user@domain.com' -Property 'MyProperty' -Values 'Value 1','Value 2'",
         Remarks = "Sets the MyProperty multi value property for the user as specified by the Account parameter",
         SortOrder = 2)]
     public class SetUserProfileProperty : SPOAdminCmdlet

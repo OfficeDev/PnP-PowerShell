@@ -1,33 +1,35 @@
 ﻿using System.Management.Automation;
 using Microsoft.SharePoint.Client;
 using Microsoft.SharePoint.Client.Search.Query;
-using OfficeDevPnP.PowerShell.CmdletHelpAttributes;
+using SharePointPnP.PowerShell.CmdletHelpAttributes;
 using System.Collections.Generic;
 
-namespace OfficeDevPnP.PowerShell.Commands.Search
+namespace SharePointPnP.PowerShell.Commands.Search
 {
-    [Cmdlet(VerbsCommon.Get, "SPOSiteSearchQueryResults")]
+    [Cmdlet(VerbsCommon.Get, "PnPSiteSearchQueryResults")]
+    [CmdletAlias("Get-SPOSiteSearchQueryResults")]
     [CmdletHelp("Executes a search query to retrieve indexed site collections",
-        Category = CmdletHelpCategory.Search)]
+        Category = CmdletHelpCategory.Search,
+        OutputType = typeof(List<dynamic>))]
     [CmdletExample(
-        Code = @"PS:> Get-SPOSiteSearchQueryResults",
+        Code = @"PS:> Get-PnPSiteSearchQueryResults",
         Remarks = "Returns all site collections indexed by SharePoint Search",
         SortOrder = 1)]
     [CmdletExample(
-        Code = @"PS:> Get-SPOSiteSearchQueryResults -Query ""WebTemplate:STS""",
+        Code = @"PS:> Get-PnPSiteSearchQueryResults -Query ""WebTemplate:STS""",
         Remarks = "Returns all site collections indexed by SharePoint Search which have are based on the STS (Team Site) template",
         SortOrder = 2)]
     [CmdletExample(
-        Code = @"PS:> Get-SPOSiteSearchQueryResults -Query ""WebTemplate:SPSPERS""",
+        Code = @"PS:> Get-PnPSiteSearchQueryResults -Query ""WebTemplate:SPSPERS""",
         Remarks = "Returns all site collections indexed by SharePoint Search which have are based on the SPSPERS (MySite) template",
         SortOrder = 3)]
     [CmdletExample(
-        Code = @"PS:> Get-SPOSiteSearchQueryResults -Query ""Title:Intranet*""",
+        Code = @"PS:> Get-PnPSiteSearchQueryResults -Query ""Title:Intranet*""",
         Remarks = "Returns all site collections indexed by SharePoint Search of which the title starts with the word Intranet",
         SortOrder = 4)]
     public class GetSiteSearchQueryResults : SPOWebCmdlet
     {
-        [Parameter(Mandatory = false, ValueFromPipeline = true, Position = 0, HelpMessage = "Search query in Keyword Query Language (KQL) to execute to refine the returned sites. If omited, all indexed sites will be returned.")]
+        [Parameter(Mandatory = false, ValueFromPipeline = true, Position = 0, HelpMessage = "Search query in Keyword Query Language (KQL) to execute to refine the returned sites. If omitted, all indexed sites will be returned.")]
         public string Query = string.Empty;
 
         [Parameter(Mandatory = false, HelpMessage = "Search result item to start returning the results from. Useful for paging. Leave at 0 to return all results.")]
@@ -55,30 +57,27 @@ namespace OfficeDevPnP.PowerShell.Commands.Search
             keywordQuery.SelectProperties.Add("Description");
             keywordQuery.SelectProperties.Add("WebTemplate");
             keywordQuery.SortList.Add("SPSiteUrl", SortDirection.Ascending);
-            SearchExecutor searchExec = new SearchExecutor(ClientContext);
+            var searchExec = new SearchExecutor(ClientContext);
 
             // Important to avoid trimming "similar" site collections
             keywordQuery.TrimDuplicates = false;
 
-            ClientResult<ResultTableCollection> results = searchExec.ExecuteQuery(keywordQuery);
+            var results = searchExec.ExecuteQuery(keywordQuery);
             ClientContext.ExecuteQueryRetry();
 
             var dynamicList = new List<dynamic>();
 
-            if (results != null)
+            if (results?.Value[0].RowCount > 0)
             {
-                if (results.Value[0].RowCount > 0)
+                foreach (var row in results.Value[0].ResultRows)
                 {
-                    foreach (var row in results.Value[0].ResultRows)
-                    {
-                        dynamicList.Add(
-                            new {
-                                Title = row["Title"] != null ? row["Title"].ToString() : "",
-                                Url = row["SPSiteUrl"] != null ? row["SPSiteUrl"].ToString() : "",
-                                Description = row["Description"] != null ? row["Description"].ToString() : "",
-                                WebTemplate = row["WebTemplate"] != null ? row["WebTemplate"].ToString() : ""
-                            });
-                    }
+                    dynamicList.Add(
+                        new {
+                            Title = row["Title"]?.ToString() ?? "",
+                            Url = row["SPSiteUrl"]?.ToString() ?? "",
+                            Description = row["Description"]?.ToString() ?? "",
+                            WebTemplate = row["WebTemplate"]?.ToString() ?? ""
+                        });
                 }
             }
 

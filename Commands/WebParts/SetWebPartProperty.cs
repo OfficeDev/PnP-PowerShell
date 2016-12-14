@@ -1,13 +1,14 @@
-﻿using System.Management.Automation;
+﻿using System;
+using System.Management.Automation;
 using Microsoft.SharePoint.Client;
-using OfficeDevPnP.PowerShell.CmdletHelpAttributes;
-using OfficeDevPnP.PowerShell.Commands.Base.PipeBinds;
-using System;
 using OfficeDevPnP.Core.Utilities;
+using SharePointPnP.PowerShell.CmdletHelpAttributes;
+using SharePointPnP.PowerShell.Commands.Base.PipeBinds;
 
-namespace OfficeDevPnP.PowerShell.Commands
+namespace SharePointPnP.PowerShell.Commands.WebParts
 {
-    [Cmdlet(VerbsCommon.Set, "SPOWebPartProperty")]
+    [Cmdlet(VerbsCommon.Set, "PnPWebPartProperty")]
+    [CmdletAlias("Set-SPOWebPartProperty")]
     [CmdletHelp("Sets a web part property",
         Category = CmdletHelpCategory.WebParts)]
     public class SetWebPartProperty : SPOWebCmdlet
@@ -34,7 +35,6 @@ namespace OfficeDevPnP.PowerShell.Commands
                 ServerRelativePageUrl = UrlUtility.Combine(serverRelativeWebUrl, ServerRelativePageUrl);
             }
 
-
             if (Value.BaseObject is string)
             {
                 SelectedWeb.SetWebPartProperty(Key, Value.ToString(), Identity.Id, ServerRelativePageUrl);
@@ -42,6 +42,13 @@ namespace OfficeDevPnP.PowerShell.Commands
             else if (Value.BaseObject is int)
             {
                 SelectedWeb.SetWebPartProperty(Key, (int)Value.BaseObject, Identity.Id, ServerRelativePageUrl);
+            } else if (Value.BaseObject is bool)
+            {
+                SelectedWeb.SetWebPartProperty(Key, (bool)Value.BaseObject, Identity.Id, ServerRelativePageUrl);
+            }
+            else
+            {
+                WriteError(new ErrorRecord(new Exception("Type of value is not supported. Has to be of type string, int or bool"), "UNSUPPORTEDTYPE",ErrorCategory.InvalidType, this));
             }
         }
     }

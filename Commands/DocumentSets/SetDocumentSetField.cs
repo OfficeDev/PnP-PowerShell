@@ -1,31 +1,27 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Management.Automation;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.SharePoint.Client;
-using Microsoft.SharePoint.Client.DocumentSet;
-using OfficeDevPnP.PowerShell.CmdletHelpAttributes;
-using OfficeDevPnP.PowerShell.Commands.Base.PipeBinds;
-using OfficeDevPnP.PowerShell.Commands.Enums;
+using SharePointPnP.PowerShell.CmdletHelpAttributes;
+using SharePointPnP.PowerShell.Commands.Base.PipeBinds;
 
-namespace OfficeDevPnP.PowerShell.Commands.DocumentSets
+namespace SharePointPnP.PowerShell.Commands.DocumentSets
 {
-    [Cmdlet(VerbsCommon.Set, "SPODocumentSetField")]
-    [CmdletHelp("Sets a site column from the avaiable content types to a document set", 
+    [Cmdlet(VerbsCommon.Set, "PnPDocumentSetField")]
+    [CmdletAlias("Set-SPODocumentSetField")]
+    [CmdletHelp("Sets a site column from the available content types to a document set", 
         Category = CmdletHelpCategory.DocumentSets)]
     [CmdletExample(
-        Code = @"PS:> Set-SPODocumentSetField -Field ""Test Field"" -DocumentSet ""Test Document Set"" -SetAsSharedField -SetAsWelcomePageField",
-        Remarks = "This will set the field, available in one the available content types, as a Shared Field and as a Welcome Page Field.",
+        Code = @"PS:> Set-PnPDocumentSetField -Field ""Test Field"" -DocumentSet ""Test Document Set"" -SetSharedField -SetWelcomePageField",
+        Remarks = "This will set the field, available in one of the available content types, as a Shared Field and as a Welcome Page Field.",
         SortOrder = 1)]
     [CmdletExample(
-        Code = @"PS:> Set-SPODocumentSetField -Field ""Test Field"" -DocumentSet ""Test Document Set"" -RemoveAsSharedField -RemoveAsWelcomePageField",
-        Remarks = "This will remove the field, available in one the available content types, as a Shared Field and as a Welcome Page Field.",
+        Code = @"PS:> Set-PnPDocumentSetField -Field ""Test Field"" -DocumentSet ""Test Document Set"" -RemoveSharedField -RemoveWelcomePageField",
+        Remarks = "This will remove the field, available in one of the available content types, as a Shared Field and as a Welcome Page Field.",
         SortOrder = 1)]
     public class SetFieldInDocumentSet : SPOWebCmdlet
     {
-        [Parameter(Mandatory = true, HelpMessage = "The document set to set the field in. Either specify a name, a document set template object, an id, or a content type object")]
+        [Parameter(Mandatory = true, HelpMessage = "The document set in which to set the field. Either specify a name, a document set template object, an id, or a content type object")]
         public DocumentSetPipeBind DocumentSet;
 
         [Parameter(Mandatory = true, HelpMessage = "The field to set. The field needs to be available in one of the available content types. Either specify a name, an id or a field object")]
@@ -45,18 +41,19 @@ namespace OfficeDevPnP.PowerShell.Commands.DocumentSets
 
         protected override void ExecuteCmdlet()
         {
-            if (this.MyInvocation.BoundParameters.ContainsKey("SetSharedField") && this.MyInvocation.BoundParameters.ContainsKey("RemoveSharedField"))
+            if (MyInvocation.BoundParameters.ContainsKey("SetSharedField") && MyInvocation.BoundParameters.ContainsKey("RemoveSharedField"))
             {
                 WriteWarning("Cannot set and remove a shared field at the same time");
                 return;
             }
-            if (this.MyInvocation.BoundParameters.ContainsKey("SetWelcomePageField") && this.MyInvocation.BoundParameters.ContainsKey("RemoveWelcomePageField"))
+            if (MyInvocation.BoundParameters.ContainsKey("SetWelcomePageField") && MyInvocation.BoundParameters.ContainsKey("RemoveWelcomePageField"))
             {
                 WriteWarning("Cannot set and remove a welcome page field at the same time");
                 return;
             }
          
             var docSetTemplate = DocumentSet.GetDocumentSetTemplate(SelectedWeb);
+            
 
             ClientContext.Load(docSetTemplate, dt => dt.AllowedContentTypes, dt => dt.SharedFields, dt => dt.WelcomePageFields);
             ClientContext.ExecuteQueryRetry();
@@ -91,6 +88,14 @@ namespace OfficeDevPnP.PowerShell.Commands.DocumentSets
                     {
                         break;
                     }
+                }
+                if (existingField == null)
+                {
+                    var docSetCt = DocumentSet.ContentType;
+                    var fields = docSetCt.Fields;
+                    ClientContext.Load(fields, fs => fs.Include(f => f.Id));
+                    ClientContext.ExecuteQueryRetry();
+                    existingField = fields.FirstOrDefault(f => f.Id == field.Id);
                 }
                 if (existingField != null)
                 {

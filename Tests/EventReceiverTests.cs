@@ -4,7 +4,7 @@ using System.Management.Automation.Runspaces;
 using Microsoft.SharePoint.Client;
 using System.Linq;
 
-namespace OfficeDevPnP.PowerShell.Tests
+namespace SharePointPnP.PowerShell.Tests
 {
     [TestClass]
     public class EventReceiverTests
@@ -29,7 +29,7 @@ namespace OfficeDevPnP.PowerShell.Tests
         {
             using (var scope = new PSTestScope(true))
             {
-                scope.ExecuteCommand("Add-SPOEventReceiver",
+                scope.ExecuteCommand("Add-PnPEventReceiver",
                     new CommandParameter("Name", "TestEventReceiver"),
                     new CommandParameter("Url", "https://testserver.com/testeventreceiver.svc"),
                     new CommandParameter("EventReceiverType", EventReceiverType.ListAdded),
@@ -63,14 +63,14 @@ namespace OfficeDevPnP.PowerShell.Tests
                     receiver = ctx.Web.AddRemoteEventReceiver("TestEventReceiver", "https://testserver.com/testeventreceiver.svc", EventReceiverType.ListAdded, EventReceiverSynchronization.Asynchronous, true);
                 }
 
-                var results = scope.ExecuteCommand("Get-SPOEventReceiver");
+                var results = scope.ExecuteCommand("Get-PnPEventReceiver");
 
                 Assert.IsTrue(results.Any());
 
                 Assert.IsTrue(results[0].BaseObject.GetType() == typeof(EventReceiverDefinition));
 
 
-                results = scope.ExecuteCommand("Get-SPOEventReceiver",
+                results = scope.ExecuteCommand("Get-PnPEventReceiver",
                     new CommandParameter("Identity", receiver.ReceiverId));
 
                 Assert.IsTrue(results.Any());
@@ -97,7 +97,7 @@ namespace OfficeDevPnP.PowerShell.Tests
                     receiver = ctx.Web.AddRemoteEventReceiver("TestEventReceiver", "https://testserver.com/testeventreceiver.svc", EventReceiverType.ListAdded, EventReceiverSynchronization.Asynchronous, true);
                 }
 
-                var results = scope.ExecuteCommand("Remove-SPOEventReceiver",
+                var results = scope.ExecuteCommand("Remove-PnPEventReceiver",
                     new CommandParameter("Identity", receiver.ReceiverId),
                     new CommandParameter("Force"));
 

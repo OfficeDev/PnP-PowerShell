@@ -1,14 +1,15 @@
 ﻿using System.Management.Automation;
 using Microsoft.SharePoint.Client;
-using OfficeDevPnP.PowerShell.CmdletHelpAttributes;
+using SharePointPnP.PowerShell.CmdletHelpAttributes;
 
-namespace OfficeDevPnP.PowerShell.Commands
+namespace SharePointPnP.PowerShell.Commands.Branding
 {
-    [Cmdlet(VerbsCommon.Set, "SPOHomePage")]
+    [Cmdlet(VerbsCommon.Set, "PnPHomePage")]
+    [CmdletAlias("Set-SPOHomePage")]
     [CmdletHelp("Sets the home page of the current web.", 
         Category = CmdletHelpCategory.Branding)]
     [CmdletExample(
-        Code = @"PS:> Set-SPOHomePage -RootFolderRelativeUrl SitePages/Home.aspx",
+        Code = @"PS:> Set-PnPHomePage -RootFolderRelativeUrl SitePages/Home.aspx",
         Remarks = "Sets the home page to the home.aspx file which resides in the SitePages library",
         SortOrder = 1)]
     public class SetHomePage : SPOWebCmdlet

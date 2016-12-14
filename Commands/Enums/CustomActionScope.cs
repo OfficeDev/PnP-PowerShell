@@ -1,4 +1,4 @@
-﻿namespace OfficeDevPnP.PowerShell.Commands.Enums
+﻿namespace SharePointPnP.PowerShell.Commands.Enums
 {
     /// <summary>
     /// Scopes to which a CustomAction can be targeted

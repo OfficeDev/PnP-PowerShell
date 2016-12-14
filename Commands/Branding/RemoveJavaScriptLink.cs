@@ -1,27 +1,28 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Management.Automation;
 using Microsoft.SharePoint.Client;
-using OfficeDevPnP.PowerShell.CmdletHelpAttributes;
-using OfficeDevPnP.PowerShell.Commands.Enums;
-using Resources = OfficeDevPnP.PowerShell.Commands.Properties.Resources;
-using System;
-using System.Collections.Generic;
+using SharePointPnP.PowerShell.CmdletHelpAttributes;
+using SharePointPnP.PowerShell.Commands.Enums;
+using Resources = SharePointPnP.PowerShell.Commands.Properties.Resources;
 
-namespace OfficeDevPnP.PowerShell.Commands
+namespace SharePointPnP.PowerShell.Commands.Branding
 {
-    [Cmdlet(VerbsCommon.Remove, "SPOJavaScriptLink", SupportsShouldProcess = true)]
+    [Cmdlet(VerbsCommon.Remove, "PnPJavaScriptLink", SupportsShouldProcess = true)]
+    [CmdletAlias("Remove-SPOJavaScriptLink")]
     [CmdletHelp("Removes a JavaScript link or block from a web or sitecollection",
         Category = CmdletHelpCategory.Branding)]
-    [CmdletExample(Code = "PS:> Remove-SPOJavaScriptLink -Name jQuery",
+    [CmdletExample(Code = "PS:> Remove-PnPJavaScriptLink -Name jQuery",
                 Remarks = "Removes the injected JavaScript file with the name jQuery from the current web after confirmation",
                 SortOrder = 1)]
-    [CmdletExample(Code = "PS:> Remove-SPOJavaScriptLink -Name jQuery -Scope Site",
+    [CmdletExample(Code = "PS:> Remove-PnPJavaScriptLink -Name jQuery -Scope Site",
                 Remarks = "Removes the injected JavaScript file with the name jQuery from the current site collection after confirmation",
                 SortOrder = 2)]
-    [CmdletExample(Code = "PS:> Remove-SPOJavaScriptLink -Name jQuery -Scope Site -Force",
+    [CmdletExample(Code = "PS:> Remove-PnPJavaScriptLink -Name jQuery -Scope Site -Force",
                 Remarks = "Removes the injected JavaScript file with the name jQuery from the current site collection and will not ask for confirmation",
                 SortOrder = 3)]
-    [CmdletExample(Code = "PS:> Remove-SPOJavaScriptLink -Scope Site",
+    [CmdletExample(Code = "PS:> Remove-PnPJavaScriptLink -Scope Site",
                 Remarks = "Removes all the injected JavaScript files with from the current site collection after confirmation for each of them",
                 SortOrder = 4)]
     public class RemoveJavaScriptLink : SPOWebCmdlet

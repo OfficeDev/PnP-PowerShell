@@ -1,27 +1,28 @@
-﻿using OfficeDevPnP.PowerShell.Commands.Base.PipeBinds;
-using Microsoft.SharePoint.Client;
-using System.Management.Automation;
-using System;
-using OfficeDevPnP.Core.Entities;
-using Microsoft.SharePoint.Client.Taxonomy;
+﻿using System;
 using System.Collections.Generic;
-using OfficeDevPnP.PowerShell.CmdletHelpAttributes;
 using System.Linq;
+using System.Management.Automation;
+using Microsoft.SharePoint.Client;
+using Microsoft.SharePoint.Client.Taxonomy;
+using OfficeDevPnP.Core.Entities;
+using SharePointPnP.PowerShell.CmdletHelpAttributes;
+using SharePointPnP.PowerShell.Commands.Base.PipeBinds;
 
-namespace OfficeDevPnP.PowerShell.Commands
+namespace SharePointPnP.PowerShell.Commands.Lists
 {
     //TODO: Create Test
 
-    [Cmdlet(VerbsCommon.Set, "SPODefaultColumnValues")]
+    [Cmdlet(VerbsCommon.Set, "PnPDefaultColumnValues")]
+    [CmdletAlias("Set-SPODefaultColumnValues")]
     [CmdletHelp("Sets default column values for a document library",
         DetailedDescription = "Sets default column values for a document library, per folder, or for the root folder if the folder parameter has not been specified. Supports both text and taxonomy fields.",
         Category = CmdletHelpCategory.Lists)]
     [CmdletExample(
-        Code = "PS:> Set-SPODefaultColumnValues -List Documents -Field TaxKeyword -Value \"Company|Locations|Stockholm\"",
+        Code = "PS:> Set-PnPDefaultColumnValues -List Documents -Field TaxKeyword -Value \"Company|Locations|Stockholm\"",
         SortOrder = 1,
         Remarks = "Sets a default value for the enterprise keywords field on a library to a term called \"Stockholm\", located in the \"Locations\" term set, which is part of the \"Company\" term group")]
     [CmdletExample(
-        Code = "PS:> Set-SPODefaultColumnValues -List Documents -Field MyTextField -Value \"DefaultValue\"",
+        Code = "PS:> Set-PnPDefaultColumnValues -List Documents -Field MyTextField -Value \"DefaultValue\"",
         SortOrder = 2,
         Remarks = "Sets a default value for the MyTextField text field on a library to a value of \"DefaultValue\"")]
     public class SetDefaultColumnValues : SPOWebCmdlet
@@ -32,7 +33,7 @@ namespace OfficeDevPnP.PowerShell.Commands
         [Parameter(Mandatory = true, HelpMessage = "The internal name, id or a reference to a field")]
         public FieldPipeBind Field;
 
-        [Parameter(Mandatory = true, HelpMessage = "A list of values. In case of a text field the values will be concatenated, separated by a semi-column. In case of a taxonomy field multiple values will added")]
+        [Parameter(Mandatory = true, HelpMessage = "A list of values. In case of a text field the values will be concatenated, separated by a semi-colon. In case of a taxonomy field multiple values will added")]
         public string[] Value;
 
         [Parameter(Mandatory = false, HelpMessage = "A library relative folder path, if not specified it will set the default column values on the root folder of the library ('/')")]
@@ -47,7 +48,7 @@ namespace OfficeDevPnP.PowerShell.Commands
             }
             if (list != null)
             {
-                if (list.BaseTemplate == (int)ListTemplateType.DocumentLibrary)
+                if (list.BaseTemplate == (int)ListTemplateType.DocumentLibrary || list.BaseTemplate == (int)ListTemplateType.WebPageLibrary)
                 {
                     Field field = null;
                     // Get the field
@@ -75,7 +76,7 @@ namespace OfficeDevPnP.PowerShell.Commands
                     if (field != null)
                     {
                         IDefaultColumnValue defaultColumnValue = null;
-                        if (field.TypeAsString == "Text")
+                        if (field.TypeAsString == "Text" || field.TypeAsString == "Choice" ||field.TypeAsString == "MultiChoice")
                         {
                             var values = string.Join(";", Value);
                             defaultColumnValue = new DefaultColumnTextValue()

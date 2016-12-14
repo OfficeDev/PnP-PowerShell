@@ -5,7 +5,7 @@ using Microsoft.SharePoint.Client;
 using System.Linq;
 using OfficeDevPnP.Core.Entities;
 
-namespace OfficeDevPnP.PowerShell.Tests
+namespace SharePointPnP.PowerShell.Tests
 {
     [TestClass]
     public class FieldsTests
@@ -17,7 +17,7 @@ namespace OfficeDevPnP.PowerShell.Tests
             {
                 using (var scope = new PSTestScope(true))
                 {
-                    scope.ExecuteCommand("Add-SPOField",
+                    scope.ExecuteCommand("Add-PnPField",
                         new CommandParameter("DisplayName", "PSCmdletTestField"),
                         new CommandParameter("InternalName", "PSCmdletTestField"),
                         new CommandParameter("Type", FieldType.Text),
@@ -49,7 +49,7 @@ namespace OfficeDevPnP.PowerShell.Tests
             {
                 using (var scope = new PSTestScope(true))
                 {
-                    scope.ExecuteCommand("Add-SPOFieldFromXml",
+                    scope.ExecuteCommand("Add-PnPFieldFromXml",
                         new CommandParameter("FieldXml", xml));
                 }
 
@@ -89,7 +89,7 @@ namespace OfficeDevPnP.PowerShell.Tests
                 ctx.ExecuteQueryRetry();
                 using (var scope = new PSTestScope(true))
                 {
-                    scope.ExecuteCommand("Add-SPOTaxonomyField",
+                    scope.ExecuteCommand("Add-PnPTaxonomyField",
                         new CommandParameter("DisplayName", "PSCmdletTestField"),
                         new CommandParameter("InternalName", "PSCmdletTestField"),
                         new CommandParameter("TaxonomyItemId", termSet.Id),
@@ -117,7 +117,7 @@ namespace OfficeDevPnP.PowerShell.Tests
 
             using (var scope = new PSTestScope(true))
             {
-                var results = scope.ExecuteCommand("Get-SPOField");
+                var results = scope.ExecuteCommand("Get-PnPField");
 
                 Assert.IsTrue(results.Any());
 
@@ -131,7 +131,7 @@ namespace OfficeDevPnP.PowerShell.Tests
 
             using (var scope = new PSTestScope(true))
             {
-                var results = scope.ExecuteCommand("Get-SPOField",
+                var results = scope.ExecuteCommand("Get-PnPField",
                     new CommandParameter("Identity", "Title"));
 
                 Assert.IsTrue(results.Any());
@@ -157,7 +157,7 @@ namespace OfficeDevPnP.PowerShell.Tests
 
                 using (var scope = new PSTestScope(true))
                 {
-                    scope.ExecuteCommand("Remove-SPOField",
+                    scope.ExecuteCommand("Remove-PnPField",
                         new CommandParameter("Identity", "PnPTestTextField"),
                         new CommandParameter("Force"));
 

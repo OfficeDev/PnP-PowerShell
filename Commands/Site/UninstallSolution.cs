@@ -1,11 +1,12 @@
 ﻿using System.Management.Automation;
 using Microsoft.SharePoint.Client;
-using OfficeDevPnP.PowerShell.CmdletHelpAttributes;
-using OfficeDevPnP.PowerShell.Commands.Base.PipeBinds;
+using SharePointPnP.PowerShell.CmdletHelpAttributes;
+using SharePointPnP.PowerShell.Commands.Base.PipeBinds;
 
-namespace OfficeDevPnP.PowerShell.Commands
+namespace SharePointPnP.PowerShell.Commands.Site
 {
-    [Cmdlet(VerbsLifecycle.Uninstall, "SPOSolution")]
+    [Cmdlet(VerbsLifecycle.Uninstall, "PnPSolution")]
+    [CmdletAlias("Uninstall-SPOSolution")]
     [CmdletHelp("Uninstalls a sandboxed solution from a site collection",
         Category = CmdletHelpCategory.Sites)]
     public class UninstallSolution : SPOCmdlet

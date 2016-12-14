@@ -1,20 +1,22 @@
 ﻿using System.Management.Automation;
 using Microsoft.SharePoint.Client;
 using Microsoft.SharePoint.Client.Taxonomy;
-using OfficeDevPnP.PowerShell.CmdletHelpAttributes;
+using SharePointPnP.PowerShell.CmdletHelpAttributes;
 using File = System.IO.File;
+using System.Linq;
 
-namespace OfficeDevPnP.PowerShell.Commands
+namespace SharePointPnP.PowerShell.Commands.Taxonomy
 {
-    [Cmdlet(VerbsData.Import, "SPOTaxonomy", SupportsShouldProcess = true)]
+    [Cmdlet(VerbsData.Import, "PnPTaxonomy", SupportsShouldProcess = true)]
+    [CmdletAlias("Import-SPOTaxonomy")]
     [CmdletHelp("Imports a taxonomy from either a string array or a file",
         Category = CmdletHelpCategory.Taxonomy)]
     [CmdletExample(
-        Code = @"PS:> Import-SPOTaxonomy -Terms 'Company|Locations|Stockholm'",
+        Code = @"PS:> Import-PnPTaxonomy -Terms 'Company|Locations|Stockholm'",
         Remarks = "Creates a new termgroup, 'Company', a termset 'Locations' and a term 'Stockholm'",
         SortOrder = 1)]
     [CmdletExample(
-        Code = @"PS:> Import-SPOTaxonomy -Terms 'Company|Locations|Stockholm|Central','Company|Locations|Stockholm|North'",
+        Code = @"PS:> Import-PnPTaxonomy -Terms 'Company|Locations|Stockholm|Central','Company|Locations|Stockholm|North'",
         Remarks = "Creates a new termgroup, 'Company', a termset 'Locations', a term 'Stockholm' and two subterms: 'Central', and 'North'",
         SortOrder = 2)]
     public class ImportTaxonomy : SPOCmdlet
@@ -29,13 +31,13 @@ namespace OfficeDevPnP.PowerShell.Commands
         [Parameter(Mandatory = false, ParameterSetName = ParameterAttribute.AllParameterSets)]
         public int Lcid = 1033;
 
-        [Parameter(Mandatory = false, ParameterSetName = ParameterAttribute.AllParameterSets)]
+        [Parameter(Mandatory = false, ParameterSetName = ParameterAttribute.AllParameterSets, HelpMessage = "Term store to import to; if not specified the default term store is used.")]
         public string TermStoreName;
 
-        [Parameter(Mandatory = false, ParameterSetName = ParameterAttribute.AllParameterSets)]
+        [Parameter(Mandatory = false, ParameterSetName = ParameterAttribute.AllParameterSets, HelpMessage = "The path delimiter to be used, by default this is '|'")]
         public string Delimiter = "|";
 
-        [Parameter(Mandatory = false, ParameterSetName = ParameterAttribute.AllParameterSets, HelpMessage = "If specified, terms that exist in the termset, but are not in the imported data will be removed.")]
+        [Parameter(Mandatory = false, ParameterSetName = ParameterAttribute.AllParameterSets, HelpMessage = "If specified, terms that exist in the termset, but are not in the imported data, will be removed.")]
         public SwitchParameter SynchronizeDeletions;
 
         protected override void ExecuteCmdlet()
@@ -54,6 +56,9 @@ namespace OfficeDevPnP.PowerShell.Commands
             {
                 lines = Terms;
             }
+
+            lines = lines.Where(line => !string.IsNullOrWhiteSpace(line)).ToArray();
+
             if (!string.IsNullOrEmpty(TermStoreName))
             {
                 var taxSession = TaxonomySession.GetTaxonomySession(ClientContext);

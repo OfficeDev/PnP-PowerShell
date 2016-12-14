@@ -1,10 +1,11 @@
 ﻿using System.Management.Automation;
 using Microsoft.SharePoint.Client;
-using OfficeDevPnP.PowerShell.CmdletHelpAttributes;
+using SharePointPnP.PowerShell.CmdletHelpAttributes;
 
-namespace OfficeDevPnP.PowerShell.Commands
+namespace SharePointPnP.PowerShell.Commands
 {
-    [Cmdlet(VerbsCommon.Get, "SPOIndexedPropertyKeys")]
+    [Cmdlet(VerbsCommon.Get, "PnPIndexedPropertyKeys")]
+    [CmdletAlias("Get-SPOIndexedPropertyKeys")]
     [CmdletHelp("Returns the keys of the property bag values that have been marked for indexing by search",
         Category = CmdletHelpCategory.Webs)]
     public class GetIndexedProperties : SPOWebCmdlet

@@ -1,6 +1,8 @@
 ﻿using System;
+using Microsoft.SharePoint.Client;
+using Microsoft.SharePoint.Client.Taxonomy;
 
-namespace OfficeDevPnP.PowerShell.Commands.Base.PipeBinds
+namespace SharePointPnP.PowerShell.Commands.Base.PipeBinds
 {
     public sealed class TermGroupPipeBind
     {
@@ -21,6 +23,15 @@ namespace OfficeDevPnP.PowerShell.Commands.Base.PipeBinds
             {
                 _name = id;
             }
+        }
+
+        public TermGroupPipeBind(TermGroup termGroup)
+        {
+            if (!termGroup.IsPropertyAvailable("Id"))
+            {
+                termGroup.EnsureProperty(t => t.Id);
+            }
+            _id = termGroup.Id;
         }
 
         public Guid Id

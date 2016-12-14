@@ -5,17 +5,21 @@ using Microsoft.SharePoint.Client;
 using System.Linq;
 using OfficeDevPnP.Core.Enums;
 
-namespace OfficeDevPnP.PowerShell.Tests
+namespace SharePointPnP.PowerShell.Tests
 {
     [TestClass]
     public class BrandingTests
     {
+        // Planning to move to Core.Constants
+        private readonly Guid PUBLISHING_FEATURE_WEB = new Guid("94c94ca6-b32f-4da9-a9e3-1f3d343d7ecb");
+        private readonly Guid PUBLISHING_FEATURE_SITE = new Guid("f6924d36-2fa8-4f0b-b16d-06b7250180fa");
+
         [TestMethod]
         public void AddCustomActionTest()
         {
             using (var scope = new PSTestScope(true))
             {
-                var results = scope.ExecuteCommand("Add-SPOCustomAction",
+                var results = scope.ExecuteCommand("Add-PnPCustomAction",
                     new CommandParameter("Name", "TestCustomAction"),
                     new CommandParameter("Title", "TestCustomAction"),
                     new CommandParameter("Description", "Test Custom Action Description"),
@@ -42,7 +46,7 @@ namespace OfficeDevPnP.PowerShell.Tests
         {
             using (var scope = new PSTestScope(true))
             {
-                var results = scope.ExecuteCommand("Add-SPOJavascriptBlock",
+                var results = scope.ExecuteCommand("Add-PnPJavascriptBlock",
                     new CommandParameter("Name", "TestJavascriptBlock"),
                     new CommandParameter("Script", "<script type='text/javascript'>alert('1')</script>"));
 
@@ -63,7 +67,7 @@ namespace OfficeDevPnP.PowerShell.Tests
         {
             using (var scope = new PSTestScope(true))
             {
-                var results = scope.ExecuteCommand("Add-SPOJavascriptLink",
+                var results = scope.ExecuteCommand("Add-PnPJavascriptLink",
                     new CommandParameter("Key", "TestJavascriptLink"),
                     new CommandParameter("Url", "https://testserver.com/testtojavascriptlink.js"));
 
@@ -84,7 +88,7 @@ namespace OfficeDevPnP.PowerShell.Tests
         {
             using (var scope = new PSTestScope(true))
             {
-                var results = scope.ExecuteCommand("Add-SPONavigationNode",
+                var results = scope.ExecuteCommand("Add-PnPNavigationNode",
                     new CommandParameter("Location", NavigationType.QuickLaunch),
                     new CommandParameter("Title", "Test Navigation Item"),
                     new CommandParameter("Url", "https://testserver.com/testtojavascriptlink.js"));
@@ -108,7 +112,7 @@ namespace OfficeDevPnP.PowerShell.Tests
         {
             using (var scope = new PSTestScope(true))
             {
-                scope.ExecuteCommand("Add-SPOJavascriptLink",
+                scope.ExecuteCommand("Add-PnPJavascriptLink",
                     new CommandParameter("Key", "TestJavascriptLink"),
                     new CommandParameter("Url", "https://testserver.com/testtojavascriptlink.js"));
 
@@ -131,11 +135,11 @@ namespace OfficeDevPnP.PowerShell.Tests
         {
             using (var scope = new PSTestScope(true))
             {
-                scope.ExecuteCommand("Add-SPOJavascriptLink",
+                scope.ExecuteCommand("Add-PnPJavascriptLink",
                     new CommandParameter("Key", "TestJavascriptLink"),
                     new CommandParameter("Url", "https://testserver.com/testtojavascriptlink.js"));
 
-                var results = scope.ExecuteCommand("Get-SPOJavaScriptLink");
+                var results = scope.ExecuteCommand("Get-PnPJavaScriptLink");
 
                 Assert.IsTrue(results.Any());
 
@@ -154,7 +158,7 @@ namespace OfficeDevPnP.PowerShell.Tests
         {
             using (var scope = new PSTestScope(true))
             {
-                var results = scope.ExecuteCommand("Get-SPOProvisioningTemplate");
+                var results = scope.ExecuteCommand("Get-PnPProvisioningTemplate");
 
                 Assert.IsTrue(results.Any());
 
@@ -167,7 +171,7 @@ namespace OfficeDevPnP.PowerShell.Tests
         {
             using (var scope = new PSTestScope(true))
             {
-                var results = scope.ExecuteCommand("Apply-SPOProvisioningTemplate",
+                var results = scope.ExecuteCommand("Apply-PnPProvisioningTemplate",
                     new CommandParameter("Path", "..\\..\\Resources\\template.xml")
                     );
 
@@ -196,7 +200,7 @@ namespace OfficeDevPnP.PowerShell.Tests
         {
             using (var scope = new PSTestScope(true))
             {
-                scope.ExecuteCommand("Add-SPOCustomAction",
+                scope.ExecuteCommand("Add-PnPCustomAction",
                     new CommandParameter("Name", "TestCustomAction"),
                     new CommandParameter("Title", "TestCustomAction"),
                     new CommandParameter("Description", "Test Custom Action Description"),
@@ -214,7 +218,7 @@ namespace OfficeDevPnP.PowerShell.Tests
 
                     var id = actions.FirstOrDefault().Id;
 
-                    scope.ExecuteCommand("Remove-SPOCustomAction",
+                    scope.ExecuteCommand("Remove-PnPCustomAction",
                         new CommandParameter("Identity", id),
                         new CommandParameter("Force", true));
 
@@ -231,7 +235,7 @@ namespace OfficeDevPnP.PowerShell.Tests
         {
             using (var scope = new PSTestScope(true))
             {
-                var results = scope.ExecuteCommand("Add-SPOJavascriptLink",
+                var results = scope.ExecuteCommand("Add-PnPJavascriptLink",
                     new CommandParameter("Key", "TestJavascriptLink"),
                     new CommandParameter("Url", "https://testserver.com/testtojavascriptlink.js"));
 
@@ -243,7 +247,7 @@ namespace OfficeDevPnP.PowerShell.Tests
 
                     var name = actions.FirstOrDefault().Name;
 
-                    scope.ExecuteCommand("Remove-SPOJavaScriptLink",
+                    scope.ExecuteCommand("Remove-PnPJavaScriptLink",
                         new CommandParameter("Name", name),
                         new CommandParameter("Force", true));
 
@@ -259,7 +263,7 @@ namespace OfficeDevPnP.PowerShell.Tests
         {
             using (var scope = new PSTestScope(true))
             {
-                var results = scope.ExecuteCommand("Add-SPONavigationNode",
+                var results = scope.ExecuteCommand("Add-PnPNavigationNode",
                     new CommandParameter("Location", NavigationType.QuickLaunch),
                     new CommandParameter("Title", "Test Navigation Item"),
                     new CommandParameter("Url", "https://testserver.com/testtojavascriptlink.js"));
@@ -272,7 +276,7 @@ namespace OfficeDevPnP.PowerShell.Tests
 
                     Assert.IsTrue(nodes.Any());
 
-                    scope.ExecuteCommand("Remove-SPONavigationNode",
+                    scope.ExecuteCommand("Remove-PnPNavigationNode",
                         new CommandParameter("Location", NavigationType.QuickLaunch),
                         new CommandParameter("Title", "Test Navigation Item"),
                         new CommandParameter("Force", true)
@@ -298,7 +302,7 @@ namespace OfficeDevPnP.PowerShell.Tests
 
                 using (var scope = new PSTestScope(true))
                 {
-                    var results = scope.ExecuteCommand("Set-SPOHomePage",
+                    var results = scope.ExecuteCommand("Set-PnPHomePage",
                         new CommandParameter("RootFolderRelativeUrl", "sitepages/demo.aspx"));
 
                     context.Load(context.Web, w => w.RootFolder.WelcomePage);
@@ -326,10 +330,63 @@ namespace OfficeDevPnP.PowerShell.Tests
 
                 using (var scope = new PSTestScope(true))
                 {
-                    var results = scope.ExecuteCommand("Get-SPOHomePage");
+                    var results = scope.ExecuteCommand("Get-PnPHomePage");
 
                     Assert.IsInstanceOfType(results.FirstOrDefault().BaseObject, typeof(string));
                     Assert.IsTrue((results.FirstOrDefault().BaseObject as string).ToLowerInvariant() == existingHomePageUrl.ToLowerInvariant());
+                }
+            }
+        }
+
+        [TestMethod]
+        public void SetAvailablePageLayoutsTest()
+        {
+            using (var context = TestCommon.CreateClientContext())
+            {
+                // Arrange
+                var newPageLayouts = new string[3];
+                newPageLayouts[0] = "articleleft.aspx";
+                newPageLayouts[1] = "articleright.aspx";
+                newPageLayouts[2] = "projectpage.aspx";
+
+                using (var scope = new PSTestScope(true))
+                {
+                    // Act
+                    var results = scope.ExecuteCommand("Set-PnPAvailablePageLayouts",
+                        new CommandParameter("PageLayouts", newPageLayouts));
+
+                    var pageLayouts = context.Web.GetPropertyBagValueString(
+                        "__PageLayouts", string.Empty);
+
+                    // Assert
+                    Assert.IsTrue(!string.IsNullOrWhiteSpace(pageLayouts));
+
+                    foreach (var item in newPageLayouts)
+                    {
+                        Assert.IsTrue(pageLayouts.ToLowerInvariant().Contains(item));
+                    }
+                }
+            }
+        }
+
+        [TestMethod]
+        public void SetAllowAllPageLayoutsTest()
+        {
+            using (var context = TestCommon.CreateClientContext())
+            {
+                // Arrange
+
+                using (var scope = new PSTestScope(true))
+                {
+                    // Act
+                    var results = scope.ExecuteCommand("Set-PnPAvailablePageLayouts",
+                        new CommandParameter("AllowAllPageLayouts"));
+
+                    var pageLayouts = context.Web.GetPropertyBagValueString(
+                        "__PageLayouts", string.Empty);
+
+                    // Assert
+                    Assert.IsTrue(string.IsNullOrWhiteSpace(pageLayouts));
                 }
             }
         }
@@ -347,7 +404,7 @@ namespace OfficeDevPnP.PowerShell.Tests
 
                 using (var scope = new PSTestScope(true))
                 {
-                    var results = scope.ExecuteCommand("Set-SPOMasterPage",
+                    var results = scope.ExecuteCommand("Set-PnPMasterPage",
                         new CommandParameter("MasterPageServerRelativeUrl", "/sites/tests/_catalogs/default.master"),
                         new CommandParameter("CustomMasterPageServerRelativeUrl", "/sites/tests/_catalogs/custom.master"));
 
@@ -364,6 +421,122 @@ namespace OfficeDevPnP.PowerShell.Tests
             }
         }
 
+        /// <summary>
+        /// Sets projectpage.aspx as the default layout and checks if it is set correctly
+        /// </summary>
+        /// <remarks>
+        /// Activates the publishing feature if not activated, then deactivates it
+        /// </remarks>
+        [TestMethod]
+        public void SetDefaultPageLayoutTest()
+        {
+            using (var ctx = TestCommon.CreateClientContext())
+            {
+                // Arrange
+                var pageLayoutFileName = "projectpage.aspx";
+                var isSiteFeatureActive = ctx.Site.IsFeatureActive(PUBLISHING_FEATURE_SITE);
+                var isWebFeatureActive = ctx.Web.IsFeatureActive(PUBLISHING_FEATURE_WEB);
+
+                if (!isSiteFeatureActive)
+                {
+                    ctx.Site.ActivateFeature(PUBLISHING_FEATURE_SITE);
+                }
+
+                if (!isWebFeatureActive)
+                {
+                    ctx.Web.ActivateFeature(PUBLISHING_FEATURE_WEB);
+                }
+
+                using (var scope = new PSTestScope(true))
+                {
+                    // Act
+                    var results = scope.ExecuteCommand(
+                        "Set-PnPDefaultPageLayout",
+                        new CommandParameter("Title", pageLayoutFileName));
+
+                    var defaultPageLayout = ctx.Web.GetPropertyBagValueString(
+                        "__DefaultPageLayout",
+                        string.Empty);
+
+                    // Assert
+                    Assert.AreNotEqual(defaultPageLayout, "__inherit", true); //confirm it is not set to inherit
+                    Assert.IsTrue(defaultPageLayout.ToLowerInvariant().Contains(pageLayoutFileName));
+                }
+
+                // Cleanup
+                if (!isWebFeatureActive)
+                {
+                    ctx.Web.DeactivateFeature(PUBLISHING_FEATURE_WEB);
+                }
+
+                if (!isSiteFeatureActive)
+                {
+                    ctx.Site.DeactivateFeature(PUBLISHING_FEATURE_SITE);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Sets projectpage.aspx as the default page layout, then resets the site to inherit,\
+        /// then checks if it is set correctly
+        /// </summary>
+        /// <remarks>
+        /// Activates the publishing feature if not activated, then deactivates it
+        /// </remarks>
+        [TestMethod]
+        public void SetPageLayoutToInheritTest()
+        {
+            using (var ctx = TestCommon.CreateClientContext())
+            {
+                // Arrange
+                var pageLayoutFileName = "projectpage.aspx";
+                var isSiteFeatureActive = ctx.Site.IsFeatureActive(PUBLISHING_FEATURE_SITE);
+                var isWebFeatureActive = ctx.Web.IsFeatureActive(PUBLISHING_FEATURE_WEB);
+
+                if (!isSiteFeatureActive)
+                {
+                    ctx.Site.ActivateFeature(PUBLISHING_FEATURE_SITE);
+                }
+
+                if (!isWebFeatureActive)
+                {
+                    ctx.Web.ActivateFeature(PUBLISHING_FEATURE_WEB);
+                }
+
+                using (var scope = new PSTestScope(true))
+                {
+                    // Act
+                    scope.ExecuteCommand(
+                        "Set-PnPDefaultPageLayout",
+                        new CommandParameter("Title", pageLayoutFileName));
+
+                    scope.ExecuteCommand(
+                        "Set-PnPDefaultPageLayout",
+                        new CommandParameter("InheritFromParentSite"));
+
+                    var defaultPageLayout = ctx.Web.GetPropertyBagValueString(
+                        "__DefaultPageLayout",
+                        string.Empty);
+
+                    // Assert
+                    Assert.AreEqual(defaultPageLayout, "__inherit", true); //confirm it is set to inherit
+                    Assert.IsFalse(defaultPageLayout.ToLowerInvariant().Contains(pageLayoutFileName));
+                }
+
+                // Cleanup
+                if (!isWebFeatureActive)
+                {
+                    ctx.Web.DeactivateFeature(PUBLISHING_FEATURE_WEB);
+                }
+
+                if (!isSiteFeatureActive)
+                {
+                    ctx.Site.DeactivateFeature(PUBLISHING_FEATURE_SITE);
+                }
+            }
+        }
+
+
         [TestMethod]
         public void SetMinimalDownloadStrategyTest()
         {
@@ -377,30 +550,30 @@ namespace OfficeDevPnP.PowerShell.Tests
                     if (isActive)
                     {
                         // Deactivate
-                        scope.ExecuteCommand("Set-SPOMinimalDownloadStrategy",
+                        scope.ExecuteCommand("Set-PnPMinimalDownloadStrategy",
                             new CommandParameter("Off"),
                             new CommandParameter("Force"));
 
                     }
                     else
                     {
-                        scope.ExecuteCommand("Set-SPOMinimalDownloadStrategy",
+                        scope.ExecuteCommand("Set-PnPMinimalDownloadStrategy",
                             new CommandParameter("On"));
                     }
                 }
             }
             using (var context = TestCommon.CreateClientContext())
             {
-                var featureActive = context.Web.IsFeatureActive(Core.Constants.MINIMALDOWNLOADSTRATEGYFEATUREID);
+                var featureActive = context.Web.IsFeatureActive(OfficeDevPnP.Core.Constants.MINIMALDOWNLOADSTRATEGYFEATUREID);
                 if (isActive)
                 {
                     Assert.IsFalse(featureActive);
-                    context.Web.ActivateFeature(Core.Constants.MINIMALDOWNLOADSTRATEGYFEATUREID);
+                    context.Web.ActivateFeature(OfficeDevPnP.Core.Constants.MINIMALDOWNLOADSTRATEGYFEATUREID);
                 }
                 else
                 {
                     Assert.IsTrue(featureActive);
-                    context.Web.DeactivateFeature(Core.Constants.MINIMALDOWNLOADSTRATEGYFEATUREID);
+                    context.Web.DeactivateFeature(OfficeDevPnP.Core.Constants.MINIMALDOWNLOADSTRATEGYFEATUREID);
                 }
             }
         }

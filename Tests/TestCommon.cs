@@ -3,8 +3,11 @@ using System;
 using System.Configuration;
 using System.Security;
 using System.Net;
+using Core = OfficeDevPnP.Core;
+using System.Threading;
+using SharePointPnP.PowerShell.Commands.Base;
 
-namespace OfficeDevPnP.PowerShell.Tests
+namespace SharePointPnP.PowerShell.Tests
 {
     static class TestCommon
     {
@@ -17,12 +20,27 @@ namespace OfficeDevPnP.PowerShell.Tests
 
             if (string.IsNullOrEmpty(TenantUrl) || string.IsNullOrEmpty(DevSiteUrl))
             {
-                throw new ConfigurationErrorsException("Tenant credentials in App.config are not set up.");
+                throw new ConfigurationErrorsException("Tenant site Url or Dev site url in App.config are not set up.");
             }
+
+            // Trim trailing slashes
+            TenantUrl = TenantUrl.TrimEnd(new[] { '/' });
+            DevSiteUrl = DevSiteUrl.TrimEnd(new[] { '/' });
 
             if (!string.IsNullOrEmpty(ConfigurationManager.AppSettings["SPOCredentialManagerLabel"]))
             {
-                Credentials = Core.Utilities.CredentialManager.GetSharePointOnlineCredential(ConfigurationManager.AppSettings["SPOCredentialManagerLabel"]);
+                var tempCred = Core.Utilities.CredentialManager.GetCredential(ConfigurationManager.AppSettings["SPOCredentialManagerLabel"]);
+
+                // username in format domain\user means we're testing in on-premises
+                if (tempCred.UserName.IndexOf("\\") > 0)
+                {
+                    string[] userParts = tempCred.UserName.Split('\\');
+                    Credentials = new NetworkCredential(userParts[1], tempCred.SecurePassword, userParts[0]);
+                }
+                else
+                {
+                    Credentials = new SharePointOnlineCredentials(tempCred.UserName, tempCred.SecurePassword);
+                }
             }
             else
             {
@@ -42,11 +60,9 @@ namespace OfficeDevPnP.PowerShell.Tests
                     Password = GetSecureString(ConfigurationManager.AppSettings["OnPremPassword"]);
                     Credentials = new NetworkCredential(ConfigurationManager.AppSettings["OnPremUserName"], Password, ConfigurationManager.AppSettings["OnPremDomain"]);
                 }
-                else if (!String.IsNullOrEmpty(ConfigurationManager.AppSettings["Realm"]) &&
-                         !String.IsNullOrEmpty(ConfigurationManager.AppSettings["AppId"]) &&
+                else if (!String.IsNullOrEmpty(ConfigurationManager.AppSettings["AppId"]) &&
                          !String.IsNullOrEmpty(ConfigurationManager.AppSettings["AppSecret"]))
                 {
-                    Realm = ConfigurationManager.AppSettings["Realm"];
                     AppId = ConfigurationManager.AppSettings["AppId"];
                     AppSecret = ConfigurationManager.AppSettings["AppSecret"];
                 }
@@ -90,8 +106,7 @@ namespace OfficeDevPnP.PowerShell.Tests
 
         public static bool AppOnlyTesting()
         {
-            if (!String.IsNullOrEmpty(ConfigurationManager.AppSettings["Realm"]) &&
-                !String.IsNullOrEmpty(ConfigurationManager.AppSettings["AppId"]) &&
+            if (!String.IsNullOrEmpty(ConfigurationManager.AppSettings["AppId"]) &&
                 !String.IsNullOrEmpty(ConfigurationManager.AppSettings["AppSecret"]) &&
                 String.IsNullOrEmpty(ConfigurationManager.AppSettings["SPOCredentialManagerLabel"]) &&
                 String.IsNullOrEmpty(ConfigurationManager.AppSettings["SPOUserName"]) &&
@@ -110,17 +125,27 @@ namespace OfficeDevPnP.PowerShell.Tests
 
         private static ClientContext CreateContext(string contextUrl, ICredentials credentials)
         {
-            ClientContext context;
-            if (!String.IsNullOrEmpty(Realm) && !String.IsNullOrEmpty(AppId) && !String.IsNullOrEmpty(AppSecret))
+            ClientContext context = null;
+            if (!String.IsNullOrEmpty(AppId) && !String.IsNullOrEmpty(AppSecret))
             {
-                var am = new OfficeDevPnP.Core.AuthenticationManager();
-                context = am.GetAppOnlyAuthenticatedContext(contextUrl, Realm, AppId, AppSecret);
+                OfficeDevPnP.Core.AuthenticationManager am = new OfficeDevPnP.Core.AuthenticationManager();
+
+                if (new Uri(DevSiteUrl).DnsSafeHost.Contains("spoppe.com"))
+                {
+                    context = am.GetAppOnlyAuthenticatedContext(DevSiteUrl, SPOnlineConnectionHelper.GetRealmFromTargetUrl(new Uri(DevSiteUrl)), AppId, AppSecret, acsHostUrl: "windows-ppe.net", globalEndPointPrefix: "login");
+                }
+                else
+                {
+                    context = am.GetAppOnlyAuthenticatedContext(DevSiteUrl, AppId, AppSecret);
+                }
             }
             else
             {
-                context = new ClientContext(contextUrl);
-                context.Credentials = credentials;
+                context = new ClientContext(DevSiteUrl);
+                context.Credentials = Credentials;
             }
+
+            context.RequestTimeout = Timeout.Infinite;
             return context;
         }
 

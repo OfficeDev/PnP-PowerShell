@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Runtime.Serialization;
 
-namespace OfficeDevPnP.PowerShell.CmdletHelpAttributes
+namespace SharePointPnP.PowerShell.CmdletHelpAttributes
 {
     public enum CmdletHelpCategory
     {
@@ -39,6 +34,10 @@ namespace OfficeDevPnP.PowerShell.CmdletHelpAttributes
         [EnumMember(Value = "Web Parts")]
         WebParts = 19,
         Workflows = 20,
-
+        Provisioning = 21,
+        [EnumMember(Value = "Files and Folders")]
+        Files = 22,
+        [EnumMember(Value = "Microsoft Graph")]
+        Graph = 23
     }
 }

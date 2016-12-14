@@ -1,13 +1,15 @@
 ﻿using System.Management.Automation;
 using Microsoft.SharePoint.Client;
-using OfficeDevPnP.PowerShell.CmdletHelpAttributes;
+using SharePointPnP.PowerShell.CmdletHelpAttributes;
 
-namespace OfficeDevPnP.PowerShell.Commands
+namespace SharePointPnP.PowerShell.Commands.Branding
 {
-    [Cmdlet(VerbsCommon.Get, "SPOHomePage")]
+    [Cmdlet(VerbsCommon.Get, "PnPHomePage")]
+    [CmdletAlias("Get-SPOHomePage")]
     [CmdletHelp("Returns the URL to the home page", 
-        Category = CmdletHelpCategory.Branding)]
-    [CmdletExample(Code = @"PS:> Get-SPOHomePage",
+        Category = CmdletHelpCategory.Branding,
+        OutputType = typeof(string))]
+    [CmdletExample(Code = @"PS:> Get-PnPHomePage",
         Remarks = "Will return the URL of the home page of the web.",
         SortOrder = 1)]
     public class GetHomePage : SPOWebCmdlet

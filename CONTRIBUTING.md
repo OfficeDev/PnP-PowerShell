@@ -63,14 +63,14 @@ in a cmdlet that extens SPOWebCmdlet, the cmdlet will switch it's internal conte
 var context = SelectedWeb.Context;
 ```
 ###Cmdlets will have to work both on-premises and in the cloud
-You can use preprocessor variables ("CLIENTSDKV15" and "CLIENTSDKV16") to build different cmdlets for the different targets. In cases where it is not possible to provide functionality for either the 
-cloud or on-premises, make sure to remove the full cmdlet from the compiled solution by having #IF(!CLIENTSDKV15) or #IF(CLIENTSDKV15) as the _first line of the cmdlet, before using statements. 
+You can use preprocessor variables ("ONPREMISES" or "SP2013" and "SP2016") to build different cmdlets for the different targets. In cases where it is not possible to provide functionality for either the 
+cloud or on-premises, make sure to remove the full cmdlet from the compiled solution by having #IF(!SP2013) or #IF(SP2013) as the _first line of the cmdlet, before using statements. 
 
 See the following example
 
 
 ```csharp
-#if !CLIENTSDKV15
+#if !ONPREMISES
 using Microsoft.SharePoint.Client;
 
 public class MyCmdlet : SPOWebCmdlet
@@ -80,7 +80,7 @@ public class MyCmdlet : SPOWebCmdlet
 #endif
 ```
 
-If only parts of a cmdlet require different behaviour based upon the different version of the SDK, you are recommended to use the #CLIENTSDKV15 preprocessor variable throughout your code to exclude or include certain code.
+If only parts of a cmdlet require different behaviour based upon the different version of the SDK, you are recommended to use the #ONPREMISES or other available preprocessor variable throughout your code to exclude or include certain code.
 
 ###Cmdlets will have to use common verbs
  

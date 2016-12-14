@@ -1,14 +1,21 @@
 ﻿using System;
 using System.Management.Automation;
 using Microsoft.SharePoint.Client;
-using OfficeDevPnP.PowerShell.CmdletHelpAttributes;
 using Microsoft.SharePoint.Client.Taxonomy;
+using SharePointPnP.PowerShell.CmdletHelpAttributes;
 
-namespace OfficeDevPnP.PowerShell.Commands
+namespace SharePointPnP.PowerShell.Commands.Taxonomy
 {
-    [Cmdlet(VerbsCommon.New, "SPOTermGroup", SupportsShouldProcess = false)]
+    [Cmdlet(VerbsCommon.New, "PnPTermGroup", SupportsShouldProcess = false)]
+    [CmdletAlias("New-SPOTermGroup")]
     [CmdletHelp(@"Creates a taxonomy term group",
-        Category = CmdletHelpCategory.Taxonomy)]
+        Category = CmdletHelpCategory.Taxonomy,
+        OutputType = typeof(TermGroup),
+        OutputTypeLink = "https://msdn.microsoft.com/en-us/library/microsoft.sharepoint.client.taxonomy.termgroup.aspx")]
+    [CmdletExample
+        (Code = @"PS:> New-PnPTermGroup -GroupName ""Countries""",
+        Remarks = @"Creates a new taxonomy term group named ""Countries""",
+        SortOrder = 1)]
     public class NewTermGroup : SPOCmdlet
     {
         [Parameter(Mandatory = true, ValueFromPipeline = true, 

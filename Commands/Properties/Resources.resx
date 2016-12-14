@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ApplicationName" xml:space="preserve">
-    <value>Office Dev PnP PowerShell Library</value>
+    <value>SharePoint PnP PowerShell Library</value>
   </data>
   <data name="CommandNotExecutedDueToHealthscoreValueOf0" xml:space="preserve">
     <value>Command not executed due to healthscore value of {0}</value>
@@ -151,16 +151,16 @@
     <value>List not found</value>
   </data>
   <data name="NoConnection" xml:space="preserve">
-    <value>No connection, please connect first with Connect-SPOnline</value>
+    <value>No connection, please connect first with Connect-PnPOnline</value>
   </data>
   <data name="NoConnectionToDisconnect" xml:space="preserve">
     <value>No connection to disconnect</value>
   </data>
   <data name="NoContextPresent" xml:space="preserve">
-    <value>No context present. Connect first with Connect-SPOnline</value>
+    <value>No context present. Connect first with Connect-PnPOnline</value>
   </data>
   <data name="OfficeDevPnPPowerShellLibrary0" xml:space="preserve">
-    <value>Office Dev PnP PowerShell Library ({0})</value>
+    <value>SharePoint PnP PowerShell Library ({0})</value>
   </data>
   <data name="RemoveContentType" xml:space="preserve">
     <value>Remove content type?</value>
@@ -215,5 +215,36 @@
   </data>
   <data name="RemoveListItemWithId0" xml:space="preserve">
     <value>Remove list item with ID {0}?</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="pnp" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pnp.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RemoveTermGroup0AndAllUnderlyingTermSetsAndTerms" xml:space="preserve">
+    <value>Remove Termgroup '{0}' and all underlying Termsets and Terms? </value>
+  </data>
+  <data name="RemoveTermSet0" xml:space="preserve">
+    <value>Remove Termset '{0}' and it's underlying Terms?</value>
+  </data>
+  <data name="RemoveTerm0AndAllUnderlyingTerms" xml:space="preserve">
+    <value>Remove Term '{0}' and all underlying Terms?</value>
+  </data>
+  <data name="NoAzureADAccessToken" xml:space="preserve">
+    <value>No Azure AD connection, please connect first with Connect-PnPMicrosoftGraph</value>
+  </data>
+  <data name="MicrosoftGraphOAuthAccessTokenExpired" xml:space="preserve">
+    <value>The Azure AD OAuth 2.0 Access Token has expired. Authenticate again using the Connect-PnPMicrosoftGraph cmdlet.</value>
+  </data>
+  <data name="ForceCreationOfExistingGroup0" xml:space="preserve">
+    <value>The Unified Group with MailNickname of {0} already exists. Do you want to create another one?</value>
+  </data>
+  <data name="CopyFile0To1" xml:space="preserve">
+    <value>Copy file '{0}' to '{1}'?</value>
+  </data>
+  <data name="MoveFile0To1" xml:space="preserve">
+    <value>Move file '{0}' to '{1}'?</value>
+  </data>
+  <data name="RenameFile0To1" xml:space="preserve">
+    <value>Rename file '{0}' to '{1}'?</value>
   </data>
 </root>

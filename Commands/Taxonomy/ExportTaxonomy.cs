@@ -3,27 +3,28 @@ using System.Collections.Generic;
 using System.Management.Automation;
 using Microsoft.SharePoint.Client;
 using Microsoft.SharePoint.Client.Taxonomy;
-using OfficeDevPnP.PowerShell.CmdletHelpAttributes;
-using OfficeDevPnP.PowerShell.Commands.Base.PipeBinds;
+using SharePointPnP.PowerShell.CmdletHelpAttributes;
+using SharePointPnP.PowerShell.Commands.Base.PipeBinds;
+using SharePointPnP.PowerShell.Commands.Enums;
 using File = System.IO.File;
-using Resources = OfficeDevPnP.PowerShell.Commands.Properties.Resources;
-using OfficeDevPnP.PowerShell.Commands.Enums;
+using Resources = SharePointPnP.PowerShell.Commands.Properties.Resources;
 
-namespace OfficeDevPnP.PowerShell.Commands
+namespace SharePointPnP.PowerShell.Commands.Taxonomy
 {
-    [Cmdlet(VerbsData.Export, "SPOTaxonomy", SupportsShouldProcess = true)]
+    [Cmdlet(VerbsData.Export, "PnPTaxonomy", SupportsShouldProcess = true)]
+    [CmdletAlias("Export-SPOTaxonomy")]
     [CmdletHelp("Exports a taxonomy to either the output or to a file.",
         Category = CmdletHelpCategory.Taxonomy)]
     [CmdletExample
-        (Code = @"PS:> Export-SPOTaxonomy",
+        (Code = @"PS:> Export-PnPTaxonomy",
         Remarks = "Exports the full taxonomy to the standard output",
         SortOrder = 1)]
     [CmdletExample(
-        Code = @"PS:> Export-SPOTaxonomy -Path c:\output.txt",
+        Code = @"PS:> Export-PnPTaxonomy -Path c:\output.txt",
         Remarks = "Exports the full taxonomy the file output.txt",
         SortOrder = 2)]
     [CmdletExample(
-        Code = @"PS:> Export-SPOTaxonomy -Path c:\output.txt -TermSet f6f43025-7242-4f7a-b739-41fa32847254 ",
+        Code = @"PS:> Export-PnPTaxonomy -Path c:\output.txt -TermSet f6f43025-7242-4f7a-b739-41fa32847254 ",
         Remarks = "Exports the term set with the specified id",
         SortOrder = 3)]
     public class ExportTaxonomy : SPOCmdlet
@@ -37,16 +38,16 @@ namespace OfficeDevPnP.PowerShell.Commands
         [Parameter(Mandatory = false, HelpMessage = "File to export the data to.")]
         public string Path;
 
-        [Parameter(Mandatory = false, ParameterSetName = "TermSet")]
+        [Parameter(Mandatory = false, ParameterSetName = "TermSet", HelpMessage = "Term store to export; if not specified the default term store is used.")]
         public string TermStoreName;
 
         [Parameter(Mandatory = false, HelpMessage = "Overwrites the output file if it exists.")]
         public SwitchParameter Force;
 
-        [Parameter(Mandatory = false)]
+        [Parameter(Mandatory = false, HelpMessage = "The path delimiter to be used, by default this is '|'")]
         public string Delimiter = "|";
 
-        [Parameter(Mandatory = false)]
+        [Parameter(Mandatory = false, HelpMessage = "Defaults to Unicode")]
         public Encoding Encoding = Encoding.Unicode;
 
 

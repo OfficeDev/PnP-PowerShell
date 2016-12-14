@@ -1,31 +1,28 @@
-﻿using OfficeDevPnP.PowerShell.CmdletHelpAttributes;
+﻿using SharePointPnP.PowerShell.CmdletHelpAttributes;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Management.Automation;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace OfficeDevPnP.PowerShell.Commands.Base
+namespace SharePointPnP.PowerShell.Commands.Base
 {
-    [Cmdlet(VerbsCommon.Set, "SPOTraceLog")]
-    [CmdletHelp("Defines if tracing should be turned on. PnP Core, which is the foundation of these cmdlets utilizes the standard Trace functionality of .NET. With this cmdlet you can turn capturing of this trace to a log file on or off.", 
+    [Cmdlet(VerbsCommon.Set, "PnPTraceLog")]
+    [CmdletAlias("Set-SPOTraceLog")]
+    [CmdletHelp("Defines if tracing should be turned on. PnP Core, which is the foundation of these cmdlets uses the standard Trace functionality of .NET. With this cmdlet you can turn capturing of this trace to a log file on or off.",
         Category = CmdletHelpCategory.Base)]
     [CmdletExample(
-        Code = @"PS:> Set-SPOTraceLog -On -LogFile traceoutput.txt",
+        Code = @"PS:> Set-PnPTraceLog -On -LogFile traceoutput.txt",
         Remarks = @"This turns on trace logging to the file 'traceoutput.txt' and will capture events of at least 'Information' level.",
         SortOrder = 1)]
     [CmdletExample(
-        Code = @"PS:> Set-SPOTraceLog -On -LogFile traceoutput.txt -Level Debug",
+        Code = @"PS:> Set-PnPTraceLog -On -LogFile traceoutput.txt -Level Debug",
         Remarks = @"This turns on trace logging to the file 'traceoutput.txt' and will capture debug events.",
         SortOrder = 2)]
     [CmdletExample(
-        Code = @"PS:> Set-SPOTraceLog -On -LogFile traceoutput.txt -Level Debug -Delimiter "",""",
+        Code = @"PS:> Set-PnPTraceLog -On -LogFile traceoutput.txt -Level Debug -Delimiter "",""",
         Remarks = @"This turns on trace logging to the file 'traceoutput.txt' and will write the entries as comma separated. Debug events are captured.",
         SortOrder = 3)]
     [CmdletExample(
-        Code = @"PS:> Set-SPOTraceLog -Off",
+        Code = @"PS:> Set-PnPTraceLog -Off",
         Remarks = @"This turns off trace logging. It will flush any remaining messages to the log file.",
         SortOrder = 3)]
     public class SetTraceLog : PSCmdlet
@@ -37,7 +34,7 @@ namespace OfficeDevPnP.PowerShell.Commands.Base
         public string LogFile;
 
         [Parameter(Mandatory = false, ParameterSetName = "On", HelpMessage = "The level of events to capture. Possible values are 'Debug', 'Error', 'Warning', 'Information'. Defaults to 'Information'.")]
-        public Core.Diagnostics.LogLevel Level = Core.Diagnostics.LogLevel.Information;
+        public OfficeDevPnP.Core.Diagnostics.LogLevel Level = OfficeDevPnP.Core.Diagnostics.LogLevel.Information;
 
         [Parameter(Mandatory = false, ParameterSetName = "On", HelpMessage = "If specified the trace log entries will be delimited with this value.")]
         public string Delimiter;
@@ -51,13 +48,13 @@ namespace OfficeDevPnP.PowerShell.Commands.Base
         [Parameter(Mandatory = true, ParameterSetName = "Off", HelpMessage = "Turn off tracing to log file.")]
         public SwitchParameter Off;
 
-        private const string LISTENERNAME = "PNPPOWERSHELLTRACELISTENER";
+        private const string Listenername = "PNPPOWERSHELLTRACELISTENER";
         protected override void ProcessRecord()
         {
 
             if (ParameterSetName == "On")
             {
-                var existingListener = Trace.Listeners[LISTENERNAME];
+                var existingListener = Trace.Listeners[Listenername];
                 if (existingListener != null)
                 {
                     existingListener.Flush();
@@ -76,24 +73,24 @@ namespace OfficeDevPnP.PowerShell.Commands.Base
                         DelimitedListTraceListener delimitedListener = new DelimitedListTraceListener(LogFile);
                         delimitedListener.Delimiter = Delimiter;
                         delimitedListener.TraceOutputOptions = TraceOptions.DateTime;
-                        delimitedListener.Name = LISTENERNAME;
+                        delimitedListener.Name = Listenername;
                         Trace.Listeners.Add(delimitedListener);
-                        Core.Diagnostics.Log.LogLevel = Level;
+                        OfficeDevPnP.Core.Diagnostics.Log.LogLevel = Level;
                     }
                     else
                     {
                         TextWriterTraceListener listener = new TextWriterTraceListener(LogFile);
-                        listener.Name = LISTENERNAME;
+                        listener.Name = Listenername;
                         Trace.Listeners.Add(listener);
-                        Core.Diagnostics.Log.LogLevel = Level;
+                        OfficeDevPnP.Core.Diagnostics.Log.LogLevel = Level;
                     }
                 }
                 else
                 {
                     ConsoleTraceListener consoleListener = new ConsoleTraceListener(false);
-                    consoleListener.Name = LISTENERNAME;
+                    consoleListener.Name = Listenername;
                     Trace.Listeners.Add(consoleListener);
-                    Core.Diagnostics.Log.LogLevel = Level;
+                    OfficeDevPnP.Core.Diagnostics.Log.LogLevel = Level;
                 }
                 Trace.AutoFlush = AutoFlush;
                 Trace.IndentSize = IndentSize;
@@ -103,10 +100,17 @@ namespace OfficeDevPnP.PowerShell.Commands.Base
                 try
                 {
                     Trace.Flush();
-                    Trace.Listeners[LISTENERNAME].Close();
-                    Trace.Listeners.Remove(LISTENERNAME);
+                    var traceListener = Trace.Listeners[Listenername];
+                    if (traceListener != null)
+                    {
+                        traceListener.Close();
+                        Trace.Listeners.Remove(Listenername);
+                    }
                 }
-                catch (Exception) { }
+                catch (Exception)
+                {
+                    // ignored
+                }
             }
         }
     }

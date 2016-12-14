@@ -1,16 +1,20 @@
-﻿using System.Management.Automation;
+﻿using System;
+using System.Management.Automation;
 using Microsoft.SharePoint.Client;
-using OfficeDevPnP.PowerShell.CmdletHelpAttributes;
 using Microsoft.SharePoint.Client.Taxonomy;
+using SharePointPnP.PowerShell.CmdletHelpAttributes;
 
-namespace OfficeDevPnP.PowerShell.Commands
+namespace SharePointPnP.PowerShell.Commands.Taxonomy
 {
-    [Cmdlet(VerbsCommon.Get, "SPOTermGroup", SupportsShouldProcess = false)]
+    [Cmdlet(VerbsCommon.Get, "PnPTermGroup", SupportsShouldProcess = false)]
+    [CmdletAlias("Get-SPOTermGroup")]
     [CmdletHelp(@"Returns a taxonomy term group",
-        Category = CmdletHelpCategory.Taxonomy)]
+        Category = CmdletHelpCategory.Taxonomy,
+        OutputType = typeof(TermGroup),
+        OutputTypeLink = "https://msdn.microsoft.com/en-us/library/microsoft.sharepoint.client.taxonomy.termgroup.aspx")]
     public class GetTermGroup : SPOCmdlet
     {
-        [Parameter(Mandatory = true, ValueFromPipeline = true, 
+        [Parameter(Mandatory = true, ValueFromPipeline = true, Position = 0,
             HelpMessage = "Name of the taxonomy term group to retrieve.")]
         public string GroupName;
 
@@ -22,7 +26,7 @@ namespace OfficeDevPnP.PowerShell.Commands
         {
             var taxonomySession = TaxonomySession.GetTaxonomySession(ClientContext);
             // Get Term Store
-            var termStore = default(TermStore);
+            TermStore termStore;
             if (string.IsNullOrEmpty(TermStoreName))
             {
                 termStore = taxonomySession.GetDefaultSiteCollectionTermStore();
@@ -32,9 +36,16 @@ namespace OfficeDevPnP.PowerShell.Commands
                 termStore = taxonomySession.TermStores.GetByName(TermStoreName);
             }
             // Get Group
-            var group = termStore.GetTermGroupByName(GroupName);
-
-            WriteObject(group);
+            if (termStore != null)
+            {
+                var group = termStore.GetTermGroupByName(GroupName);
+                group.EnsureProperties(g => g.Name, g => g.Id);
+                WriteObject(@group);
+            }
+            else
+            {
+                WriteError(new ErrorRecord(new Exception("Cannot find termstore"), "INCORRECTTERMSTORE", ErrorCategory.ObjectNotFound, TermStoreName));
+            }
         }
 
     }

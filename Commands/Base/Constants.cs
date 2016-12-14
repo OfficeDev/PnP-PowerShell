@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace OfficeDevPnP.PowerShell.Commands.Base
+namespace SharePointPnP.PowerShell.Commands.Base
 {
     [Obsolete("Use OfficeDev/PnP.Core")]
     public static class Constants

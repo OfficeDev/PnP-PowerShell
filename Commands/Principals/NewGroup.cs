@@ -1,20 +1,23 @@
 ﻿using System.Management.Automation;
 using Microsoft.SharePoint.Client;
-using OfficeDevPnP.PowerShell.CmdletHelpAttributes;
-using OfficeDevPnP.PowerShell.Commands.Enums;
+using SharePointPnP.PowerShell.CmdletHelpAttributes;
+using SharePointPnP.PowerShell.Commands.Enums;
 using System;
 
-namespace OfficeDevPnP.PowerShell.Commands.Principals
+namespace SharePointPnP.PowerShell.Commands.Principals
 {
-    [Cmdlet("New", "SPOGroup")]
+    [Cmdlet("New", "PnPGroup")]
+    [CmdletAlias("New-SPOGroup")]
     [CmdletHelp("Adds group to the Site Groups List and returns a group object",
-        Category = CmdletHelpCategory.Principals)]
+        Category = CmdletHelpCategory.Principals,
+        OutputType = typeof(Group),
+        OutputTypeLink = "https://msdn.microsoft.com/en-us/library/microsoft.sharepoint.client.group.aspx")]
     [CmdletExample(
-        Code = @"PS:> New-SPOGroup -Title ""My Site Users""",
+        Code = @"PS:> New-PnPGroup -Title ""My Site Users""",
         SortOrder = 1)]
     public class NewGroup : SPOWebCmdlet
     {
-        [Parameter(Mandatory = true)]
+        [Parameter(Mandatory = true, HelpMessage = "The Title of the group")]
         public string Title = string.Empty;
 
         [Parameter(Mandatory = false, HelpMessage = "The description for the group")]
@@ -33,13 +36,17 @@ namespace OfficeDevPnP.PowerShell.Commands.Principals
         public SwitchParameter AllowMembersEditMembership;
 
         [Parameter(Mandatory = false, HelpMessage = "A switch parameter that specifies whether only group members are allowed to view the list of members in the group")]
+        [Obsolete("This is done by default. Use DisallowMembersViewMembership to disallow group members viewing membership")]
         public SwitchParameter OnlyAllowMembersViewMembership;
+
+        [Parameter(Mandatory = false, HelpMessage = "A switch parameter that disallows group members to view membership.")]
+        public SwitchParameter DisallowMembersViewMembership;
 
         [Parameter(Mandatory = false, HelpMessage = "The e-mail address to which membership requests are sent")]
         public string RequestToJoinEmail;
 
-        [Parameter(Mandatory = false)] // Not promoted to use anymore. Use Set-SPOGroup
-        [Obsolete("Use Set-SPOGroup")]
+        [Parameter(Mandatory = false)] // Not promoted to use anymore. Use Set-PnPGroup
+        [Obsolete("Use Set-PnPGroup.")]
         public AssociatedGroupType SetAssociatedGroup = AssociatedGroupType.None;
 
         protected override void ExecuteCmdlet()
@@ -73,6 +80,11 @@ namespace OfficeDevPnP.PowerShell.Commands.Principals
             if (OnlyAllowMembersViewMembership)
             {
                 group.OnlyAllowMembersViewMembership = true;
+                dirty = true;
+            }
+            if (DisallowMembersViewMembership)
+            {
+                group.OnlyAllowMembersViewMembership = false;
                 dirty = true;
             }
             if (!string.IsNullOrEmpty(RequestToJoinEmail))

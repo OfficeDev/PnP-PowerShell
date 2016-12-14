@@ -1,29 +1,29 @@
-﻿using System;
-using Microsoft.SharePoint.Client;
+﻿using Microsoft.SharePoint.Client;
 using System.Management.Automation;
-using OfficeDevPnP.PowerShell.CmdletHelpAttributes;
+using SharePointPnP.PowerShell.CmdletHelpAttributes;
 using OfficeDevPnP.Core.Utilities;
 
-namespace OfficeDevPnP.PowerShell.Commands
+namespace SharePointPnP.PowerShell.Commands
 {
-    [Cmdlet(VerbsCommon.Remove, "SPOPropertyBagValue", SupportsShouldProcess = true, ConfirmImpact = ConfirmImpact.High)]
+    [Cmdlet(VerbsCommon.Remove, "PnPPropertyBagValue", SupportsShouldProcess = true, ConfirmImpact = ConfirmImpact.High)]
+    [CmdletAlias("Remove-SPOPropertyBagValue")]
     [CmdletHelp("Removes a value from the property bag",
         Category = CmdletHelpCategory.Webs)]
     [CmdletExample(
-        Code = @"PS:> Remove-SPOPropertyBagValue -Key MyKey",
+        Code = @"PS:> Remove-PnPPropertyBagValue -Key MyKey",
         Remarks = "This will remove the value with key MyKey from the current web property bag",
         SortOrder = 1)]
     [CmdletExample(
-        Code = @"PS:> Remove-SPOPropertyBagValue -Key MyKey -Folder /MyFolder",
+        Code = @"PS:> Remove-PnPPropertyBagValue -Key MyKey -Folder /MyFolder",
         Remarks = "This will remove the value with key MyKey from the folder MyFolder which is located in the root folder of the current web",
         SortOrder = 2)]
     [CmdletExample(
-        Code = @"PS:> Remove-SPOPropertyBagValue -Key MyKey -Folder /",
+        Code = @"PS:> Remove-PnPPropertyBagValue -Key MyKey -Folder /",
         Remarks = "This will remove the value with key MyKey from the root folder of the current web",
         SortOrder = 3)]
     public class RemovePropertyBagValue : SPOWebCmdlet
     {
-        [Parameter(Mandatory = true, Position = 0, ValueFromPipeline = true)]
+        [Parameter(Mandatory = true, Position = 0, ValueFromPipeline = true, HelpMessage = "Key of the property bag value to be removed")]
         public string Key;
 
         [Parameter(Mandatory = false, HelpMessage = "Site relative url of the folder. See examples for use.")]

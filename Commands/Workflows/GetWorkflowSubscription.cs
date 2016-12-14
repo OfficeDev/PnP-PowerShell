@@ -1,14 +1,18 @@
 ﻿using System.Management.Automation;
 using Microsoft.SharePoint.Client;
 using Microsoft.SharePoint.Client.WorkflowServices;
-using OfficeDevPnP.PowerShell.CmdletHelpAttributes;
-using OfficeDevPnP.PowerShell.Commands.Base.PipeBinds;
+using SharePointPnP.PowerShell.CmdletHelpAttributes;
+using SharePointPnP.PowerShell.Commands.Base.PipeBinds;
 
-namespace OfficeDevPnP.PowerShell.Commands.Workflows
+namespace SharePointPnP.PowerShell.Commands.Workflows
 {
-    [Cmdlet(VerbsCommon.Get, "SPOWorkflowSubscription")]
+    [Cmdlet(VerbsCommon.Get, "PnPWorkflowSubscription")]
+    [CmdletAlias("Get-SPOWorkflowSubscription")]
     [CmdletHelp("Returns a workflow subscriptions from a list",
-        Category = CmdletHelpCategory.Workflows)]
+        Category = CmdletHelpCategory.Workflows,
+        OutputType=typeof(WorkflowSubscription),
+        OutputTypeLink= "https://msdn.microsoft.com/en-us/library/microsoft.sharepoint.client.workflowservices.workflowsubscription.aspx"
+        )]
 
     public class GetWorkflowSubscription : SPOWebCmdlet
     {

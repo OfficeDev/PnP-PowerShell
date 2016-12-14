@@ -1,19 +1,22 @@
-﻿using OfficeDevPnP.PowerShell.Commands.Base.PipeBinds;
+﻿using System.Management.Automation;
 using Microsoft.SharePoint.Client;
-using System.Management.Automation;
-using OfficeDevPnP.PowerShell.CmdletHelpAttributes;
+using SharePointPnP.PowerShell.CmdletHelpAttributes;
+using SharePointPnP.PowerShell.Commands.Base.PipeBinds;
 
-namespace OfficeDevPnP.PowerShell.Commands
+namespace SharePointPnP.PowerShell.Commands.Lists
 {
-    [Cmdlet(VerbsCommon.Add, "SPOView")]
+    [Cmdlet(VerbsCommon.Add, "PnPView")]
+    [CmdletAlias("Add-SPOView")]
     [CmdletHelp("Adds a view to a list",
-        Category = CmdletHelpCategory.Lists)]
+        Category = CmdletHelpCategory.Lists,
+          OutputType = typeof(View),
+        OutputTypeLink = "https://msdn.microsoft.com/en-us/library/microsoft.sharepoint.client.view.aspx")]
     [CmdletExample(
-        Code = @"Add-SPOView -List ""Demo List"" -Title ""Demo View"" -Fields ""Title"",""Address""",
+        Code = @"Add-PnPView -List ""Demo List"" -Title ""Demo View"" -Fields ""Title"",""Address""",
         Remarks = @"Adds a view named ""Demo view"" to the ""Demo List"" list.",
         SortOrder = 1)]
     [CmdletExample(
-        Code = @"Add-SPOView -List ""Demo List"" -Title ""Demo View"" -Fields ""Title"",""Address"" -Paged",
+        Code = @"Add-PnPView -List ""Demo List"" -Title ""Demo View"" -Fields ""Title"",""Address"" -Paged",
         Remarks = @"Adds a view named ""Demo view"" to the ""Demo List"" list and makes sure there's paging on this view.",        
         SortOrder = 2)]        
     public class AddView : SPOWebCmdlet

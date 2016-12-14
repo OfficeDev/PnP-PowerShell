@@ -1,20 +1,22 @@
 ﻿using System.Management.Automation;
 using Microsoft.SharePoint.Client;
-using OfficeDevPnP.PowerShell.CmdletHelpAttributes;
-using OfficeDevPnP.PowerShell.Commands.Base.PipeBinds;
+using SharePointPnP.PowerShell.CmdletHelpAttributes;
+using SharePointPnP.PowerShell.Commands.Base.PipeBinds;
 
-namespace OfficeDevPnP.PowerShell.Commands.Principals
+namespace SharePointPnP.PowerShell.Commands.Principals
 {
-    [Cmdlet(VerbsCommon.Remove, "SPOUserFromGroup")]
+    [Cmdlet(VerbsCommon.Remove, "PnPUserFromGroup")]
+    [CmdletAlias("Remove-SPOUserFromGroup")]
     [CmdletHelp("Removes a user from a group",
         Category = CmdletHelpCategory.Principals)]
     [CmdletExample(
-        Code = @"PS:> Remove-SPOUserFromGroup -LoginName user@company.com -GroupName 'Marketing Site Members'",
-        SortOrder = 1)]
+        Code = @"PS:> Remove-PnPUserFromGroup -LoginName user@company.com -GroupName 'Marketing Site Members'",
+        SortOrder = 1,
+        Remarks = @"Removes the user user@company.com from the Group 'Marketing Site Members'")]
     public class RemoveUserFromGroup : SPOWebCmdlet
     {
 
-        [Parameter(Mandatory = true, HelpMessage = "A valid login name of a user")]
+        [Parameter(Mandatory = true, HelpMessage = "A valid login name of a user (user@company.com)")]
         [Alias("LogonName")]
         public string LoginName = string.Empty;
 

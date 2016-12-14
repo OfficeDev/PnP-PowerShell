@@ -1,0 +1,1 @@
+The PowerShell Setup Binaries can be downloaded from https://github.com/SharePoint/PnP-PowerShell/releases

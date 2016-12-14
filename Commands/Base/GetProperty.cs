@@ -1,33 +1,31 @@
 ﻿using Microsoft.SharePoint.Client;
-using OfficeDevPnP.PowerShell.CmdletHelpAttributes;
+using SharePointPnP.PowerShell.CmdletHelpAttributes;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Management.Automation;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace OfficeDevPnP.PowerShell.Commands.Base
+namespace SharePointPnP.PowerShell.Commands.Base
 {
-    [Cmdlet(VerbsCommon.Get, "SPOProperty")]
+    [Cmdlet(VerbsCommon.Get, "PnPProperty")]
+    [CmdletAlias("Get-SPOProperty")]
     [CmdletHelp("Will populate properties of an object and optionally, if needed, load the value from the server. If one property is specified its value will be returned to the output.",
-       Category = CmdletHelpCategory.Base)]
+        Category = CmdletHelpCategory.Base,
+        OutputType = typeof(ClientObject),
+        OutputTypeLink = "https://msdn.microsoft.com/en-us/library/microsoft.sharepoint.client.clientobject.aspx")]
     [CmdletExample(Code = @"
-PS:> $web = Get-SPOWeb
-PS:> Get-SPOProperty -ClientObject $web -Property Id, Lists
+PS:> $web = Get-PnPWeb
+PS:> Get-PnPProperty -ClientObject $web -Property Id, Lists
 PS:> $web.Lists",
         Remarks = "Will load both the Id and Lists properties of the specified Web object.",
         SortOrder = 1)]
     [CmdletExample(Code = @"
-PS:> $list = Get-SPOList -Identity 'Site Assets'
-PS:> Get-SPOProperty -ClientObject $list -Property Views",
+PS:> $list = Get-PnPList -Identity 'Site Assets'
+PS:> Get-PnPProperty -ClientObject $list -Property Views",
         Remarks = "Will load the views object of the specified list object and return its value to the output.",
         SortOrder = 2)]
     public class EnsureProperty : SPOCmdlet
     {
-        [Parameter(Mandatory = true, Position = 0)]
+        [Parameter(Mandatory = true, Position = 0, HelpMessage = "Specifies the object where the properties of should be retrieved")]
         public ClientObject ClientObject;
 
         [Parameter(Mandatory = true, Position = 1, HelpMessage = "The properties to load. If one property is specified its value will be returned to the output.")]
@@ -35,11 +33,13 @@ PS:> Get-SPOProperty -ClientObject $list -Property Views",
 
         protected override void ExecuteCmdlet()
         {
+
             var loadRequired = false;
             foreach (var property in Property)
             {
                 var expression = GetClientObjectExpression(ClientObject, property);
-                if (!ClientObject.IsPropertyAvailable(expression) && !ClientObject.IsObjectPropertyInstantiated(expression))
+
+                if (!ClientObject.IsPropertyAvailable(expression))
                 {
                     ClientObject.Context.Load(ClientObject, expression);
                     loadRequired = true;
@@ -56,7 +56,7 @@ PS:> Get-SPOProperty -ClientObject $list -Property Views",
 
         }
 
-        private Expression<Func<ClientObject, Object>> GetClientObjectExpression(ClientObject clientObject, string property)
+        private static Expression<Func<ClientObject, object>> GetClientObjectExpression(ClientObject clientObject, string property)
         {
             var memberExpression = Expression.PropertyOrField(Expression.Constant(clientObject), property);
             var memberName = memberExpression.Member.Name;
@@ -64,10 +64,12 @@ PS:> Get-SPOProperty -ClientObject $list -Property Views",
             var parameter = Expression.Parameter(typeof(ClientObject), "i");
             var cast = Expression.Convert(parameter, memberExpression.Member.ReflectedType);
             var body = Expression.Property(cast, memberName);
-            var exp = Expression.Lambda<Func<ClientObject, Object>>(Expression.Convert(body, typeof(object)), parameter);
+            var exp = Expression.Lambda<Func<ClientObject, Object>>(Expression.Convert(body, typeof(object)),
+                parameter);
 
             return exp;
 
         }
+
     }
 }

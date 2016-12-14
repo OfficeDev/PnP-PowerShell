@@ -1,22 +1,37 @@
-﻿using OfficeDevPnP.PowerShell.Commands.Base.PipeBinds;
-using Microsoft.SharePoint.Client;
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Management.Automation;
-using System.Collections.Generic;
-using OfficeDevPnP.PowerShell.CmdletHelpAttributes;
+using Microsoft.SharePoint.Client;
+using SharePointPnP.PowerShell.CmdletHelpAttributes;
+using SharePointPnP.PowerShell.Commands.Base.PipeBinds;
 
-namespace OfficeDevPnP.PowerShell.Commands
+namespace SharePointPnP.PowerShell.Commands.Lists
 {
-    [Cmdlet(VerbsCommon.Get, "SPOView")]
+    [Cmdlet(VerbsCommon.Get, "PnPView")]
+    [CmdletAlias("Get-SPOView")]
     [CmdletHelp("Returns one or all views from a list",
-        Category = CmdletHelpCategory.Lists)]
+        Category = CmdletHelpCategory.Lists,
+        OutputType = typeof(View),
+        OutputTypeLink = "https://msdn.microsoft.com/en-us/library/microsoft.sharepoint.client.view.aspx")]
+    [CmdletExample(
+        Code = @"Get-PnPView -List ""Demo List""",
+        Remarks = @"Returns all views associated from the specified list",
+        SortOrder = 1)]
+    [CmdletExample(
+        Code = @"Get-PnPView -List ""Demo List"" -Identity ""Demo View""",
+        Remarks = @"Returns the view called ""Demo View"" from the specified list",
+        SortOrder = 2)]
+    [CmdletExample(
+        Code = @"Get-PnPView -List ""Demo List"" -Identity ""5275148a-6c6c-43d8-999a-d2186989a661""",
+        Remarks = @"Returns the view with the specified ID from the specified list",
+        SortOrder = 3)]
     public class GetView : SPOWebCmdlet
     {
         [Parameter(Mandatory = true, ValueFromPipeline = true, Position = 0, HelpMessage = "The ID or Url of the list.")]
         public ListPipeBind List;
 
-        [Parameter(Mandatory = false)]
+        [Parameter(Mandatory = false, HelpMessage = "The ID or name of the view")]
         public ViewPipeBind Identity;
 
         protected override void ExecuteCmdlet()
@@ -34,22 +49,24 @@ namespace OfficeDevPnP.PowerShell.Commands
                         if (Identity.Id != Guid.Empty)
                         {
                             view = list.GetViewById(Identity.Id);
-                            
+                            view.EnsureProperty(v => v.ViewFields);
+
                         }
                         else if (!string.IsNullOrEmpty(Identity.Title))
                         {
                             view = list.GetViewByName(Identity.Title);
+                            view.EnsureProperty(v => v.ViewFields);
                         }
                     }
                     else
                     {
                         views = ClientContext.LoadQuery(list.Views.IncludeWithDefaultProperties(v => v.ViewFields));
                         ClientContext.ExecuteQueryRetry();
-                        
+
                     }
                     if (views != null && views.Any())
                     {
-                        WriteObject(views,true);
+                        WriteObject(views, true);
                     }
                     else if (view != null)
                     {

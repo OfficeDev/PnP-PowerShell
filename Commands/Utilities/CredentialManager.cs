@@ -5,17 +5,17 @@ using System.Security;
 using Microsoft.Win32.SafeHandles;
 using FILETIME = System.Runtime.InteropServices.ComTypes.FILETIME;
 
-namespace OfficeDevPnP.PowerShell.Commands.Utilities
+namespace SharePointPnP.PowerShell.Commands.Utilities
 {
     internal static class CredentialManager
     {
 
-        public static PSCredential GetCredential(string Name)
+        public static PSCredential GetCredential(string name)
         {
             PSCredential psCredential = null;
             IntPtr credPtr;
 
-            bool success = CredRead(Name, CRED_TYPE.GENERIC, 0, out credPtr);
+            bool success = CredRead(name, CRED_TYPE.GENERIC, 0, out credPtr);
             if (success)
             {
                 var critCred = new CriticalCredentialHandle(credPtr);

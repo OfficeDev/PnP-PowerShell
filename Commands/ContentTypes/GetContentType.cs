@@ -1,30 +1,31 @@
-﻿using OfficeDevPnP.PowerShell.Commands.Base.PipeBinds;
-using Microsoft.SharePoint.Client;
+﻿using System.Linq;
 using System.Management.Automation;
-using OfficeDevPnP.PowerShell.CmdletHelpAttributes;
-using System.Linq;
-using System.Collections;
-using System.Collections.Generic;
+using Microsoft.SharePoint.Client;
+using SharePointPnP.PowerShell.CmdletHelpAttributes;
+using SharePointPnP.PowerShell.Commands.Base.PipeBinds;
 
-namespace OfficeDevPnP.PowerShell.Commands
+namespace SharePointPnP.PowerShell.Commands.ContentTypes
 {
-    [Cmdlet(VerbsCommon.Get, "SPOContentType")]
+    [Cmdlet(VerbsCommon.Get, "PnPContentType")]
+    [CmdletAlias("Get-SPOContentType")]
     [CmdletHelp("Retrieves a content type",
-        Category = CmdletHelpCategory.ContentTypes)]
+        Category = CmdletHelpCategory.ContentTypes,
+        OutputType = typeof(ContentType),
+        OutputTypeLink = "https://msdn.microsoft.com/en-us/library/microsoft.sharepoint.client.contenttype.aspx")]
     [CmdletExample(
-        Code = @"PS:> Get-SPOContentType ",
+        Code = @"PS:> Get-PnPContentType ",
         Remarks = @"This will get a listing of all available content types within the current web",
         SortOrder = 1)]
     [CmdletExample(
-        Code = @"PS:> Get-SPOContentType -InSiteHierarchy",
+        Code = @"PS:> Get-PnPContentType -InSiteHierarchy",
         Remarks = @"This will get a listing of all available content types within the site collection",
         SortOrder = 2)]
     [CmdletExample(
-        Code = @"PS:> Get-SPOContentType -Identity ""Project Document""",
-        Remarks = @"This will get a listing of content types within the current context",
+        Code = @"PS:> Get-PnPContentType -Identity ""Project Document""",
+        Remarks = @"This will get the content type with the name ""Project Document"" within the current context",
         SortOrder = 3)]
     [CmdletExample(
-        Code = @"PS:> Get-SPOContentType -List ""Documents""",
+        Code = @"PS:> Get-PnPContentType -List ""Documents""",
         Remarks = @"This will get a listing of all available content types within the list ""Documents""",
         SortOrder = 4)]
     public class GetContentType : SPOWebCmdlet

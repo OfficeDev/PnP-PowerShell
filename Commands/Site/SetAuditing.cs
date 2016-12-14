@@ -1,31 +1,32 @@
 ﻿using System.Management.Automation;
 using Microsoft.SharePoint.Client;
-using OfficeDevPnP.PowerShell.CmdletHelpAttributes;
+using SharePointPnP.PowerShell.CmdletHelpAttributes;
 
-namespace OfficeDevPnP.PowerShell.Commands
+namespace SharePointPnP.PowerShell.Commands.Site
 {
-    [Cmdlet(VerbsCommon.Set, "SPOAuditing")]
+    [Cmdlet(VerbsCommon.Set, "PnPAuditing")]
+    [CmdletAlias("Set-SPOAuditing")]
     [CmdletHelp("Set Auditing setting for a site",
         Category = CmdletHelpCategory.Sites)]
     [CmdletExample(
-        Code = @"PS:> Set-SPOAuditing -EnableAll",
+        Code = @"PS:> Set-PnPAuditing -EnableAll",
         Remarks = "Enables all auditing settings for the current site",
         SortOrder = 1)]
     [CmdletExample(
-        Code = @"PS:> Set-SPOAuditing -DisableAll",
+        Code = @"PS:> Set-PnPAuditing -DisableAll",
         Remarks = @"Disables all auditing settings for the current site
                     This also disables the automatic trimming of the audit log",
         SortOrder = 2)]
     [CmdletExample(
-        Code = @"PS:> Set-SPOAuditing -RetentionTime 7",
+        Code = @"PS:> Set-PnPAuditing -RetentionTime 7",
         Remarks = "Sets the audit log trimming to 7 days, this also enables the automatic trimming of the audit log",
         SortOrder = 3)]
     [CmdletExample(
-        Code = @"PS:> Set-SPOAuditing -TrimAuditLog",
+        Code = @"PS:> Set-PnPAuditing -TrimAuditLog",
         Remarks = "Enables the automatic trimming of the audit log",
         SortOrder = 4)]
     [CmdletExample(
-        Code = @"PS:> Set-SPOAuditing -RetentionTime 7 -CheckOutCheckInItems -MoveCopyItems -SearchContent",
+        Code = @"PS:> Set-PnPAuditing -RetentionTime 7 -CheckOutCheckInItems -MoveCopyItems -SearchContent",
         Remarks = @"Sets the audit log trimming to 7 days, this also enables the automatic trimming of the audit log.
                     Do auditing for:
                     - Checking out or checking in items
@@ -83,21 +84,21 @@ namespace OfficeDevPnP.PowerShell.Commands
 
         protected override void ExecuteCmdlet()
         {
-            var UpdateAudit = false;
+            var updateAudit = false;
             var audit = ClientContext.Site.Audit;
-            var AuditFlags = audit.AuditFlags;
+            var auditFlags = audit.AuditFlags;
             ClientContext.Load(audit);
             ClientContext.ExecuteQueryRetry();
 
             if (EnableAll)
             {
-                AuditFlags = AuditMaskType.All;
-                UpdateAudit = true;
+                auditFlags = AuditMaskType.All;
+                updateAudit = true;
             }
             if(DisableAll)
             {
-                AuditFlags = AuditMaskType.None;
-                UpdateAudit = true;
+                auditFlags = AuditMaskType.None;
+                updateAudit = true;
                 ClientContext.Site.TrimAuditLog = false;
             }
             if(RetentionTime != -1)
@@ -112,29 +113,29 @@ namespace OfficeDevPnP.PowerShell.Commands
 
             //set the events to audit
             //AuditMaskType.Update
-            if (EditItems.IsPresent) { AuditFlags = AuditFlags | AuditMaskType.Update; UpdateAudit = true; }
+            if (EditItems.IsPresent) { auditFlags = auditFlags | AuditMaskType.Update; updateAudit = true; }
 
             //AuditMaskType.CheckOut and AuditMaskType.CheckIn
-            if(CheckOutCheckInItems.IsPresent) { AuditFlags = AuditFlags | AuditMaskType.CheckOut | AuditMaskType.CheckIn; UpdateAudit = true; }
+            if(CheckOutCheckInItems.IsPresent) { auditFlags = auditFlags | AuditMaskType.CheckOut | AuditMaskType.CheckIn; updateAudit = true; }
 
             //AuditMaskType.Copy and AuditMaskType.Move
-            if (MoveCopyItems.IsPresent) { AuditFlags = AuditFlags | AuditMaskType.Copy | AuditMaskType.Move; UpdateAudit = true; }
+            if (MoveCopyItems.IsPresent) { auditFlags = auditFlags | AuditMaskType.Copy | AuditMaskType.Move; updateAudit = true; }
 
             //AuditMaskType.Undelete and AuditMaskType.ObjectDelete
-            if (DeleteRestoreItems.IsPresent) { AuditFlags = AuditFlags | AuditMaskType.Undelete | AuditMaskType.ObjectDelete; UpdateAudit = true; }
+            if (DeleteRestoreItems.IsPresent) { auditFlags = auditFlags | AuditMaskType.Undelete | AuditMaskType.ObjectDelete; updateAudit = true; }
 
             //AuditMaskType.SchemaChange and AuditMaskType.ProfileChange
-            if (EditContentTypesColumns.IsPresent) { AuditFlags = AuditFlags | AuditMaskType.SchemaChange | AuditMaskType.ProfileChange; UpdateAudit = true; }
+            if (EditContentTypesColumns.IsPresent) { auditFlags = auditFlags | AuditMaskType.SchemaChange | AuditMaskType.ProfileChange; updateAudit = true; }
 
             //AuditMaskType.Search
-            if (SearchContent.IsPresent) { AuditFlags = AuditFlags | AuditMaskType.Search; UpdateAudit = true; }
+            if (SearchContent.IsPresent) { auditFlags = auditFlags | AuditMaskType.Search; updateAudit = true; }
 
             //AuditMaskType.SecurityChange
-            if (EditUsersPermissions.IsPresent) { AuditFlags = AuditFlags | AuditMaskType.SecurityChange; UpdateAudit = true; }
+            if (EditUsersPermissions.IsPresent) { auditFlags = auditFlags | AuditMaskType.SecurityChange; updateAudit = true; }
 
-            if(UpdateAudit)
+            if(updateAudit)
             {
-                ClientContext.Site.Audit.AuditFlags = AuditFlags;
+                ClientContext.Site.Audit.AuditFlags = auditFlags;
                 ClientContext.Site.Audit.Update();
             }
 

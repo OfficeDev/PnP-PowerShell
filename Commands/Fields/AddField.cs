@@ -1,56 +1,69 @@
-﻿using OfficeDevPnP.PowerShell.Commands.Base.PipeBinds;
-using Microsoft.SharePoint.Client;
-using System;
+﻿using System;
 using System.Management.Automation;
+using Microsoft.SharePoint.Client;
 using OfficeDevPnP.Core.Entities;
-using OfficeDevPnP.PowerShell.CmdletHelpAttributes;
+using SharePointPnP.PowerShell.CmdletHelpAttributes;
+using SharePointPnP.PowerShell.Commands.Base.PipeBinds;
 
-namespace OfficeDevPnP.PowerShell.Commands
+namespace SharePointPnP.PowerShell.Commands.Fields
 {
-    [Cmdlet(VerbsCommon.Add, "SPOField")]
+    [Cmdlet(VerbsCommon.Add, "PnPField", DefaultParameterSetName = "ListPara")]
+    [CmdletAlias("Add-SPOField")]
     [CmdletHelp("Adds a field to a list or as a site column",
-        Category = CmdletHelpCategory.Fields)]
+        Category = CmdletHelpCategory.Fields,
+        OutputType = typeof(Field),
+        OutputTypeLink = "https://msdn.microsoft.com/en-us/library/microsoft.sharepoint.client.field.aspx")]
     [CmdletExample(
-     Code = @"PS:> Add-SPOField -List ""Demo list"" -DisplayName ""Location"" -InternalName ""SPSLocation"" -Type Choice -Group ""Demo Group"" -AddToDefaultView -Choices ""Stockholm"",""Helsinki"",""Oslo""",
-     Remarks = @"This will add field of type Choice to a the list ""Demo List"".", SortOrder = 1)]
+     Code = @"PS:> Add-PnPField -List ""Demo list"" -DisplayName ""Location"" -InternalName ""SPSLocation"" -Type Choice -Group ""Demo Group"" -AddToDefaultView -Choices ""Stockholm"",""Helsinki"",""Oslo""",
+     Remarks = @"This will add a field of type Choice to the list ""Demo List"".", SortOrder = 1)]
     [CmdletExample(
-     Code = @"PS:>Add-SPOField -List ""Demo list"" -DisplayName ""Speakers"" -InternalName ""SPSSpeakers"" -Type MultiChoice -Group ""Demo Group"" -AddToDefaultView -Choices ""Obiwan Kenobi"",""Darth Vader"", ""Anakin Skywalker""",
-Remarks = @"This will add field of type Multiple Choice to a the list ""Demo List"". (you can pick several choices for the same item)", SortOrder = 2)]
+     Code = @"PS:>Add-PnPField -List ""Demo list"" -DisplayName ""Speakers"" -InternalName ""SPSSpeakers"" -Type MultiChoice -Group ""Demo Group"" -AddToDefaultView -Choices ""Obiwan Kenobi"",""Darth Vader"", ""Anakin Skywalker""",
+Remarks = @"This will add a field of type Multiple Choice to the list ""Demo List"". (you can pick several choices for the same item)", SortOrder = 2)]
+    [CmdletAdditionalParameter(ParameterType = typeof(string[]),ParameterName = "Choices", HelpMessage = "Specify choices, only valid if the field type is Choice", ParameterSetName = "ListPara")]
+    [CmdletAdditionalParameter(ParameterType = typeof(string[]), ParameterName = "Choices", HelpMessage = "Specify choices, only valid if the field type is Choice", ParameterSetName = "WebPara")]
     public class AddField : SPOWebCmdlet, IDynamicParameters
     {
         [Parameter(Mandatory = false, ValueFromPipeline = true, ParameterSetName = "ListPara")]
         [Parameter(Mandatory = true, ValueFromPipeline = true, ParameterSetName = "FieldRef")]
+        [Parameter(HelpMessage = "The name of the list, its ID or an actual list object where this field needs to be added")]
         public ListPipeBind List;
 
-        [Parameter(Mandatory = true, ParameterSetName = "FieldRef")]
+        [Parameter(Mandatory = true, ParameterSetName = "FieldRef", HelpMessage = "The name of the field, its ID or an actual field object that needs to be added")]
         public FieldPipeBind Field;
 
         [Parameter(Mandatory = true, ParameterSetName = "ListPara")]
         [Parameter(Mandatory = true, ParameterSetName = "WebPara")]
+        [Parameter(HelpMessage = "The display name of the field")]
         public string DisplayName;
 
         [Parameter(Mandatory = true, ParameterSetName = "ListPara")]
         [Parameter(Mandatory = true, ParameterSetName = "WebPara")]
+        [Parameter(HelpMessage = "The internal name of the field")]
         public string InternalName;
 
         [Parameter(Mandatory = true, ParameterSetName = "ListPara")]
         [Parameter(Mandatory = true, ParameterSetName = "WebPara")]
+        [Parameter(HelpMessage = "The type of the field like Choice, Note, MultiChoice")]
         public FieldType Type;
 
         [Parameter(Mandatory = false, ParameterSetName = "ListPara")]
         [Parameter(Mandatory = false, ParameterSetName = "WebPara")]
+        [Parameter(HelpMessage = "The ID of the field, must be unique")]
         public GuidPipeBind Id = new GuidPipeBind();
 
         [Parameter(Mandatory = false, ParameterSetName = "ListPara")]
         [Parameter(Mandatory = false, ParameterSetName = "ListXML")]
+        [Parameter(HelpMessage = "Switch Parameter if this field must be added to the default view")]
         public SwitchParameter AddToDefaultView;
 
         [Parameter(Mandatory = false, ParameterSetName = "ListPara")]
         [Parameter(Mandatory = false, ParameterSetName = "ListXML")]
+        [Parameter(HelpMessage = "Switch Parameter if the field is a required field")]
         public SwitchParameter Required;
 
         [Parameter(Mandatory = false, ParameterSetName = "ListPara")]
         [Parameter(Mandatory = false, ParameterSetName = "ListXML")]
+        [Parameter(HelpMessage = "The group name to where this field belongs to")]
         public string Group;
 
         [Parameter(Mandatory = false)]
@@ -61,12 +74,12 @@ Remarks = @"This will add field of type Multiple Choice to a the list ""Demo Lis
         {
             if (Type == FieldType.Choice || Type == FieldType.MultiChoice)
             {
-                context = new ChoiceFieldDynamicParameters();
-                return context;
+                _context = new ChoiceFieldDynamicParameters();
+                return _context;
             }
             return null;
         }
-        private ChoiceFieldDynamicParameters context;
+        private ChoiceFieldDynamicParameters _context;
 
         protected override void ExecuteCmdlet()
         {
@@ -94,7 +107,7 @@ Remarks = @"This will add field of type Multiple Choice to a the list ""Demo Lis
                     if (Type == FieldType.Choice || Type == FieldType.MultiChoice)
                     {
                         f = list.CreateField<FieldChoice>(fieldCI);
-                        ((FieldChoice)f).Choices = context.Choices;
+                        ((FieldChoice)f).Choices = _context.Choices;
                         f.Update();
                         ClientContext.ExecuteQueryRetry();
                     }
@@ -120,13 +133,29 @@ Remarks = @"This will add field of type Multiple Choice to a the list ""Demo Lis
                         if (Field.Id != Guid.Empty)
                         {
                             field = SelectedWeb.Fields.GetById(Field.Id);
+                            ClientContext.Load(field);
+                            ClientContext.ExecuteQueryRetry();
                         }
                         else if (!string.IsNullOrEmpty(Field.Name))
                         {
-                            field = SelectedWeb.Fields.GetByInternalNameOrTitle(Field.Name);
+                            try
+                            {
+                                field = SelectedWeb.Fields.GetByInternalNameOrTitle(Field.Name);
+                                ClientContext.Load(field);
+                                ClientContext.ExecuteQueryRetry();
+                            }
+                            catch
+                            {
+                                // Field might be sitecolumn, swallow exception
+                            }
+                            if (field != null)
+                            {
+                                var rootWeb = ClientContext.Site.RootWeb;
+                                field = rootWeb.Fields.GetByInternalNameOrTitle(Field.Name);
+                                ClientContext.Load(field);
+                                ClientContext.ExecuteQueryRetry();
+                            }
                         }
-                        ClientContext.Load(field);
-                        ClientContext.ExecuteQueryRetry();
                     }
                     if (field != null)
                     {
@@ -152,7 +181,7 @@ Remarks = @"This will add field of type Multiple Choice to a the list ""Demo Lis
                 if (Type == FieldType.Choice || Type == FieldType.MultiChoice)
                 {
                     f = SelectedWeb.CreateField<FieldChoice>(fieldCI);
-                    ((FieldChoice)f).Choices = context.Choices;
+                    ((FieldChoice)f).Choices = _context.Choices;
                     f.Update();
                     ClientContext.ExecuteQueryRetry();
                 }
@@ -168,8 +197,75 @@ Remarks = @"This will add field of type Multiple Choice to a the list ""Demo Lis
                     ClientContext.Load(f);
                     ClientContext.ExecuteQueryRetry();
                 }
+                switch (f.FieldTypeKind)
+                {
+                    case FieldType.DateTime:
+                        {
+                            WriteObject(ClientContext.CastTo<FieldDateTime>(f));
+                            break;
+                        }
+                    case FieldType.Choice:
+                        {
+                            WriteObject(ClientContext.CastTo<FieldChoice>(f));
+                            break;
+                        }
+                    case FieldType.Calculated:
+                        {
+                            WriteObject(ClientContext.CastTo<FieldCalculated>(f));
+                            break;
+                        }
+                    case FieldType.Computed:
+                        {
+                            WriteObject(ClientContext.CastTo<FieldComputed>(f));
+                            break;
+                        }
+                    case FieldType.Geolocation:
+                        {
+                            WriteObject(ClientContext.CastTo<FieldGeolocation>(f));
+                            break;
 
-                WriteObject(f);
+                        }
+                    case FieldType.User:
+                        {
+                            WriteObject(ClientContext.CastTo<FieldUser>(f));
+                            break;
+                        }
+                    case FieldType.Currency:
+                        {
+                            WriteObject(ClientContext.CastTo<FieldCurrency>(f));
+                            break;
+                        }
+                    case FieldType.Guid:
+                        {
+                            WriteObject(ClientContext.CastTo<FieldGuid>(f));
+                            break;
+                        }
+                    case FieldType.URL:
+                        {
+                            WriteObject(ClientContext.CastTo<FieldUrl>(f));
+                            break;
+                        }
+                    case FieldType.Lookup:
+                        {
+                            WriteObject(ClientContext.CastTo<FieldLookup>(f));
+                            break;
+                        }
+                    case FieldType.MultiChoice:
+                        {
+                            WriteObject(ClientContext.CastTo<FieldMultiChoice>(f));
+                            break;
+                        }
+                    case FieldType.Number:
+                        {
+                            WriteObject(ClientContext.CastTo<FieldNumber>(f));
+                            break;
+                        }
+                    default:
+                        {
+                            WriteObject(f);
+                            break;
+                        }
+                }
             }
         }
 
@@ -178,10 +274,10 @@ Remarks = @"This will add field of type Multiple Choice to a the list ""Demo Lis
             [Parameter(Mandatory = false)]
             public string[] Choices
             {
-                get { return choices; }
-                set { choices = value; }
+                get { return _choices; }
+                set { _choices = value; }
             }
-            private string[] choices;
+            private string[] _choices;
         }
 
     }

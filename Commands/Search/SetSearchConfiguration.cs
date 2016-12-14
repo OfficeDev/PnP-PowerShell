@@ -2,30 +2,31 @@
 using System.Management.Automation;
 using Microsoft.SharePoint.Client;
 using Microsoft.SharePoint.Client.Search.Administration;
-using OfficeDevPnP.PowerShell.CmdletHelpAttributes;
-using OfficeDevPnP.PowerShell.Commands.Enums;
-using Resources = OfficeDevPnP.PowerShell.Commands.Properties.Resources;
+using SharePointPnP.PowerShell.CmdletHelpAttributes;
+using SharePointPnP.PowerShell.Commands.Enums;
+using Resources = SharePointPnP.PowerShell.Commands.Properties.Resources;
 
-namespace OfficeDevPnP.PowerShell.Commands.Search
+namespace SharePointPnP.PowerShell.Commands.Search
 {
-    [Cmdlet(VerbsCommon.Set, "SPOSearchConfiguration")]
+    [Cmdlet(VerbsCommon.Set, "PnPSearchConfiguration")]
+    [CmdletAlias("Set-SPOSearchConfiguration")]
     [CmdletHelp("Sets the search configuration",
         Category = CmdletHelpCategory.Search)]
     [CmdletExample(
-        Code = @"PS:> Set-SPOSearchConfiguration -Configuration $config",
+        Code = @"PS:> Set-PnPSearchConfiguration -Configuration $config",
         Remarks = "Sets the search configuration for the current web",
         SortOrder = 1)]
     [CmdletExample(
-        Code = @"PS:> Set-SPOSearchConfiguration -Configuration $config -Scope Site",
+        Code = @"PS:> Set-PnPSearchConfiguration -Configuration $config -Scope Site",
         Remarks = "Sets the search configuration for the current site collection",
         SortOrder = 2)]
     [CmdletExample(
-        Code = @"PS:> Set-SPOSearchConfiguration -Configuration $config -Scope Subscription",
+        Code = @"PS:> Set-PnPSearchConfiguration -Configuration $config -Scope Subscription",
         Remarks = "Sets the search configuration for the current tenant",
         SortOrder = 3)]
     [CmdletExample(
-          Code = @"PS:> Set-SPOSearchConfiguration -Path searchconfig.xml -Scope Subscription",
-        Remarks = "Reads the search configuratino from the specified XML file and sets it for the current tenant",
+          Code = @"PS:> Set-PnPSearchConfiguration -Path searchconfig.xml -Scope Subscription",
+        Remarks = "Reads the search configuration from the specified XML file and sets it for the current tenant",
         SortOrder = 4)]
 
     public class SetSearchConfiguration : SPOWebCmdlet
@@ -53,7 +54,7 @@ namespace OfficeDevPnP.PowerShell.Commands.Search
             {
                 case SearchConfigurationScope.Web:
                     {
-                        this.SelectedWeb.SetSearchConfiguration(Configuration);
+                        SelectedWeb.SetSearchConfiguration(Configuration);
                         break;
                     }
                 case SearchConfigurationScope.Site:

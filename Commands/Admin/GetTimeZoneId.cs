@@ -1,25 +1,27 @@
-﻿using OfficeDevPnP.PowerShell.CmdletHelpAttributes;
+﻿using SharePointPnP.PowerShell.CmdletHelpAttributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Management.Automation;
 
-namespace OfficeDevPnP.PowerShell.Commands
+namespace SharePointPnP.PowerShell.Commands
 {
-    [Cmdlet(VerbsCommon.Get, "SPOTimeZoneId")]
-    [CmdletHelp("Returns a time zone ID", Category = CmdletHelpCategory.TenantAdmin)]
-    [CmdletExample(
-        Code = @"PS:> Get-SPOTimeZoneId",
-        Remarks = @"This will return all time zone IDs in use by Office 365.
- ", SortOrder = 1)]
-    [CmdletExample(
-        Code = @"PS:> Get-SPOTimeZoneId -Match Stockholm",
-        Remarks = @"This will return the time zone IDs for Stockholm
-    ", SortOrder = 2)]
+    [Cmdlet(VerbsCommon.Get, "PnPTimeZoneId")]
+    [CmdletAlias("Get-SPOTimeZoneId")]
+    [CmdletHelp("Returns a time zone ID",
+         Category = CmdletHelpCategory.TenantAdmin,
+         OutputType = typeof(IEnumerable<Zone>),
+         OutputTypeDescription =
+             "Returns a list of matching zones. Use the ID property of the object for use in New-SPOTenantSite")]
+    [CmdletExample(Code = @"PS:> Get-PnPTimeZoneId",
+         Remarks = @"This will return all time zone IDs in use by Office 365.", SortOrder = 1)]
+    [CmdletExample(Code = @"PS:> Get-PnPTimeZoneId -Match Stockholm",
+         Remarks = @"This will return the time zone IDs for Stockholm", SortOrder = 2)]
     public class GetTimeZoneId : PSCmdlet
     {
-        [Parameter(Mandatory = false, Position=0)]
-        public string Match;
+        [Parameter(Mandatory = false, Position = 0, HelpMessage = "A string to search for like 'Stockholm'")]
+        public
+            string Match;
 
         protected override void ProcessRecord()
         {
@@ -37,7 +39,11 @@ namespace OfficeDevPnP.PowerShell.Commands
         {
             var zones = AllZones();
 
-            var results = zones.Where(x => x.Description.ToLower().IndexOf(match.ToLower(), StringComparison.Ordinal) > -1 || x.Identifier.ToLower().Contains(match.ToLower()));
+            var results =
+                zones.Where(
+                    x =>
+                        x.Description.ToLower().IndexOf(match.ToLower(), StringComparison.Ordinal) > -1 ||
+                        x.Identifier.ToLower().Contains(match.ToLower()));
 
             return results;
         }
@@ -46,14 +52,15 @@ namespace OfficeDevPnP.PowerShell.Commands
 
         public IEnumerable<Zone> AllZones()
         {
-            foreach (var zone in Enum.GetValues(typeof(Core.Enums.TimeZone)))
+            foreach (var zone in Enum.GetValues(typeof(OfficeDevPnP.Core.Enums.TimeZone)))
             {
                 var description = zone.ToString();
                 var identifier = description.Split('_')[0];
                 identifier = identifier.Replace("PLUS", "+").Replace("MINUS", "-");
                 if (identifier.Length > 3)
                 {
-                    identifier = identifier.Substring(0, identifier.Length - 2) + ":" + identifier.Substring(identifier.Length - 2, 2);
+                    identifier = identifier.Substring(0, identifier.Length - 2) + ":" +
+                                 identifier.Substring(identifier.Length - 2, 2);
                 }
 
                 description = description.Substring(description.IndexOf('_') + 1).Replace("_", " ");

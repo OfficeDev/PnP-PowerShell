@@ -1,20 +1,28 @@
-﻿using OfficeDevPnP.PowerShell.Commands.Base.PipeBinds;
+﻿using System.Management.Automation;
 using Microsoft.SharePoint.Client;
-using System.Management.Automation;
-using OfficeDevPnP.PowerShell.CmdletHelpAttributes;
+using SharePointPnP.PowerShell.CmdletHelpAttributes;
+using SharePointPnP.PowerShell.Commands.Base.PipeBinds;
 
-
-namespace OfficeDevPnP.PowerShell.Commands
+namespace SharePointPnP.PowerShell.Commands.Lists
 {
-    [Cmdlet(VerbsCommon.Remove, "SPOList", SupportsShouldProcess = true)]
+    [Cmdlet(VerbsCommon.Remove, "PnPList", SupportsShouldProcess = true)]
+    [CmdletAlias("Remove-SPOList")]
     [CmdletHelp("Deletes a list",
         Category = CmdletHelpCategory.Lists)]
+    [CmdletExample(
+        Code = "PS:> Remove-PnPList -Title Announcements",
+        SortOrder = 1,
+        Remarks = @"Removes the list named 'Announcements'. Asks for confirmation.")]
+    [CmdletExample(
+        Code = "PS:> Remove-PnPList -Title Announcements -Force",
+        SortOrder = 2,
+        Remarks = @"Removes the list named 'Announcements' without asking for confirmation.")]
     public class RemoveList : SPOWebCmdlet
     {
         [Parameter(Mandatory = true, ValueFromPipeline = true, Position = 0, HelpMessage = "The ID or Title of the list.")]
         public ListPipeBind Identity = new ListPipeBind();
 
-        [Parameter(Mandatory = false)]
+        [Parameter(Mandatory = false, HelpMessage = "Specifying the Force parameter will skip the confirmation question.")]
         public SwitchParameter Force;
         protected override void ExecuteCmdlet()
         {

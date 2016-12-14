@@ -1,15 +1,21 @@
 ﻿using System.Management.Automation;
 using Microsoft.SharePoint.Client;
-using OfficeDevPnP.PowerShell.CmdletHelpAttributes;
+using SharePointPnP.PowerShell.CmdletHelpAttributes;
 
-namespace OfficeDevPnP.PowerShell.Commands
+namespace SharePointPnP.PowerShell.Commands.Publishing
 {
-    [Cmdlet(VerbsCommon.Get, "SPOWikiPageContent")]
+    [Cmdlet(VerbsCommon.Get, "PnPWikiPageContent")]
+    [CmdletAlias("Get-SPOWikiPageContent")]
     [CmdletHelp("Gets the contents/source of a wiki page",
-        Category = CmdletHelpCategory.Publishing)]
+        Category = CmdletHelpCategory.Publishing,
+        OutputType = typeof(string))]
+    [CmdletExample(
+        Code = @"PS:> Get-PnPWikiPageContent -PageUrl '/sites/demo1/pages/wikipage.aspx'",
+        Remarks = "Gets the content of the page '/sites/demo1/pages/wikipage.aspx'",
+        SortOrder = 1)]
     public class GetWikiPageContent : SPOWebCmdlet
     {
-        [Parameter(Mandatory = true, ValueFromPipeline = true, ValueFromPipelineByPropertyName = true, Position=0)]
+        [Parameter(Mandatory = true, ValueFromPipeline = true, ValueFromPipelineByPropertyName = true, Position=0, HelpMessage = "The server relative URL for the wiki page")]
         [Alias("PageUrl")]
         public string ServerRelativePageUrl = string.Empty;
 

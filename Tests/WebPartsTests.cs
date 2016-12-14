@@ -6,7 +6,7 @@ using System.Linq;
 using System.Xml.Linq;
 using OfficeDevPnP.Core.Utilities;
 
-namespace OfficeDevPnP.PowerShell.Tests
+namespace SharePointPnP.PowerShell.Tests
 {
     [TestClass]
     public class WebPartsTests
@@ -30,7 +30,7 @@ namespace OfficeDevPnP.PowerShell.Tests
             {
                 // retrieve homepage
 
-                var results = scope.ExecuteCommand("Get-SPOWebPart",
+                var results = scope.ExecuteCommand("Get-PnPWebPart",
                     new CommandParameter("ServerRelativePageUrl", serverRelativeHomePageUrl));
 
                 Assert.IsTrue(results.Count > 0);
@@ -50,12 +50,12 @@ namespace OfficeDevPnP.PowerShell.Tests
                     if (wps.Any())
                     {
                         var wp = wps.FirstOrDefault();
-                        var results = scope.ExecuteCommand("Get-SPOWebPartProperty",
+                        var results = scope.ExecuteCommand("Get-PnPWebPartProperty",
                             new CommandParameter("ServerRelativePageUrl", serverRelativeHomePageUrl),
                             new CommandParameter("Identity", wp.Id));
 
                         Assert.IsTrue(results.Count > 0);
-                        Assert.IsTrue(results[0].BaseObject.GetType() == typeof(OfficeDevPnP.PowerShell.Commands.PropertyBagValue));
+                        Assert.IsTrue(results[0].BaseObject.GetType() == typeof(Commands.PropertyBagValue));
 
                     }
                     else
@@ -70,6 +70,11 @@ namespace OfficeDevPnP.PowerShell.Tests
         [TestMethod]
         public void GetWebPartXmlTest()
         {
+            if (TestCommon.AppOnlyTesting())
+            {
+                Assert.Inconclusive("Can't currently retrieve web part settings using app-only");
+            }
+
             using (var scope = new PSTestScope(true))
             {
                 using (var ctx = TestCommon.CreateClientContext())
@@ -79,7 +84,7 @@ namespace OfficeDevPnP.PowerShell.Tests
                     if (wps.Any())
                     {
                         var wp = wps.FirstOrDefault();
-                        var results = scope.ExecuteCommand("Get-SPOWebPartXml",
+                        var results = scope.ExecuteCommand("Get-PnPWebPartXml",
                             new CommandParameter("ServerRelativePageUrl", serverRelativeHomePageUrl),
                             new CommandParameter("Identity", wp.Id));
 
@@ -110,7 +115,7 @@ namespace OfficeDevPnP.PowerShell.Tests
             {
                 using (var ctx = TestCommon.CreateClientContext())
                 {
-                    var results = scope.ExecuteCommand("Add-SPOWebPartToWikiPage",
+                    var results = scope.ExecuteCommand("Add-PnPWebPartToWikiPage",
                         new CommandParameter("ServerRelativePageUrl", serverRelativeHomePageUrl),
                         new CommandParameter("Path", "..\\..\\Resources\\webpart.xml"),
                         new CommandParameter("Row", 1),
@@ -141,7 +146,7 @@ namespace OfficeDevPnP.PowerShell.Tests
             {
                 using (var ctx = TestCommon.CreateClientContext())
                 {
-                    var results = scope.ExecuteCommand("Add-SPOWebPartToWikiPage",
+                    var results = scope.ExecuteCommand("Add-PnPWebPartToWikiPage",
                         new CommandParameter("ServerRelativePageUrl", serverRelativeHomePageUrl),
                         new CommandParameter("Path", "..\\..\\Resources\\webpart.xml"),
                         new CommandParameter("Row", 1),
@@ -150,7 +155,7 @@ namespace OfficeDevPnP.PowerShell.Tests
 
                     Assert.IsFalse(results.Any());
 
-                    results = scope.ExecuteCommand("Remove-SPOWebPart",
+                    results = scope.ExecuteCommand("Remove-PnPWebPart",
                           new CommandParameter("ServerRelativePageUrl", serverRelativeHomePageUrl),
                         new CommandParameter("Title", "Get start with your site"));
 
@@ -166,7 +171,7 @@ namespace OfficeDevPnP.PowerShell.Tests
             {
                 using (var ctx = TestCommon.CreateClientContext())
                 {
-                    var results = scope.ExecuteCommand("Add-SPOWebPartToWikiPage",
+                    var results = scope.ExecuteCommand("Add-PnPWebPartToWikiPage",
                         new CommandParameter("ServerRelativePageUrl", serverRelativeHomePageUrl),
                         new CommandParameter("Path", "..\\..\\Resources\\webpart.xml"),
                         new CommandParameter("Row", 1),
@@ -181,7 +186,7 @@ namespace OfficeDevPnP.PowerShell.Tests
                     {
                         if (wp.WebPart.Title == "Get started with your site")
                         {
-                            results = scope.ExecuteCommand("Set-SPOWebPartProperty",
+                            results = scope.ExecuteCommand("Set-PnPWebPartProperty",
                                 new CommandParameter("ServerRelativePageUrl", serverRelativeHomePageUrl),
                                 new CommandParameter("Identity", wp.Id),
                                 new CommandParameter("Key", "Title"),
@@ -189,7 +194,7 @@ namespace OfficeDevPnP.PowerShell.Tests
 
                             Assert.IsFalse(results.Any());
 
-                            results = scope.ExecuteCommand("Remove-SPOWebPart",
+                            results = scope.ExecuteCommand("Remove-PnPWebPart",
                                 new CommandParameter("ServerRelativePageUrl", serverRelativeHomePageUrl),
                                 new CommandParameter("Title", "TESTTESTTEST"));
                             Assert.IsFalse(results.Any());

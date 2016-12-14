@@ -4,7 +4,7 @@ using System.Management.Automation.Runspaces;
 using Microsoft.SharePoint.Client;
 using System.Linq;
 
-namespace OfficeDevPnP.PowerShell.Tests
+namespace SharePointPnP.PowerShell.Tests
 {
     [TestClass]
     public class ContentTypeTests
@@ -86,7 +86,7 @@ namespace OfficeDevPnP.PowerShell.Tests
         {
             using (var scope = new PSTestScope(true))
             {
-                var results = scope.ExecuteCommand("Add-SPOContentType",
+                var results = scope.ExecuteCommand("Add-PnPContentType",
                     new CommandParameter("Name", CTName4),
                     new CommandParameter("Group", "UnitTestCTGroup"));
 
@@ -102,12 +102,35 @@ namespace OfficeDevPnP.PowerShell.Tests
             }
         }
 
+        public void AddContentTypeWithIdTest()
+        {
+            using (var scope = new PSTestScope(true))
+            {
+                var results = scope.ExecuteCommand("Add-PnPContentType",
+                    new CommandParameter("Name", CTName4),
+                    new CommandParameter("Description", "This is the description of the content type"),
+                    new CommandParameter("ContentTypeID", "0x01010010AFE1111D664A55B9D45F9712E7B827"),
+                    new CommandParameter("Group", "UnitTestCTGroup"));
+
+                Assert.IsTrue(results.Any());
+                Assert.IsTrue(results[0].BaseObject.GetType() == typeof(Microsoft.SharePoint.Client.ContentType));
+
+                using (var ctx = TestCommon.CreateClientContext())
+                {
+                    var ct = ctx.Web.GetContentTypeByName(CTName4);
+                    ct.DeleteObject();
+                    ctx.ExecuteQueryRetry();
+                }
+            }
+        }
+
+
         [TestMethod]
         public void AddContentTypeToListTest()
         {
             using (var scope = new PSTestScope(true))
             {
-                var results = scope.ExecuteCommand("Add-SPOContentTypeToList",
+                var results = scope.ExecuteCommand("Add-PnPContentTypeToList",
                     new CommandParameter("ContentType", CTName2),
                     new CommandParameter("List", ListName));
 
@@ -126,7 +149,7 @@ namespace OfficeDevPnP.PowerShell.Tests
             {
                 using (var ctx = TestCommon.CreateClientContext())
                 {
-                    var results = scope.ExecuteCommand("Add-SPOFieldToContentType",
+                    var results = scope.ExecuteCommand("Add-PnPFieldToContentType",
                         new CommandParameter("ContentType", CTName2),
                         new CommandParameter("Field", "Nickname"));
 
@@ -155,7 +178,7 @@ namespace OfficeDevPnP.PowerShell.Tests
             using (var scope = new PSTestScope(true))
             {
 
-                var results = scope.ExecuteCommand("Get-SPOContentType",
+                var results = scope.ExecuteCommand("Get-PnPContentType",
                     new CommandParameter("Identity", CTName2));
 
                 Assert.IsTrue(results.Any());
@@ -170,7 +193,7 @@ namespace OfficeDevPnP.PowerShell.Tests
         {
             using (var scope = new PSTestScope(true))
             {
-                var results = scope.ExecuteCommand("Add-SPOContentType",
+                var results = scope.ExecuteCommand("Add-PnPContentType",
                     new CommandParameter("Name", CTName3),
                     new CommandParameter("Group", "UnitTestCTGroup"));
 
@@ -178,7 +201,7 @@ namespace OfficeDevPnP.PowerShell.Tests
                 Assert.IsTrue(results[0].BaseObject.GetType() == typeof(Microsoft.SharePoint.Client.ContentType));
 
 
-                results = scope.ExecuteCommand("Remove-SPOContentType",
+                results = scope.ExecuteCommand("Remove-PnPContentType",
                     new CommandParameter("Identity", CTName3),
                     new CommandParameter("Force"));
 
@@ -202,7 +225,7 @@ namespace OfficeDevPnP.PowerShell.Tests
                     ctList.AddContentTypeToListByName(CTName2, false, true);
                 }
 
-                var results = scope.ExecuteCommand("Set-SPODefaultContentTypeToList",
+                var results = scope.ExecuteCommand("Set-PnPDefaultContentTypeToList",
                   new CommandParameter("List", ListName),
                   new CommandParameter("ContentType", CTName2));
 

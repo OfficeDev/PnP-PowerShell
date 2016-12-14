@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Management.Automation;
 
-namespace OfficeDevPnP.PowerShell.CmdletHelpGenerator
+namespace SharePointPnP.PowerShell.CmdletHelpGenerator
 {
     public class CmdletInfo
     {
@@ -21,15 +19,15 @@ namespace OfficeDevPnP.PowerShell.CmdletHelpGenerator
 
         public string Copyright { get; set; }
 
-        public List<CmdletSyntax> Syntaxes { get; set; } 
+        public List<CmdletSyntax> Syntaxes { get; set; }
 
-        public string FullCommand
-        {
-            get
-            {
-                return string.Format("{0}-{1}", Verb, Noun);
-            }
-        }
+        public Type OutputType { get; set; }
+        public string OutputTypeDescription { get; set; }
+        public string OutputTypeLink { get; set; }
+
+        public List<string> Aliases { get; set; }
+
+        public string FullCommand => $"{Verb}-{Noun}";
 
         public string Category { get; set; }
 
@@ -39,6 +37,7 @@ namespace OfficeDevPnP.PowerShell.CmdletHelpGenerator
             Noun = noun;
             Parameters = new List<CmdletParameterInfo>();
             Syntaxes = new List<CmdletSyntax>();
+            Aliases = new List<string>();
         }
     }
 }

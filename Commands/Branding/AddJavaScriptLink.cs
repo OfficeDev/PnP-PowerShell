@@ -1,18 +1,19 @@
-﻿using System.Management.Automation;
+﻿using System;
+using System.Management.Automation;
 using Microsoft.SharePoint.Client;
-using OfficeDevPnP.PowerShell.CmdletHelpAttributes;
-using OfficeDevPnP.PowerShell.Commands.Enums;
-using System;
+using SharePointPnP.PowerShell.CmdletHelpAttributes;
+using SharePointPnP.PowerShell.Commands.Enums;
 
-namespace OfficeDevPnP.PowerShell.Commands
+namespace SharePointPnP.PowerShell.Commands.Branding
 {
-    [Cmdlet(VerbsCommon.Add, "SPOJavaScriptLink")]
+    [Cmdlet(VerbsCommon.Add, "PnPJavaScriptLink")]
+    [CmdletAlias("Add-SPOJavaScriptLink")]
     [CmdletHelp("Adds a link to a JavaScript file to a web or sitecollection",
         Category = CmdletHelpCategory.Branding)]
-    [CmdletExample(Code = "PS:> Add-SPOJavaScriptLink -Name jQuery -Url https://code.jquery.com/jquery.min.js -Sequence 9999 -Scope Site",
+    [CmdletExample(Code = "PS:> Add-PnPJavaScriptLink -Name jQuery -Url https://code.jquery.com/jquery.min.js -Sequence 9999 -Scope Site",
                 Remarks = "Injects a reference to the latest v1 series jQuery library to all pages within the current site collection under the name jQuery and at order 9999",
                 SortOrder = 1)]
-    [CmdletExample(Code = "PS:> Add-SPOJavaScriptLink -Name jQuery -Url https://code.jquery.com/jquery.min.js",
+    [CmdletExample(Code = "PS:> Add-PnPJavaScriptLink -Name jQuery -Url https://code.jquery.com/jquery.min.js",
                 Remarks = "Injects a reference to the latest v1 series jQuery library to all pages within the current web under the name jQuery",
                 SortOrder = 2)]
     public class AddJavaScriptLink : SPOWebCmdlet
@@ -60,7 +61,7 @@ namespace OfficeDevPnP.PowerShell.Commands
                     break;
 
                 case CustomActionScope.All:
-                    WriteWarning("CustomActionScope All is not supported for adding JavaScriptLinks");
+                    WriteError(new ErrorRecord(new Exception("Scope parameter can only be set to Web or Site"), "INCORRECTVALUE", ErrorCategory.InvalidArgument, this));
                     break;
             }
         }

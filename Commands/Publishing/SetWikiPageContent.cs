@@ -2,12 +2,13 @@
 using System.IO;
 using System.Management.Automation;
 using Microsoft.SharePoint.Client;
-using OfficeDevPnP.PowerShell.CmdletHelpAttributes;
+using SharePointPnP.PowerShell.CmdletHelpAttributes;
 using File = System.IO.File;
 
-namespace OfficeDevPnP.PowerShell.Commands
+namespace SharePointPnP.PowerShell.Commands.Publishing
 {
-    [Cmdlet(VerbsCommon.Set, "SPOWikiPageContent")]
+    [Cmdlet(VerbsCommon.Set, "PnPWikiPageContent")]
+    [CmdletAlias("Set-SPOWikiPageContent")]
     [CmdletHelp("Sets the contents of a wikipage",
         Category = CmdletHelpCategory.Publishing)]
     public class SetWikiPageContent : SPOWebCmdlet
@@ -40,7 +41,7 @@ namespace OfficeDevPnP.PowerShell.Commands
                 }
                 else
                 {
-                    throw new Exception(string.Format("File {0} does not exist", Path));
+                    throw new Exception($"File {Path} does not exist");
                 }
             }
             else

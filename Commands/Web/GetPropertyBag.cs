@@ -1,38 +1,39 @@
 ﻿using System.Linq;
 using System.Management.Automation;
 using Microsoft.SharePoint.Client;
-using OfficeDevPnP.PowerShell.CmdletHelpAttributes;
-using System;
+using SharePointPnP.PowerShell.CmdletHelpAttributes;
 using OfficeDevPnP.Core.Utilities;
 
-namespace OfficeDevPnP.PowerShell.Commands
+namespace SharePointPnP.PowerShell.Commands
 {
-    [Cmdlet(VerbsCommon.Get, "SPOPropertyBag")]
+    [Cmdlet(VerbsCommon.Get, "PnPPropertyBag")]
+    [CmdletAlias("Get-SPOPropertyBag")]
     [CmdletHelp("Returns the property bag values.",
-        Category = CmdletHelpCategory.Webs)]
+        Category = CmdletHelpCategory.Webs,
+        OutputType = typeof(PropertyBagValue))]
     [CmdletExample(
-       Code = @"PS:> Get-SPOPropertyBag",
+       Code = @"PS:> Get-PnPPropertyBag",
        Remarks = "This will return all web property bag values",
        SortOrder = 1)]
     [CmdletExample(
-       Code = @"PS:> Get-SPOPropertyBag -Key MyKey",
+       Code = @"PS:> Get-PnPPropertyBag -Key MyKey",
        Remarks = "This will return the value of the key MyKey from the web property bag",
        SortOrder = 2)]
     [CmdletExample(
-       Code = @"PS:> Get-SPOPropertyBag -Folder /MyFolder",
+       Code = @"PS:> Get-PnPPropertyBag -Folder /MyFolder",
        Remarks = "This will return all property bag values for the folder MyFolder which is located in the root of the current web",
        SortOrder = 3)]
     [CmdletExample(
-       Code = @"PS:> Get-SPOPropertyBag -Folder /MyFolder -Key vti_mykey",
+       Code = @"PS:> Get-PnPPropertyBag -Folder /MyFolder -Key vti_mykey",
        Remarks = "This will return the value of the key vti_mykey from the folder MyFolder which is located in the root of the current web",
        SortOrder = 4)]
     [CmdletExample(
-     Code = @"PS:> Get-SPOPropertyBag -Folder / -Key vti_mykey",
+     Code = @"PS:> Get-PnPPropertyBag -Folder / -Key vti_mykey",
      Remarks = "This will return the value of the key vti_mykey from the root folder of the current web",
      SortOrder = 5)]
     public class GetPropertyBag : SPOWebCmdlet
     {
-        [Parameter(Mandatory = false, Position = 0, ValueFromPipeline = true)]
+        [Parameter(Mandatory = false, Position = 0, ValueFromPipeline = true, HelpMessage = "Key that should be looked up")]
         public string Key = string.Empty;
 
         [Parameter(Mandatory = false, HelpMessage = "Site relative url of the folder. See examples for use.")]

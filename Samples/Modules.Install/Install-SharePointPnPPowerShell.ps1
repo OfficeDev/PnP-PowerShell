@@ -1,0 +1,2 @@
+﻿Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/officedev/PnP-PowerShell/master/Samples/Modules.Install/Install-PowerShellPackageMangement.ps1') # We use this to install the PowerShell Package Manager for the PowerShell Gallery
+Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/officedev/PnP-PowerShell/master/Samples/Modules.Install/Install-SharePointPnPPowerShellHelperModule.ps1')

@@ -1,31 +1,35 @@
-﻿using OfficeDevPnP.PowerShell.Commands.Base.PipeBinds;
+﻿using System;
 using System.Management.Automation;
 using Microsoft.SharePoint.Client;
-using OfficeDevPnP.PowerShell.CmdletHelpAttributes;
+using SharePointPnP.PowerShell.CmdletHelpAttributes;
+using SharePointPnP.PowerShell.Commands.Base.PipeBinds;
 
-namespace OfficeDevPnP.PowerShell.Commands
+namespace SharePointPnP.PowerShell.Commands.Events
 {
-    [Cmdlet(VerbsCommon.Get, "SPOEventReceiver")]
+    [Cmdlet(VerbsCommon.Get, "PnPEventReceiver")]
+    [CmdletAlias("Get-SPOEventReceiver")]
     [CmdletHelp("Returns all or a specific event receiver",
-        Category = CmdletHelpCategory.EventReceivers)]
+        Category = CmdletHelpCategory.EventReceivers,
+        OutputType = typeof(EventReceiverDefinition),
+        OutputTypeLink = "https://msdn.microsoft.com/en-us/library/microsoft.sharepoint.client.eventreceiverdefinition.aspx")]
     [CmdletExample(
-      Code = @"PS:> Get-SPOEventReceiver",
+      Code = @"PS:> Get-PnPEventReceiver",
       Remarks = @"This will return all registered event receivers on the current web", SortOrder = 1)]
     [CmdletExample(
-      Code = @"PS:> Get-SPOEventReceiver -Identity fb689d0e-eb99-4f13-beb3-86692fd39f22",
-      Remarks = @"This will return a specific registered event receivers from the current web", SortOrder = 2)]
+      Code = @"PS:> Get-PnPEventReceiver -Identity fb689d0e-eb99-4f13-beb3-86692fd39f22",
+      Remarks = @"This will return a specific registered event receiver from the current web", SortOrder = 2)]
     [CmdletExample(
-      Code = @"PS:> Get-SPOEventReceiver -List ""ProjectList""",
+      Code = @"PS:> Get-PnPEventReceiver -List ""ProjectList""",
       Remarks = @"This will return all registered event receivers in the list with the name ProjectList", SortOrder = 3)]
     [CmdletExample(
-      Code = @"PS:> Get-SPOEventReceiver -List ""ProjectList"" -Identity fb689d0e-eb99-4f13-beb3-86692fd39f22",
+      Code = @"PS:> Get-PnPEventReceiver -List ""ProjectList"" -Identity fb689d0e-eb99-4f13-beb3-86692fd39f22",
       Remarks = @"This will return a specific registered event receiver in the list with the name ProjectList", SortOrder = 4)]
     public class GetEventReceiver : SPOWebCmdlet
     {
-        [Parameter(Mandatory = false, ParameterSetName = "List")]
+        [Parameter(Mandatory = false, ParameterSetName = "List", HelpMessage = "The list object from which to get the event receiver object")]
         public ListPipeBind List;
 
-        [Parameter(Mandatory = false)]
+        [Parameter(Mandatory = false, HelpMessage = "The Guid of the event receiver on the list")]
         public GuidPipeBind Identity;
 
         protected override void ExecuteCmdlet()

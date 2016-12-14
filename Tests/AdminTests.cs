@@ -2,7 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Management.Automation.Runspaces;
 
-namespace OfficeDevPnP.PowerShell.Tests
+namespace SharePointPnP.PowerShell.Tests
 {
     [TestClass]
     public class GetTenantSiteTests
@@ -12,7 +12,7 @@ namespace OfficeDevPnP.PowerShell.Tests
         {
             using (var scope = new PSTestScope(true))
             {
-                var results = scope.ExecuteCommand("Get-SPOTenantSite");
+                var results = scope.ExecuteCommand("Get-PnPTenantSite");
 
                 Assert.IsTrue(results.Count > 0);
             }
@@ -23,7 +23,7 @@ namespace OfficeDevPnP.PowerShell.Tests
         {
             using (var scope = new PSTestScope(false))
             {
-                var results = scope.ExecuteCommand("Get-SPOTimeZoneId");
+                var results = scope.ExecuteCommand("Get-PnPTimeZoneId");
                 Assert.IsTrue(results.Count > 0);
             }
         }
@@ -33,7 +33,7 @@ namespace OfficeDevPnP.PowerShell.Tests
         {
             using (var scope = new PSTestScope(false))
             {
-                var results = scope.ExecuteCommand("Get-SPOTimeZoneId", new CommandParameter("Match", "Stockholm"));
+                var results = scope.ExecuteCommand("Get-PnPTimeZoneId", new CommandParameter("Match", "Stockholm"));
 
                 Assert.IsTrue(results.Count == 1);
             }
@@ -43,8 +43,8 @@ namespace OfficeDevPnP.PowerShell.Tests
         public void GetWebTemplatesTest()
         {
             using (var scope = new PSTestScope(true))
-            {
-                var results = scope.ExecuteCommand("Get-SPOWebTemplates");
+            {                
+                var results = scope.ExecuteCommand("Get-PnPWebTemplates", new CommandParameter("Lcid", "1033"), new CommandParameter("CompatibilityLevel", "15"));
 
                 Assert.IsTrue(results.Count > 0);
                 Assert.IsTrue(results[0].BaseObject.GetType().Equals(typeof(Microsoft.Online.SharePoint.TenantAdministration.SPOTenantWebTemplate)));

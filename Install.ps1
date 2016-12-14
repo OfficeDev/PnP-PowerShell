@@ -4,7 +4,7 @@ $programFilesFolder = [environment]::getfolderpath("ProgramFilesX86");
 
 $PnPRoot = "$programFilesFolder\OfficeDevPnP";
 
-$ModuleHome = "$PnPRoot\PowerShell\Modules\OfficeDevPnP.PowerShell.Commands"
+$ModuleHome = "$PnPRoot\PowerShell\Modules\SharePoint.PowerShell.Commands"
 
 New-Item -Path $ModuleHome -ItemType Directory -Force
 

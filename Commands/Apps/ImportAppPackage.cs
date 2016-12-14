@@ -1,23 +1,25 @@
 ﻿using System.IO;
 using System.Management.Automation;
 using System.Globalization;
-using OfficeDevPnP.PowerShell.CmdletHelpAttributes;
+using SharePointPnP.PowerShell.CmdletHelpAttributes;
 using Microsoft.SharePoint.Client;
 using OfficeDevPnP.Core;
 
-namespace OfficeDevPnP.PowerShell.Commands
+namespace SharePointPnP.PowerShell.Commands
 {
-    [Cmdlet(VerbsData.Import, "SPOAppPackage")]
-    
+    [Cmdlet(VerbsData.Import, "PnPAppPackage")]
+    [CmdletAlias("Import-SPOAppPackage")]
     [CmdletHelp("Adds a SharePoint Addin to a site",
         DetailedDescription = "This commands requires that you have an addin package to deploy", 
-        Category = CmdletHelpCategory.Apps)]
+        Category = CmdletHelpCategory.Apps,
+         OutputType= typeof(AppInstance),
+        OutputTypeLink = "https://msdn.microsoft.com/en-us/library/microsoft.sharepoint.client.appinstance.aspx")]
     [CmdletExample(
-        Code = @"PS:> Import-SPOAppPackage -Path c:\files\demo.app -LoadOnly",
+        Code = @"PS:> Import-PnPAppPackage -Path c:\files\demo.app -LoadOnly",
         Remarks = @"This will load the addin in the demo.app package, but will not install it to the site.
  ", SortOrder = 1)]
     [CmdletExample(
-        Code = @"PS:> Import-SPOAppPackage -Path c:\files\demo.app -Force",
+        Code = @"PS:> Import-PnPAppPackage -Path c:\files\demo.app -Force",
         Remarks = @"This load first activate the addin sideloading feature, upload and install the addin, and deactivate the addin sideloading feature.
     ", SortOrder = 2)]
     public class ImportAppPackage : SPOWebCmdlet
@@ -36,6 +38,11 @@ namespace OfficeDevPnP.PowerShell.Commands
 
         protected override void ExecuteCmdlet()
         {
+            if (!System.IO.Path.IsPathRooted(Path))
+            {
+                Path = System.IO.Path.Combine(SessionState.Path.CurrentFileSystemLocation.Path, Path);
+            }
+
             if (System.IO.File.Exists(Path))
             {
                 if (Force)
@@ -43,11 +50,7 @@ namespace OfficeDevPnP.PowerShell.Commands
                     ClientContext.Site.ActivateFeature(Constants.APPSIDELOADINGFEATUREID);
                 }
                 AppInstance instance;
-
-                if (!System.IO.Path.IsPathRooted(Path))
-                {
-                    Path = System.IO.Path.Combine(SessionState.Path.CurrentFileSystemLocation.Path, Path);
-                }
+           
 
                 var appPackageStream = new FileStream(Path, FileMode.Open, FileAccess.Read);
                 if (Locale == -1)

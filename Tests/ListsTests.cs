@@ -5,7 +5,7 @@ using System.Management.Automation.Runspaces;
 using System.Collections;
 using System.Linq;
 
-namespace OfficeDevPnP.PowerShell.Tests
+namespace SharePointPnP.PowerShell.Tests
 {
     [TestClass]
     public class ListsTests
@@ -48,7 +48,7 @@ namespace OfficeDevPnP.PowerShell.Tests
                 var values = new Hashtable();
                 values.Add("Title", "Test");
 
-                var results = scope.ExecuteCommand("Add-SPOListItem",
+                var results = scope.ExecuteCommand("Add-PnPListItem",
                     new CommandParameter("List", "PnPTestList"),
                     new CommandParameter("Values", values));
 
@@ -64,7 +64,7 @@ namespace OfficeDevPnP.PowerShell.Tests
             using (var scope = new PSTestScope(true))
             {
 
-                var results = scope.ExecuteCommand("Add-SPOView",
+                var results = scope.ExecuteCommand("Add-PnPView",
                     new CommandParameter("List", "PnPTestList"),
                     new CommandParameter("Title", "TestView"),
                     new CommandParameter("Fields", new[] { "Title" }));
@@ -80,7 +80,7 @@ namespace OfficeDevPnP.PowerShell.Tests
         {
             using (var scope = new PSTestScope(true))
             {
-                var results = scope.ExecuteCommand("Get-SPOList");
+                var results = scope.ExecuteCommand("Get-PnPList");
 
                 Assert.IsTrue(results.Count > 0);
                 Assert.IsTrue(results[0].BaseObject.GetType() == typeof(Microsoft.SharePoint.Client.List));
@@ -93,7 +93,7 @@ namespace OfficeDevPnP.PowerShell.Tests
         {
             using (var scope = new PSTestScope(true))
             {
-                var results = scope.ExecuteCommand("Get-SPOList",
+                var results = scope.ExecuteCommand("Get-PnPList",
                     new CommandParameter("Identity", "PnPTestList"));
 
                 Assert.IsTrue(results.Count > 0);
@@ -116,7 +116,7 @@ namespace OfficeDevPnP.PowerShell.Tests
             }
             using (var scope = new PSTestScope(true))
             {
-                var results = scope.ExecuteCommand("Get-SPOListItem",
+                var results = scope.ExecuteCommand("Get-PnPListItem",
                     new CommandParameter("List", "PnPTestList"));
 
                 Assert.IsTrue(results.Count > 0);
@@ -129,7 +129,7 @@ namespace OfficeDevPnP.PowerShell.Tests
         {
             using (var scope = new PSTestScope(true))
             {
-                var results = scope.ExecuteCommand("Get-SPOView",
+                var results = scope.ExecuteCommand("Get-PnPView",
                     new CommandParameter("List", "PnPTestList")
                     );
 
@@ -143,7 +143,7 @@ namespace OfficeDevPnP.PowerShell.Tests
         {
             using (var scope = new PSTestScope(true))
             {
-                scope.ExecuteCommand("New-SPOList",
+                scope.ExecuteCommand("New-PnPList",
                     new CommandParameter("Title", "PnPTestList2"),
                     new CommandParameter("Template", ListTemplateType.GenericList));
             }
@@ -167,7 +167,7 @@ namespace OfficeDevPnP.PowerShell.Tests
 
                 using (var scope = new PSTestScope(true))
                 {
-                    scope.ExecuteCommand("Remove-SPOList",
+                    scope.ExecuteCommand("Remove-PnPList",
                         new CommandParameter("Identity", "PnPTestList2"),
                         new CommandParameter("Force")
                         );
@@ -190,7 +190,7 @@ namespace OfficeDevPnP.PowerShell.Tests
 
                 using (var scope = new PSTestScope(true))
                 {
-                    scope.ExecuteCommand("Remove-SPOView",
+                    scope.ExecuteCommand("Remove-PnPView",
                         new CommandParameter("List", "PnPTestList"),
                         new CommandParameter("Identity", "TestView"),
                         new CommandParameter("Force")
@@ -212,7 +212,7 @@ namespace OfficeDevPnP.PowerShell.Tests
 
                 using (var scope = new PSTestScope(true))
                 {
-                    scope.ExecuteCommand("Set-SPOList",
+                    scope.ExecuteCommand("Set-PnPList",
                         new CommandParameter("Identity", "PnPTestList3"),
                         new CommandParameter("Title", "NewPnPTestList3")
                         );

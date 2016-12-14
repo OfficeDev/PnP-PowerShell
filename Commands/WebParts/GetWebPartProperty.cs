@@ -1,34 +1,34 @@
 ﻿using System.Linq;
 using System.Management.Automation;
 using Microsoft.SharePoint.Client;
-using OfficeDevPnP.PowerShell.CmdletHelpAttributes;
-using OfficeDevPnP.PowerShell.Commands.Base.PipeBinds;
-using System;
 using OfficeDevPnP.Core.Utilities;
+using SharePointPnP.PowerShell.CmdletHelpAttributes;
+using SharePointPnP.PowerShell.Commands.Base.PipeBinds;
 
-namespace OfficeDevPnP.PowerShell.Commands
+namespace SharePointPnP.PowerShell.Commands.WebParts
 {
-    [Cmdlet(VerbsCommon.Get, "SPOWebPartProperty")]
+    [Cmdlet(VerbsCommon.Get, "PnPWebPartProperty")]
+    [CmdletAlias("Get-SPOWebPartProperty")]
     [CmdletHelp("Returns a web part property", 
         Category = CmdletHelpCategory.WebParts)]
     [CmdletExample(
-        Code = @"PS:> Get-SPOWebPartProperty -ServerRelativePageUrl /sites/demo/sitepages/home.aspx -Identity ccd2c98a-c9ae-483b-ae72-19992d583914",
+        Code = @"PS:> Get-PnPWebPartProperty -ServerRelativePageUrl /sites/demo/sitepages/home.aspx -Identity ccd2c98a-c9ae-483b-ae72-19992d583914",
         Remarks = "Returns all properties of the webpart.",
         SortOrder = 2)]
     [CmdletExample(
-        Code = @"PS:> Get-SPOWebPartProperty -ServerRelativePageUrl /sites/demo/sitepages/home.aspx -Identity ccd2c98a-c9ae-483b-ae72-19992d583914 -Key ""Title""",
+        Code = @"PS:> Get-PnPWebPartProperty -ServerRelativePageUrl /sites/demo/sitepages/home.aspx -Identity ccd2c98a-c9ae-483b-ae72-19992d583914 -Key ""Title""",
         Remarks = "Returns the title property of the webpart.",
         SortOrder = 2)]
     public class GetWebPartProperty : SPOWebCmdlet
     {
-        [Parameter(Mandatory = true)]
+        [Parameter(Mandatory = true, HelpMessage = "Full server relative URL of the webpart page, e.g. /sites/mysite/sitepages/home.aspx")]
         [Alias("PageUrl")]
         public string ServerRelativePageUrl = string.Empty;
 
-        [Parameter(Mandatory = true)]
+        [Parameter(Mandatory = true, HelpMessage = "The id of the webpart")]
         public GuidPipeBind Identity;
 
-        [Parameter(Mandatory = false)]
+        [Parameter(Mandatory = false, HelpMessage = "Name of a single property to be returned")]
         public string Key;
 
         protected override void ExecuteCmdlet()

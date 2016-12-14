@@ -1,14 +1,15 @@
 ﻿using System.Linq;
 using System.Management.Automation;
 using Microsoft.SharePoint.Client;
-using OfficeDevPnP.PowerShell.CmdletHelpAttributes;
-using OfficeDevPnP.PowerShell.Commands.Base.PipeBinds;
-using System;
+using Microsoft.SharePoint.Client.WebParts;
 using OfficeDevPnP.Core.Utilities;
+using SharePointPnP.PowerShell.CmdletHelpAttributes;
+using SharePointPnP.PowerShell.Commands.Base.PipeBinds;
 
-namespace OfficeDevPnP.PowerShell.Commands
+namespace SharePointPnP.PowerShell.Commands.WebParts
 {
-    [Cmdlet(VerbsCommon.Remove, "SPOWebPart")]
+    [Cmdlet(VerbsCommon.Remove, "PnPWebPart")]
+    [CmdletAlias("Remove-SPOWebPart")]
     [CmdletHelp("Removes a webpart from a page",
         Category = CmdletHelpCategory.WebParts)]
     public class RemoveWebPart : SPOWebCmdlet
@@ -42,9 +43,10 @@ namespace OfficeDevPnP.PowerShell.Commands
             {
                 var wps = SelectedWeb.GetWebParts(ServerRelativePageUrl);
                 var wp = from w in wps where w.Id == Identity.Id select w;
-                if(wp.Any())
+                var webPartDefinitions = wp as WebPartDefinition[] ?? wp.ToArray();
+                if(webPartDefinitions.Any())
                 {
-                    wp.FirstOrDefault().DeleteWebPart();
+                    webPartDefinitions.FirstOrDefault().DeleteWebPart();
                     ClientContext.ExecuteQueryRetry();
                 }
             }

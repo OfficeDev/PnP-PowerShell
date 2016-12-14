@@ -1,6 +1,6 @@
 ﻿using Microsoft.SharePoint.Client;
 
-namespace OfficeDevPnP.PowerShell.Commands.Extensions
+namespace SharePointPnP.PowerShell.Commands.Extensions
 {
     public static class ClientExtensions
     {

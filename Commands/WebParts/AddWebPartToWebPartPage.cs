@@ -2,21 +2,21 @@
 using System.Management.Automation;
 using Microsoft.SharePoint.Client;
 using OfficeDevPnP.Core.Entities;
-using OfficeDevPnP.PowerShell.CmdletHelpAttributes;
-using File = System.IO.File;
-using System;
 using OfficeDevPnP.Core.Utilities;
+using SharePointPnP.PowerShell.CmdletHelpAttributes;
+using File = System.IO.File;
 
-namespace OfficeDevPnP.PowerShell.Commands
+namespace SharePointPnP.PowerShell.Commands.WebParts
 {
-    [Cmdlet(VerbsCommon.Add, "SPOWebPartToWebPartPage")]
+    [Cmdlet(VerbsCommon.Add, "PnPWebPartToWebPartPage")]
+    [CmdletAlias("Add-SPOWebPartToWebPartPage")]
     [CmdletHelp("Adds a webpart to a web part page in a specified zone",
         Category = CmdletHelpCategory.WebParts)]
     [CmdletExample(
-   Code = @"PS:> Add-SPOWebPartToWebPartPage -ServerRelativePageUrl ""/sites/demo/sitepages/home.aspx"" -Path ""c:\myfiles\listview.webpart"" -ZoneId ""Header"" -ZoneIndex 1 ",
+   Code = @"PS:> Add-PnPWebPartToWebPartPage -ServerRelativePageUrl ""/sites/demo/sitepages/home.aspx"" -Path ""c:\myfiles\listview.webpart"" -ZoneId ""Header"" -ZoneIndex 1 ",
    Remarks = @"This will add the webpart as defined by the XML in the listview.webpart file to the specified page in the specified zone and with the order index of 1", SortOrder = 1)]
     [CmdletExample(
-  Code = @"PS:> Add-SPOWebPartToWebPartPage -ServerRelativePageUrl ""/sites/demo/sitepages/home.aspx"" -XML $webpart -ZoneId ""Header"" -ZoneIndex 1 ",
+  Code = @"PS:> Add-PnPWebPartToWebPartPage -ServerRelativePageUrl ""/sites/demo/sitepages/home.aspx"" -XML $webpart -ZoneId ""Header"" -ZoneIndex 1 ",
   Remarks = @"This will add the webpart as defined by the XML in the $webpart variable to the specified page in the specified zone and with the order index of 1", SortOrder = 1)]
     public class AddWebPartToWebPartPage : SPOWebCmdlet
     {

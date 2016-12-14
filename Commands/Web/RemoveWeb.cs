@@ -1,26 +1,29 @@
 ﻿using System.Management.Automation;
 using Microsoft.SharePoint.Client;
-using OfficeDevPnP.PowerShell.CmdletHelpAttributes;
-using OfficeDevPnP.PowerShell.Commands.Base.PipeBinds;
+using web = Microsoft.SharePoint.Client.Web;
+using SharePointPnP.PowerShell.CmdletHelpAttributes;
+using SharePointPnP.PowerShell.Commands.Base.PipeBinds;
 using System;
+using SharePointPnP.PowerShell.Commands.Extensions;
 
-namespace OfficeDevPnP.PowerShell.Commands
+namespace SharePointPnP.PowerShell.Commands
 {
-    [Cmdlet(VerbsCommon.Remove, "SPOWeb")]
+    [Cmdlet(VerbsCommon.Remove, "PnPWeb")]
+    [CmdletAlias("Remove-SPOWeb")]
     [CmdletHelp("Removes a subweb in the current web",
         Category = CmdletHelpCategory.Webs)]
     [CmdletExample(
-        Code = @"PS:> Remove-SPOWeb -Url projectA",
+        Code = @"PS:> Remove-PnPWeb -Url projectA",
         Remarks = "Remove a web",
         SortOrder = 1)]
 
     [CmdletExample(
-        Code = @"PS:> Remove-SPOWeb -Identity 5fecaf67-6b9e-4691-a0ff-518fc9839aa0",
+        Code = @"PS:> Remove-PnPWeb -Identity 5fecaf67-6b9e-4691-a0ff-518fc9839aa0",
         Remarks = "Remove a web specified by its ID",
         SortOrder = 2)]
 
     [CmdletExample(
-        Code = @"PS:> Get-SPOSubWebs | Remove-SPOWeb -Force",
+        Code = @"PS:> Get-PnPSubWebs | Remove-PnPWeb -Force",
         Remarks = "Remove all subwebs and do not ask for confirmation",
         SortOrder = 2)]
 
@@ -40,7 +43,7 @@ namespace OfficeDevPnP.PowerShell.Commands
         {
             if (ParameterSetName == "ByIdentity")
             {
-                Web web = null;
+                web web;
                 if (Identity.Id != Guid.Empty)
                 {
                     web = ClientContext.Web.GetWebById(Identity.Id);

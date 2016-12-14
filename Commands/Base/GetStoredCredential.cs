@@ -1,16 +1,20 @@
 ﻿using System.Management.Automation;
 using OfficeDevPnP.Core.Utilities;
-using OfficeDevPnP.PowerShell.CmdletHelpAttributes;
-using OfficeDevPnP.PowerShell.Commands.Enums;
+using SharePointPnP.PowerShell.CmdletHelpAttributes;
+using SharePointPnP.PowerShell.Commands.Enums;
 
-namespace OfficeDevPnP.PowerShell.Commands.Base
+namespace SharePointPnP.PowerShell.Commands.Base
 {
-    [Cmdlet("Get", "SPOStoredCredential")]
+    [Cmdlet("Get", "PnPStoredCredential")]
+    [CmdletAlias("Get-SPOStoredCredential")]
     [CmdletHelp("Returns a stored credential from the Windows Credential Manager", 
         Category = CmdletHelpCategory.Base)]
     [CmdletExample(Code = "PS:> Get-SPOnlineStoredCredential -Name O365", 
         Remarks = "Returns the credential associated with the specified identifier",
         SortOrder = 1)]
+    [CmdletExample(Code = "PS:> Get-SPOnlineStoredCredential -Name testEnvironment -Type OnPrem", 
+        Remarks = "Gets the credential associated with the specified identifier from the credential manager and then will return a credential that can be used for on-premises authentication",
+        SortOrder = 2)]
     public class GetStoredCredential : PSCmdlet
     {
         [Parameter(Mandatory = true, HelpMessage = "The credential to retrieve.")]

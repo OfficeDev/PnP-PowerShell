@@ -1,29 +1,27 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Management.Automation;
 using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
-using OfficeDevPnP.Core.Framework.Provisioning.Providers.Json;
-using OfficeDevPnP.PowerShell.CmdletHelpAttributes;
+using SharePointPnP.PowerShell.CmdletHelpAttributes;
 
-namespace OfficeDevPnP.PowerShell.Commands.Base
+namespace SharePointPnP.PowerShell.Commands.Base
 {
-    [Cmdlet(VerbsCommon.Get, "SPOAzureADManifestKeyCredentials")]
-    [CmdletHelp("Creates the JSON snippet that is required for the manifest json file for Azure WebApplication / WebAPI apps", 
-        Category = CmdletHelpCategory.Base)]
+    [Cmdlet(VerbsCommon.Get, "PnPAzureADManifestKeyCredentials")]
+    [CmdletAlias("Get-SPOAzureADManifestKeyCredentials")]
+    [CmdletHelp("Creates the JSON snippet that is required for the manifest JSON file for Azure WebApplication / WebAPI apps", 
+        Category = CmdletHelpCategory.Base,
+        OutputType=typeof(string),
+        OutputTypeDescription = "Outputs a JSON formatted string")]
     [CmdletExample(
-        Code = @"PS:> Get-SPOAzureADManifestKeyCredentials -CertPath .\mycert.cer",
+        Code = @"PS:> Get-PnPAzureADManifestKeyCredentials -CertPath .\mycert.cer",
         Remarks = "Output the JSON snippet which needs to be replaced in the application manifest file", 
         SortOrder = 1)]
     [CmdletExample(
-        Code = @"PS:> Get-SPOAzureADManifestKeyCredentials -CertPath .\mycert.cer | Set-Clipboard",
+        Code = @"PS:> Get-PnPAzureADManifestKeyCredentials -CertPath .\mycert.cer | Set-Clipboard",
         Remarks = "Output the JSON snippet which needs to be replaced in the application manifest file and copies it to the clipboard",
         SortOrder = 2)]
     public class GetAzureADManifestKeyCredentials : PSCmdlet
     {
-        [Parameter(Mandatory = true)]
+        [Parameter(Mandatory = true, HelpMessage = @"Specifies the path to the certificate like .\mycert.cer")]
         public string CertPath;
 
         protected override void ProcessRecord()

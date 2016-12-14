@@ -1,23 +1,24 @@
 ﻿using System.Management.Automation;
 using Microsoft.SharePoint.Client;
-using OfficeDevPnP.PowerShell.CmdletHelpAttributes;
-using OfficeDevPnP.PowerShell.Commands.Base.PipeBinds;
-using OfficeDevPnP.PowerShell.Commands.Enums;
+using SharePointPnP.PowerShell.CmdletHelpAttributes;
+using SharePointPnP.PowerShell.Commands.Base.PipeBinds;
+using SharePointPnP.PowerShell.Commands.Enums;
 
-namespace OfficeDevPnP.PowerShell.Commands.Features
+namespace SharePointPnP.PowerShell.Commands.Features
 {
-    [Cmdlet("Enable", "SPOFeature")]
+    [Cmdlet(VerbsLifecycle.Enable, "PnPFeature")]
+    [CmdletAlias("Enable-SPOFeature")]
     [CmdletHelp("Enables a feature", Category = CmdletHelpCategory.Features)]
     [CmdletExample(
-        Code = "PS:> Enable-SPOFeature -Identity 99a00f6e-fb81-4dc7-8eac-e09c6f9132fe", 
+        Code = "PS:> Enable-PnPFeature -Identity 99a00f6e-fb81-4dc7-8eac-e09c6f9132fe", 
         Remarks = @"This will enable the feature with the id ""99a00f6e-fb81-4dc7-8eac-e09c6f9132fe""", 
         SortOrder = 1)]
     [CmdletExample(
-        Code = "PS:> Enable-SPOFeature -Identity 99a00f6e-fb81-4dc7-8eac-e09c6f9132fe -Force", 
+        Code = "PS:> Enable-PnPFeature -Identity 99a00f6e-fb81-4dc7-8eac-e09c6f9132fe -Force", 
         Remarks = @"This will enable the feature with the id ""99a00f6e-fb81-4dc7-8eac-e09c6f9132fe"" with force.", 
         SortOrder = 2)]
     [CmdletExample(
-        Code = "PS:> Enable-SPOFeature -Identity 99a00f6e-fb81-4dc7-8eac-e09c6f9132fe -Scope Web",
+        Code = "PS:> Enable-PnPFeature -Identity 99a00f6e-fb81-4dc7-8eac-e09c6f9132fe -Scope Web",
         Remarks = @"This will enable the feature with the id ""99a00f6e-fb81-4dc7-8eac-e09c6f9132fe"" with the web scope.",  
         SortOrder = 3)]
     public class EnableFeature : SPOWebCmdlet
@@ -28,10 +29,10 @@ namespace OfficeDevPnP.PowerShell.Commands.Features
         [Parameter(Mandatory = false, HelpMessage = "Forcibly enable the feature.")]
         public SwitchParameter Force;
 
-        [Parameter(Mandatory = false, HelpMessage = "Specify the scope of the feature to active, either Web or Site. Defaults to Web.")]
+        [Parameter(Mandatory = false, HelpMessage = "Specify the scope of the feature to activate, either Web or Site. Defaults to Web.")]
         public FeatureScope Scope = FeatureScope.Web;
 
-        [Parameter(Mandatory = false, HelpMessage = "Specify this parameter if the feature you're trying to active is part of a sandboxed solution.")]
+        [Parameter(Mandatory = false, HelpMessage = "Specify this parameter if the feature you're trying to activate is part of a sandboxed solution.")]
         public SwitchParameter Sandboxed;
 
 
@@ -40,7 +41,7 @@ namespace OfficeDevPnP.PowerShell.Commands.Features
             var featureId = Identity.Id;
             if(Scope == FeatureScope.Web)
             {
-                this.SelectedWeb.ActivateFeature(featureId, Sandboxed);
+                SelectedWeb.ActivateFeature(featureId, Sandboxed);
             }
             else
             {

@@ -1,16 +1,15 @@
-﻿using System.Linq;
-using System.Management.Automation;
+﻿using System.Management.Automation;
 using Microsoft.SharePoint.Client;
-using Microsoft.SharePoint.Client.InformationPolicy;
-using OfficeDevPnP.PowerShell.CmdletHelpAttributes;
+using SharePointPnP.PowerShell.CmdletHelpAttributes;
 
-namespace OfficeDevPnP.PowerShell.Commands
+namespace SharePointPnP.PowerShell.Commands.InformationManagement
 {
-    [Cmdlet(VerbsCommon.Set, "SPOSitePolicy")]
+    [Cmdlet(VerbsCommon.Set, "PnPSitePolicy")]
+    [CmdletAlias("Set-SPOSitePolicy")]
     [CmdletHelp("Sets a site policy", 
         Category = CmdletHelpCategory.InformationManagement)]
     [CmdletExample(
-      Code = @"PS:> Set-SPOSitePolicy -Name ""Contoso HBI""",
+      Code = @"PS:> Set-PnPSitePolicy -Name ""Contoso HBI""",
       Remarks = @"This applies a site policy with the name ""Contoso HBI"" to the current site. The policy needs to be available in the site.", SortOrder = 1)]
     public class ApplySitePolicy : SPOWebCmdlet
     {

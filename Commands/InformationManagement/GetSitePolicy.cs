@@ -1,21 +1,22 @@
-﻿using OfficeDevPnP.PowerShell.Commands.Base.PipeBinds;
+﻿using System.Management.Automation;
 using Microsoft.SharePoint.Client;
-using System.Management.Automation;
-using OfficeDevPnP.PowerShell.CmdletHelpAttributes;
+using SharePointPnP.PowerShell.CmdletHelpAttributes;
 
-namespace OfficeDevPnP.PowerShell.Commands
+namespace SharePointPnP.PowerShell.Commands.InformationManagement
 {
-    [Cmdlet(VerbsCommon.Get, "SPOSitePolicy")]
+    [Cmdlet(VerbsCommon.Get, "PnPSitePolicy")]
+    [CmdletAlias("Get-SPOSitePolicy")]
     [CmdletHelp("Retrieves all or a specific site policy",
-        Category = CmdletHelpCategory.InformationManagement)]
+        Category = CmdletHelpCategory.InformationManagement,
+        OutputType=typeof(OfficeDevPnP.Core.Entities.SitePolicyEntity))]
     [CmdletExample(
-     Code = @"PS:> Get-SPOSitePolicy",
+     Code = @"PS:> Get-PnPSitePolicy",
      Remarks = @"Retrieves the current applied site policy.", SortOrder = 1)]
     [CmdletExample(
-     Code = @"PS:> Get-SPOSitePolicy -AllAvailable",
+     Code = @"PS:> Get-PnPSitePolicy -AllAvailable",
      Remarks = @"Retrieves all available site policies.", SortOrder = 2)]
     [CmdletExample(
-      Code = @"PS:> Get-SPOSitePolicy -Name ""Contoso HBI""",
+      Code = @"PS:> Get-PnPSitePolicy -Name ""Contoso HBI""",
       Remarks = @"Retrieves an available site policy with the name ""Contoso HBI"".", SortOrder = 3)]
 
     public class GetSitePolicy : SPOWebCmdlet
@@ -29,22 +30,21 @@ namespace OfficeDevPnP.PowerShell.Commands
         protected override void ExecuteCmdlet()
         {
 
-            if (!this.MyInvocation.BoundParameters.ContainsKey("AllAvailable") && !this.MyInvocation.BoundParameters.ContainsKey("Name"))
+            if (!MyInvocation.BoundParameters.ContainsKey("AllAvailable") && !MyInvocation.BoundParameters.ContainsKey("Name"))
             {
                 // Return the current applied site policy
                 WriteObject(this.SelectedWeb.GetAppliedSitePolicy());
             }
             else
             {
-                if (this.MyInvocation.BoundParameters.ContainsKey("AllAvailable"))
+                if (MyInvocation.BoundParameters.ContainsKey("AllAvailable"))
                 {
-                    WriteObject(this.SelectedWeb.GetSitePolicies(),true);
+                    WriteObject(SelectedWeb.GetSitePolicies(),true);
                     return;
                 }
-                if (this.MyInvocation.BoundParameters.ContainsKey("Name"))
+                if (MyInvocation.BoundParameters.ContainsKey("Name"))
                 {
-                    WriteObject(this.SelectedWeb.GetSitePolicyByName(Name));
-                    return;
+                    WriteObject(SelectedWeb.GetSitePolicyByName(Name));
                 }
                 
             }

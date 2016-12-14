@@ -2,24 +2,25 @@
 using System.Linq;
 using System.Management.Automation;
 using Microsoft.SharePoint.Client;
-using OfficeDevPnP.PowerShell.CmdletHelpAttributes;
+using SharePointPnP.PowerShell.CmdletHelpAttributes;
 using OfficeDevPnP.Core.Utilities;
 
-namespace OfficeDevPnP.PowerShell.Commands
+namespace SharePointPnP.PowerShell.Commands
 {
-    [Cmdlet(VerbsCommon.Set, "SPOPropertyBagValue")]
+    [Cmdlet(VerbsCommon.Set, "PnPPropertyBagValue")]
+    [CmdletAlias(("Set-SPOPropertyBagValue"))]
     [CmdletHelp("Sets a property bag value",
         Category = CmdletHelpCategory.Webs)]
     [CmdletExample(
-      Code = @"PS:> Set-SPOPropertyBagValue -Key MyKey -Value MyValue",
+      Code = @"PS:> Set-PnPPropertyBagValue -Key MyKey -Value MyValue",
       Remarks = "This sets or adds a value to the current web property bag",
       SortOrder = 1)]
     [CmdletExample(
-      Code = @"PS:> Set-SPOPropertyBagValue -Key MyKey -Value MyValue -Folder /",
+      Code = @"PS:> Set-PnPPropertyBagValue -Key MyKey -Value MyValue -Folder /",
       Remarks = "This sets or adds a value to the root folder of the current web",
       SortOrder = 2)]
     [CmdletExample(
-      Code = @"PS:> Set-SPOPropertyBagValue -Key MyKey -Value MyValue -Folder /MyFolder",
+      Code = @"PS:> Set-PnPPropertyBagValue -Key MyKey -Value MyValue -Folder /MyFolder",
       Remarks = "This sets or adds a value to the folder MyFolder which is located in the root folder of the current web",
       SortOrder = 3)]
     public class SetPropertyBagValue : SPOWebCmdlet
@@ -41,7 +42,12 @@ namespace OfficeDevPnP.PowerShell.Commands
 
         protected override void ExecuteCmdlet()
         {
-            if (!this.MyInvocation.BoundParameters.ContainsKey("Folder"))
+            if (SelectedWeb.IsNoScriptSite())
+            {
+                WriteError(new ErrorRecord(new Exception("Site has NoScript enabled, and setting property bag values is not supported"), "NoScriptEnabled", ErrorCategory.InvalidOperation, this));
+                return;
+            }
+            if (!MyInvocation.BoundParameters.ContainsKey("Folder"))
             {
                 if (!Indexed)
                 {
@@ -62,12 +68,12 @@ namespace OfficeDevPnP.PowerShell.Commands
             else
             {
                 SelectedWeb.EnsureProperty(w => w.ServerRelativeUrl);
-                
+
                 var folderUrl = UrlUtility.Combine(SelectedWeb.ServerRelativeUrl, Folder);
                 var folder = SelectedWeb.GetFolderByServerRelativeUrl(folderUrl);
 
                 folder.EnsureProperty(f => f.Properties);
-                
+
                 folder.Properties[Key] = Value;
                 folder.Update();
                 ClientContext.ExecuteQueryRetry();

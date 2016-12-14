@@ -1,4 +1,4 @@
-﻿namespace OfficeDevPnP.PowerShell.Commands.Enums
+﻿namespace SharePointPnP.PowerShell.Commands.Enums
 {
     public enum FeatureScope
     {

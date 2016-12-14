@@ -1,15 +1,18 @@
 ﻿using System.Management.Automation;
 using Microsoft.SharePoint.Client;
-using OfficeDevPnP.PowerShell.CmdletHelpAttributes;
-using OfficeDevPnP.PowerShell.Commands.Base.PipeBinds;
+using SharePointPnP.PowerShell.CmdletHelpAttributes;
+using SharePointPnP.PowerShell.Commands.Base.PipeBinds;
 
-namespace OfficeDevPnP.PowerShell.Commands.Principals
+namespace SharePointPnP.PowerShell.Commands.Principals
 {
-    [Cmdlet(VerbsCommon.Get, "SPOGroupPermissions")]
+    [Cmdlet(VerbsCommon.Get, "PnPGroupPermissions")]
+    [CmdletAlias("Get-SPOGroupPermissions")]
     [CmdletHelp("Returns the permissions for a specific SharePoint group",
-        Category = CmdletHelpCategory.Principals)]
+        Category = CmdletHelpCategory.Principals,
+        OutputType = typeof(RoleDefinitionBindingCollection),
+        OutputTypeLink = "https://msdn.microsoft.com/en-us/library/microsoft.sharepoint.client.roledefinitionbindingcollection.aspx")]
     [CmdletExample(
-        Code = @"PS:> Get-SPOGroupPermissions -Identity 'My Site Members'", 
+        Code = @"PS:> Get-PnPGroupPermissions -Identity 'My Site Members'", 
         Remarks = "Returns the permissions for the SharePoint group with the name 'My Site Members'",
         SortOrder = 0)]
     public class GetGroupPermissions : SPOWebCmdlet
