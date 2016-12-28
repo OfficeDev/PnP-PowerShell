@@ -16,6 +16,7 @@ namespace SharePointPnP.PowerShell.Commands.Publishing
         Code = @"PS:> Add-PnPPublishingPage -PageName 'OurNewPage' -Title 'Our new page' -PageTemplateName 'ArticleLeft' -Folder '/Pages/folder/folder2'",
         Remarks = "Creates a new page based on the pagelayout 'ArticleLeft' within a folder",
         SortOrder = 2)]
+
     public class AddPublishingPage : SPOWebCmdlet
     {
         [Parameter(Mandatory = true, HelpMessage = "The name of the page to be added as an aspx file")]
@@ -28,7 +29,7 @@ namespace SharePointPnP.PowerShell.Commands.Publishing
         [Parameter(Mandatory = false, ParameterSetName = "WithTitle", HelpMessage = "The title of the page")]
         public string Title;
 
-        [Parameter(Mandatory = false, ParameterSetName = "Folder", HelpMessage = "The folder of the page")]
+        [Parameter(Mandatory = false, HelpMessage = "The folder of the page")]
         public string Folder = string.Empty;
 
         [Parameter(Mandatory = false, HelpMessage = "Publishes the page. Also Approves it if moderation is enabled on the Pages library.")]
