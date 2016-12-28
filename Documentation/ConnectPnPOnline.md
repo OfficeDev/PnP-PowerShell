@@ -22,7 +22,6 @@ Connect-PnPOnline -ClientId <String>
 Connect-PnPOnline [-Credentials <CredentialPipeBind>]
                   [-CurrentCredentials [<SwitchParameter>]]
                   [-UseAdfs [<SwitchParameter>]]
-                  [-UseAdfsCert [<SwitchParameter>]]
                   [-AuthenticationMode <ClientAuthenticationMode>]
                   [-MinimalHealthScore <Int32>]
                   [-RetryCount <Int32>]
@@ -110,7 +109,6 @@ Parameter|Type|Required|Description
 |TenantAdminUrl|String|False|The url to the Tenant Admin site. If not specified, the cmdlets will assume to connect automatically to https://<tenantname>-admin.sharepoint.com where appropriate.|
 |Url|String|True|The Url of the site collection to connect to.|
 |UseAdfs|SwitchParameter|False|If you want to connect to your on-premises SharePoint farm using ADFS|
-|UseAdfsCert|SwitchParameter|False|If you want to connect to your on-premises SharePoint farm using ADFS with Certificate Authentication|
 |UseWebLogin|SwitchParameter|True|If you want to connect to SharePoint with browser based login|
 ##Examples
 
@@ -146,19 +144,13 @@ This will prompt for username and password and creates a context using ADFS to a
 
 ###Example 6
 ```powershell
-PS:> Connect-PnPOnline -Url http://yourlocalserver  -UseAdfsCert
-```
-This will enable you to select a certificate to create a context using ADFS to authenticate.
-
-###Example 7
-```powershell
 PS:> Connect-PnPOnline -Url https://yourserver -Credentials (Get-Credential) -CreateDrive
 cd SPO:\\
 dir
 ```
 This will prompt you for credentials and creates a context for the other PowerShell commands to use. It will also create a SPO:\\ drive you can use to navigate around the site
 
-###Example 8
+###Example 7
 ```powershell
 PS:> Connect-PnPOnline -Url https://yourserver -Credentials (Get-Credential) -AuthenticationMode FormsAuthentication
 ```
