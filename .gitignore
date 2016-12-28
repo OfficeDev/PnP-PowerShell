@@ -213,3 +213,8 @@ FakesAssemblies/
 GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
+/Commands/Publishing
+/Commands/Graph
+/Commands/Files
+/HelpAttributes
+/Binaries
