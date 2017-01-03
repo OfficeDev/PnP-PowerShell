@@ -159,6 +159,7 @@ namespace SharePointPnP.PowerShell.Commands.Lists
                                                 item[key as string] = new FieldUserValue() { LookupId = userId };
                                             }
                                         }
+                                        item.Update();
                                         break;
                                     }
                                 default:
