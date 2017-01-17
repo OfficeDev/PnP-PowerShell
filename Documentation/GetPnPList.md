@@ -4,6 +4,7 @@ Returns a List object
 ```powershell
 Get-PnPList [-Web <WebPipeBind>]
             [-Identity <ListPipeBind>]
+            [-Includes <String[]>]
 ```
 
 
@@ -14,6 +15,7 @@ Get-PnPList [-Web <WebPipeBind>]
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |Identity|ListPipeBind|False|The ID, name or Url (Lists/MyList) of the list.|
+|Includes|String[]|False|Additional Properties to retrieve for the List item(s) to be returned|
 |Web|WebPipeBind|False|The web to apply the command to. Omit this parameter to use the current web.|
 ##Examples
 
