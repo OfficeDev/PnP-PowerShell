@@ -247,4 +247,37 @@
   <data name="RenameFile0To1" xml:space="preserve">
     <value>Rename file '{0}' to '{1}'?</value>
   </data>
+  <data name="ClearBothRecycleBins" xml:space="preserve">
+    <value>Permanently delete all items in the first and second stage recycle bins?</value>
+  </data>
+  <data name="ClearRecycleBinItem" xml:space="preserve">
+    <value>Permanently delete file '{0}' from the recycle bin?</value>
+  </data>
+  <data name="ClearSecondStageRecycleBin" xml:space="preserve">
+    <value>Permanently delete all the items in the second stage recycle bin?</value>
+  </data>
+  <data name="ClearTenantRecycleBinItem" xml:space="preserve">
+    <value>Permanently delete the site collection previously located at '{0}' from the recycle bin?</value>
+  </data>
+  <data name="MoveFirstStageRecycleBinItemsToSecondStage" xml:space="preserve">
+    <value>Move all items from the first stage recycle bin to the second stage recycle bin?</value>
+  </data>
+  <data name="RestoreRecycleBinItem" xml:space="preserve">
+    <value>Restore the file '{0}' from the recycle bin to its original location?</value>
+  </data>
+  <data name="RestoreRecycleBinItems" xml:space="preserve">
+    <value>Restore all items from the first and second stage recycle bins to their original locations?</value>
+  </data>
+  <data name="ResetTenantRecycleBinItem" xml:space="preserve">
+    <value>Restore the site collection previously located at '{0}' from the recycle bin to its original location?</value>
+  </data>
+  <data name="MoveRecycleBinItemWithLeaf0ToSecondStage" xml:space="preserve">
+    <value>Move recycle bin item with leaf '{0}' to the second stage recycle bin?</value>
+  </data>
+  <data name="RemoveImageRenditionWithName0" xml:space="preserve">
+    <value>Remove Image Rendition with name '{0}'?</value>
+  </data>
+  <data name="CreateSiteWithUrl0" xml:space="preserve">
+    <value>Create site with url '{0}'?</value>
+  </data>
 </root>

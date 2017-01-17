@@ -16,6 +16,6 @@ Parameter|Type|Required|Description
 
 ###Example 1
 ```powershell
-PS:>Set-PnPFileCheckedOut -Url "/Documents/Contract.docx"
+PS:>Set-PnPFileCheckedOut -Url "/sites/testsite/subsite/Documents/Contract.docx"
 ```
-Checks out the file "Contract.docx" in the "Documents" library
+Checks out the file "Contract.docx" in the "Documents" library.

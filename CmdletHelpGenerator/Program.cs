@@ -437,11 +437,13 @@ namespace SharePointPnP.PowerShell.CmdletHelpGenerator
                     foreach (var exampleAttr in examples.OrderBy(e => e.SortOrder))
                     {
                         var example = new XElement(command + "example");
-                        var title = string.Format("------------------EXAMPLE {0}---------------------", exampleCount);
+                        var title = $"------------------EXAMPLE {exampleCount}---------------------";
                         example.Add(new XElement(maml + "title", title));
                         example.Add(new XElement(maml + "introduction", new XElement(maml + "para", exampleAttr.Introduction)));
                         example.Add(new XElement(dev + "code", exampleAttr.Code));
-                        example.Add(new XElement(maml + "remarks", new XElement(maml + "para", exampleAttr.Remarks)));
+                        var remarksElement = new XElement(maml + "remarks", new XElement(maml + "para", exampleAttr.Remarks));
+                        remarksElement.Add(new XElement(maml + "para",""));
+                        example.Add(remarksElement);
                         example.Add(new XElement(command + "commandLines",
                             new XElement(command + "commandLine",
                                 new XElement(command + "commandText"))));

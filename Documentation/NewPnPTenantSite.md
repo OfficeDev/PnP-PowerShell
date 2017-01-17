@@ -15,6 +15,7 @@ New-PnPTenantSite -Title <String>
                   [-StorageQuotaWarningLevel <Int64>]
                   [-RemoveDeletedSite [<SwitchParameter>]]
                   [-Wait [<SwitchParameter>]]
+                  [-Force [<SwitchParameter>]]
 ```
 
 
@@ -26,6 +27,7 @@ Online site collection fails if a deleted site with the same URL exists in the R
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |Description|String|False|Specifies the description of the new site collection|
+|Force|SwitchParameter|False|Do not ask for confirmation.|
 |Lcid|UInt32|False|Specifies the language of this site collection. For more information, see Locale IDs Assigned by Microsoft: http://go.microsoft.com/fwlink/p/?LinkId=242911Id=242911.|
 |Owner|String|True|Specifies the user name of the site collection's primary owner. The owner must be a user instead of a security group or an email-enabled security group.|
 |RemoveDeletedSite|SwitchParameter|False|Specifies if any existing site with the same URL should be removed from the recycle bin|
@@ -42,6 +44,12 @@ Parameter|Type|Required|Description
 
 ###Example 1
 ```powershell
-PS:> New-PnPTenantSite -Title Contoso -Url https://tenant.sharepoint.com/sites/contoso -Owner user@example.org -TimeZone 4
+PS:> New-PnPTenantSite -Title Contoso -Url https://tenant.sharepoint.com/sites/contoso -Owner user@example.org -TimeZone 4 -Template STS#0
 ```
-This will add a site collection with the title 'Contoso', the url 'https://tenant.sharepoint.com/sites/contoso', the timezone 'UTC+01:00' and the owner 'user@example.org'
+This will add a site collection with the title 'Contoso', the url 'https://tenant.sharepoint.com/sites/contoso', the timezone 'UTC+01:00',the owner 'user@example.org' and the template used will be STS#0, a TeamSite
+
+###Example 2
+```powershell
+PS:> New-PnPTenantSite -Title Contoso -Url /sites/contososite -Owner user@example.org -TimeZone 4 -Template STS#0
+```
+This will add a site collection with the title 'Contoso', the url 'https://tenant.sharepoint.com/sites/contososite' of which the base part will be picked up from your current connection, the timezone 'UTC+01:00', the owner 'user@example.org' and the template used will be STS#0, a TeamSite

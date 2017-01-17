@@ -28,12 +28,16 @@ namespace SharePointPnP.PowerShell.Commands
         [Alias("Identity")]
         public string Url;
 
+        [Parameter(Mandatory = false, HelpMessage = "By default, all sites will be return. Specify a template value alike 'STS#0' here to filter on the template")]
+        public string Template;
+
         [Parameter(Mandatory = false, HelpMessage = "By default, not all returned attributes are populated. This switch populates all attributes. It can take several seconds to run. Without this, some attributes will show default values that may not be correct.")]
         public SwitchParameter Detailed;
 
         [Parameter(Mandatory = false, HelpMessage = "By default, the OneDrives are not returned. This switch includes all OneDrives. This can take some extra time to run")]
         public SwitchParameter IncludeOneDriveSites;
 
+        
         [Parameter(Mandatory = false, HelpMessage = "When the switch IncludeOneDriveSites is used, this switch ignores the question shown that the command can take a long time to execute")]
         public SwitchParameter Force;
 
@@ -54,10 +58,28 @@ namespace SharePointPnP.PowerShell.Commands
                 }
                 else
                 {
+
+
                     var list = Tenant.GetSiteProperties(0, Detailed);
-                    list.Context.Load(list);
-                    list.Context.ExecuteQueryRetry();
+                  
+                    Tenant.Context.Load(list);
+                    Tenant.Context.ExecuteQueryRetry();
                     var siteProperties = list.ToList();
+                    var returnedEntries = list.Count;
+
+                    var startIndex = 0;
+                    while (returnedEntries > 299)
+                    {
+                        startIndex = startIndex + 300;
+                        var nextList = Tenant.GetSiteProperties(startIndex, Detailed);
+                        Tenant.Context.Load(nextList);
+                        Tenant.Context.ExecuteQueryRetry();
+                        siteProperties.AddRange(nextList);
+                        returnedEntries = nextList.Count;
+                    }
+
+                    
+                    
                     if (IncludeOneDriveSites)
                     {
                         if (Force || ShouldContinue(Resources.GetTenantSite_ExecuteCmdlet_This_request_can_take_a_long_time_to_execute__Continue_, Resources.Confirm))
@@ -74,7 +96,14 @@ namespace SharePointPnP.PowerShell.Commands
                             }
                         }
                     }
-                    WriteObject(siteProperties.OrderBy(x => x.Url), true);
+                    if (Template != null)
+                    {
+                        WriteObject(siteProperties.Where(t => t.Template == Template).OrderBy(x => x.Url), true);
+                    }
+                    else
+                    {
+                        WriteObject(siteProperties.OrderBy(x => x.Url), true);
+                    }
                 }
             }
         }

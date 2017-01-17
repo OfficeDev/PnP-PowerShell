@@ -47,7 +47,7 @@ namespace SharePointPnP.PowerShell.Commands
             {
                 if (Force)
                 {
-                    ClientContext.Site.ActivateFeature(Constants.APPSIDELOADINGFEATUREID);
+                    ClientContext.Site.ActivateFeature(Constants.FeatureId_Site_AppSideLoading);
                 }
                 AppInstance instance;
            
@@ -81,7 +81,7 @@ namespace SharePointPnP.PowerShell.Commands
 
                 if (Force)
                 {
-                    ClientContext.Site.DeactivateFeature(Constants.APPSIDELOADINGFEATUREID);
+                    ClientContext.Site.DeactivateFeature(Constants.FeatureId_Site_AppSideLoading);
                 }
                 WriteObject(instance);
             }

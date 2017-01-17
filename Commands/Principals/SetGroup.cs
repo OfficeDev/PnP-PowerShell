@@ -126,23 +126,23 @@ namespace SharePointPnP.PowerShell.Commands.Principals
                 group.Description = Description;
                 dirty = true;
             }
-            if (AllowRequestToJoinLeave != group.AllowRequestToJoinLeave)
+            if (MyInvocation.BoundParameters.ContainsKey("AllowRequestToJoinLeave") && AllowRequestToJoinLeave != group.AllowRequestToJoinLeave)
             {
                 group.AllowRequestToJoinLeave = AllowRequestToJoinLeave;
                 dirty = true;
             } 
 
-            if (AutoAcceptRequestToJoinLeave != group.AutoAcceptRequestToJoinLeave)
+            if (MyInvocation.BoundParameters.ContainsKey("AutoAcceptRequestToJoinLeave") && AutoAcceptRequestToJoinLeave != group.AutoAcceptRequestToJoinLeave)
             {
                 group.AutoAcceptRequestToJoinLeave = AutoAcceptRequestToJoinLeave;
                 dirty = true;
             }
-            if (AllowMembersEditMembership != group.AllowMembersEditMembership)
+            if (MyInvocation.BoundParameters.ContainsKey("AllowMembersEditMembership") && AllowMembersEditMembership != group.AllowMembersEditMembership)
             {
                 group.AllowMembersEditMembership = AllowMembersEditMembership;
                 dirty = true;
             }
-            if (OnlyAllowMembersViewMembership != group.OnlyAllowMembersViewMembership)
+            if (MyInvocation.BoundParameters.ContainsKey("OnlyAllowMembersViewMembership") && OnlyAllowMembersViewMembership != group.OnlyAllowMembersViewMembership)
             {
                 group.OnlyAllowMembersViewMembership = OnlyAllowMembersViewMembership;
                 dirty = true;

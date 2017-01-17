@@ -31,11 +31,11 @@ namespace SharePointPnP.PowerShell.Commands.Branding
         {
             if (On)
             {
-                SelectedWeb.Features.Add(OfficeDevPnP.Core.Constants.MINIMALDOWNLOADSTRATEGYFEATUREID, Force, FeatureDefinitionScope.None);
+                SelectedWeb.Features.Add(OfficeDevPnP.Core.Constants.FeatureId_Web_MinimalDownloadStrategy, Force, FeatureDefinitionScope.None);
             }
             else
             {
-                SelectedWeb.Features.Remove(OfficeDevPnP.Core.Constants.MINIMALDOWNLOADSTRATEGYFEATUREID, Force);
+                SelectedWeb.Features.Remove(OfficeDevPnP.Core.Constants.FeatureId_Web_MinimalDownloadStrategy, Force);
             }
             ClientContext.ExecuteQueryRetry();
         }

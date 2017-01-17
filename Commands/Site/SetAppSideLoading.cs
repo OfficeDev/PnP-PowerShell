@@ -20,11 +20,11 @@ namespace SharePointPnP.PowerShell.Commands.Site
         {
             if (On)
             {
-                ClientContext.Site.ActivateFeature(Constants.APPSIDELOADINGFEATUREID);
+                ClientContext.Site.ActivateFeature(Constants.FeatureId_Site_AppSideLoading);
             }
             else
             {
-                ClientContext.Site.DeactivateFeature(Constants.APPSIDELOADINGFEATUREID);
+                ClientContext.Site.DeactivateFeature(Constants.FeatureId_Site_AppSideLoading);
             }
         }
 

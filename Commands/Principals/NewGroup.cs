@@ -77,7 +77,9 @@ namespace SharePointPnP.PowerShell.Commands.Principals
                 group.AllowMembersEditMembership = true;
                 dirty = true;
             }
+#pragma warning disable 618
             if (OnlyAllowMembersViewMembership)
+#pragma warning restore 618
             {
                 group.OnlyAllowMembersViewMembership = true;
                 dirty = true;

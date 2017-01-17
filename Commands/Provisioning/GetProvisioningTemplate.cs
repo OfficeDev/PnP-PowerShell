@@ -71,10 +71,13 @@ PS:> Get-PnPProvisioningTemplate -Out NewTemplate.xml -ExtensibilityHandlers $ha
         Remarks = "Extracts an instance of a provisioning template object from the current web. This syntax cannot be used together with the -Out parameter, but it can be used together with any other supported parameters.",
         SortOrder = 11)]
     [CmdletRelatedLink(
-        Text ="Encoding", 
+        Text = "Encoding",
         Url = "https://msdn.microsoft.com/en-us/library/system.text.encoding_properties.aspx")]
     public class GetProvisioningTemplate : SPOWebCmdlet
     {
+        private ProgressRecord mainProgressRecord = new ProgressRecord(0, "Processing", "Status");
+        private ProgressRecord subProgressRecord = new ProgressRecord(1, "Activity", "Status");
+
         [Parameter(Mandatory = false, Position = 0, HelpMessage = "Filename to write to, optionally including full path")]
         public string Out;
 
@@ -93,6 +96,9 @@ PS:> Get-PnPProvisioningTemplate -Out NewTemplate.xml -ExtensibilityHandlers $ha
         [Parameter(Mandatory = false, HelpMessage = "If specified all the managers and contributors of term groups will be included.")]
         public SwitchParameter IncludeTermGroupsSecurity;
 
+        [Parameter(Mandatory = false, HelpMessage = "If specified the template will contain the current search configuration of the site.")]
+        public SwitchParameter IncludeSearchConfiguration;
+
         [Parameter(Mandatory = false, HelpMessage = "If specified the files used for masterpages, sitelogo, alternate CSS and the files that make up the composed look will be saved.")]
         public SwitchParameter PersistBrandingFiles;
 
@@ -105,6 +111,9 @@ PS:> Get-PnPProvisioningTemplate -Out NewTemplate.xml -ExtensibilityHandlers $ha
 
         [Parameter(Mandatory = false, HelpMessage = "If specified, out of the box / native publishing files will be saved.")]
         public SwitchParameter IncludeNativePublishingFiles;
+
+        [Parameter(Mandatory = false, HelpMessage = "During extraction the version of the server will be checked for certain actions. If you specify this switch, this check will be skipped.")]
+        public SwitchParameter SkipVersionCheck;
 
 #if !SP2013
         [Parameter(Mandatory = false, HelpMessage = "If specified, resource values for applicable artifacts will be persisted to a resource file")]
@@ -231,6 +240,8 @@ PS:> Get-PnPProvisioningTemplate -Out NewTemplate.xml -ExtensibilityHandlers $ha
             creationInformation.IncludeNativePublishingFiles = IncludeNativePublishingFiles;
             creationInformation.IncludeSiteGroups = IncludeSiteGroups;
             creationInformation.IncludeTermGroupsSecurity = IncludeTermGroupsSecurity;
+            creationInformation.IncludeSearchConfiguration = IncludeSearchConfiguration;
+            creationInformation.SkipVersionCheck = SkipVersionCheck;
 #if !SP2013
             creationInformation.PersistMultiLanguageResources = PersistMultiLanguageResources;
             if (!string.IsNullOrEmpty(ResourceFilePrefix))
@@ -265,14 +276,60 @@ PS:> Get-PnPProvisioningTemplate -Out NewTemplate.xml -ExtensibilityHandlers $ha
 #pragma warning restore CS0618 // Type or member is obsolete
 
             creationInformation.ProgressDelegate = (message, step, total) =>
-            {
-                WriteProgress(new ProgressRecord(0, $"Extracting Template from {SelectedWeb.Url}", message) { PercentComplete = (100 / total) * step });
-            };
+                {
+                    var percentage = Convert.ToInt32((100 / Convert.ToDouble(total)) * Convert.ToDouble(step));
+
+                    WriteProgress(new ProgressRecord(0, $"Extracting Template from {SelectedWeb.Url}", message) { PercentComplete = percentage });
+                };
             creationInformation.MessagesDelegate = (message, type) =>
             {
-                if (type == ProvisioningMessageType.Warning)
+                switch (type)
                 {
-                    WriteWarning(message);
+                    case ProvisioningMessageType.Warning:
+                        {
+                            WriteWarning(message);
+                            break;
+                        }
+                    case ProvisioningMessageType.Progress:
+                        {
+                            var activity = message;
+                            if (message.IndexOf("|") > -1)
+                            {
+                                var messageSplitted = message.Split('|');
+                                if (messageSplitted.Length == 4)
+                                {
+                                    var current = double.Parse(messageSplitted[2]);
+                                    var total = double.Parse(messageSplitted[3]);
+                                    subProgressRecord.RecordType = ProgressRecordType.Processing;
+                                    subProgressRecord.Activity = messageSplitted[0];
+                                    subProgressRecord.StatusDescription = messageSplitted[1];
+                                    subProgressRecord.PercentComplete = Convert.ToInt32((100 / total) * current);
+                                    WriteProgress(subProgressRecord);
+                                }
+                                else
+                                {
+                                    subProgressRecord.Activity = "Processing";
+                                    subProgressRecord.RecordType = ProgressRecordType.Processing;
+                                    subProgressRecord.StatusDescription = activity;
+                                    subProgressRecord.PercentComplete = 0;
+                                    WriteProgress(subProgressRecord);
+                                }
+                            }
+                            else
+                            {
+                                subProgressRecord.Activity = "Processing";
+                                subProgressRecord.RecordType = ProgressRecordType.Processing;
+                                subProgressRecord.StatusDescription = activity;
+                                subProgressRecord.PercentComplete = 0;
+                                WriteProgress(subProgressRecord);
+                            }
+                            break;
+                        }
+                    case ProvisioningMessageType.Completed:
+                        {
+                            WriteProgress(new ProgressRecord(1, message, " ") { RecordType = ProgressRecordType.Completed });
+                            break;
+                        }
                 }
             };
 

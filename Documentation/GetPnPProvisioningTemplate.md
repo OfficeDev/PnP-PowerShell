@@ -6,9 +6,11 @@ Get-PnPProvisioningTemplate [-IncludeAllTermGroups [<SwitchParameter>]]
                             [-IncludeSiteCollectionTermGroup [<SwitchParameter>]]
                             [-IncludeSiteGroups [<SwitchParameter>]]
                             [-IncludeTermGroupsSecurity [<SwitchParameter>]]
+                            [-IncludeSearchConfiguration [<SwitchParameter>]]
                             [-PersistBrandingFiles [<SwitchParameter>]]
                             [-PersistPublishingFiles [<SwitchParameter>]]
                             [-IncludeNativePublishingFiles [<SwitchParameter>]]
+                            [-SkipVersionCheck [<SwitchParameter>]]
                             [-PersistMultiLanguageResources [<SwitchParameter>]]
                             [-ResourceFilePrefix <String>]
                             [-Handlers <Handlers>]
@@ -37,6 +39,7 @@ Parameter|Type|Required|Description
 |Handlers|Handlers|False|Allows you to only process a specific type of artifact in the site. Notice that this might result in a non-working template, as some of the handlers require other artifacts in place if they are not part of what your extracting.|
 |IncludeAllTermGroups|SwitchParameter|False|If specified, all term groups will be included. Overrides IncludeSiteCollectionTermGroup.|
 |IncludeNativePublishingFiles|SwitchParameter|False|If specified, out of the box / native publishing files will be saved.|
+|IncludeSearchConfiguration|SwitchParameter|False|If specified the template will contain the current search configuration of the site.|
 |IncludeSiteCollectionTermGroup|SwitchParameter|False|If specified, all the site collection term groups will be included. Overridden by IncludeAllTermGroups.|
 |IncludeSiteGroups|SwitchParameter|False|If specified all site groups will be included.|
 |IncludeTermGroupsSecurity|SwitchParameter|False|If specified all the managers and contributors of term groups will be included.|
@@ -47,6 +50,7 @@ Parameter|Type|Required|Description
 |PersistPublishingFiles|SwitchParameter|False|If specified the files used for the publishing feature will be saved.|
 |ResourceFilePrefix|String|False|If specified, resource files will be saved with the specified prefix instead of using the template name specified. If no template name is specified the files will be called PnP-Resources.<language>.resx. See examples for more info.|
 |Schema|XMLPnPSchemaVersion|False|The schema of the output to use, defaults to the latest schema|
+|SkipVersionCheck|SwitchParameter|False|During extraction the version of the server will be checked for certain actions. If you specify this switch, this check will be skipped.|
 |TemplateDisplayName|String|False|It can be used to specify the DisplayName of the template file that will be extracted.|
 |TemplateImagePreviewUrl|String|False|It can be used to specify the ImagePreviewUrl of the template file that will be extracted.|
 |TemplateProperties|Hashtable|False|It can be used to specify custom Properties for the template file that will be extracted.|

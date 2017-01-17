@@ -58,6 +58,10 @@ PS:> Apply-PnPProvisioningTemplate -Path NewTemplate.xml -ExtensibilityHandlers 
 
     public class ApplyProvisioningTemplate : SPOWebCmdlet
     {
+        private ProgressRecord progressRecord = new ProgressRecord(0, "Activity", "Status");
+        private ProgressRecord subProgressRecord = new ProgressRecord(1, "Activity", "Status");
+
+
         [Parameter(Mandatory = true, Position = 0, ValueFromPipelineByPropertyName = true, ValueFromPipeline = true, HelpMessage = "Path to the xml or pnp file containing the provisioning template.", ParameterSetName = "Path")]
         public string Path;
 
@@ -66,6 +70,9 @@ PS:> Apply-PnPProvisioningTemplate -Path NewTemplate.xml -ExtensibilityHandlers 
 
         [Parameter(Mandatory = false, HelpMessage = "Specify this parameter if you want to overwrite and/or create properties that are known to be system entries (starting with vti_, dlc_, etc.)", ParameterSetName = ParameterAttribute.AllParameterSets)]
         public SwitchParameter OverwriteSystemPropertyBagValues;
+
+        [Parameter(Mandatory = false, HelpMessage = "Override the RemoveExistingNodes attribute in the Navigation elements of the template. If you specify this value the navigation nodes will always be removed before adding the nodes in the template")]
+        public SwitchParameter ClearNavigation;
 
         [Parameter(Mandatory = false, HelpMessage = "Allows you to specify parameters that can be referred to in the template by means of the {parameter:<Key>} token. See examples on how to use this parameter.", ParameterSetName = ParameterAttribute.AllParameterSets)]
         public Hashtable Parameters;
@@ -129,7 +136,7 @@ PS:> Apply-PnPProvisioningTemplate -Path NewTemplate.xml -ExtensibilityHandlers 
                     fileConnector = new SharePointConnector(templateContext, templateContext.Url, library);
                 }
 
-            // If we don't have the -InputInstance parameter, we load the template from the source connector
+                // If we don't have the -InputInstance parameter, we load the template from the source connector
 
                 Stream stream = fileConnector.GetFileStream(templateFileName);
                 var isOpenOfficeFile = IsOpenOfficeFile(stream);
@@ -176,7 +183,7 @@ PS:> Apply-PnPProvisioningTemplate -Path NewTemplate.xml -ExtensibilityHandlers 
                     }
                 }
             }
-            
+
             else
             {
                 if (MyInvocation.BoundParameters.ContainsKey("GalleryTemplateId"))
@@ -244,29 +251,81 @@ PS:> Apply-PnPProvisioningTemplate -Path NewTemplate.xml -ExtensibilityHandlers 
                 applyingInformation.HandlersToProcess = Handlers;
             }
 
-                if (ExtensibilityHandlers != null)
-                {
-                    applyingInformation.ExtensibilityHandlers = ExtensibilityHandlers.ToList();
-                }
+            if (ExtensibilityHandlers != null)
+            {
+                applyingInformation.ExtensibilityHandlers = ExtensibilityHandlers.ToList();
+            }
 
-                applyingInformation.ProgressDelegate = (message, step, total) =>
-                {
-                    WriteProgress(new ProgressRecord(0, $"Applying template to {SelectedWeb.Url}", message) { PercentComplete = (100 / total) * step });
-                };
+            applyingInformation.ProgressDelegate = (message, step, total) =>
+            {
+                var percentage = Convert.ToInt32((100 / Convert.ToDouble(total)) * Convert.ToDouble(step));
+                progressRecord.Activity = $"Applying template to {SelectedWeb.Url}";
+                progressRecord.StatusDescription = message;
+                progressRecord.PercentComplete = percentage;
+                progressRecord.RecordType = ProgressRecordType.Processing;
+                WriteProgress(progressRecord);
+            };
 
             applyingInformation.MessagesDelegate = (message, type) =>
             {
-                if (type == ProvisioningMessageType.Warning)
+                switch (type)
                 {
-                    WriteWarning(message);
+                    case ProvisioningMessageType.Warning:
+                    {
+                        WriteWarning(message);
+                        break;
+                    }
+                    case ProvisioningMessageType.Progress:
+                    {
+                        var activity = message;
+                        if (message.IndexOf("|") > -1)
+                        {
+                            var messageSplitted = message.Split('|');
+                            if (messageSplitted.Length == 4)
+                            {
+                                var current = double.Parse(messageSplitted[2]);
+                                var total = double.Parse(messageSplitted[3]);
+                                subProgressRecord.RecordType = ProgressRecordType.Processing;
+                                subProgressRecord.Activity = messageSplitted[0];
+                                subProgressRecord.StatusDescription = messageSplitted[1];
+                                subProgressRecord.PercentComplete = Convert.ToInt32((100/total)*current);
+                                WriteProgress(subProgressRecord);
+                            }
+                            else
+                            {
+                                subProgressRecord.Activity = "Processing";
+                                subProgressRecord.RecordType = ProgressRecordType.Processing;
+                                subProgressRecord.StatusDescription = activity;
+                                subProgressRecord.PercentComplete = 0;
+                                WriteProgress(subProgressRecord);
+                            }
+                        }
+                        else
+                        {
+                            subProgressRecord.Activity = "Processing";
+                            subProgressRecord.RecordType = ProgressRecordType.Processing;
+                            subProgressRecord.StatusDescription = activity;
+                            subProgressRecord.PercentComplete = 0;
+                            WriteProgress(subProgressRecord);
+                        }
+                        break;
+                    }
+                    case ProvisioningMessageType.Completed:
+                    {
+
+                        WriteProgress(new ProgressRecord(1, message, " ") {RecordType = ProgressRecordType.Completed});
+                        break;
+                    }
                 }
             };
 
             applyingInformation.OverwriteSystemPropertyBagValues = OverwriteSystemPropertyBagValues;
+            applyingInformation.ClearNavigation = ClearNavigation;
+
             SelectedWeb.ApplyProvisioningTemplate(provisioningTemplate, applyingInformation);
 
-			WriteProgress(new ProgressRecord(0, $"Applying template to {SelectedWeb.Url}", " ") { RecordType = ProgressRecordType.Completed });
-		}
+            WriteProgress(new ProgressRecord(0, $"Applying template to {SelectedWeb.Url}", " ") { RecordType = ProgressRecordType.Completed });
+        }
 
         internal static bool IsOpenOfficeFile(Stream stream)
         {

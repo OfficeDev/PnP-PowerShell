@@ -6,6 +6,8 @@ using Microsoft.SharePoint.Client;
 using SharePointPnP.PowerShell.CmdletHelpAttributes;
 using SharePointPnP.PowerShell.Commands.Base;
 using System.Collections.Generic;
+using System.Threading;
+using OfficeDevPnP.Core;
 using OfficeDevPnP.Core.Entities;
 
 namespace SharePointPnP.PowerShell.Commands
@@ -25,7 +27,7 @@ namespace SharePointPnP.PowerShell.Commands
       Remarks = @"This will set user@contoso.onmicrosoft.com as a site collection owner at 'https://contoso.sharepoint.com/sites/sales'.", SortOrder = 3)]   
     public class SetTenantSite : SPOAdminCmdlet
     {
-        [Parameter(Mandatory = false, HelpMessage = "Specifies the URL of the site", Position = 0, ValueFromPipeline = true)]
+        [Parameter(Mandatory = true, HelpMessage = "Specifies the URL of the site", Position = 0, ValueFromPipeline = true)]
         public string Url;
 
         [Parameter(Mandatory = false, HelpMessage = "Specifies the title of the site")]
@@ -52,9 +54,16 @@ namespace SharePointPnP.PowerShell.Commands
         [Parameter(Mandatory = false, HelpMessage = "Specifies owners to add as site collection adminstrators. Can be both users and groups.")]
         public List<string> Owners;
 
+        [Parameter(Mandatory = false, HelpMessage = "Sets the lockstate of a site")]
+        public SiteLockState LockState;
+
+        [Parameter(Mandatory = false, HelpMessage = "Wait for the operation to complete")]
+        public SwitchParameter Wait;
         protected override void ExecuteCmdlet()
         {
-            Tenant.SetSiteProperties(Url, title: Title, sharingCapability: Sharing, storageMaximumLevel: StorageMaximumLevel, allowSelfServiceUpgrade: AllowSelfServiceUpgrade, userCodeMaximumLevel: UserCodeMaximumLevel, userCodeWarningLevel: UserCodeWarningLevel);
+            Func<TenantOperationMessage, bool> timeoutFunction = TimeoutFunction;
+
+            Tenant.SetSiteProperties(Url, title: Title, sharingCapability: Sharing, storageMaximumLevel: StorageMaximumLevel, allowSelfServiceUpgrade: AllowSelfServiceUpgrade, userCodeMaximumLevel: UserCodeMaximumLevel, userCodeWarningLevel: UserCodeWarningLevel, wait: Wait, timeoutFunction: Wait ? timeoutFunction : null );
 
             if (Owners != null && Owners.Count > 0)
             {
@@ -66,7 +75,21 @@ namespace SharePointPnP.PowerShell.Commands
                 }
                 Tenant.AddAdministrators(admins, new Uri(Url));
             }
+            if (MyInvocation.BoundParameters.ContainsKey("LockState"))
+            {
+                Tenant.SetSiteLockState(Url, LockState, Wait, Wait ? timeoutFunction : null);
+            }
         }
+
+        private bool TimeoutFunction(TenantOperationMessage message)
+        {
+            if (message == TenantOperationMessage.SettingSiteProperties ||message == TenantOperationMessage.SettingSiteLockState)
+            {
+                Host.UI.Write(".");
+            }
+            return Stopping;
+        }
+
     }
 }
 #endif

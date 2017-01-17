@@ -38,6 +38,8 @@ namespace SharePointPnP.PowerShell.CmdletHelpAttributes
         [EnumMember(Value = "Files and Folders")]
         Files = 22,
         [EnumMember(Value = "Microsoft Graph")]
-        Graph = 23
+        Graph = 23,
+        [EnumMember(Value = "SharePoint Recycle Bin")]
+        RecycleBin = 24
     }
 }

@@ -5,6 +5,7 @@ Applies a provisioning template to a web
 Apply-PnPProvisioningTemplate [-GalleryTemplateId <Guid>]
                               [-ResourceFolder <String>]
                               [-OverwriteSystemPropertyBagValues [<SwitchParameter>]]
+                              [-ClearNavigation [<SwitchParameter>]]
                               [-Parameters <Hashtable>]
                               [-Handlers <Handlers>]
                               [-ExcludeHandlers <Handlers>]
@@ -18,6 +19,7 @@ Apply-PnPProvisioningTemplate [-GalleryTemplateId <Guid>]
 Apply-PnPProvisioningTemplate [-InputInstance <ProvisioningTemplate>]
                               [-ResourceFolder <String>]
                               [-OverwriteSystemPropertyBagValues [<SwitchParameter>]]
+                              [-ClearNavigation [<SwitchParameter>]]
                               [-Parameters <Hashtable>]
                               [-Handlers <Handlers>]
                               [-ExcludeHandlers <Handlers>]
@@ -30,6 +32,7 @@ Apply-PnPProvisioningTemplate [-InputInstance <ProvisioningTemplate>]
 ```powershell
 Apply-PnPProvisioningTemplate [-ResourceFolder <String>]
                               [-OverwriteSystemPropertyBagValues [<SwitchParameter>]]
+                              [-ClearNavigation [<SwitchParameter>]]
                               [-Parameters <Hashtable>]
                               [-Handlers <Handlers>]
                               [-ExcludeHandlers <Handlers>]
@@ -43,6 +46,7 @@ Apply-PnPProvisioningTemplate [-ResourceFolder <String>]
 ##Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
+|ClearNavigation|SwitchParameter|False|Override the RemoveExistingNodes attribute in the Navigation elements of the template. If you specify this value the navigation nodes will always be removed before adding the nodes in the template|
 |ExcludeHandlers|Handlers|False|Allows you to run all handlers, excluding the ones specified.|
 |ExtensibilityHandlers|ExtensibilityHandler[]|False|Allows you to specify ExtensbilityHandlers to execute while applying a template|
 |GalleryTemplateId|Guid|False||
