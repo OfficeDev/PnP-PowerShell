@@ -134,13 +134,39 @@ namespace SharePointPnP.PowerShell.Commands
             {
                 Expression<Func<TType, object>> exp = null;
                 var paramExpression = Expression.Parameter(type, "i");
-                var memberExpression = Expression.Property(paramExpression, include);
-
-                var memberName = memberExpression.Member.Name;
                 var cast = Expression.Convert(paramExpression, type);
-                var body = Expression.Property(cast, memberName);
-                exp = Expression.Lambda<Func<TType, object>>(Expression.Convert(body, typeof(object)), paramExpression);
 
+                if (include.Contains("."))
+                {
+                    var incProps = include.Split('.');
+                    MemberExpression curBody = null;
+                    var curType = typeof(TType);
+                    PropertyInfo curProp = null;
+                    foreach (var incProp in incProps)
+                    {
+                        if (curProp == null) {
+                            curProp = curType.GetProperty(incProp);
+                            curType = curProp.PropertyType;
+                            curBody = Expression.Property(paramExpression, curProp);
+                        }
+                        else
+                        {
+                            curProp = curType.GetProperty(incProp);
+                            curType = curProp.PropertyType;
+                            curBody = Expression.Property(curBody, curProp);
+                        }                  
+                    }
+                    Expression<Func<List,object>> test = l => l.RootFolder.ServerRelativeUrl;
+                    exp = Expression.Lambda<Func<TType, object>>(Expression.Convert(curBody, typeof(object)), paramExpression);
+                    expressions.Add(exp);
+                }
+                else
+                {
+                    var memberExpression = Expression.Property(paramExpression, include);
+                    var memberName = memberExpression.Member.Name;
+                    var body = Expression.Property(cast, memberName);
+                    exp = Expression.Lambda<Func<TType, object>>(Expression.Convert(body, typeof(object)), paramExpression);
+                }
                 expressions.Add(exp);
 
             }
@@ -163,7 +189,7 @@ namespace SharePointPnP.PowerShell.Commands
             attributeCollection.Add(parameterAttribute);
 
             var attributes = typeof(TType).GetProperties().Select(p => p.Name).ToArray();
-
+           
             var validateSetAttribute = new ValidateSetAttribute(attributes);
             attributeCollection.Add(validateSetAttribute);
 

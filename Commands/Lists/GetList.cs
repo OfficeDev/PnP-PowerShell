@@ -35,12 +35,9 @@ namespace SharePointPnP.PowerShell.Commands.Lists
         protected override void ExecuteCmdlet()
         {
 
-            AlwaysLoadProperties = new[] { "Id", "BaseTemplate", "OnQuickLaunch", "DefaultViewUrl", "Title", "Hidden" };
+            AlwaysLoadProperties = new[] { "Id", "BaseTemplate", "OnQuickLaunch", "DefaultViewUrl", "Title", "Hidden", "RootFolder.ServerRelativeUrl" };
 
             var expressions = Expressions.ToList();
-            Expression<Func<List, object>> expressionRelativeUrl = l => l.RootFolder.ServerRelativeUrl;
-
-            expressions.Add(expressionRelativeUrl);
 
             if (Identity != null)
             {
