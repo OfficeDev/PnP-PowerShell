@@ -21,7 +21,7 @@ namespace SharePointPnP.PowerShell.Commands
         Code = @"PS:> Remove-PnPPropertyBagValue -Key MyKey -Folder /",
         Remarks = "This will remove the value with key MyKey from the root folder of the current web",
         SortOrder = 3)]
-    public class RemovePropertyBagValue : SPOWebCmdlet
+    public class RemovePropertyBagValue : PnPWebCmdlet
     {
         [Parameter(Mandatory = true, Position = 0, ValueFromPipeline = true, HelpMessage = "Key of the property bag value to be removed")]
         public string Key;

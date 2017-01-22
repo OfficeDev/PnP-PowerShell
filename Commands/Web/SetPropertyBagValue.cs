@@ -23,7 +23,7 @@ namespace SharePointPnP.PowerShell.Commands
       Code = @"PS:> Set-PnPPropertyBagValue -Key MyKey -Value MyValue -Folder /MyFolder",
       Remarks = "This sets or adds a value to the folder MyFolder which is located in the root folder of the current web",
       SortOrder = 3)]
-    public class SetPropertyBagValue : SPOWebCmdlet
+    public class SetPropertyBagValue : PnPWebCmdlet
     {
         [Parameter(Mandatory = true, ParameterSetName = "Web")]
         [Parameter(Mandatory = true, ParameterSetName = "Folder")]
@@ -44,7 +44,7 @@ namespace SharePointPnP.PowerShell.Commands
         {
             if (SelectedWeb.IsNoScriptSite())
             {
-                WriteError(new ErrorRecord(new Exception("Site has NoScript enabled, and setting property bag values is not supported"), "NoScriptEnabled", ErrorCategory.InvalidOperation, this));
+                ThrowTerminatingError(new ErrorRecord(new Exception("Site has NoScript enabled, and setting property bag values is not supported"), "NoScriptEnabled", ErrorCategory.InvalidOperation, this));
                 return;
             }
             if (!MyInvocation.BoundParameters.ContainsKey("Folder"))

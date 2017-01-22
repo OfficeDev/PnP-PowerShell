@@ -2,6 +2,7 @@
 using System.Management.Automation;
 using Microsoft.SharePoint.Client;
 using SharePointPnP.PowerShell.CmdletHelpAttributes;
+using SharePointPnP.PowerShell.Commands.Base;
 using SharePointPnP.PowerShell.Commands.Base.PipeBinds;
 
 namespace SharePointPnP.PowerShell.Commands.ContentTypes
@@ -28,13 +29,13 @@ namespace SharePointPnP.PowerShell.Commands.ContentTypes
         Code = @"PS:> Get-PnPContentType -List ""Documents""",
         Remarks = @"This will get a listing of all available content types within the list ""Documents""",
         SortOrder = 4)]
-    public class GetContentType : SPOWebCmdlet
+    public class GetContentType : PnPWebCmdlet
     {
         [Parameter(Mandatory = false, Position = 0, ValueFromPipeline = true, HelpMessage = "Name or ID of the content type to retrieve")]
         public ContentTypePipeBind Identity;
-        [Parameter(Mandatory = false, Position = 1, ValueFromPipeline = true, HelpMessage = "List to query")]
+        [Parameter(Mandatory = false, ValueFromPipeline = true, HelpMessage = "List to query")]
         public ListPipeBind List;
-        [Parameter(Mandatory = false, Position = 1, ValueFromPipeline = false, HelpMessage = "Search site hierarchy for content types")]
+        [Parameter(Mandatory = false, ValueFromPipeline = false, HelpMessage = "Search site hierarchy for content types")]
         public SwitchParameter InSiteHierarchy;
 
         protected override void ExecuteCmdlet()

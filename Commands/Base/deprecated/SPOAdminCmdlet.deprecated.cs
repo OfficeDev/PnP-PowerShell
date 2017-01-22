@@ -6,7 +6,9 @@ using Resources = SharePointPnP.PowerShell.Commands.Properties.Resources;
 
 namespace SharePointPnP.PowerShell.Commands.Base
 {
-    public abstract class SPOAdminCmdlet : SPOCmdlet
+    // TO BE REMOVED IN APRIL 2017 RELEASE
+    [Obsolete("Use PnPAdminCmdlet instead. This class will be removed in the April 2017 release.")]
+    public abstract class SPOAdminCmdlet : PnPCmdlet
     {
         private Tenant _tenant;
         private Uri _baseUri;

@@ -34,17 +34,8 @@ namespace SharePointPnP.PowerShell.Commands.Base.PipeBinds
             _id = termGroup.Id;
         }
 
-        public Guid Id
-        {
-            get { return _id; }
-        }
+        public Guid Id => _id;
 
-        public string Name
-        {
-            get { return _name; }
-        }
-
-       
-
+        public string Name => _name;
     }
 }

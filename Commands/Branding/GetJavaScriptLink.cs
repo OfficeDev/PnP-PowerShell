@@ -28,7 +28,7 @@ namespace SharePointPnP.PowerShell.Commands.Branding
     [CmdletExample(Code = "PS:> Get-PnPJavaScriptLink -Name Test",
                 Remarks = "Returns the web scoped JavaScript link named Test",
                 SortOrder = 5)]
-    public class GetJavaScriptLink : SPOWebCmdlet
+    public class GetJavaScriptLink : PnPWebCmdlet
     {
         [Parameter(Mandatory = false, ValueFromPipeline = true, Position = 0, HelpMessage = "Name of the Javascript link. Omit this parameter to retrieve all script links")]
         [Alias("Key")]

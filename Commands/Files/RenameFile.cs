@@ -23,7 +23,7 @@ namespace SharePointPnP.PowerShell.Commands.Files
         Code = @"PS:>Move-PnPFile -ServerRelativeUrl /sites/project/Documents/company.docx -TargetFileName mycompany.docx -OverwriteIfAlreadyExists",
         SortOrder = 3)]
 
-    public class RenameFile : SPOWebCmdlet
+    public class RenameFile : PnPWebCmdlet
     {
         [Parameter(Mandatory = true, Position = 0, ValueFromPipeline = true, ParameterSetName = "SERVER", HelpMessage = "Server relative Url specifying the file to rename. Must include the file name.")]
         public string ServerRelativeUrl = string.Empty;

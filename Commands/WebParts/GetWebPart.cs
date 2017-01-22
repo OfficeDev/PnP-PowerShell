@@ -22,7 +22,7 @@ namespace SharePointPnP.PowerShell.Commands.WebParts
     [CmdletExample(
         Code = @"PS:> Get-PnPWebPart -ServerRelativePageUrl ""/sites/demo/sitepages/home.aspx"" -Identity a2875399-d6ff-43a0-96da-be6ae5875f82",
         Remarks = @"Returns a specific webpart defined on the given page.", SortOrder = 2)]
-    public class GetWebPart : SPOWebCmdlet
+    public class GetWebPart : PnPWebCmdlet
     {
         [Parameter(Mandatory = true, HelpMessage = "Full server relative URL of the webpart page, e.g. /sites/mysite/sitepages/home.aspx")]
         [Alias("PageUrl")]

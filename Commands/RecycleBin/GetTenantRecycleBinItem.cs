@@ -17,7 +17,7 @@ namespace SharePointPnP.PowerShell.Commands.RecycleBin
         Code = @"PS:> Get-PnPTenantRecycleBinItem",
         Remarks = "Returns all site collections in the tenant scoped recycle bin",
         SortOrder = 1)]
-    public class GetTenantRecycleBinItems : SPOAdminCmdlet
+    public class GetTenantRecycleBinItems : PnPAdminCmdlet
     {
         protected override void ExecuteCmdlet()
         {

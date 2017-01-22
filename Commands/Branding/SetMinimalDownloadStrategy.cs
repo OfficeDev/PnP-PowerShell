@@ -16,7 +16,7 @@ namespace SharePointPnP.PowerShell.Commands.Branding
         Code = @"PS:> Set-PnPMinimalDownloadStrategy -On",
         Remarks = "Will activate minimal download strategy (MDS) for the current web.",
         SortOrder = 2)]
-    public class SetMDS : SPOWebCmdlet
+    public class SetMinimalDownloadStrategy : PnPWebCmdlet
     {
         [Parameter(ParameterSetName = "On", Mandatory = true, HelpMessage = "Turn minimal download strategy on")]
         public SwitchParameter On;

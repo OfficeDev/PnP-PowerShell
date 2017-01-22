@@ -19,7 +19,7 @@ namespace SharePointPnP.PowerShell.Commands.Principals
         Code = @"PS:> Set-PnPGroup -Identity 'My Site Members' -Owner 'site owners'",
         Remarks = "Sets the SharePoint group with the name 'site owners' as the owner of the SharePoint group with the name 'My Site Members'",
         SortOrder = 2)]
-    public class SetGroup : SPOWebCmdlet
+    public class SetGroup : PnPWebCmdlet
     {
         [Parameter(Mandatory = true, HelpMessage = "A group object, an ID or a name of a group")]
         public GroupPipeBind Identity = new GroupPipeBind();

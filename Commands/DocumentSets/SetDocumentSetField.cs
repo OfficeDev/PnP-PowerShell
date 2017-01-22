@@ -19,7 +19,7 @@ namespace SharePointPnP.PowerShell.Commands.DocumentSets
         Code = @"PS:> Set-PnPDocumentSetField -Field ""Test Field"" -DocumentSet ""Test Document Set"" -RemoveSharedField -RemoveWelcomePageField",
         Remarks = "This will remove the field, available in one of the available content types, as a Shared Field and as a Welcome Page Field.",
         SortOrder = 1)]
-    public class SetFieldInDocumentSet : SPOWebCmdlet
+    public class SetFieldInDocumentSet : PnPWebCmdlet
     {
         [Parameter(Mandatory = true, HelpMessage = "The document set in which to set the field. Either specify a name, a document set template object, an id, or a content type object")]
         public DocumentSetPipeBind DocumentSet;

@@ -13,7 +13,7 @@ namespace SharePointPnP.PowerShell.Commands.Publishing
         Code = @"PS:> Get-PnPWikiPageContent -PageUrl '/sites/demo1/pages/wikipage.aspx'",
         Remarks = "Gets the content of the page '/sites/demo1/pages/wikipage.aspx'",
         SortOrder = 1)]
-    public class GetWikiPageContent : SPOWebCmdlet
+    public class GetWikiPageContent : PnPWebCmdlet
     {
         [Parameter(Mandatory = true, ValueFromPipeline = true, ValueFromPipelineByPropertyName = true, Position=0, HelpMessage = "The server relative URL for the wiki page")]
         [Alias("PageUrl")]

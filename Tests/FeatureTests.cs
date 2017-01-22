@@ -15,24 +15,24 @@ namespace SharePointPnP.PowerShell.Tests
         {
             using (var ctx = TestCommon.CreateClientContext())
             {
-                var isActive = ctx.Web.IsFeatureActive(Core.Constants.MINIMALDOWNLOADSTRATEGYFEATUREID);
+                var isActive = ctx.Web.IsFeatureActive(Core.Constants.FeatureId_Web_MinimalDownloadStrategy);
 
                 if (!isActive)
                 {
-                    ctx.Web.ActivateFeature(Core.Constants.MINIMALDOWNLOADSTRATEGYFEATUREID);
+                    ctx.Web.ActivateFeature(Core.Constants.FeatureId_Web_MinimalDownloadStrategy);
                 }
 
                 using (var scope = new PSTestScope(true))
                 {
                     scope.ExecuteCommand("Disable-PnPFeature",
-                        new CommandParameter("Identity", Core.Constants.MINIMALDOWNLOADSTRATEGYFEATUREID));
+                        new CommandParameter("Identity", Core.Constants.FeatureId_Web_MinimalDownloadStrategy));
                 }
 
-                Assert.IsFalse(ctx.Web.IsFeatureActive(Core.Constants.MINIMALDOWNLOADSTRATEGYFEATUREID));
+                Assert.IsFalse(ctx.Web.IsFeatureActive(Core.Constants.FeatureId_Web_MinimalDownloadStrategy));
 
                 if (isActive)
                 {
-                    ctx.Web.ActivateFeature(Core.Constants.MINIMALDOWNLOADSTRATEGYFEATUREID);
+                    ctx.Web.ActivateFeature(Core.Constants.FeatureId_Web_MinimalDownloadStrategy);
                 }
             }
         }
@@ -42,24 +42,24 @@ namespace SharePointPnP.PowerShell.Tests
         {
             using (var ctx = TestCommon.CreateClientContext())
             {
-                var isActive = ctx.Web.IsFeatureActive(Core.Constants.MINIMALDOWNLOADSTRATEGYFEATUREID);
+                var isActive = ctx.Web.IsFeatureActive(Core.Constants.FeatureId_Web_MinimalDownloadStrategy);
 
                 if (isActive)
                 {
-                    ctx.Web.DeactivateFeature(Core.Constants.MINIMALDOWNLOADSTRATEGYFEATUREID);
+                    ctx.Web.DeactivateFeature(Core.Constants.FeatureId_Web_MinimalDownloadStrategy);
                 }
 
                 using (var scope = new PSTestScope(true))
                 {
                     scope.ExecuteCommand("Enable-PnPFeature",
-                        new CommandParameter("Identity", Core.Constants.MINIMALDOWNLOADSTRATEGYFEATUREID));
+                        new CommandParameter("Identity", Core.Constants.FeatureId_Web_MinimalDownloadStrategy));
                 }
 
-                Assert.IsTrue(ctx.Web.IsFeatureActive(Core.Constants.MINIMALDOWNLOADSTRATEGYFEATUREID));
+                Assert.IsTrue(ctx.Web.IsFeatureActive(Core.Constants.FeatureId_Web_MinimalDownloadStrategy));
 
                 if (!isActive)
                 {
-                    ctx.Web.DeactivateFeature(Core.Constants.MINIMALDOWNLOADSTRATEGYFEATUREID);
+                    ctx.Web.DeactivateFeature(Core.Constants.FeatureId_Web_MinimalDownloadStrategy);
                 }
             }
         }
@@ -69,24 +69,24 @@ namespace SharePointPnP.PowerShell.Tests
         {
             using (var ctx = TestCommon.CreateClientContext())
             {
-                var isActive = ctx.Web.IsFeatureActive(Core.Constants.MINIMALDOWNLOADSTRATEGYFEATUREID);
+                var isActive = ctx.Web.IsFeatureActive(Core.Constants.FeatureId_Web_MinimalDownloadStrategy);
 
                 if (!isActive)
                 {
-                    ctx.Web.ActivateFeature(Core.Constants.MINIMALDOWNLOADSTRATEGYFEATUREID);
+                    ctx.Web.ActivateFeature(Core.Constants.FeatureId_Web_MinimalDownloadStrategy);
                 }
 
                 using (var scope = new PSTestScope(true))
                 {
                     var results = scope.ExecuteCommand("Get-PnPFeature",
-                        new CommandParameter("Identity", Core.Constants.MINIMALDOWNLOADSTRATEGYFEATUREID));
+                        new CommandParameter("Identity", Core.Constants.FeatureId_Web_MinimalDownloadStrategy));
                     Assert.IsTrue(results.Any());
 
                 }
 
                 if (!isActive)
                 {
-                    ctx.Web.DeactivateFeature(Core.Constants.MINIMALDOWNLOADSTRATEGYFEATUREID);
+                    ctx.Web.DeactivateFeature(Core.Constants.FeatureId_Web_MinimalDownloadStrategy);
                 }
             }
         }

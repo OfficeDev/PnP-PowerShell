@@ -19,7 +19,7 @@ namespace SharePointPnP.PowerShell.Commands.Files
         SortOrder = 2,
         Remarks = @"Removes the file company.spcolor")]
 
-    public class RemoveFile : SPOWebCmdlet
+    public class RemoveFile : PnPWebCmdlet
     {
         [Parameter(Mandatory = true, Position = 0, ValueFromPipeline = true, ParameterSetName = "SERVER", HelpMessage = "Server relative URL to the file")]
         public string ServerRelativeUrl = string.Empty;

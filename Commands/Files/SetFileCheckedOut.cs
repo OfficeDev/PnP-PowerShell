@@ -12,7 +12,7 @@ namespace SharePointPnP.PowerShell.Commands.Files
         Code = @"PS:>Set-PnPFileCheckedOut -Url ""/sites/testsite/subsite/Documents/Contract.docx""",
         SortOrder = 1,
         Remarks = @"Checks out the file ""Contract.docx"" in the ""Documents"" library.")]
-    public class SetFileCheckedOut : SPOWebCmdlet
+    public class SetFileCheckedOut : PnPWebCmdlet
     {
         [Parameter(Mandatory = true, Position=0, ValueFromPipeline=true, HelpMessage = @"The server relative url of the file to check out")]
         public string Url = string.Empty;

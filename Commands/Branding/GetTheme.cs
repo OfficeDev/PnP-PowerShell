@@ -19,7 +19,7 @@ namespace SharePointPnP.PowerShell.Commands.Branding
         Code = @"PS:> Get-PnPTheme -DetectCurrentComposedLook",
         Remarks = "Returns the current composed look of the current web, and will try to detect the currently applied composed look based upon the actual site. Without this switch the cmdlet will first check for the presence of a property bag variable called _PnP_ProvisioningTemplateComposedLookInfo that contains composed look information when applied through the provisioning engine or the Set-PnPTheme cmdlet.",
         SortOrder = 2)]
-    public class GetTheme : SPOWebCmdlet
+    public class GetTheme : PnPWebCmdlet
     {
         [Parameter(Mandatory = false, HelpMessage = "Specify this switch to not use the PnP Provisioning engine based composed look information but try to detect the current composed look as is.")]
         public SwitchParameter DetectCurrentComposedLook;

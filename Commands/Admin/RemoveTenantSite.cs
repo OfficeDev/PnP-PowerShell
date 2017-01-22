@@ -28,7 +28,7 @@ namespace SharePointPnP.PowerShell.Commands
          Remarks =
              @"This will remove the site collection with the url 'https://tenant.sharepoint.com/sites/contoso' from the recycle bin.",
          SortOrder = 3)]
-    public class RemoveSite : SPOAdminCmdlet
+    public class RemoveSite : PnPAdminCmdlet
     {
         [Parameter(Mandatory = true, Position = 0, ValueFromPipeline = true, HelpMessage = "Specifies the full URL of the site collection that needs to be deleted")]
         public string Url;

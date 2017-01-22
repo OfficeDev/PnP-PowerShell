@@ -32,7 +32,7 @@ namespace SharePointPnP.PowerShell.Commands.Provider
 
         protected override PSDriveInfo NewDrive(PSDriveInfo drive)
         {
-            WriteVerbose(string.Format("SPOProvider::NewDrive (Drive.Name = ’{0}’, Drive.Root = ’{1}’)", drive.Name, drive.Root));
+            WriteVerbose($"SPOProvider::NewDrive (Drive.Name = ’{drive.Name}’, Drive.Root = ’{drive.Root}’)");
 
             var spoParametes = DynamicParameters as SPODriveParameters;
             Web web = null;
@@ -96,7 +96,7 @@ namespace SharePointPnP.PowerShell.Commands.Provider
 
         protected override PSDriveInfo RemoveDrive(PSDriveInfo drive)
         {
-            WriteVerbose(string.Format("SPOProvider::RemoveDrive (Drive.Name = ’{0}’)", drive.Name));
+            WriteVerbose($"SPOProvider::RemoveDrive (Drive.Name = ’{drive.Name}’)");
 
             var spoDrive = drive as SPODriveInfo;
             if (spoDrive == null) return null;
@@ -108,13 +108,13 @@ namespace SharePointPnP.PowerShell.Commands.Provider
         //Validate
         protected override bool IsValidPath(string path)
         {
-            WriteVerbose(string.Format("SPOProvider::IsValidPath (Path = ’{0}’)", path));
+            WriteVerbose($"SPOProvider::IsValidPath (Path = ’{path}’)");
             return Regex.IsMatch(path, Pattern);
         }
 
         protected override bool IsItemContainer(string path)
         {
-            WriteVerbose(string.Format("SPOProvider::IsItemContainer (Path = ’{0}’)", path));
+            WriteVerbose($"SPOProvider::IsItemContainer (Path = ’{path}’)");
 
             try
             {
@@ -130,7 +130,7 @@ namespace SharePointPnP.PowerShell.Commands.Provider
 
         protected override bool ItemExists(string path)
         {
-            WriteVerbose(string.Format("SPOProvider::ItemExists (Path = ’{0}’)", path));
+            WriteVerbose($"SPOProvider::ItemExists (Path = ’{path}’)");
 
             if (IsPathDrive(path)) return true;
             try
@@ -147,7 +147,7 @@ namespace SharePointPnP.PowerShell.Commands.Provider
 
         protected override bool HasChildItems(string path)
         {
-            WriteVerbose(string.Format("SPOProvider::HasChildItems (Path = ’{0}’)", path));
+            WriteVerbose($"SPOProvider::HasChildItems (Path = ’{path}’)");
 
             try
             {
@@ -170,35 +170,35 @@ namespace SharePointPnP.PowerShell.Commands.Provider
         protected override string MakePath(string parent, string child)
         {
             var result = base.MakePath(parent, child);
-            WriteVerbose(string.Format("SPOProvider::MakePath (parent = ’{0}’, child = ’{1}’) = {2}", parent, child, result));
+            WriteVerbose($"SPOProvider::MakePath (parent = ’{parent}’, child = ’{child}’) = {result}");
             return result;
         }
 
         protected override string GetParentPath(string path, string root)
         {
             var result = base.GetParentPath(path, root);
-            WriteVerbose(string.Format("SPOProvider::GetParentPath (path = ’{0}’, root = ’{1}’) = {2}", path, root, result));
+            WriteVerbose($"SPOProvider::GetParentPath (path = ’{path}’, root = ’{root}’) = {result}");
             return result;
         }
 
         protected override string GetChildName(string path)
         {
             var result = base.GetChildName(path);
-            WriteVerbose(string.Format("SPOProvider::GetChildName (path = ’{0}’) = {1}", path, result));
+            WriteVerbose($"SPOProvider::GetChildName (path = ’{path}’) = {result}");
             return result;
         }
 
         protected override string NormalizeRelativePath(string path, string basePath)
         {
             var result = base.NormalizeRelativePath(path, basePath);
-            WriteVerbose(string.Format("SPOProvider::NormalizeRelativePath (path = ’{0}’, basePath = ’{1}’) = {2}", path, basePath, result));
+            WriteVerbose($"SPOProvider::NormalizeRelativePath (path = ’{path}’, basePath = ’{basePath}’) = {result}");
             return result;
         }
 
         //Get
         protected override void GetItem(string path)
         {
-            WriteVerbose(string.Format("SPOProvider::GetItem (Path = ’{0}’)", path));
+            WriteVerbose($"SPOProvider::GetItem (Path = ’{path}’)");
 
             var obj = GetFileOrFolder(path);
             if (obj != null)
@@ -209,7 +209,7 @@ namespace SharePointPnP.PowerShell.Commands.Provider
 
         protected override void GetChildItems(string path, bool recurse)
         {
-            WriteVerbose(string.Format("SPOProvider::GetChildItems (Path = ’{0}’)", path));
+            WriteVerbose($"SPOProvider::GetChildItems (Path = ’{path}’)");
 
             var folder = GetFileOrFolder(path) as Folder;
             if (folder != null)
@@ -233,7 +233,7 @@ namespace SharePointPnP.PowerShell.Commands.Provider
 
         protected override void GetChildNames(string path, ReturnContainers returnContainers)
         {
-            WriteVerbose(string.Format("SPOProvider::GetChildNames (Path = ’{0}’)", path));
+            WriteVerbose($"SPOProvider::GetChildNames (Path = ’{path}’)");
 
             var folder = GetFileOrFolder(path) as Folder;
             if (folder != null)
@@ -268,21 +268,21 @@ namespace SharePointPnP.PowerShell.Commands.Provider
         //Set
         protected override void CopyItem(string path, string copyPath, bool recurse)
         {
-            WriteVerbose(string.Format("SPOProvider::CopyItem (Path = ’{0}’, copyPath = ’{1}’)", path, copyPath));
+            WriteVerbose($"SPOProvider::CopyItem (Path = ’{path}’, copyPath = ’{copyPath}’)");
 
             CopyMoveImplementation(path, copyPath, recurse);
         }
 
         protected override void MoveItem(string path, string destination)
         {
-            WriteVerbose(string.Format("SPOProvider::MoveItem (Path = ’{0}’, destination = ’{1}’)", path, destination));
+            WriteVerbose($"SPOProvider::MoveItem (Path = ’{path}’, destination = ’{destination}’)");
 
             CopyMoveImplementation(path, destination, true, false);
         }
 
         protected override void RenameItem(string path, string newName)
         {
-            WriteVerbose(string.Format("SPOProvider::RenameItem (Path = ’{0}’)", path));
+            WriteVerbose($"SPOProvider::RenameItem (Path = ’{path}’)");
 
             if (newName.Contains(PathSeparator))
             {
@@ -296,11 +296,11 @@ namespace SharePointPnP.PowerShell.Commands.Provider
 
         protected override void RemoveItem(string path, bool recurse)
         {
-            WriteVerbose(string.Format("SPOProvider::RemoveItem (Path = ’{0}’)", path));
+            WriteVerbose($"SPOProvider::RemoveItem (Path = ’{path}’)");
 
             var obj = GetFileOrFolder(path) as ClientObject;
 
-            if (obj != null && ShouldProcess(GetServerRelativePath(path), string.Format("{0} {1}", (Force) ? "Delete" : "Recycle", obj.GetType().Name)))
+            if (obj != null && ShouldProcess(GetServerRelativePath(path), $"{((Force) ? "Delete" : "Recycle")} {obj.GetType().Name}"))
             {
                 if (obj is File)
                 {
@@ -333,7 +333,7 @@ namespace SharePointPnP.PowerShell.Commands.Provider
 
         protected override void NewItem(string path, string itemTypeName, object newItemValue)
         {
-            WriteVerbose(string.Format("SPOProvider::NewItem (Path = ’{0}’, itemTypeName = ’{1}’)", path, itemTypeName));
+            WriteVerbose($"SPOProvider::NewItem (Path = ’{path}’, itemTypeName = ’{itemTypeName}’)");
 
             var itemUrl = GetServerRelativePath(path);
             var parentUrl = GetParentServerRelativePath(itemUrl);
@@ -390,7 +390,7 @@ namespace SharePointPnP.PowerShell.Commands.Provider
         //Content
         public IContentReader GetContentReader(string path)
         {
-            WriteVerbose(string.Format("SPOProvider::GetContentReader (path = ’{0}’)", path));
+            WriteVerbose($"SPOProvider::GetContentReader (path = ’{path}’)");
 
             var obj = GetFileOrFolder(path);
             if (obj is Folder)
@@ -419,7 +419,7 @@ namespace SharePointPnP.PowerShell.Commands.Provider
 
         public IContentWriter GetContentWriter(string path)
         {
-            WriteVerbose(string.Format("SPOProvider::GetContentWriter (path = ’{0}’)", path));
+            WriteVerbose($"SPOProvider::GetContentWriter (path = ’{path}’)");
 
             var obj = GetFileOrFolder(path, false);
             if (obj is Folder)
@@ -441,7 +441,7 @@ namespace SharePointPnP.PowerShell.Commands.Provider
                     isBinary = contentParameters.IsBinary;
                 }
 
-                if (ShouldProcess(string.Format("Set content in {0}", GetServerRelativePath(path))))
+                if (ShouldProcess($"Set content in {GetServerRelativePath(path)}"))
                 {
                     return new SPOContentReaderWriter(file, isBinary);
                 }
@@ -457,7 +457,7 @@ namespace SharePointPnP.PowerShell.Commands.Provider
 
         public void ClearContent(string path)
         {
-            WriteVerbose(string.Format("SPOProvider::ClearContent (path = ’{0}’)", path));
+            WriteVerbose($"SPOProvider::ClearContent (path = ’{path}’)");
 
             var obj = GetFileOrFolder(path);
             if (obj is Folder)
@@ -466,7 +466,7 @@ namespace SharePointPnP.PowerShell.Commands.Provider
             }
             if (obj is File)
             {
-                if (ShouldProcess(string.Format("Clear content from {0}", GetServerRelativePath(path))))
+                if (ShouldProcess($"Clear content from {GetServerRelativePath(path)}"))
                 {
                     var file = obj as File;
                     File.SaveBinaryDirect(file.Context as ClientContext, file.ServerRelativeUrl, Stream.Null, true);
@@ -656,7 +656,7 @@ namespace SharePointPnP.PowerShell.Commands.Provider
             var pathParts = serverRelativePath.Split(PathSeparator.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
             var webUrl = IsPropertyAvailable(spoDrive.Web, "Url") ? spoDrive.Web.Url : spoDrive.Web.EnsureProperty(w => w.Url);
             var webUri = new Uri(webUrl);
-            var hostUrl = string.Format("{0}://{1}/", webUri.Scheme, webUri.Host);
+            var hostUrl = $"{webUri.Scheme}://{webUri.Host}/";
 
             for (var i = pathParts.Length; i >= 0; i--)
             {
@@ -701,6 +701,7 @@ namespace SharePointPnP.PowerShell.Commands.Provider
                 }
                 catch
                 {
+                    // ignored
                 }
                 counter++;
                 SessionState.PSVariable.Set("WebRequestCounter", counter);
@@ -737,7 +738,7 @@ namespace SharePointPnP.PowerShell.Commands.Provider
                 targetFolder = targetWeb.EnsureFolderPath(PathSeparator + GetWebRelativePath(targetFolderPath));
             }
 
-            if (ShouldProcess(string.Format("{0} to {1}", GetServerRelativePath(sourcePath), targetUrl)))
+            if (ShouldProcess($"{GetServerRelativePath(sourcePath)} to {targetUrl}"))
             {
                 if (source is File)
                 {
@@ -823,7 +824,7 @@ namespace SharePointPnP.PowerShell.Commands.Provider
             var spoDrive = GetCurrentDrive(path);
             if (spoDrive == null) return path;
 
-            var result = Regex.Replace(path, string.Format(@"^{0}:", spoDrive.Name), string.Empty);
+            var result = Regex.Replace(path, $@"^{spoDrive.Name}:", string.Empty);
 
             return result;
         }
@@ -919,7 +920,7 @@ namespace SharePointPnP.PowerShell.Commands.Provider
             if (spoDrive == null) return null;
 
             var webPath = IsPropertyAvailable(spoDrive.Web, "ServerRelativeUrl") ? spoDrive.Web.ServerRelativeUrl : spoDrive.Web.EnsureProperty(w => w.ServerRelativeUrl);
-            var result = Regex.Replace(serverRelativePath, string.Format(@"^{0}", webPath), string.Empty);
+            var result = Regex.Replace(serverRelativePath, $@"^{webPath}", string.Empty);
             if (string.IsNullOrEmpty(result)) result = PathSeparator;
             return result;
         }

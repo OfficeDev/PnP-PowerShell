@@ -10,12 +10,12 @@ namespace SharePointPnP.PowerShell.Commands.Branding
     [CmdletExample(Code = "PS:> Disable-PnPResponsiveUI",
         Remarks = @"If enabled previously, this will remove the PnP Responsive UI from a site.",
         SortOrder = 1)]
-    public class DisableResponsiveUI : SPOWebCmdlet
+    public class DisableResponsiveUI : PnPWebCmdlet
     {
         protected override void ExecuteCmdlet()
         {
             var site = ClientContext.Site;
-            site.DisableReponsiveUI();
+            site.DisableResponsiveUI();
         }
     }
 }

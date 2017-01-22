@@ -21,7 +21,7 @@ namespace SharePointPnP.PowerShell.Commands.Features
         Code = "PS:> Enable-PnPFeature -Identity 99a00f6e-fb81-4dc7-8eac-e09c6f9132fe -Scope Web",
         Remarks = @"This will enable the feature with the id ""99a00f6e-fb81-4dc7-8eac-e09c6f9132fe"" with the web scope.",  
         SortOrder = 3)]
-    public class EnableFeature : SPOWebCmdlet
+    public class EnableFeature : PnPWebCmdlet
     {
         [Parameter(Mandatory = true, Position=0, ValueFromPipeline=true, HelpMessage = "The id of the feature to enable.")]
         public GuidPipeBind Identity;

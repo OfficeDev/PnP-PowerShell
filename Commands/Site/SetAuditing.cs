@@ -33,7 +33,7 @@ namespace SharePointPnP.PowerShell.Commands.Site
                     - Moving or copying items to another location in the site
                     - Searching site content",
         SortOrder = 5)]
-    public class SetAuditing : SPOCmdlet
+    public class SetAuditing : PnPCmdlet
     {
         [Parameter(Mandatory = false, ParameterSetName ="EnableAll")]
         public SwitchParameter EnableAll;

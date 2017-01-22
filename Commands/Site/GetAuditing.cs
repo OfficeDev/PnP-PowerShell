@@ -14,7 +14,7 @@ namespace SharePointPnP.PowerShell.Commands.Site
         Code = @"PS:> Get-PnPAuditing",
         Remarks = "Gets the auditing settings of the current site",
         SortOrder = 1)]
-    public class GetAuditing : SPOCmdlet
+    public class GetAuditing : PnPCmdlet
     {
         protected override void ExecuteCmdlet()
         {

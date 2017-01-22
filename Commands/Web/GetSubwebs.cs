@@ -13,7 +13,7 @@ namespace SharePointPnP.PowerShell.Commands
         Category = CmdletHelpCategory.Webs,
         OutputType = typeof(List<web>),
         OutputTypeLink = "https://msdn.microsoft.com/en-us/library/microsoft.sharepoint.client.web.aspx")]
-    public class GetSubWebs : SPOWebCmdlet
+    public class GetSubWebs : PnPWebCmdlet
     {
         [Parameter(Mandatory = false, ValueFromPipeline = true, Position = 0)]
         public WebPipeBind Identity;

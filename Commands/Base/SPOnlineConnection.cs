@@ -27,7 +27,7 @@ namespace SharePointPnP.PowerShell.Commands.Base
         public SPOnlineConnection(ClientContext context, ConnectionType connectionType, int minimalHealthScore, int retryCount, int retryWait, PSCredential credential, string url, string tenantAdminUrl, string pnpVersionTag)
         {
             if (context == null)
-                throw new ArgumentNullException("context");
+                throw new ArgumentNullException(nameof(context));
             Context = context;
             ConnectionType = connectionType;
             MinimalHealthScore = minimalHealthScore;
@@ -35,8 +35,7 @@ namespace SharePointPnP.PowerShell.Commands.Base
             RetryWait = retryWait;
             PSCredential = credential;
             TenantAdminUrl = tenantAdminUrl;
-            ContextCache = new List<ClientContext>();
-            ContextCache.Add(context);
+            ContextCache = new List<ClientContext> {context};
             PnPVersionTag = pnpVersionTag;
             Url = (new Uri(url)).AbsoluteUri;
         }

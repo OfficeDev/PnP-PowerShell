@@ -2,7 +2,8 @@
 Returns the current web object
 ##Syntax
 ```powershell
-Get-PnPWeb [-Identity <WebPipeBind>]
+Get-PnPWeb [-Includes <String[]>]
+           [-Identity <WebPipeBind>]
 ```
 
 
@@ -13,3 +14,4 @@ Get-PnPWeb [-Identity <WebPipeBind>]
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |Identity|WebPipeBind|False||
+|Includes|String[]|False|Specify properties to include when retrieving objects from the server.|

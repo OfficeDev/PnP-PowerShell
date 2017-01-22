@@ -1,16 +1,21 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using SharePointPnP.PowerShell.Commands.Base;
 using SharePointPnP.PowerShell.Commands.Base.PipeBinds;
 using System.Management.Automation;
+using System.Reflection;
 using Microsoft.SharePoint.Client;
+using SharePointPnP.PowerShell.CmdletHelpAttributes;
 using SharePointPnP.PowerShell.Commands.Extensions;
 
 namespace SharePointPnP.PowerShell.Commands
 {
-    public abstract class SPOWebCmdlet : SPOCmdlet
+    [CmdletAdditionalParameter(ParameterType = typeof(string[]), ParameterName = "Includes", HelpMessage = "Specify properties to include when retrieving objects from the server.")]
+    public abstract class PnPWebRetrievalsCmdlet<TType> : PnPRetrievalsCmdlet<TType> where TType : ClientObject
     {
         private Web _selectedWeb;
-
 
         [Parameter(Mandatory = false, HelpMessage = "The web to apply the command to. Omit this parameter to use the current web.")]
         public WebPipeBind Web = new WebPipeBind();
@@ -81,6 +86,5 @@ namespace SharePointPnP.PowerShell.Commands
             base.BeginProcessing();
             SPOnlineConnection.CurrentConnection.CacheContext();
         }
-
     }
 }

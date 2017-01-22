@@ -17,7 +17,7 @@ namespace SharePointPnP.PowerShell.Commands.Principals
         Code = @"PS:> Add-PnPUserToGroup -LoginName user@company.com -Identity 5",
         Remarks = "Add the specified user to the group with Id 5",
         SortOrder = 2)]
-    public class AddUserToGroup : SPOWebCmdlet
+    public class AddUserToGroup : PnPWebCmdlet
     {
 
         [Parameter(Mandatory = true, HelpMessage = "The login name of the user", ParameterSetName = "Internal")]

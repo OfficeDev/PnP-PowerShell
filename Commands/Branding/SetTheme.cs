@@ -15,12 +15,12 @@ namespace SharePointPnP.PowerShell.Commands.Branding
     [CmdletExample(Code = @"PS:> Set-PnPTheme -ColorPaletteUrl /_catalogs/theme/15/company.spcolor", SortOrder = 2)]
     [CmdletExample(Code = @"PS:> Set-PnPTheme -ColorPaletteUrl /_catalogs/theme/15/company.spcolor -BackgroundImageUrl '/sites/teamsite/style library/background.png'", SortOrder = 3)]
     [CmdletExample(Code = @"PS:> Set-PnPTheme -ColorPaletteUrl /_catalogs/theme/15/company.spcolor -BackgroundImageUrl '/sites/teamsite/style library/background.png' -ResetSubwebsToInherit", SortOrder = 4, Remarks = @"Sets the theme to the web, and updates all subwebs to inherit the theme from this web.")]
-    public class SetTheme : SPOWebCmdlet
+    public class SetTheme : PnPWebCmdlet
     {
         private const string PROPBAGKEY = "_PnP_ProvisioningTemplateComposedLookInfo";
 
         [Parameter(Mandatory = false, HelpMessage = "Specifies the Color Palette Url based on the site relative url")]
-        public string ColorPaletteUrl = null;
+        public string ColorPaletteUrl;
 
         [Parameter(Mandatory = false, HelpMessage = "Specifies the Font Scheme Url based on the server relative url")]
         public string FontSchemeUrl = null;
@@ -66,8 +66,7 @@ namespace SharePointPnP.PowerShell.Commands.Branding
                 }
                 else
                 {
-                    composedLook = new ComposedLook();
-                    composedLook.BackgroundFile = "";
+                    composedLook = new ComposedLook {BackgroundFile = ""};
                     SelectedWeb.EnsureProperty(w => w.AlternateCssUrl);
                     composedLook.ColorFile = "";
                     SelectedWeb.EnsureProperty(w => w.MasterUrl);

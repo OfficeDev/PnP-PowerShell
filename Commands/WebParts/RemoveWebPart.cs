@@ -12,7 +12,7 @@ namespace SharePointPnP.PowerShell.Commands.WebParts
     [CmdletAlias("Remove-SPOWebPart")]
     [CmdletHelp("Removes a webpart from a page",
         Category = CmdletHelpCategory.WebParts)]
-    public class RemoveWebPart : SPOWebCmdlet
+    public class RemoveWebPart : PnPWebCmdlet
     {
         [Parameter(Mandatory = true, ParameterSetName = "ID")]
         public GuidPipeBind Identity;

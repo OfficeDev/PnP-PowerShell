@@ -18,7 +18,7 @@ namespace SharePointPnP.PowerShell.Commands.ContentTypes
         Code = @"PS:> Remove-PnPContentType -Identity ""Project Document"" -Force",
         Remarks = @"This will remove a content type called ""Project Document"" from the current web with force",
         SortOrder = 2)]
-    public class RemoveContentType : SPOWebCmdlet
+    public class RemoveContentType : PnPWebCmdlet
     {
 
         [Parameter(Mandatory = true, Position=0, ValueFromPipeline=true, HelpMessage="The name or ID of the content type to remove")]

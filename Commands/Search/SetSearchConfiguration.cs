@@ -29,7 +29,7 @@ namespace SharePointPnP.PowerShell.Commands.Search
         Remarks = "Reads the search configuration from the specified XML file and sets it for the current tenant",
         SortOrder = 4)]
 
-    public class SetSearchConfiguration : SPOWebCmdlet
+    public class SetSearchConfiguration : PnPWebCmdlet
     {
         [Parameter(Mandatory = true, ParameterSetName = "Config", HelpMessage = "Search configuration string")]
         public string Configuration;

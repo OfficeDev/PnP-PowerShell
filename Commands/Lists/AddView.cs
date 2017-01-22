@@ -19,7 +19,7 @@ namespace SharePointPnP.PowerShell.Commands.Lists
         Code = @"Add-PnPView -List ""Demo List"" -Title ""Demo View"" -Fields ""Title"",""Address"" -Paged",
         Remarks = @"Adds a view named ""Demo view"" to the ""Demo List"" list and makes sure there's paging on this view.",        
         SortOrder = 2)]        
-    public class AddView : SPOWebCmdlet
+    public class AddView : PnPWebCmdlet
     {
         [Parameter(Mandatory = true, ValueFromPipeline = true, Position = 0, HelpMessage = "The ID or Url of the list.")]
         public ListPipeBind List;

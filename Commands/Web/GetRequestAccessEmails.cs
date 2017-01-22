@@ -15,7 +15,7 @@ namespace SharePointPnP.PowerShell.Commands
        Code = @"PS:> Get-PnPRequestAccessEmails",
        Remarks = "This will return all the request access e-mail addresses for the current web",
        SortOrder = 1)]
-    public class GetRequestAccessEmails : SPOWebCmdlet
+    public class GetRequestAccessEmails : PnPWebCmdlet
     {
         protected override void ExecuteCmdlet()
         {

@@ -14,7 +14,7 @@ namespace SharePointPnP.PowerShell.Commands.ContentTypes
         Code = @"PS:> Remove-PnPContentTypeFromList -List ""Documents"" -ContentType ""Project Document""",
         Remarks = @"This will remove a content type called ""Project Document"" from the ""Documents"" list",
         SortOrder = 1)]
-    public class RemoveContentTypeFromList : SPOWebCmdlet
+    public class RemoveContentTypeFromList : PnPWebCmdlet
     {
         [Parameter(Mandatory = true, HelpMessage = "The name of the list, its ID or an actual list object from where the content type needs to be removed from")]
         public ListPipeBind List;

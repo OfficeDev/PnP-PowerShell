@@ -8,7 +8,7 @@ namespace SharePointPnP.PowerShell.Commands
     [CmdletAlias("Request-PnPReIndexWeb")]
     [CmdletHelp("Marks the web for full indexing during the next incremental crawl",
         Category = CmdletHelpCategory.Webs)]
-    public class RequestReIndexWeb : SPOWebCmdlet
+    public class RequestReIndexWeb : PnPWebCmdlet
     {
 
         protected override void ExecuteCmdlet()

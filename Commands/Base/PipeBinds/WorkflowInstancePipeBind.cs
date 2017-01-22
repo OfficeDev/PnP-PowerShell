@@ -29,17 +29,8 @@ namespace SharePointPnP.PowerShell.Commands.Base.PipeBinds
             _id = Guid.Parse(id);
         }
 
-        public Guid Id
-        {
-            get { return _id; }
-        }
+        public Guid Id => _id;
 
-        public WorkflowInstance Instance
-        {
-            get
-            {
-                return _instance;
-            }
-        }
+        public WorkflowInstance Instance => _instance;
     }
 }

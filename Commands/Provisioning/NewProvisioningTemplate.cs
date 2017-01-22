@@ -12,7 +12,7 @@ namespace SharePointPnP.PowerShell.Commands.Provisioning
        Code = @"PS:> $template = New-PnPProvisioningTemplate",
        Remarks = "Creates a new instance of a provisioning template object.",
        SortOrder = 1)]
-    public class NewProvisioningTemplate : SPOWebCmdlet
+    public class NewProvisioningTemplate : PnPWebCmdlet
     {
         protected override void ExecuteCmdlet()
         {

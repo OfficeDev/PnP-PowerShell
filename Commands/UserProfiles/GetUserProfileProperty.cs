@@ -22,7 +22,7 @@ namespace SharePointPnP.PowerShell.Commands.UserProfiles
         Code = @"PS:> Get-PnPUserProfileProperty -Account 'user@domain.com','user2@domain.com'", 
         Remarks = "Returns the profile properties for the specified users",
         SortOrder = 1)]
-    public class GetUserProfileProperty : SPOAdminCmdlet
+    public class GetUserProfileProperty : PnPAdminCmdlet
     {
         [Parameter(Mandatory = true, HelpMessage = "The account of the user, formatted either as a login name, or as a claims identity, e.g. i:0#.f|membership|user@domain.com", Position = 0)]
         public string[] Account;

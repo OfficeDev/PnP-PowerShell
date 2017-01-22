@@ -21,7 +21,7 @@ namespace SharePointPnP.PowerShell.Commands.Fields
 Remarks = @"This will add a field of type Multiple Choice to the list ""Demo List"". (you can pick several choices for the same item)", SortOrder = 2)]
     [CmdletAdditionalParameter(ParameterType = typeof(string[]),ParameterName = "Choices", HelpMessage = "Specify choices, only valid if the field type is Choice", ParameterSetName = "ListPara")]
     [CmdletAdditionalParameter(ParameterType = typeof(string[]), ParameterName = "Choices", HelpMessage = "Specify choices, only valid if the field type is Choice", ParameterSetName = "WebPara")]
-    public class AddField : SPOWebCmdlet, IDynamicParameters
+    public class AddField : PnPWebCmdlet, IDynamicParameters
     {
         [Parameter(Mandatory = false, ValueFromPipeline = true, ParameterSetName = "ListPara")]
         [Parameter(Mandatory = true, ValueFromPipeline = true, ParameterSetName = "FieldRef")]
@@ -79,6 +79,7 @@ Remarks = @"This will add a field of type Multiple Choice to the list ""Demo Lis
             }
             return null;
         }
+
         private ChoiceFieldDynamicParameters _context;
 
         protected override void ExecuteCmdlet()

@@ -20,7 +20,7 @@ namespace SharePointPnP.PowerShell.Commands.Lists
         Code = "PS:> Set-PnPListPermission -Identity 'Documents' -User 'user@contoso.com' -RemoveRole 'Contribute'",
         Remarks = "Removes the 'Contribute' permission to the user 'user@contoso.com' for the list 'Documents'",
         SortOrder = 2)]        
-    public class SetListPermission : SPOWebCmdlet
+    public class SetListPermission : PnPWebCmdlet
     {
         [Parameter(Mandatory = true, ParameterSetName = ParameterAttribute.AllParameterSets, HelpMessage = "The ID or Title of the list.")]
         public ListPipeBind Identity;

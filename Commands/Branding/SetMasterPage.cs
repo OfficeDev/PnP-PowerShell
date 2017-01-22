@@ -26,7 +26,7 @@ namespace SharePointPnP.PowerShell.Commands.Branding
         Code = @"PS:> Set-PnPMasterPage -MasterPageSiteRelativeUrl _catalogs/masterpage/oslo.master -CustomMasterPageSiteRelativeUrl _catalogs/masterpage/oslo.master",
         Remarks = "Sets the master page and custom master page based on a site relative URL",
         SortOrder = 4)]
-    public class SetMasterPage : SPOWebCmdlet
+    public class SetMasterPage : PnPWebCmdlet
     {
         [Parameter(Mandatory = false, ParameterSetName = "SERVER", HelpMessage = "Specifies the Master page URL based on the server relative URL")]
         [Alias("MasterPageUrl")]
@@ -46,7 +46,7 @@ namespace SharePointPnP.PowerShell.Commands.Branding
         {
             if (SelectedWeb.IsNoScriptSite())
             {
-                WriteError(new ErrorRecord(new Exception("Site has NoScript enabled, and setting custom master pages is not supported."), "NoScriptEnabled", ErrorCategory.InvalidOperation, this));
+                ThrowTerminatingError(new ErrorRecord(new Exception("Site has NoScript enabled, and setting custom master pages is not supported."), "NoScriptEnabled", ErrorCategory.InvalidOperation, this));
                 return;
             }
 

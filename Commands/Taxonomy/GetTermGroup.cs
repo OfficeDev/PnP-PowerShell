@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq.Expressions;
 using System.Management.Automation;
 using Microsoft.SharePoint.Client;
 using Microsoft.SharePoint.Client.Taxonomy;
@@ -12,7 +13,7 @@ namespace SharePointPnP.PowerShell.Commands.Taxonomy
         Category = CmdletHelpCategory.Taxonomy,
         OutputType = typeof(TermGroup),
         OutputTypeLink = "https://msdn.microsoft.com/en-us/library/microsoft.sharepoint.client.taxonomy.termgroup.aspx")]
-    public class GetTermGroup : SPOCmdlet
+    public class GetTermGroup : PnPRetrievalsCmdlet<TermGroup>
     {
         [Parameter(Mandatory = true, ValueFromPipeline = true, Position = 0,
             HelpMessage = "Name of the taxonomy term group to retrieve.")]
@@ -24,6 +25,7 @@ namespace SharePointPnP.PowerShell.Commands.Taxonomy
 
         protected override void ExecuteCmdlet()
         {
+            DefaultRetrievalExpressions = new Expression<Func<TermGroup, object>>[] {g => g.Name, g => g.Id};
             var taxonomySession = TaxonomySession.GetTaxonomySession(ClientContext);
             // Get Term Store
             TermStore termStore;
@@ -39,8 +41,8 @@ namespace SharePointPnP.PowerShell.Commands.Taxonomy
             if (termStore != null)
             {
                 var group = termStore.GetTermGroupByName(GroupName);
-                group.EnsureProperties(g => g.Name, g => g.Id);
-                WriteObject(@group);
+                group.EnsureProperties(RetrievalExpressions);
+                WriteObject(group);
             }
             else
             {

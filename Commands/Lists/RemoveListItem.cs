@@ -13,7 +13,7 @@ namespace SharePointPnP.PowerShell.Commands.Lists
         Code = @"PS:> Remove-PnPListItem -List ""Demo List"" -Identity ""1"" -Force",
         SortOrder = 1,
         Remarks = @"Removes the listitem with id ""1"" from the ""Demo List"" list.")]
-    public class RemoveListItem : SPOWebCmdlet
+    public class RemoveListItem : PnPWebCmdlet
     {
         [Parameter(Mandatory = true, ValueFromPipeline = true, Position = 0, HelpMessage = "The ID, Title or Url of the list.")]
         public ListPipeBind List;

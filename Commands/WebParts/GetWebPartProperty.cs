@@ -19,7 +19,7 @@ namespace SharePointPnP.PowerShell.Commands.WebParts
         Code = @"PS:> Get-PnPWebPartProperty -ServerRelativePageUrl /sites/demo/sitepages/home.aspx -Identity ccd2c98a-c9ae-483b-ae72-19992d583914 -Key ""Title""",
         Remarks = "Returns the title property of the webpart.",
         SortOrder = 2)]
-    public class GetWebPartProperty : SPOWebCmdlet
+    public class GetWebPartProperty : PnPWebCmdlet
     {
         [Parameter(Mandatory = true, HelpMessage = "Full server relative URL of the webpart page, e.g. /sites/mysite/sitepages/home.aspx")]
         [Alias("PageUrl")]

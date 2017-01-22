@@ -39,9 +39,23 @@ Date and Time: -Values @{"DateAndTime" = "03/10/2015 14:16"}
 
 Lookup (id of lookup value): -Values @{"Lookup" = "2"}
 
+Multi value lookup (id of lookup values as array 1): -Values @{"MultiLookupField" = "1","2"}
+
+Multi value lookup (id of lookup values as array 2): -Values @{"MultiLookupField" = 1,2}
+
+Multi value lookup (id of lookup values as string): -Values @{"MultiLookupField" = "1,2"}
+
 Yes/No: -Values @{"YesNo" = "No"}
 
 Person/Group (id of user/group in Site User Info List or email of the user, seperate multiple values with a comma): -Values @{"Person" = "user1@domain.com","21"}
+
+Managed Metadata (single value with path to term): -Values @{"MetadataField" = "CORPORATE|DEPARTMENTS|FINANCE"}
+
+Managed Metadata (single value with id of term): -Values @{"MetadataField" = "fe40a95b-2144-4fa2-b82a-0b3d0299d818"} with Id of term
+
+Managed Metadata (multiple values with paths to terms): -Values @{"MetadataField" = "CORPORATE|DEPARTMENTS|FINANCE","CORPORATE|DEPARTMENTS|HR"}
+
+Managed Metadata (multiple values with ids of terms): -Values @{"MetadataField" = "fe40a95b-2144-4fa2-b82a-0b3d0299d818","52d88107-c2a8-4bf0-adfa-04bc2305b593"}
 
 Hyperlink or Picture: -Values @{"Hyperlink" = "https://github.com/OfficeDev/, OfficePnp"}|
 |Web|WebPipeBind|False|The web to apply the command to. Omit this parameter to use the current web.|

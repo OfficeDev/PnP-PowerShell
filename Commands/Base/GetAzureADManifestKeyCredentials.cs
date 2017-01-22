@@ -42,7 +42,7 @@ namespace SharePointPnP.PowerShell.Commands.Base
 
             var keyId = Guid.NewGuid().ToString();
 
-            var output = string.Format("\"keyCredentials\": [\n\t{{\n\t\t\"customKeyIdentifier\": \"{0}\",\n\t\t\"keyId\": \"{1}\",\n\t\t\"type\": \"AsymmetricX509Cert\",\n\t\t\"usage\": \"Verify\",\n\t\t\"value\": \"{2}\"\n\t}}\n],", base64CertHash, keyId, base64Cert);
+            var output = $"\"keyCredentials\": [\n\t{{\n\t\t\"customKeyIdentifier\": \"{base64CertHash}\",\n\t\t\"keyId\": \"{keyId}\",\n\t\t\"type\": \"AsymmetricX509Cert\",\n\t\t\"usage\": \"Verify\",\n\t\t\"value\": \"{base64Cert}\"\n\t}}\n],";
 
             WriteObject(output);
 

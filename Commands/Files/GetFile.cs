@@ -38,7 +38,7 @@ namespace SharePointPnP.PowerShell.Commands.Files
         Remarks = "Retrieves the file by site relative URL and downloads it to c:\\temp\\company.spcolor",
         SortOrder = 6)]
 
-    public class GetFile : SPOWebCmdlet
+    public class GetFile : PnPWebCmdlet
     {
         private const string URLTOPATH = "URLTOPATH";
         private const string URLASSTRING = "URLASSTRING";
@@ -49,7 +49,7 @@ namespace SharePointPnP.PowerShell.Commands.Files
         [Parameter(Mandatory = true, ParameterSetName = URLASLISTITEM, HelpMessage = "The URL (server or site relative) to the file", Position = 0, ValueFromPipeline = true)]
         [Parameter(Mandatory = true, ParameterSetName = URLTOPATH, HelpMessage = "The URL (server or site relative) to the file", Position = 0, ValueFromPipeline = true)]
         [Parameter(Mandatory = true, ParameterSetName = URLASSTRING, HelpMessage = "The URL (server or site relative) to the file", Position = 0, ValueFromPipeline = true)]
-        [Alias(new[] { "ServerRelativeUrl", "SiteRelativeUrl" })]
+        [Alias("ServerRelativeUrl", "SiteRelativeUrl")]
         public string Url;
 
         [Parameter(Mandatory = false, ParameterSetName = URLTOPATH, HelpMessage = "Local path where the file should be saved")]
@@ -69,7 +69,7 @@ namespace SharePointPnP.PowerShell.Commands.Files
 
         protected override void ExecuteCmdlet()
         {
-            var serverRelativeUrl = "";
+            var serverRelativeUrl = string.Empty;
             if (string.IsNullOrEmpty(Path))
             {
                 Path = SessionState.Path.CurrentFileSystemLocation.Path;
@@ -93,7 +93,7 @@ namespace SharePointPnP.PowerShell.Commands.Files
                 serverRelativeUrl = Url;
             }
 
-            File file = null;
+            File file;
 
             switch (ParameterSetName)
             {

@@ -10,7 +10,7 @@ namespace SharePointPnP.PowerShell.Commands.Workflows
     [CmdletAlias("Add-SPOWorkflowSubscription")]
     [CmdletHelp("Adds a workflow subscription to a list",
         Category = CmdletHelpCategory.Workflows)]
-    public class AddWorkflowSubscription : SPOWebCmdlet
+    public class AddWorkflowSubscription : PnPWebCmdlet
     {
         [Parameter(Mandatory = true, HelpMessage = "The name of the subscription")]
         public string Name;

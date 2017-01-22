@@ -3,7 +3,9 @@ Return a folder object
 ##Syntax
 ```powershell
 Get-PnPFolder [-Web <WebPipeBind>]
-              -RelativeUrl <String>
+              [-Includes <String[]>]
+              [-Includes <String[]>]
+              -Url <String>
 ```
 
 
@@ -16,7 +18,8 @@ Retrieves a folder if it exists. Use Ensure-PnPFolder to create the folder if it
 ##Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
-|RelativeUrl|String|True|Site or server relative URL of the folder to retrieve. In the case of a server relative url, make sure that the url starts with the managed path as the current web.|
+|Includes|String[]|False|Specify properties to include when retrieving objects from the server.|
+|Url|String|True|Site or server relative URL of the folder to retrieve. In the case of a server relative url, make sure that the url starts with the managed path as the current web.|
 |Web|WebPipeBind|False|The web to apply the command to. Omit this parameter to use the current web.|
 ##Examples
 

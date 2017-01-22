@@ -18,7 +18,7 @@ namespace SharePointPnP.PowerShell.Commands.RecycleBin
         Remarks = "Restores all the items in the first and second stage recycle bins to their original location of which the filename ends with the .docx extension",
         SortOrder = 2)]
     
-    public class RestoreRecycleBinItem : SPOCmdlet
+    public class RestoreRecycleBinItem : PnPCmdlet
     {
         [Parameter(Mandatory = true, HelpMessage = "Id of the recycle bin item or the recycle bin item object itself to restore", ValueFromPipeline = true, ParameterSetName = "Identity")]
         public RecycleBinItemPipeBind Identity;

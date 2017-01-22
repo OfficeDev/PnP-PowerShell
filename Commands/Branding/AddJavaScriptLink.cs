@@ -16,7 +16,7 @@ namespace SharePointPnP.PowerShell.Commands.Branding
     [CmdletExample(Code = "PS:> Add-PnPJavaScriptLink -Name jQuery -Url https://code.jquery.com/jquery.min.js",
                 Remarks = "Injects a reference to the latest v1 series jQuery library to all pages within the current web under the name jQuery",
                 SortOrder = 2)]
-    public class AddJavaScriptLink : SPOWebCmdlet
+    public class AddJavaScriptLink : PnPWebCmdlet
     {
         [Parameter(Mandatory = true, HelpMessage = "Name under which to register the JavaScriptLink")]
         [Alias("Key")]
@@ -61,7 +61,7 @@ namespace SharePointPnP.PowerShell.Commands.Branding
                     break;
 
                 case CustomActionScope.All:
-                    WriteError(new ErrorRecord(new Exception("Scope parameter can only be set to Web or Site"), "INCORRECTVALUE", ErrorCategory.InvalidArgument, this));
+                    ThrowTerminatingError(new ErrorRecord(new Exception("Scope parameter can only be set to Web or Site"), "INCORRECTVALUE", ErrorCategory.InvalidArgument, this));
                     break;
             }
         }

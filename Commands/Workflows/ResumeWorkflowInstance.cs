@@ -12,7 +12,7 @@ namespace SharePointPnP.PowerShell.Commands.Workflows
     [CmdletHelp("Resumes a previously stopped workflow instance",
         Category = CmdletHelpCategory.Workflows)]
 
-    public class ResumeWorkflowInstance : SPOWebCmdlet
+    public class ResumeWorkflowInstance : PnPWebCmdlet
     {
         [Parameter(Mandatory = true, HelpMessage = "The instance to resume", Position = 0)]
         public WorkflowInstancePipeBind Identity;

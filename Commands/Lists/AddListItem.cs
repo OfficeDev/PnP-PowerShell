@@ -4,9 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Management.Automation;
 using Microsoft.SharePoint.Client;
+using Microsoft.SharePoint.Client.Taxonomy;
 using OfficeDevPnP.Core.Utilities;
 using SharePointPnP.PowerShell.CmdletHelpAttributes;
 using SharePointPnP.PowerShell.Commands.Base.PipeBinds;
+using SharePointPnP.PowerShell.Commands.Taxonomy;
+
+// IMPORTANT: If you make changes to this cmdlet, also make the similar/same changes to the Set-PnPListItem Cmdlet
 
 namespace SharePointPnP.PowerShell.Commands.Lists
 {
@@ -32,7 +36,7 @@ namespace SharePointPnP.PowerShell.Commands.Lists
         Code = @"Add-PnPListItem -List ""Demo List"" -Values @{""Title""=""Sales Report""} -Folder ""projects/europe""",
         Remarks = @"Adds a new list item to the ""Demo List"". It will add the list item to the europe folder which is located in the projects folder. Folders will be created if needed.",
         SortOrder = 3)]
-    public class AddListItem : SPOWebCmdlet
+    public class AddListItem : PnPWebCmdlet
     {
         [Parameter(Mandatory = true, ValueFromPipeline = true, Position = 0, HelpMessage = "The ID, Title or Url of the list.")]
         public ListPipeBind List;
@@ -50,8 +54,15 @@ namespace SharePointPnP.PowerShell.Commands.Lists
             "\n\nCurrency: -Values @{\"Currency\" = \"10\"}" +
             "\n\nDate and Time: -Values @{\"DateAndTime\" = \"03/10/2015 14:16\"}" +
             "\n\nLookup (id of lookup value): -Values @{\"Lookup\" = \"2\"}" +
+            "\n\nMulti value lookup (id of lookup values as array 1): -Values @{\"MultiLookupField\" = \"1\",\"2\"}" +
+            "\n\nMulti value lookup (id of lookup values as array 2): -Values @{\"MultiLookupField\" = 1,2}" +
+            "\n\nMulti value lookup (id of lookup values as string): -Values @{\"MultiLookupField\" = \"1,2\"}" +
             "\n\nYes/No: -Values @{\"YesNo\" = \"No\"}" +
             "\n\nPerson/Group (id of user/group in Site User Info List or email of the user, seperate multiple values with a comma): -Values @{\"Person\" = \"user1@domain.com\",\"21\"}" +
+            "\n\nManaged Metadata (single value with path to term): -Values @{\"MetadataField\" = \"CORPORATE|DEPARTMENTS|FINANCE\"}" +
+            "\n\nManaged Metadata (single value with id of term): -Values @{\"MetadataField\" = \"fe40a95b-2144-4fa2-b82a-0b3d0299d818\"} with Id of term" +
+            "\n\nManaged Metadata (multiple values with paths to terms): -Values @{\"MetadataField\" = \"CORPORATE|DEPARTMENTS|FINANCE\",\"CORPORATE|DEPARTMENTS|HR\"}" +
+            "\n\nManaged Metadata (multiple values with ids of terms): -Values @{\"MetadataField\" = \"fe40a95b-2144-4fa2-b82a-0b3d0299d818\",\"52d88107-c2a8-4bf0-adfa-04bc2305b593\"}" +
             "\n\nHyperlink or Picture: -Values @{\"Hyperlink\" = \"https://github.com/OfficeDev/, OfficePnp\"}")]
         public Hashtable Values;
 
@@ -109,22 +120,24 @@ namespace SharePointPnP.PowerShell.Commands.Lists
 
                 if (Values != null)
                 {
+                    Hashtable values = Values ?? new Hashtable();
                     // Load all list fields and their types
-                    var fields = ClientContext.LoadQuery(list.Fields.Include(f => f.InternalName, f => f.Title, f => f.FieldTypeKind));
+                    var fields = ClientContext.LoadQuery(list.Fields.Include(f => f.Id, f => f.InternalName, f => f.Title, f => f.TypeAsString));
                     ClientContext.ExecuteQueryRetry();
 
-                    foreach (var key in Values.Keys)
+                    foreach (var key in values.Keys)
                     {
                         var field = fields.FirstOrDefault(f => f.InternalName == key as string || f.Title == key as string);
                         if (field != null)
                         {
-                            switch (field.FieldTypeKind)
+                            switch (field.TypeAsString)
                             {
-                                case FieldType.User:
+                                case "User":
+                                case "UserMulti":
                                     {
                                         var userValues = new List<FieldUserValue>();
 
-                                        var value = Values[key];
+                                        var value = values[key];
                                         if (value.GetType().IsArray)
                                         {
                                             foreach (var arrayItem in value as object[])
@@ -159,19 +172,139 @@ namespace SharePointPnP.PowerShell.Commands.Lists
                                                 item[key as string] = new FieldUserValue() { LookupId = userId };
                                             }
                                         }
+#if !ONPREMISES
+                                        item.SystemUpdate();
+#else
                                         item.Update();
+#endif
+                                        break;
+                                    }
+                                case "TaxonomyFieldType":
+                                case "TaxonomyFieldTypeMulti":
+                                    {
+                                        var value = values[key];
+                                        if (value.GetType().IsArray)
+                                        {
+                                            var taxSession = ClientContext.Site.GetTaxonomySession();
+                                            var terms = new List<KeyValuePair<Guid, string>>();
+                                            foreach (var arrayItem in value as object[])
+                                            {
+                                                TaxonomyItem taxonomyItem;
+                                                Guid termGuid = Guid.Empty;
+                                                if (!Guid.TryParse(arrayItem as string, out termGuid))
+                                                {
+                                                    // Assume it's a TermPath
+                                                    taxonomyItem = ClientContext.Site.GetTaxonomyItemByPath(arrayItem as string);
+                                                }
+                                                else
+                                                {
+                                                    taxonomyItem = taxSession.GetTerm(termGuid);
+                                                    ClientContext.Load(taxonomyItem);
+                                                    ClientContext.ExecuteQueryRetry();
+                                                }
+
+
+
+                                                terms.Add(new KeyValuePair<Guid, string>(taxonomyItem.Id, taxonomyItem.Name));
+                                            }
+
+                                            TaxonomyField taxField = ClientContext.CastTo<TaxonomyField>(field);
+
+                                            taxField.EnsureProperty(tf => tf.AllowMultipleValues);
+
+                                            if (taxField.AllowMultipleValues)
+                                            {
+                                                var termValuesString = String.Empty;
+                                                foreach (var term in terms)
+                                                {
+                                                    termValuesString += "-1;#" + term.Value + "|" + term.Key.ToString("D") + ";#";
+                                                }
+
+                                                termValuesString = termValuesString.Substring(0, termValuesString.Length - 2);
+
+                                                var newTaxFieldValue = new TaxonomyFieldValueCollection(ClientContext, termValuesString, taxField);
+                                                taxField.SetFieldValueByValueCollection(item, newTaxFieldValue);
+#if !ONPREMISES
+                                                item.SystemUpdate();
+#else
+                                                item.Update();
+#endif
+                                                ClientContext.ExecuteQueryRetry();
+                                            }
+                                            else
+                                            {
+                                                WriteWarning($@"You are trying to set multiple values in a single value field. Skipping values for field ""{field.InternalName}""");
+                                            }
+                                        }
+                                        else
+                                        {
+                                            Guid termGuid = Guid.Empty;
+                                            if (!Guid.TryParse(value as string, out termGuid))
+                                            {
+                                                // Assume it's a TermPath
+                                                var taxonomyItem = ClientContext.Site.GetTaxonomyItemByPath(value as string);
+                                                termGuid = taxonomyItem.Id;
+                                            }
+                                            item[key as string] = termGuid.ToString();
+                                        }
+#if !ONPREMISES
+                                        item.SystemUpdate();
+#else
+                                        item.Update();
+#endif
+                                        break;
+                                    }
+                                case "Lookup":
+                                case "LookupMulti":
+                                    {
+                                        int[] multiValue;
+                                        if (values[key] is Array)
+                                        {
+                                            var arr = (object[])values[key];
+                                            multiValue = new int[arr.Length];
+                                            for (int i = 0; i < arr.Length; i++)
+                                            {
+                                                multiValue[i] = int.Parse(arr[i].ToString());
+                                            }
+                                        }
+                                        else
+                                        {
+                                            string valStr = values[key].ToString();
+                                            multiValue = valStr.Split(',', ';').Select(int.Parse).ToArray();
+                                        }
+
+                                        var newVals = multiValue.Select(id => new FieldLookupValue { LookupId = id }).ToArray();
+
+                                        FieldLookup lookupField = ClientContext.CastTo<FieldLookup>(field);
+                                        lookupField.EnsureProperty(lf => lf.AllowMultipleValues);
+                                        if (!lookupField.AllowMultipleValues && newVals.Length > 1)
+                                        {
+                                            WriteWarning($@"You are trying to set multiple values in a single value field. Skipping values for field ""{field.InternalName}""");
+                                        }
+
+                                        item[key as string] = newVals;
+#if !ONPREMISES
+                                        item.SystemUpdate();
+#else
+                                        item.Update();
+#endif
                                         break;
                                     }
                                 default:
                                     {
-                                        item[key as string] = Values[key];
+                                        item[key as string] = values[key];
+#if !ONPREMISES
+                                        item.SystemUpdate();
+#else
+                                        item.Update();
+#endif
                                         break;
                                     }
                             }
                         }
                         else
                         {
-                            throw new Exception("Field not present in list");
+                            ThrowTerminatingError(new ErrorRecord(new Exception("Field not present in list"), "FIELDNOTINLIST", ErrorCategory.InvalidData, key));
                         }
                     }
                 }

@@ -4,6 +4,8 @@ Returns all activated or a specific activated feature
 ```powershell
 Get-PnPFeature [-Scope <FeatureScope>]
                [-Web <WebPipeBind>]
+               [-Includes <String[]>]
+               [-Includes <String[]>]
                [-Identity <FeaturePipeBind>]
 ```
 
@@ -15,6 +17,7 @@ Get-PnPFeature [-Scope <FeatureScope>]
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |Identity|FeaturePipeBind|False|The feature ID or name to query for, Querying by name is not supported in version 15 of the Client Side Object Model|
+|Includes|String[]|False|Specify properties to include when retrieving objects from the server.|
 |Scope|FeatureScope|False|The scope of the feature. Defaults to Web.|
 |Web|WebPipeBind|False|The web to apply the command to. Omit this parameter to use the current web.|
 ##Examples

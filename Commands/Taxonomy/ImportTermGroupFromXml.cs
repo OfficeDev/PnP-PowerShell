@@ -23,7 +23,7 @@ namespace SharePointPnP.PowerShell.Commands.Taxonomy
         Code = @"PS:> Import-PnPTermGroupFromXml -Path input.xml",
         Remarks = "Imports the XML file specified by the path.",
         SortOrder = 2)]
-    public class ImportTermGroupFromXml : SPOCmdlet
+    public class ImportTermGroupFromXml : PnPCmdlet
     {
         [Parameter(Mandatory = false, HelpMessage = "The XML to process", Position = 0, ValueFromPipeline = true, ParameterSetName = "XML")]
         public string Xml;

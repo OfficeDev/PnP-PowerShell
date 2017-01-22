@@ -17,7 +17,7 @@ namespace SharePointPnP.PowerShell.Commands.Files
         Code = @"PS:> Move-PnPFolder -Folder 'Shared Documents/Reports/2016/Templates' -TargetLocation 'Shared Documents/Reports'",
         Remarks = "This will move the folder Templates to the new location in 'Shared Documents/Reports'",
         SortOrder = 2)]
-    public class MoveFolder : SPOWebCmdlet
+    public class MoveFolder : PnPWebCmdlet
     {
 
         [Parameter(Mandatory = true, HelpMessage = "The folder to move")]

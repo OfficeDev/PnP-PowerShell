@@ -34,24 +34,10 @@ namespace SharePointPnP.PowerShell.Commands.Base.PipeBinds
             _web = web;
         }
 
-        public Guid Id
-        {
-            get { return _id; }
-        }
+        public Guid Id => _id;
 
-        public string Url
-        {
-            get { return _url; }
-        }
+        public string Url => _url;
 
-        public Web Web
-        {
-            get
-            {
-                return _web;
-            }
-        }
-
-
+        public Web Web => _web;
     }
 }

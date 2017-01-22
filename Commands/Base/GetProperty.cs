@@ -23,7 +23,7 @@ PS:> $list = Get-PnPList -Identity 'Site Assets'
 PS:> Get-PnPProperty -ClientObject $list -Property Views",
         Remarks = "Will load the views object of the specified list object and return its value to the output.",
         SortOrder = 2)]
-    public class EnsureProperty : SPOCmdlet
+    public class EnsureProperty : PnPCmdlet
     {
         [Parameter(Mandatory = true, Position = 0, HelpMessage = "Specifies the object where the properties of should be retrieved")]
         public ClientObject ClientObject;

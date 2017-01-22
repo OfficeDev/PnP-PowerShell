@@ -35,7 +35,7 @@ The import file also supports an expanded syntax for the Term Set Name and term 
         Code = @"PS:> Import-PnPTermSet -GroupName 'Standard Terms' -Path 'C:\\Temp\\ImportTermSet.csv' -IsOpen $true -Contact 'user@example.org' -Owner 'user@example.org'",
         Remarks = "Creates (or updates) the term set specified in the import file, setting the IsOpen, Contact, and Owner properties as specified.",
         SortOrder = 3)]
-    public class ImportTermSet : SPOCmdlet
+    public class ImportTermSet : PnPCmdlet
     {
         [Parameter(Mandatory = true, 
             HelpMessage = "Group to import the term set to; an error is returned if the group does not exist.")]

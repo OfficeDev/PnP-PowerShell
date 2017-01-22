@@ -17,7 +17,7 @@ namespace SharePointPnP.PowerShell.Commands.Publishing
         Remarks = "Creates a new page based on the pagelayout 'ArticleLeft' with a site relative folder path",
         SortOrder = 2)]
 
-    public class AddPublishingPage : SPOWebCmdlet
+    public class AddPublishingPage : PnPWebCmdlet
     {
         [Parameter(Mandatory = true, HelpMessage = "The name of the page to be added as an aspx file")]
         [Alias("Name")]

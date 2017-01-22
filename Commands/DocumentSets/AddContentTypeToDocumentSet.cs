@@ -1,4 +1,5 @@
 ﻿using System.Management.Automation;
+using Microsoft.SharePoint.Client;
 using SharePointPnP.PowerShell.CmdletHelpAttributes;
 using SharePointPnP.PowerShell.Commands.Base.PipeBinds;
 
@@ -22,7 +23,7 @@ PS:> Add-PnPContentTypeToDocumentSet -ContentType $ct -DocumentSet $docset",
         Code = @"PS:> Add-PnPContentTypeToDocumentSet -ContentType 0x0101001F1CEFF1D4126E4CAD10F00B6137E969 -DocumentSet 0x0120D520005DB65D094035A241BAC9AF083F825F3B",
         Remarks = "This will add the content type called 'Test CT' to the document set called ''Test Document Set'",
         SortOrder = 3)]
-    public class AddContentTypeToDocumentSet : SPOWebCmdlet
+    public class AddContentTypeToDocumentSet : PnPWebCmdlet
     {
         [Parameter(Mandatory = true, HelpMessage = "The content type object, name or id to add. Either specify name, an id, or a content type object.")]
         public ContentTypePipeBind[] ContentType;
@@ -41,7 +42,7 @@ PS:> Add-PnPContentTypeToDocumentSet -ContentType $ct -DocumentSet $docset",
                 docSetTemplate.AllowedContentTypes.Add(contentType.Id);
             }
             docSetTemplate.Update(true);
-            ClientContext.ExecuteQuery();
+            ClientContext.ExecuteQueryRetry();
         }
     }
 }

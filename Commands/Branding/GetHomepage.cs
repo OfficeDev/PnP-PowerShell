@@ -12,7 +12,7 @@ namespace SharePointPnP.PowerShell.Commands.Branding
     [CmdletExample(Code = @"PS:> Get-PnPHomePage",
         Remarks = "Will return the URL of the home page of the web.",
         SortOrder = 1)]
-    public class GetHomePage : SPOWebCmdlet
+    public class GetHomePage : PnPWebCmdlet
     {
         protected override void ExecuteCmdlet()
         {

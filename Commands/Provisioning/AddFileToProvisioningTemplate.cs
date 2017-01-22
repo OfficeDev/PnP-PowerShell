@@ -79,7 +79,7 @@ namespace SharePointPnP.PowerShell.Commands.Provisioning
 
                 // Determine the output file name and path
                 var outFileName = System.IO.Path.GetFileName(Path);
-                var outPath = new System.IO.FileInfo(Path).DirectoryName;
+                var outPath = new FileInfo(Path).DirectoryName;
 
                 // Save the template back to the storage
                 var fileSystemConnector = new FileSystemConnector(outPath, "");

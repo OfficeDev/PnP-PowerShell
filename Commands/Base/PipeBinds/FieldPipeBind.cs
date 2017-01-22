@@ -33,19 +33,10 @@ namespace SharePointPnP.PowerShell.Commands.Base.PipeBinds
             _name = String.Empty;
         }
 
-        public Guid Id
-        {
-            get { return _id; }
-        }
+        public Guid Id => _id;
 
-        public string Name
-        {
-            get { return _name; }
-        }
+        public string Name => _name;
 
-        public Field Field
-        {
-            get { return _field; }
-        }
+        public Field Field => _field;
     }
 }

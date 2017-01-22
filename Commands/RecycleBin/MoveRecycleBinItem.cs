@@ -23,7 +23,7 @@ namespace SharePointPnP.PowerShell.Commands.RecycleBin
         Code = @"PS:> Move-PnpRecycleBinItem -Force",
         Remarks = "Moves all the items in the first stage recycle bin of the current context to the second stage recycle bin without asking for confirmation first",
         SortOrder = 3)]
-    public class MoveRecycleBinItems : SPOCmdlet
+    public class MoveRecycleBinItems : PnPCmdlet
     {
         [Parameter(Mandatory = false, HelpMessage = "If provided, moves the item with the specific ID to the second stage recycle bin", ValueFromPipeline = true)]
         public RecycleBinItemPipeBind Identity;

@@ -38,7 +38,7 @@ namespace SharePointPnP.PowerShell.Commands.Provisioning
         protected override void ProcessRecord()
         {
             // Determine the output file name and path
-            string outFileName = System.IO.Path.GetFileName(Out);
+            string outFileName = Path.GetFileName(Out);
 
             if (!Path.IsPathRooted(Out))
             {
@@ -60,7 +60,7 @@ namespace SharePointPnP.PowerShell.Commands.Provisioning
                 proceed = true;
             }
 
-            string outPath = new System.IO.FileInfo(Out).DirectoryName;
+            string outPath = new FileInfo(Out).DirectoryName;
 
             // Determine if it is an .XML or a .PNP file
             var extension = "";

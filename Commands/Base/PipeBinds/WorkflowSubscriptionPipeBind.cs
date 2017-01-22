@@ -34,22 +34,10 @@ namespace SharePointPnP.PowerShell.Commands.Base.PipeBinds
             }
         }
 
-        public Guid Id
-        {
-            get { return _id; }
-        }
+        public Guid Id => _id;
 
-        public WorkflowSubscription Subscription
-        {
-            get
-            {
-                return _sub;
-            }
-        }
+        public WorkflowSubscription Subscription => _sub;
 
-        public string Name
-        {
-            get { return _name; }
-        }
+        public string Name => _name;
     }
 }

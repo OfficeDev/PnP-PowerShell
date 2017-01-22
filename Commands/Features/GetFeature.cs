@@ -5,6 +5,8 @@ using SharePointPnP.PowerShell.CmdletHelpAttributes;
 using SharePointPnP.PowerShell.Commands.Base.PipeBinds;
 using System;
 using System.Linq;
+using System.Linq.Expressions;
+using SharePointPnP.PowerShell.Commands.Base;
 using SharePointPnP.PowerShell.Commands.Enums;
 
 namespace SharePointPnP.PowerShell.Commands.Features
@@ -27,7 +29,7 @@ namespace SharePointPnP.PowerShell.Commands.Features
     [CmdletExample(
      Code = @"PS:> Get-PnPFeature -Identity fb689d0e-eb99-4f13-beb3-86692fd39f22 -Scope Site",
      Remarks = @"This will return a specific activated site scoped feature", SortOrder = 4)]
-    public class GetFeature : SPOWebCmdlet
+    public class GetFeature : PnPWebRetrievalsCmdlet<Feature>
     {
         [Parameter(Mandatory = false, Position = 0, ValueFromPipeline = true, HelpMessage = "The feature ID or name to query for, Querying by name is not supported in version 15 of the Client Side Object Model")]
         public FeaturePipeBind Identity;
@@ -37,6 +39,8 @@ namespace SharePointPnP.PowerShell.Commands.Features
 
         protected override void ExecuteCmdlet()
         {
+            DefaultRetrievalExpressions = new Expression<Func<Feature, object>>[] {f => f.DisplayName};
+
             FeatureCollection featureCollection;
             if (Scope == FeatureScope.Site)
             {
@@ -50,14 +54,14 @@ namespace SharePointPnP.PowerShell.Commands.Features
 #if !ONPREMISES
             if (ClientContext.ServerVersion.Major > 15)
             {
-                query = ClientContext.LoadQuery(featureCollection.IncludeWithDefaultProperties(f => f.DisplayName));
+                query = ClientContext.LoadQuery(featureCollection.IncludeWithDefaultProperties(RetrievalExpressions));
             }
             else
             {
-                query = ClientContext.LoadQuery(featureCollection.IncludeWithDefaultProperties());
+                query = ClientContext.LoadQuery(featureCollection.IncludeWithDefaultProperties(RetrievalExpressions));
             }
 #else
-            query = ClientContext.LoadQuery(featureCollection.IncludeWithDefaultProperties());
+            query = ClientContext.LoadQuery(featureCollection.IncludeWithDefaultProperties(Expressions));
 #endif
             ClientContext.ExecuteQueryRetry();
             if (Identity == null)

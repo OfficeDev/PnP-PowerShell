@@ -14,7 +14,7 @@ namespace SharePointPnP.PowerShell.Commands.Workflows
         OutputTypeLink= "https://msdn.microsoft.com/en-us/library/microsoft.sharepoint.client.workflowservices.workflowsubscription.aspx"
         )]
 
-    public class GetWorkflowSubscription : SPOWebCmdlet
+    public class GetWorkflowSubscription : PnPWebCmdlet
     {
         [Parameter(Mandatory = false, HelpMessage = "The name of the workflow", Position = 0)]
         public string Name;

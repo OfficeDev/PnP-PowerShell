@@ -24,7 +24,7 @@ namespace SharePointPnP.PowerShell.Commands.Principals
         Code = @"PS:> Get-PnPGroup -AssociatedMemberGroup",
         Remarks = "This will return the current members group for the site",
         SortOrder = 3)]
-    public class GetGroup : SPOWebCmdlet
+    public class GetGroup : PnPWebRetrievalsCmdlet<Group>
     {
         [Parameter(Mandatory = false, Position = 0, ValueFromPipeline = true, ParameterSetName = "ByName", HelpMessage = "Get a specific group by name")]
         [Alias("Name")]

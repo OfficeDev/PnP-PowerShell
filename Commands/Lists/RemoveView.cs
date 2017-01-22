@@ -14,7 +14,7 @@ namespace SharePointPnP.PowerShell.Commands.Lists
         Code = @"PS:> Remove-PnPView -List ""Demo List"" -Identity ""All Items""",
         SortOrder = 1,
         Remarks = @"Removes the view with title ""All Items"" from the ""Demo List"" list.")]
-    public class RemoveView : SPOWebCmdlet
+    public class RemoveView : PnPWebCmdlet
     {
         [Parameter(Mandatory = true, ValueFromPipeline = true, Position = 0, HelpMessage = "The ID or Title of the view.")]
         public ViewPipeBind Identity = new ViewPipeBind();

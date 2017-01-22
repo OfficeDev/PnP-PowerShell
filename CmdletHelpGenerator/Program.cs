@@ -70,319 +70,189 @@ namespace SharePointPnP.PowerShell.CmdletHelpGenerator
             var devNsAttr = new XAttribute(XNamespace.Xmlns + "dev", "http://schemas.microsoft.com/maml/dev/2004/10");
 
             var assembly = Assembly.LoadFrom(inFile);
-            var types = assembly.GetTypes();
+            var types = assembly.GetTypes().Where(t => t.BaseType != null && (t.BaseType.Name.StartsWith("SPO") || t.BaseType.Name.StartsWith("PnP") || t.BaseType.Name == "PSCmdlet")).OrderBy(t => t.Name).ToArray();
             //        System.Diagnostics.Debugger.Launch();
 
+            Console.WriteLine("Generating help and module files");
             var cmdletsToExport = new List<string>();
             var aliasesToCreate = new List<KeyValuePair<string, string>>();
 
             foreach (var t in types)
             {
-                if (t.BaseType.Name == "SPOCmdlet" || t.BaseType.Name == "PSCmdlet" || t.BaseType.Name == "SPOWebCmdlet" || t.BaseType.Name == "SPOAdminCmdlet" || t.BaseType.Name == "PnPGraphCmdlet")
+                if (t.BaseType == null)
                 {
+                    return;
+                }
+                //if (t.BaseType.Name == "SPOCmdlet" || t.BaseType.Name == "PSCmdlet" || t.BaseType.Name == "SPOWebCmdlet" || t.BaseType.Name == "SPOAdminCmdlet" || t.BaseType.Name == "PnPGraphCmdlet" || t.BaseType.Name == "PnPWebRetrievalsCmdlet`1" )
+                //{
 
                     var verb = string.Empty;
-                    var noun = string.Empty;
-                    var description = string.Empty;
-                    var detaileddescription = string.Empty;
-                    var copyright = string.Empty;
-                    var version = string.Empty;
-                    var category = string.Empty;
-                    var attrs = t.GetCustomAttributes();
-                    var examples = new List<CmdletExampleAttribute>();
-                    var relatedLinks = new List<CmdletRelatedLinkAttribute>();
-                    Type outputType = null;
-                    var outputTypeLink = string.Empty;
-                    var outputTypeDescription = string.Empty;
-                    var aliases = new List<string>();
-                    var additionalParameters = new List<CmdletAdditionalParameter>();
-                    // Get info from attributes
-                    foreach (var attr in attrs)
+                var noun = string.Empty;
+                var description = string.Empty;
+                var detaileddescription = string.Empty;
+                var copyright = string.Empty;
+                var version = string.Empty;
+                var category = string.Empty;
+                var attrs = t.GetCustomAttributes();
+                var examples = new List<CmdletExampleAttribute>();
+                var relatedLinks = new List<CmdletRelatedLinkAttribute>();
+                Type outputType = null;
+                var outputTypeLink = string.Empty;
+                var outputTypeDescription = string.Empty;
+                var aliases = new List<string>();
+                var additionalParameters = new List<CmdletAdditionalParameter>();
+                // Get info from attributes
+                foreach (var attr in attrs)
+                {
+                    if (attr is CmdletAttribute)
                     {
-                        if (attr is CmdletAttribute)
-                        {
-                            var a = (CmdletAttribute)attr;
-                            verb = a.VerbName;
-                            noun = a.NounName;
+                        var a = (CmdletAttribute)attr;
+                        verb = a.VerbName;
+                        noun = a.NounName;
 
-                        }
-                        if (attr is CmdletAliasAttribute)
-                        {
-                            var a = (CmdletAliasAttribute)attr;
-                            aliases.Add(a.Alias);
-                        }
+                    }
+                    if (attr is CmdletAliasAttribute)
+                    {
+                        var a = (CmdletAliasAttribute)attr;
+                        aliases.Add(a.Alias);
+                    }
 
-                        if (attr is CmdletHelpAttribute)
+                    if (attr is CmdletHelpAttribute)
+                    {
+                        var a = (CmdletHelpAttribute)attr;
+                        description = a.Description;
+                        copyright = a.Copyright;
+                        version = a.Version;
+                        detaileddescription = a.DetailedDescription;
+                        category = ToEnumString(a.Category);
+                        outputType = a.OutputType;
+                        outputTypeLink = a.OutputTypeLink;
+                        outputTypeDescription = a.OutputTypeDescription;
+                    }
+                    if (attr is CmdletExampleAttribute)
+                    {
+                        var a = (CmdletExampleAttribute)attr;
+                        examples.Add(a);
+                    }
+                    if (attr is CmdletRelatedLinkAttribute)
+                    {
+                        var l = (CmdletRelatedLinkAttribute)attr;
+                        relatedLinks.Add(l);
+                    }
+                    if (attr is CmdletAdditionalParameter)
+                    {
+
+                        var a = (CmdletAdditionalParameter)attr;
+                        additionalParameters.Add(a);
+                    }
+                }
+
+                // Store in CmdletInfo structure
+                var cmdletInfo = new CmdletInfo(verb, noun);
+                cmdletInfo.Description = description;
+                cmdletInfo.DetailedDescription = detaileddescription;
+                cmdletInfo.Version = version;
+                cmdletInfo.Copyright = copyright;
+                cmdletInfo.Category = category;
+                cmdletInfo.OutputType = outputType;
+                cmdletInfo.OutputTypeLink = outputTypeLink;
+                cmdletInfo.OutputTypeDescription = outputTypeDescription;
+                cmdletInfo.Aliases = aliases;
+
+                if (!string.IsNullOrEmpty(cmdletInfo.Verb) && !string.IsNullOrEmpty(cmdletInfo.Noun))
+                {
+                    cmdletsToExport.Add(cmdletInfo.FullCommand);
+                }
+
+                if (cmdletInfo.Aliases.Any())
+                {
+                    foreach (var alias in cmdletInfo.Aliases)
+                    {
+                        aliasesToCreate.Add(new KeyValuePair<string, string>(cmdletInfo.FullCommand, alias));
+                    }
+                }
+                // Build XElement for command
+                var commandElement = new XElement(command + "command", mamlNsAttr, commandNsAttr, devNsAttr);
+                var detailsElement = new XElement(command + "details");
+                commandElement.Add(detailsElement);
+
+                detailsElement.Add(new XElement(command + "name", $"{verb}-{noun}"));
+                detailsElement.Add(new XElement(maml + "description", new XElement(maml + "para", description)));
+                detailsElement.Add(new XElement(maml + "copyright", new XElement(maml + "para", copyright)));
+                detailsElement.Add(new XElement(command + "verb", verb));
+                detailsElement.Add(new XElement(command + "noun", noun));
+                detailsElement.Add(new XElement(dev + "version", version));
+
+                if (!string.IsNullOrWhiteSpace(detaileddescription))
+                {
+                    commandElement.Add(new XElement(maml + "description", new XElement(maml + "para", detaileddescription)));
+                }
+                var syntaxElement = new XElement(command + "syntax");
+                commandElement.Add(syntaxElement);
+
+                // Store syntaxes in CmdletInfo structure (if not AllParameterSets), and also in all syntaxItems list
+                var fields = GetFields(t);
+                //var fields = t.GetFields();
+                var syntaxItems = new List<SyntaxItem>();
+                foreach (var field in fields)
+                {
+                    var dontShow = false;
+                    foreach (Attribute attr in field.GetCustomAttributes(typeof(ObsoleteAttribute), true))
+                    {
+                        if (attr is ObsoleteAttribute)
                         {
-                            var a = (CmdletHelpAttribute)attr;
-                            description = a.Description;
-                            copyright = a.Copyright;
-                            version = a.Version;
-                            detaileddescription = a.DetailedDescription;
-                            category = ToEnumString(a.Category);
-                            outputType = a.OutputType;
-                            outputTypeLink = a.OutputTypeLink;
-                            outputTypeDescription = a.OutputTypeDescription;
-                        }
-                        if (attr is CmdletExampleAttribute)
-                        {
-                            var a = (CmdletExampleAttribute)attr;
-                            examples.Add(a);
-                        }
-                        if (attr is CmdletRelatedLinkAttribute)
-                        {
-                            var l = (CmdletRelatedLinkAttribute)attr;
-                            relatedLinks.Add(l);
-                        }
-                        if (attr is CmdletAdditionalParameter)
-                        {
-                            
-                            var a = (CmdletAdditionalParameter)attr;
-                            additionalParameters.Add(a);
+                            dontShow = true;
+                            break;
                         }
                     }
 
-                    // Store in CmdletInfo structure
-                    var cmdletInfo = new CmdletInfo(verb, noun);
-                    cmdletInfo.Description = description;
-                    cmdletInfo.DetailedDescription = detaileddescription;
-                    cmdletInfo.Version = version;
-                    cmdletInfo.Copyright = copyright;
-                    cmdletInfo.Category = category;
-                    cmdletInfo.OutputType = outputType;
-                    cmdletInfo.OutputTypeLink = outputTypeLink;
-                    cmdletInfo.OutputTypeDescription = outputTypeDescription;
-                    cmdletInfo.Aliases = aliases;
-
-                    if (!string.IsNullOrEmpty(cmdletInfo.Verb) && !string.IsNullOrEmpty(cmdletInfo.Noun))
+                    foreach (Attribute attr in field.GetCustomAttributes(typeof(ParameterAttribute), true))
                     {
-                        cmdletsToExport.Add(cmdletInfo.FullCommand);
-                    }
-
-                    if (cmdletInfo.Aliases.Any())
-                    {
-                        foreach (var alias in cmdletInfo.Aliases)
+                        if (attr is ParameterAttribute)
                         {
-                            aliasesToCreate.Add(new KeyValuePair<string, string>(cmdletInfo.FullCommand, alias));
-                        }
-                    }
-                    // Build XElement for command
-                    var commandElement = new XElement(command + "command", mamlNsAttr, commandNsAttr, devNsAttr);
-                    var detailsElement = new XElement(command + "details");
-                    commandElement.Add(detailsElement);
+                            var a = (ParameterAttribute)attr;
 
-                    detailsElement.Add(new XElement(command + "name", $"{verb}-{noun}"));
-                    detailsElement.Add(new XElement(maml + "description", new XElement(maml + "para", description)));
-                    detailsElement.Add(new XElement(maml + "copyright", new XElement(maml + "para", copyright)));
-                    detailsElement.Add(new XElement(command + "verb", verb));
-                    detailsElement.Add(new XElement(command + "noun", noun));
-                    detailsElement.Add(new XElement(dev + "version", version));
-
-                    if (!string.IsNullOrWhiteSpace(detaileddescription))
-                    {
-                        commandElement.Add(new XElement(maml + "description", new XElement(maml + "para", detaileddescription)));
-                    }
-                    var syntaxElement = new XElement(command + "syntax");
-                    commandElement.Add(syntaxElement);
-
-                    // Store syntaxes in CmdletInfo structure (if not AllParameterSets), and also in all syntaxItems list
-                    var fields = GetFields(t);
-                    //var fields = t.GetFields();
-                    var syntaxItems = new List<SyntaxItem>();
-                    foreach (var field in fields)
-                    {
-                        var dontShow = false;
-                        foreach (Attribute attr in field.GetCustomAttributes(typeof(ObsoleteAttribute), true))
-                        {
-                            if (attr is ObsoleteAttribute)
+                            if (!dontShow)
                             {
-                                dontShow = true;
-                                break;
-                            }
-                        }
-
-                        foreach (Attribute attr in field.GetCustomAttributes(typeof(ParameterAttribute), true))
-                        {
-                            if (attr is ParameterAttribute)
-                            {
-                                var a = (ParameterAttribute)attr;
-
-                                if (!dontShow)
+                                if (a.ParameterSetName != ParameterAttribute.AllParameterSets)
                                 {
-                                    if (a.ParameterSetName != ParameterAttribute.AllParameterSets)
+                                    var cmdletSyntax = cmdletInfo.Syntaxes.FirstOrDefault(c => c.ParameterSetName == a.ParameterSetName);
+                                    if (cmdletSyntax == null)
                                     {
-                                        var cmdletSyntax = cmdletInfo.Syntaxes.FirstOrDefault(c => c.ParameterSetName == a.ParameterSetName);
-                                        if (cmdletSyntax == null)
-                                        {
-                                            cmdletSyntax = new CmdletSyntax();
-                                            cmdletSyntax.ParameterSetName = a.ParameterSetName;
-                                            cmdletInfo.Syntaxes.Add(cmdletSyntax);
-                                        }
-
-                                        cmdletSyntax.Parameters.Add(new CmdletParameterInfo() { Name = field.Name, Description = a.HelpMessage, Position = a.Position, Required = a.Mandatory, Type = field.FieldType.Name });
-
-                                        var syntaxItem = syntaxItems.FirstOrDefault(x => x.Name == a.ParameterSetName);
-                                        if (syntaxItem == null)
-                                        {
-                                            syntaxItem = new SyntaxItem(a.ParameterSetName);
-                                            syntaxItems.Add(syntaxItem);
-                                        }
-                                        syntaxItem.Parameters.Add(new SyntaxItem.Parameter() { Name = field.Name, Description = a.HelpMessage, Position = a.Position, Required = a.Mandatory, Type = field.FieldType.Name });
+                                        cmdletSyntax = new CmdletSyntax();
+                                        cmdletSyntax.ParameterSetName = a.ParameterSetName;
+                                        cmdletInfo.Syntaxes.Add(cmdletSyntax);
                                     }
-                                }
-                            }
-                        }
-                    }
 
-                    foreach (var additionalParameter in additionalParameters)
-                    {
+                                    cmdletSyntax.Parameters.Add(new CmdletParameterInfo() { Name = field.Name, Description = a.HelpMessage, Position = a.Position, Required = a.Mandatory, Type = field.FieldType.Name });
 
-                        if (additionalParameter.ParameterSetName != ParameterAttribute.AllParameterSets)
-                        {
-                            var cmdletSyntax = cmdletInfo.Syntaxes.FirstOrDefault(c => c.ParameterSetName == additionalParameter.ParameterSetName);
-                            if (cmdletSyntax == null)
-                            {
-                                cmdletSyntax = new CmdletSyntax();
-                                cmdletSyntax.ParameterSetName = additionalParameter.ParameterSetName;
-                                cmdletInfo.Syntaxes.Add(cmdletSyntax);
-                            }
-
-                            cmdletSyntax.Parameters.Add(new CmdletParameterInfo()
-                            {
-                                Name = additionalParameter.ParameterName,
-                                Description = additionalParameter.HelpMessage,
-                                Position = additionalParameter.Position,
-                                Required = additionalParameter.Mandatory,
-                                Type = additionalParameter.ParameterType.Name
-                            });
-
-                            var syntaxItem = syntaxItems.FirstOrDefault(x => x.Name == additionalParameter.ParameterSetName);
-                            if (syntaxItem == null)
-                            {
-                                syntaxItem = new SyntaxItem(additionalParameter.ParameterSetName);
-                                syntaxItems.Add(syntaxItem);
-                            }
-                            syntaxItem.Parameters.Add(new SyntaxItem.Parameter() { Name = additionalParameter.ParameterName, Description = additionalParameter.HelpMessage, Position = additionalParameter.Position, Required = additionalParameter.Mandatory, Type = additionalParameter.ParameterType.Name });
-                        }
-                    }
-
-                    // all parameters
-                    // Add AllParameterSets to all CmdletInfo syntax sets and syntaxItems sets (first checking there is at least one, i.e. if all are marked AllParameterSets)
-                    foreach (var field in fields)
-                    {
-                        var dontShow = false;
-                        foreach (Attribute attr in field.GetCustomAttributes(typeof(ObsoleteAttribute), true))
-                        {
-                            if (attr is ObsoleteAttribute)
-                            {
-                                dontShow = true;
-                                break;
-                            }
-                        }
-
-                        foreach (Attribute attr in field.GetCustomAttributes(typeof(ParameterAttribute), true))
-                        {
-                            if (attr is ParameterAttribute)
-                            {
-                                var a = (ParameterAttribute)attr;
-                                if (!dontShow)
-                                {
-                                    if (a.ParameterSetName == ParameterAttribute.AllParameterSets)
+                                    var syntaxItem = syntaxItems.FirstOrDefault(x => x.Name == a.ParameterSetName);
+                                    if (syntaxItem == null)
                                     {
-                                        if (syntaxItems.Count == 0)
-                                        {
-                                            syntaxItems.Add(new SyntaxItem(ParameterAttribute.AllParameterSets));
-                                        }
-                                        foreach (var si in syntaxItems)
-                                        {
-                                            si.Parameters.Add(new SyntaxItem.Parameter() { Name = field.Name, Description = a.HelpMessage, Position = a.Position, Required = a.Mandatory, Type = field.FieldType.Name });
-                                        }
-
-                                        if (cmdletInfo.Syntaxes.Count == 0)
-                                        {
-                                            cmdletInfo.Syntaxes.Add(new CmdletSyntax() { ParameterSetName = ParameterAttribute.AllParameterSets });
-                                        }
-                                        foreach (var cmdletSyntax in cmdletInfo.Syntaxes)
-                                        {
-                                            cmdletSyntax.Parameters.Add(new CmdletParameterInfo() { Name = field.Name, Description = a.HelpMessage, Position = a.Position, Required = a.Mandatory, Type = field.FieldType.Name });
-                                        }
+                                        syntaxItem = new SyntaxItem(a.ParameterSetName);
+                                        syntaxItems.Add(syntaxItem);
                                     }
+                                    syntaxItem.Parameters.Add(new SyntaxItem.Parameter() { Name = field.Name, Description = a.HelpMessage, Position = a.Position, Required = a.Mandatory, Type = field.FieldType.Name });
                                 }
                             }
                         }
                     }
+                }
 
+                foreach (var additionalParameter in additionalParameters)
+                {
 
-
-                    // Build XElement for parameters from syntaxItems list (note: syntax element is set above)
-                    foreach (var syntaxItem in syntaxItems)
+                    if (additionalParameter.ParameterSetName != ParameterAttribute.AllParameterSets)
                     {
-                        var syntaxItemElement = new XElement(command + "syntaxItem");
-                        syntaxElement.Add(syntaxItemElement);
-
-                        syntaxItemElement.Add(new XElement(maml + "name", $"{verb}-{noun}"));
-                        foreach (var parameter in syntaxItem.Parameters)
+                        var cmdletSyntax = cmdletInfo.Syntaxes.FirstOrDefault(c => c.ParameterSetName == additionalParameter.ParameterSetName);
+                        if (cmdletSyntax == null)
                         {
-                            var parameterElement = new XElement(command + "parameter", new XAttribute("required", parameter.Required), new XAttribute("position", parameter.Position > 0 ? parameter.Position.ToString() : "named"));
-
-                            parameterElement.Add(new XElement(maml + "name", parameter.Name));
-
-                            parameterElement.Add(new XElement(maml + "description", new XElement(maml + "para", parameter.Description)));
-                            parameterElement.Add(new XElement(command + "parameterValue", new XAttribute("required", parameter.Type != "SwitchParameter"), parameter.Type));
-
-                            syntaxItemElement.Add(parameterElement);
+                            cmdletSyntax = new CmdletSyntax();
+                            cmdletSyntax.ParameterSetName = additionalParameter.ParameterSetName;
+                            cmdletInfo.Syntaxes.Add(cmdletSyntax);
                         }
-                    }
 
-                    // Also store parameters in cmdletInfo.Parameters (all parameters) and XElement parameters
-                    var parametersElement = new XElement(command + "parameters");
-                    commandElement.Add(parametersElement);
-
-                    foreach (var field in fields)
-                    {
-                        var dontShow = false;
-                        foreach (Attribute attr in field.GetCustomAttributes(typeof(ObsoleteAttribute), true))
-                        {
-                            if (attr is ObsoleteAttribute)
-                            {
-                                dontShow = true;
-                                break;
-                            }
-                        }
-                        foreach (Attribute attr in field.GetCustomAttributes(typeof(ParameterAttribute), true))
-                        {
-                            if (attr is ParameterAttribute)
-                            {
-                                var a = (ParameterAttribute)attr;
-                                if (!dontShow)
-                                {
-                                    cmdletInfo.Parameters.Add(new CmdletParameterInfo() { Name = field.Name, Description = a.HelpMessage, Position = a.Position, Required = a.Mandatory, Type = field.FieldType.Name });
-
-                                    var parameter2Element = new XElement(command + "parameter", new XAttribute("required", a.Mandatory), new XAttribute("position", a.Position > 0 ? a.Position.ToString() : "named"));
-
-                                    parameter2Element.Add(new XElement(maml + "name", field.Name));
-
-                                    parameter2Element.Add(new XElement(maml + "description", new XElement(maml + "para", a.HelpMessage)));
-                                    var parameterValueElement = new XElement(command + "parameterValue", field.FieldType.Name, new XAttribute("required", a.Mandatory));
-                                    parameter2Element.Add(parameterValueElement);
-
-                                    var devElement = new XElement(dev + "type");
-                                    devElement.Add(new XElement(maml + "name", field.FieldType.Name));
-                                    devElement.Add(new XElement(maml + "uri"));
-
-                                    parameter2Element.Add(devElement);
-
-                                    parametersElement.Add(parameter2Element);
-                                }
-                                break;
-
-                            }
-                        }
-                    }
-
-                    foreach (var additionalParameter in additionalParameters.GroupBy(o => new { o.ParameterName}).Select(o => o.FirstOrDefault()))
-                    {
-                        cmdletInfo.Parameters.Add(new CmdletParameterInfo()
+                        cmdletSyntax.Parameters.Add(new CmdletParameterInfo()
                         {
                             Name = additionalParameter.ParameterName,
                             Description = additionalParameter.HelpMessage,
@@ -391,91 +261,226 @@ namespace SharePointPnP.PowerShell.CmdletHelpGenerator
                             Type = additionalParameter.ParameterType.Name
                         });
 
-                        
-                        var parameter2Element = new XElement(command + "parameter", new XAttribute("required", additionalParameter.Mandatory), new XAttribute("position", additionalParameter.Position > 0 ? additionalParameter.Position.ToString() : "named"));
-
-                        parameter2Element.Add(new XElement(maml + "name", additionalParameter.ParameterName));
-
-                        parameter2Element.Add(new XElement(maml + "description", new XElement(maml + "para", additionalParameter.HelpMessage)));
-                        var parameterValueElement = new XElement(command + "parameterValue", additionalParameter.ParameterType.Name, new XAttribute("required", additionalParameter.Mandatory));
-                        parameter2Element.Add(parameterValueElement);
-
-                        var devElement = new XElement(dev + "type");
-                        devElement.Add(new XElement(maml + "name", additionalParameter.ParameterType.Name));
-                        devElement.Add(new XElement(maml + "uri"));
-
-                        parameter2Element.Add(devElement);
-
-                        parametersElement.Add(parameter2Element);
-
-                    }
-
-                    // XElement inputTypes
-                    commandElement.Add(
-                        new XElement(command + "inputTypes",
-                            new XElement(command + "inputType",
-                                new XElement(dev + "type",
-                                    new XElement(maml + "name", "String"),
-                                    new XElement(maml + "uri"),
-                                    new XElement(maml + "description",
-                                        new XElement(maml + "para", "description"))))));
-                    helpItems.Add(commandElement);
-
-                    // XElement return values
-                    commandElement.Add(
-                        new XElement(command + "returnValues",
-                            new XElement(command + "returnValue",
-                                new XElement(dev + "type",
-                                    new XElement(maml + "name", "String"),
-                                    new XElement(maml + "uri"),
-                                    new XElement(maml + "description",
-                                        new XElement(maml + "para", "description"))))));
-
-                    // XElement examples
-                    var examplesElement = new XElement(command + "examples");
-                    var exampleCount = 1;
-                    foreach (var exampleAttr in examples.OrderBy(e => e.SortOrder))
-                    {
-                        var example = new XElement(command + "example");
-                        var title = $"------------------EXAMPLE {exampleCount}---------------------";
-                        example.Add(new XElement(maml + "title", title));
-                        example.Add(new XElement(maml + "introduction", new XElement(maml + "para", exampleAttr.Introduction)));
-                        example.Add(new XElement(dev + "code", exampleAttr.Code));
-                        var remarksElement = new XElement(maml + "remarks", new XElement(maml + "para", exampleAttr.Remarks));
-                        remarksElement.Add(new XElement(maml + "para",""));
-                        example.Add(remarksElement);
-                        example.Add(new XElement(command + "commandLines",
-                            new XElement(command + "commandLine",
-                                new XElement(command + "commandText"))));
-                        examplesElement.Add(example);
-                        exampleCount++;
-                    }
-                    commandElement.Add(examplesElement);
-
-                    // Related links
-                    var relatedLinksElement = new XElement(maml + "relatedLinks");
-                    relatedLinks.Insert(0, new CmdletRelatedLinkAttribute() { Text = "Office 365 Developer Patterns and Practices", Url = "http://aka.ms/officedevpnp" });
-
-                    foreach (var link in relatedLinks)
-                    {
-                        var navigationLinksElement = new XElement(maml + "navigationLink");
-                        var linkText = new XElement(maml + "linkText");
-                        linkText.Value = link.Text + ":";
-                        navigationLinksElement.Add(linkText);
-                        var uriElement = new XElement(maml + "uri");
-                        uriElement.Value = link.Url;
-                        navigationLinksElement.Add(uriElement);
-
-                        relatedLinksElement.Add(navigationLinksElement);
-                    }
-                    commandElement.Add(relatedLinksElement);
-
-                    // Markdown from CmdletInfo
-                    if (generateMarkdown)
-                    {
-                        GenerateMarkDown(toc, solutionDir, examples, cmdletInfo);
+                        var syntaxItem = syntaxItems.FirstOrDefault(x => x.Name == additionalParameter.ParameterSetName);
+                        if (syntaxItem == null)
+                        {
+                            syntaxItem = new SyntaxItem(additionalParameter.ParameterSetName);
+                            syntaxItems.Add(syntaxItem);
+                        }
+                        syntaxItem.Parameters.Add(new SyntaxItem.Parameter() { Name = additionalParameter.ParameterName, Description = additionalParameter.HelpMessage, Position = additionalParameter.Position, Required = additionalParameter.Mandatory, Type = additionalParameter.ParameterType.Name });
                     }
                 }
+
+                // all parameters
+                // Add AllParameterSets to all CmdletInfo syntax sets and syntaxItems sets (first checking there is at least one, i.e. if all are marked AllParameterSets)
+                foreach (var field in fields)
+                {
+                    var dontShow = false;
+                    foreach (Attribute attr in field.GetCustomAttributes(typeof(ObsoleteAttribute), true))
+                    {
+                        if (attr is ObsoleteAttribute)
+                        {
+                            dontShow = true;
+                            break;
+                        }
+                    }
+
+                    foreach (Attribute attr in field.GetCustomAttributes(typeof(ParameterAttribute), true))
+                    {
+                        if (attr is ParameterAttribute)
+                        {
+                            var a = (ParameterAttribute)attr;
+                            if (!dontShow)
+                            {
+                                if (a.ParameterSetName == ParameterAttribute.AllParameterSets)
+                                {
+                                    if (syntaxItems.Count == 0)
+                                    {
+                                        syntaxItems.Add(new SyntaxItem(ParameterAttribute.AllParameterSets));
+                                    }
+                                    foreach (var si in syntaxItems)
+                                    {
+                                        si.Parameters.Add(new SyntaxItem.Parameter() { Name = field.Name, Description = a.HelpMessage, Position = a.Position, Required = a.Mandatory, Type = field.FieldType.Name });
+                                    }
+
+                                    if (cmdletInfo.Syntaxes.Count == 0)
+                                    {
+                                        cmdletInfo.Syntaxes.Add(new CmdletSyntax() { ParameterSetName = ParameterAttribute.AllParameterSets });
+                                    }
+                                    foreach (var cmdletSyntax in cmdletInfo.Syntaxes)
+                                    {
+                                        cmdletSyntax.Parameters.Add(new CmdletParameterInfo() { Name = field.Name, Description = a.HelpMessage, Position = a.Position, Required = a.Mandatory, Type = field.FieldType.Name });
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+
+
+                // Build XElement for parameters from syntaxItems list (note: syntax element is set above)
+                foreach (var syntaxItem in syntaxItems)
+                {
+                    var syntaxItemElement = new XElement(command + "syntaxItem");
+                    syntaxElement.Add(syntaxItemElement);
+
+                    syntaxItemElement.Add(new XElement(maml + "name", $"{verb}-{noun}"));
+                    foreach (var parameter in syntaxItem.Parameters)
+                    {
+                        var parameterElement = new XElement(command + "parameter", new XAttribute("required", parameter.Required), new XAttribute("position", parameter.Position > 0 ? parameter.Position.ToString() : "named"));
+
+                        parameterElement.Add(new XElement(maml + "name", parameter.Name));
+
+                        parameterElement.Add(new XElement(maml + "description", new XElement(maml + "para", parameter.Description)));
+                        parameterElement.Add(new XElement(command + "parameterValue", new XAttribute("required", parameter.Type != "SwitchParameter"), parameter.Type));
+
+                        syntaxItemElement.Add(parameterElement);
+                    }
+                }
+
+                // Also store parameters in cmdletInfo.Parameters (all parameters) and XElement parameters
+                var parametersElement = new XElement(command + "parameters");
+                commandElement.Add(parametersElement);
+
+                foreach (var field in fields)
+                {
+                    var dontShow = false;
+                    foreach (Attribute attr in field.GetCustomAttributes(typeof(ObsoleteAttribute), true))
+                    {
+                        if (attr is ObsoleteAttribute)
+                        {
+                            dontShow = true;
+                            break;
+                        }
+                    }
+                    foreach (Attribute attr in field.GetCustomAttributes(typeof(ParameterAttribute), true))
+                    {
+                        if (attr is ParameterAttribute)
+                        {
+                            var a = (ParameterAttribute)attr;
+                            if (!dontShow)
+                            {
+                                cmdletInfo.Parameters.Add(new CmdletParameterInfo() { Name = field.Name, Description = a.HelpMessage, Position = a.Position, Required = a.Mandatory, Type = field.FieldType.Name });
+
+                                var parameter2Element = new XElement(command + "parameter", new XAttribute("required", a.Mandatory), new XAttribute("position", a.Position > 0 ? a.Position.ToString() : "named"));
+
+                                parameter2Element.Add(new XElement(maml + "name", field.Name));
+
+                                parameter2Element.Add(new XElement(maml + "description", new XElement(maml + "para", a.HelpMessage)));
+                                var parameterValueElement = new XElement(command + "parameterValue", field.FieldType.Name, new XAttribute("required", a.Mandatory));
+                                parameter2Element.Add(parameterValueElement);
+
+                                var devElement = new XElement(dev + "type");
+                                devElement.Add(new XElement(maml + "name", field.FieldType.Name));
+                                devElement.Add(new XElement(maml + "uri"));
+
+                                parameter2Element.Add(devElement);
+
+                                parametersElement.Add(parameter2Element);
+                            }
+                            break;
+
+                        }
+                    }
+                }
+
+                foreach (var additionalParameter in additionalParameters.GroupBy(o => new { o.ParameterName }).Select(o => o.FirstOrDefault()))
+                {
+                    cmdletInfo.Parameters.Add(new CmdletParameterInfo()
+                    {
+                        Name = additionalParameter.ParameterName,
+                        Description = additionalParameter.HelpMessage,
+                        Position = additionalParameter.Position,
+                        Required = additionalParameter.Mandatory,
+                        Type = additionalParameter.ParameterType.Name
+                    });
+
+
+                    var parameter2Element = new XElement(command + "parameter", new XAttribute("required", additionalParameter.Mandatory), new XAttribute("position", additionalParameter.Position > 0 ? additionalParameter.Position.ToString() : "named"));
+
+                    parameter2Element.Add(new XElement(maml + "name", additionalParameter.ParameterName));
+
+                    parameter2Element.Add(new XElement(maml + "description", new XElement(maml + "para", additionalParameter.HelpMessage)));
+                    var parameterValueElement = new XElement(command + "parameterValue", additionalParameter.ParameterType.Name, new XAttribute("required", additionalParameter.Mandatory));
+                    parameter2Element.Add(parameterValueElement);
+
+                    var devElement = new XElement(dev + "type");
+                    devElement.Add(new XElement(maml + "name", additionalParameter.ParameterType.Name));
+                    devElement.Add(new XElement(maml + "uri"));
+
+                    parameter2Element.Add(devElement);
+
+                    parametersElement.Add(parameter2Element);
+
+                }
+
+                // XElement inputTypes
+                commandElement.Add(
+                    new XElement(command + "inputTypes",
+                        new XElement(command + "inputType",
+                            new XElement(dev + "type",
+                                new XElement(maml + "name", "String"),
+                                new XElement(maml + "uri"),
+                                new XElement(maml + "description",
+                                    new XElement(maml + "para", "description"))))));
+                helpItems.Add(commandElement);
+
+                // XElement return values
+                commandElement.Add(
+                    new XElement(command + "returnValues",
+                        new XElement(command + "returnValue",
+                            new XElement(dev + "type",
+                                new XElement(maml + "name", "String"),
+                                new XElement(maml + "uri"),
+                                new XElement(maml + "description",
+                                    new XElement(maml + "para", "description"))))));
+
+                // XElement examples
+                var examplesElement = new XElement(command + "examples");
+                var exampleCount = 1;
+                foreach (var exampleAttr in examples.OrderBy(e => e.SortOrder))
+                {
+                    var example = new XElement(command + "example");
+                    var title = $"------------------EXAMPLE {exampleCount}---------------------";
+                    example.Add(new XElement(maml + "title", title));
+                    example.Add(new XElement(maml + "introduction", new XElement(maml + "para", exampleAttr.Introduction)));
+                    example.Add(new XElement(dev + "code", exampleAttr.Code));
+                    var remarksElement = new XElement(maml + "remarks", new XElement(maml + "para", exampleAttr.Remarks));
+                    remarksElement.Add(new XElement(maml + "para", ""));
+                    example.Add(remarksElement);
+                    example.Add(new XElement(command + "commandLines",
+                        new XElement(command + "commandLine",
+                            new XElement(command + "commandText"))));
+                    examplesElement.Add(example);
+                    exampleCount++;
+                }
+                commandElement.Add(examplesElement);
+
+                // Related links
+                var relatedLinksElement = new XElement(maml + "relatedLinks");
+                relatedLinks.Insert(0, new CmdletRelatedLinkAttribute() { Text = "Office 365 Developer Patterns and Practices", Url = "http://aka.ms/officedevpnp" });
+
+                foreach (var link in relatedLinks)
+                {
+                    var navigationLinksElement = new XElement(maml + "navigationLink");
+                    var linkText = new XElement(maml + "linkText");
+                    linkText.Value = link.Text + ":";
+                    navigationLinksElement.Add(linkText);
+                    var uriElement = new XElement(maml + "uri");
+                    uriElement.Value = link.Url;
+                    navigationLinksElement.Add(uriElement);
+
+                    relatedLinksElement.Add(navigationLinksElement);
+                }
+                commandElement.Add(relatedLinksElement);
+
+                // Markdown from CmdletInfo
+                if (generateMarkdown)
+                {
+                    GenerateMarkDown(toc, solutionDir, examples, cmdletInfo);
+                }
+                //              }
 
             }
             doc.Save(outFile);

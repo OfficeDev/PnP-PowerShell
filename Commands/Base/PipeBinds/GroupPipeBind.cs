@@ -7,25 +7,11 @@ namespace SharePointPnP.PowerShell.Commands.Base.PipeBinds
         private readonly int _id = -1;
         private readonly Group _group;
         private readonly string _name;
-        public int Id
-        {
-            get
-            {
-                return _id;
-            }
-        }
-        public Group Group
-        {
-            get
-            {
-                return _group;
-            }
-        }
+        public int Id => _id;
 
-        public string Name
-        {
-            get { return _name; }
-        }
+        public Group Group => _group;
+
+        public string Name => _name;
 
         internal GroupPipeBind()
         {

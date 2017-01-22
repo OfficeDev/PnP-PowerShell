@@ -13,7 +13,7 @@ namespace SharePointPnP.PowerShell.Commands.Principals
         Code = @"PS:> Remove-PnPUserFromGroup -LoginName user@company.com -GroupName 'Marketing Site Members'",
         SortOrder = 1,
         Remarks = @"Removes the user user@company.com from the Group 'Marketing Site Members'")]
-    public class RemoveUserFromGroup : SPOWebCmdlet
+    public class RemoveUserFromGroup : PnPWebCmdlet
     {
 
         [Parameter(Mandatory = true, HelpMessage = "A valid login name of a user (user@company.com)")]

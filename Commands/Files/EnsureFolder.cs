@@ -1,6 +1,7 @@
 ﻿using System.Management.Automation;
 using Microsoft.SharePoint.Client;
 using SharePointPnP.PowerShell.CmdletHelpAttributes;
+using SharePointPnP.PowerShell.Commands.Base;
 
 namespace SharePointPnP.PowerShell.Commands.Files
 {
@@ -18,14 +19,14 @@ namespace SharePointPnP.PowerShell.Commands.Files
     [CmdletRelatedLink(
         Text = "Get-PnPFolder",
         Url = "https://github.com/OfficeDev/PnP-PowerShell/blob/master/Documentation/GetPnPFolder.md")]
-    public class EnsureFolder : SPOWebCmdlet
+    public class EnsureFolder : PnPWebRetrievalsCmdlet<Folder>
     {
         [Parameter(Mandatory = true, HelpMessage = "Site Relative Folder Path", Position = 0)]
         public string SiteRelativePath = string.Empty;
 
         protected override void ExecuteCmdlet()
         {
-            WriteObject(SelectedWeb.EnsureFolderPath(SiteRelativePath));
+            WriteObject(SelectedWeb.EnsureFolderPath(SiteRelativePath, RetrievalExpressions));
         }
     }
 }

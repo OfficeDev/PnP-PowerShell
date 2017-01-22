@@ -3,6 +3,13 @@ Returns a specific group or all groups.
 ##Syntax
 ```powershell
 Get-PnPGroup [-Web <WebPipeBind>]
+             [-Includes <String[]>]
+             [-Includes <String[]>]
+```
+
+
+```powershell
+Get-PnPGroup [-Web <WebPipeBind>]
              [-Identity <GroupPipeBind>]
 ```
 
@@ -35,6 +42,7 @@ Parameter|Type|Required|Description
 |AssociatedOwnerGroup|SwitchParameter|False|Retrieve the associated owner group|
 |AssociatedVisitorGroup|SwitchParameter|False|Retrieve the associated visitor group|
 |Identity|GroupPipeBind|False|Get a specific group by name|
+|Includes|String[]|False|Specify properties to include when retrieving objects from the server.|
 |Web|WebPipeBind|False|The web to apply the command to. Omit this parameter to use the current web.|
 ##Examples
 

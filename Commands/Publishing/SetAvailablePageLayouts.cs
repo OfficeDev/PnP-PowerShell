@@ -12,7 +12,7 @@ namespace SharePointPnP.PowerShell.Commands.Publishing
     [Cmdlet(VerbsCommon.Set, "PnPAvailablePageLayouts")]
     [CmdletHelp("Sets the available page layouts for the current site",
         Category = CmdletHelpCategory.Publishing)]
-    public class SetAvailablePageLayouts : SPOWebCmdlet
+    public class SetAvailablePageLayouts : PnPWebCmdlet
     {
         [Parameter(
             Mandatory = true,

@@ -41,7 +41,7 @@ namespace SharePointPnP.PowerShell.Commands.Provisioning
      SortOrder = 6)]
 
 
-    public class SetProvisioningTemplateMetadata : SPOWebCmdlet
+    public class SetProvisioningTemplateMetadata : PnPWebCmdlet
     {
         [Parameter(Mandatory = true, Position = 0, ValueFromPipelineByPropertyName = true, ValueFromPipeline = true, HelpMessage = "Path to the xml or pnp file containing the provisioning template.")]
         public string Path;

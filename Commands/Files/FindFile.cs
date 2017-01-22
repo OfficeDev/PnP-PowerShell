@@ -23,7 +23,7 @@ namespace SharePointPnP.PowerShell.Commands.Files
          Code = @"PS:> Find-PnPFile -Folder ""Shared Documents/Sub Folder"" -Match *.docx",
          Remarks = "Will return all docx files located in given folder.",
          SortOrder = 3)]
-    public class FindFile : SPOWebCmdlet
+    public class FindFile : PnPWebCmdlet
     {
         [Parameter(Mandatory = true, HelpMessage = "Wildcard query", ValueFromPipeline = true, ParameterSetName = "Web", Position = 0)]
         [Parameter(Mandatory = true, HelpMessage = "Wildcard query", ValueFromPipeline = true, ParameterSetName = "List", Position = 0)]

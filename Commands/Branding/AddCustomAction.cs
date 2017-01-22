@@ -20,7 +20,7 @@ Add-PnPCustomAction -Name 'GetItemsCount' -Title 'Invoke GetItemsCount Action' -
     [CmdletRelatedLink(
         Text ="BasePermissions",
         Url = "https://msdn.microsoft.com/en-us/library/office/microsoft.sharepoint.client.basepermissions.aspx")]
-    public class AddCustomAction : SPOWebCmdlet
+    public class AddCustomAction : PnPWebCmdlet
     {
         [Parameter(Mandatory = true, HelpMessage = "The name of the custom action")]
         public string Name = string.Empty;

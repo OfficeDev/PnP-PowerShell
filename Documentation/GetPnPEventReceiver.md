@@ -2,6 +2,14 @@
 Returns all or a specific event receiver
 ##Syntax
 ```powershell
+Get-PnPEventReceiver [-Identity <GuidPipeBind>]
+                     [-Web <WebPipeBind>]
+                     [-Includes <String[]>]
+                     [-Includes <String[]>]
+```
+
+
+```powershell
 Get-PnPEventReceiver [-List <ListPipeBind>]
                      [-Identity <GuidPipeBind>]
                      [-Web <WebPipeBind>]
@@ -15,6 +23,7 @@ Get-PnPEventReceiver [-List <ListPipeBind>]
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |Identity|GuidPipeBind|False|The Guid of the event receiver on the list|
+|Includes|String[]|False|Specify properties to include when retrieving objects from the server.|
 |List|ListPipeBind|False|The list object from which to get the event receiver object|
 |Web|WebPipeBind|False|The web to apply the command to. Omit this parameter to use the current web.|
 ##Examples

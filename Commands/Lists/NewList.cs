@@ -17,7 +17,7 @@ namespace SharePointPnP.PowerShell.Commands.Lists
         Code = @"PS:> New-PnPList -Title ""Demo List"" -Url ""DemoList"" -Template Announcements",
         SortOrder = 2,
         Remarks = "Create a list with a title that is different from the url")]
-    public class NewList : SPOWebCmdlet
+    public class NewList : PnPWebCmdlet
     {
         [Parameter(Mandatory = true, HelpMessage = "The Title of the list")]
         public string Title;

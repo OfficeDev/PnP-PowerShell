@@ -24,7 +24,7 @@ namespace SharePointPnP.PowerShell.Commands.Taxonomy
      Code = @"PS:> Set-PnPTaxonomyFieldValue -ListItem $item -InternalFieldName 'Department' -Terms @{""TermId1""=""Label1"";""TermId2""=""Label2""}",
      Remarks = @"Sets the field called 'Department' with multiple terms by ID and label. You can refer to those terms with the {ID:label} token.",
         SortOrder = 3)]
-    public class SetTaxonomyFieldValue : SPOCmdlet
+    public class SetTaxonomyFieldValue : PnPCmdlet
     {
         [Parameter(Mandatory = true, ParameterSetName = ParameterAttribute.AllParameterSets, HelpMessage = "The list item to set the field value to")]
         public ListItem ListItem;

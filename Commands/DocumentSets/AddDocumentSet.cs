@@ -15,7 +15,7 @@ namespace SharePointPnP.PowerShell.Commands.DocumentSets
       Code = @"PS:> Add-PnPDocumentSet -List ""Documents"" -ContentType ""Test Document Set"" -Name ""Test""",
       Remarks = "This will add a new document set based upon the 'Test Document Set' content type to a list called 'Documents'. The document set will be named 'Test'",
       SortOrder = 1)]
-    public class AddDocumentSet : SPOWebCmdlet
+    public class AddDocumentSet : PnPWebCmdlet
     {
         [Parameter(Mandatory = true, HelpMessage = "The name of the list, its ID or an actual list object from where the document set needs to be added")]
         public ListPipeBind List;

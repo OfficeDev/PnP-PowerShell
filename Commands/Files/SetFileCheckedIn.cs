@@ -16,7 +16,7 @@ namespace SharePointPnP.PowerShell.Commands.Files
         Code = @"PS:>Set-PnPFileCheckedIn -Url ""/Documents/Contract.docx"" -CheckinType MinorCheckin -Comment ""Smaller changes""",
         SortOrder = 2,
         Remarks = @"Checks in the file ""Contract.docx"" in the ""Documents"" library as a minor version and adds the check in comment ""Smaller changes""")]
-    public class SetFileCheckedIn : SPOWebCmdlet
+    public class SetFileCheckedIn : PnPWebCmdlet
     {
         [Parameter(Mandatory = true, Position=0, ValueFromPipeline=true, HelpMessage = @"The server relative url of the file to check in")]
         public string Url = string.Empty;

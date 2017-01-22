@@ -25,7 +25,7 @@ namespace SharePointPnP.PowerShell.Commands.Lists
         Code = "PS:> Set-PnPDefaultColumnValues -List Documents -Field MyTextField -Value \"DefaultValue\"",
         SortOrder = 2,
         Remarks = "Sets a default value for the MyTextField text field on a library to a value of \"DefaultValue\"")]
-    public class SetDefaultColumnValues : SPOWebCmdlet
+    public class SetDefaultColumnValues : PnPWebCmdlet
     {
         [Parameter(Mandatory = true, ValueFromPipeline = true, Position = 0, HelpMessage = "The ID, Name or Url of the list.")]
         public ListPipeBind List;

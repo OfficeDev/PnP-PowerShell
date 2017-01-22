@@ -4,6 +4,8 @@ Returns a field from a list or site
 ```powershell
 Get-PnPField [-List <ListPipeBind>]
              [-Web <WebPipeBind>]
+             [-Includes <String[]>]
+             [-Includes <String[]>]
              [-Identity <FieldPipeBind>]
 ```
 
@@ -15,6 +17,7 @@ Get-PnPField [-List <ListPipeBind>]
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |Identity|FieldPipeBind|False|The field object or name to get|
+|Includes|String[]|False|Specify properties to include when retrieving objects from the server.|
 |List|ListPipeBind|False|The list object or name where to get the field from|
 |Web|WebPipeBind|False|The web to apply the command to. Omit this parameter to use the current web.|
 ##Examples

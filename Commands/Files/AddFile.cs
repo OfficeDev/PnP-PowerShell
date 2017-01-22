@@ -30,7 +30,7 @@ namespace SharePointPnP.PowerShell.Commands.Files
         Remarks = "This will add a file sample.doc with the contents of the stream into the Shared Documents folder. After adding it will set the Modified date to 1/1/2016.",
         SortOrder = 4)]
 
-    public class AddFile : SPOWebCmdlet
+    public class AddFile : PnPWebCmdlet
     {
 
         [Parameter(Mandatory = true, ParameterSetName = "AsFile", HelpMessage = "The local file path.")]
@@ -101,7 +101,7 @@ namespace SharePointPnP.PowerShell.Commands.Files
                 { // Swallow exception, file does not exist 
                 }
             }
-            Microsoft.SharePoint.Client.File file =null ;
+            Microsoft.SharePoint.Client.File file;
             if (ParameterSetName == "AsFile")
             {
 

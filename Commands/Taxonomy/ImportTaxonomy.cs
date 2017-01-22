@@ -19,7 +19,7 @@ namespace SharePointPnP.PowerShell.Commands.Taxonomy
         Code = @"PS:> Import-PnPTaxonomy -Terms 'Company|Locations|Stockholm|Central','Company|Locations|Stockholm|North'",
         Remarks = "Creates a new termgroup, 'Company', a termset 'Locations', a term 'Stockholm' and two subterms: 'Central', and 'North'",
         SortOrder = 2)]
-    public class ImportTaxonomy : SPOCmdlet
+    public class ImportTaxonomy : PnPCmdlet
     {
 
         [Parameter(Mandatory = false, ValueFromPipeline = true, ParameterSetName = "Direct", HelpMessage = "An array of strings describing termgroup, termset, term, subterms using a default delimiter of '|'.")]

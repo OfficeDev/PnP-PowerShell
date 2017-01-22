@@ -18,7 +18,7 @@ namespace SharePointPnP.PowerShell.Commands.Fields
         Code = @"PS:> Add-PnPTaxonomyField -DisplayName ""Test"" -InternalName ""Test"" -TermSetPath ""TestTermGroup|TestTermSet""",
         Remarks = @"Adds a new taxonomy field called ""Test"" that points to the TestTermSet which is located in the TestTermGroup",
         SortOrder = 1)]
-    public class AddTaxonomyField : SPOWebCmdlet
+    public class AddTaxonomyField : PnPWebCmdlet
     {
         [Parameter(Mandatory = false, ParameterSetName = ParameterAttribute.AllParameterSets, HelpMessage = "The list object or name where this field needs to be added")]
         public ListPipeBind List;
@@ -81,7 +81,7 @@ namespace SharePointPnP.PowerShell.Commands.Fields
                     }
                     catch
                     {
-                        throw new Exception(string.Format("Taxonomy Item with Id {0} not found", TaxonomyItemId.Id));
+                        throw new Exception($"Taxonomy Item with Id {TaxonomyItemId.Id} not found");
                     }
                 }
                 taxItem.EnsureProperty(t => t.Id);

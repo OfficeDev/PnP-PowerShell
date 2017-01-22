@@ -8,12 +8,10 @@ using Resources = SharePointPnP.PowerShell.Commands.Properties.Resources;
 
 namespace SharePointPnP.PowerShell.Commands
 {
+    [Obsolete("Use PnPCmdlet or PnPCmdlet<Type> instead. This class will be removed in the April 2017 release.")]
     public class SPOCmdlet : PSCmdlet
     {
-        public ClientContext ClientContext
-        {
-            get { return SPOnlineConnection.CurrentConnection.Context; }
-        }
+        public ClientContext ClientContext => SPOnlineConnection.CurrentConnection.Context;
 
         protected override void BeginProcessing()
         {

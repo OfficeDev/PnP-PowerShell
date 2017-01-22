@@ -5,6 +5,8 @@ Returns all or a specific custom action(s)
 Get-PnPCustomAction [-Identity <GuidPipeBind>]
                     [-Scope <CustomActionScope>]
                     [-Web <WebPipeBind>]
+                    [-Includes <String[]>]
+                    [-Includes <String[]>]
 ```
 
 
@@ -15,6 +17,7 @@ Get-PnPCustomAction [-Identity <GuidPipeBind>]
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |Identity|GuidPipeBind|False|Identity of the CustomAction to return. Omit to return all CustomActions.|
+|Includes|String[]|False|Specify properties to include when retrieving objects from the server.|
 |Scope|CustomActionScope|False|Scope of the CustomAction, either Web, Site or All to return both|
 |Web|WebPipeBind|False|The web to apply the command to. Omit this parameter to use the current web.|
 ##Examples

@@ -18,7 +18,7 @@ namespace SharePointPnP.PowerShell.Commands.UserProfiles
         Remarks = "Creates a personal / OneDrive For Business site for the 2 users in the variable $users",
         SortOrder = 1)]
 
-    public class NewPersonalSite : SPOAdminCmdlet
+    public class NewPersonalSite : PnPAdminCmdlet
     {
         [Parameter(Mandatory = true, HelpMessage = "The UserPrincipalName (UPN) of the users", Position = 0)]
         public string[] Email;

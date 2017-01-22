@@ -31,7 +31,7 @@ namespace SharePointPnP.PowerShell.Commands.Principals
         Code = @"PS:> Set-PnPGroupPermissions -Identity 'My Site Members' -List 'MyList' -RemoveRole @('Contribute')",
         Remarks = "Removes the 'Contribute' permissions from the list 'MyList' for the group with the name 'My Site Members'",
         SortOrder = 5)]
-    public class SetGroupPermissions : SPOWebCmdlet
+    public class SetGroupPermissions : PnPWebCmdlet
     {
         [Parameter(Mandatory = true, Position = 0, ValueFromPipeline = true, ParameterSetName = "ByName", HelpMessage = "Get the permissions of a specific group by name")]
         [Alias("Name")]

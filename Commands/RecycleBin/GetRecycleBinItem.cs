@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Management.Automation;
 using Microsoft.SharePoint.Client;
 using SharePointPnP.PowerShell.CmdletHelpAttributes;
@@ -28,7 +30,7 @@ namespace SharePointPnP.PowerShell.Commands.RecycleBin
         Code = @"PS:> Get-PnPRecycleBinItem -SecondStage",
         Remarks = "Returns all items in only the second stage recycle bin in the current site collection",
         SortOrder = 4)]
-    public class GetRecycleBinItems : SPOCmdlet
+    public class GetRecycleBinItems : PnPRetrievalsCmdlet<RecycleBinItem>
     {
         [Parameter(Mandatory = false, HelpMessage = "Returns a recycle bin item with a specific identity", ParameterSetName = "Identity")]
         public GuidPipeBind Identity;
@@ -39,19 +41,22 @@ namespace SharePointPnP.PowerShell.Commands.RecycleBin
 
         protected override void ExecuteCmdlet()
         {
+            DefaultRetrievalExpressions = new Expression<Func<RecycleBinItem, object>>[] {r => r.Id, r => r.Title, r => r.ItemType, r => r.LeafName, r => r.DirName};
             if (ParameterSetName == "Identity")
             {
                 var item = ClientContext.Site.RecycleBin.GetById(Identity.Id);
-                ClientContext.Load(item);
+                
+                ClientContext.Load(item, RetrievalExpressions);
                 ClientContext.ExecuteQueryRetry();
                 WriteObject(item);
             }
             else
             {
-                ClientContext.Site.EnsureProperty(s => s.RecycleBin);
+                ClientContext.Site.Context.Load(ClientContext.Site.RecycleBin, r => r.IncludeWithDefaultProperties(RetrievalExpressions));
+                ClientContext.Site.Context.ExecuteQueryRetry();
 
                 var recycleBinItemList = ClientContext.Site.RecycleBin.ToList();
-
+                
                 switch (ParameterSetName)
                 {
 

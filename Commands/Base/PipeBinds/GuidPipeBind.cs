@@ -16,10 +16,7 @@ namespace SharePointPnP.PowerShell.Commands.Base.PipeBinds
             _id = new Guid(id);
         }
 
-        public Guid Id
-        {
-            get { return _id; }
-        }
+        public Guid Id => _id;
 
         public GuidPipeBind()
         {

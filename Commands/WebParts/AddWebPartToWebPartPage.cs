@@ -18,7 +18,7 @@ namespace SharePointPnP.PowerShell.Commands.WebParts
     [CmdletExample(
   Code = @"PS:> Add-PnPWebPartToWebPartPage -ServerRelativePageUrl ""/sites/demo/sitepages/home.aspx"" -XML $webpart -ZoneId ""Header"" -ZoneIndex 1 ",
   Remarks = @"This will add the webpart as defined by the XML in the $webpart variable to the specified page in the specified zone and with the order index of 1", SortOrder = 1)]
-    public class AddWebPartToWebPartPage : SPOWebCmdlet
+    public class AddWebPartToWebPartPage : PnPWebCmdlet
     {
         [Parameter(Mandatory = true, HelpMessage = "Server Relative Url of the page to add the webpart to.")]
         [Alias("PageUrl")]

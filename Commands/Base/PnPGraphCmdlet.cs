@@ -33,7 +33,7 @@ namespace SharePointPnP.PowerShell.Commands.Base
                 }
                 else
                 {
-                    WriteError(new ErrorRecord(new InvalidOperationException(Resources.NoAzureADAccessToken), "NO_OAUTH_TOKEN", ErrorCategory.ConnectionError, null));
+                    ThrowTerminatingError(new ErrorRecord(new InvalidOperationException(Resources.NoAzureADAccessToken), "NO_OAUTH_TOKEN", ErrorCategory.ConnectionError, null));
                     return (null);
                 }
             }

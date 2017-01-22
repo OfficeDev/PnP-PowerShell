@@ -13,7 +13,7 @@ namespace SharePointPnP.PowerShell.Commands.Publishing
     [CmdletExample(
         Code = @"PS:> Remove-PnPPublishingImageRendition -Name ""MyImageRendition"" -Width 800 -Height 600",
         SortOrder = 1)]
-    public class RemovePublishingImageRendition : SPOWebCmdlet
+    public class RemovePublishingImageRendition : PnPWebCmdlet
     {
         [Parameter(Mandatory = true, HelpMessage = "The display name or id of the Image Rendition.", Position = 0, ValueFromPipeline = true)]
         public ImageRenditionPipeBind Identity;

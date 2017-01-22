@@ -16,7 +16,7 @@ namespace SharePointPnP.PowerShell.Commands.Taxonomy
         (Code = @"PS:> New-PnPTermGroup -GroupName ""Countries""",
         Remarks = @"Creates a new taxonomy term group named ""Countries""",
         SortOrder = 1)]
-    public class NewTermGroup : SPOCmdlet
+    public class NewTermGroup : PnPCmdlet
     {
         [Parameter(Mandatory = true, ValueFromPipeline = true, 
             HelpMessage = "Name of the taxonomy term group to create.")]

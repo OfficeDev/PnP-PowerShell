@@ -211,14 +211,14 @@ dir",
             if (creds == null)
             {
                 // Try to get the credentials by splitting up the path
-                var pathString = string.Format("{0}://{1}", connectionUri.Scheme, connectionUri.IsDefaultPort ? connectionUri.Host : string.Format("{0}:{1}", connectionUri.Host, connectionUri.Port));
+                var pathString = $"{connectionUri.Scheme}://{(connectionUri.IsDefaultPort ? connectionUri.Host : $"{connectionUri.Host}:{connectionUri.Port}")}";
                 var path = connectionUri.AbsolutePath;
                 while (path.IndexOf('/') != -1)
                 {
                     path = path.Substring(0, path.LastIndexOf('/'));
                     if (!string.IsNullOrEmpty(path))
                     {
-                        var pathUrl = string.Format("{0}{1}", pathString, path);
+                        var pathUrl = $"{pathString}{path}";
                         creds = Utilities.CredentialManager.GetCredential(pathUrl);
                         if (creds != null)
                         {

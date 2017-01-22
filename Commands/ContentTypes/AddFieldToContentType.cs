@@ -14,7 +14,7 @@ namespace SharePointPnP.PowerShell.Commands.ContentTypes
         Code = @"PS:> Add-PnPFieldToContentType -Field ""Project_Name"" -ContentType ""Project Document""",
         Remarks = @"This will add an existing site column with an internal name of ""Project_Name"" to a content type called ""Project Document""", 
         SortOrder = 1)]
-    public class AddFieldToContentType : SPOWebCmdlet
+    public class AddFieldToContentType : PnPWebCmdlet
     {
         [Parameter(Mandatory = true, HelpMessage = "Specifies the field that needs to be added to the content type")]
         public FieldPipeBind Field;

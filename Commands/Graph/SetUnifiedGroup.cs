@@ -66,9 +66,9 @@ namespace SharePointPnP.PowerShell.Commands.Graph
             {
                 if (GroupLogoPath != null)
                 {
-                    if (!System.IO.Path.IsPathRooted(GroupLogoPath))
+                    if (!Path.IsPathRooted(GroupLogoPath))
                     {
-                        GroupLogoPath = System.IO.Path.Combine(SessionState.Path.CurrentFileSystemLocation.Path, GroupLogoPath);
+                        GroupLogoPath = Path.Combine(SessionState.Path.CurrentFileSystemLocation.Path, GroupLogoPath);
                     }
                     groupLogoStream = new FileStream(GroupLogoPath, FileMode.Open, FileAccess.Read);
                 }

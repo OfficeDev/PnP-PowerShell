@@ -9,7 +9,7 @@ namespace SharePointPnP.PowerShell.Commands.Publishing
     [CmdletExample(
         Code = @"PS:> Add-PnPPublishingImageRendition -Name ""MyImageRendition"" -Width 800 -Height 600",
         SortOrder = 1)]
-    public class AddPublishingImageRendition : SPOWebCmdlet
+    public class AddPublishingImageRendition : PnPWebCmdlet
     {
         [Parameter(Mandatory = true, HelpMessage = "The display name of the Image Rendition.")]
         public string Name = string.Empty;

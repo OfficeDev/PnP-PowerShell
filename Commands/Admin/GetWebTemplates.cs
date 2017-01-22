@@ -1,5 +1,4 @@
 ﻿#if !ONPREMISES
-using System;
 using SharePointPnP.PowerShell.CmdletHelpAttributes;
 using Microsoft.SharePoint.Client;
 using SharePointPnP.PowerShell.Commands.Base;
@@ -17,7 +16,7 @@ namespace SharePointPnP.PowerShell.Commands
     [CmdletExample(Code = @"PS:> Get-PnPWebTemplates -LCID 1033", Remarks = @"Returns all webtemplates for the Locale with ID 1033 (English)", SortOrder = 2)]
     [CmdletExample(Code = @"PS:> Get-PnPWebTemplates -CompatibilityLevel 15", Remarks = @"Returns all webtemplates for the compatibility level 15", SortOrder = 2)]
     [CmdletRelatedLink(Text = "Locale IDs", Url = "http://go.microsoft.com/fwlink/p/?LinkId=242911Id=242911")]
-    public class GetWebTemplates : SPOAdminCmdlet
+    public class GetWebTemplates : PnPAdminCmdlet
     {
         [Parameter(Mandatory = false, HelpMessage = "The language ID. For instance: 1033 for English")]
         public uint Lcid;

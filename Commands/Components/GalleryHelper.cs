@@ -23,7 +23,7 @@ namespace SharePointPnP.PowerShell.Commands.Components
 
         internal static void SaveTemplate(Guid templateId, string path, Func<string, bool> overWriteFileAction  = null, Action<string> itemSavedAction = null)
         {
-            HttpContentHeaders headers = null;
+            HttpContentHeaders headers;
             // Get the template via HTTP REST
             var templateStream =
                 HttpHelper.MakeGetRequestForStreamWithResponseHeaders(
@@ -41,8 +41,8 @@ namespace SharePointPnP.PowerShell.Commands.Components
                 {
                     if (System.IO.Directory.Exists(path))
                     {
-                        var fileName = System.IO.Path.Combine(path, openXMLFileName);
-                        bool doSave = false;
+                        var fileName = Path.Combine(path, openXMLFileName);
+                        bool doSave;
                         if (System.IO.File.Exists(fileName))
                         {
                             if (overWriteFileAction != null)
@@ -85,7 +85,7 @@ namespace SharePointPnP.PowerShell.Commands.Components
 
         internal static ProvisioningTemplate GetTemplate(Guid templateId)
         {
-            HttpContentHeaders headers = null;
+            HttpContentHeaders headers;
             // Get the template via HTTP REST
             var templateStream = HttpHelper.MakeGetRequestForStreamWithResponseHeaders($"{BaseTemplateGalleryUrl}/api/DownloadTemplate?templateId={templateId}", "application/octet-stream", out headers);
 

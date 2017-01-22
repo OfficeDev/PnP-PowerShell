@@ -9,7 +9,7 @@ namespace SharePointPnP.PowerShell.Commands.Site
     [CmdletAlias("Uninstall-SPOSolution")]
     [CmdletHelp("Uninstalls a sandboxed solution from a site collection",
         Category = CmdletHelpCategory.Sites)]
-    public class UninstallSolution : SPOCmdlet
+    public class UninstallSolution : PnPCmdlet
     {
         [Parameter(Mandatory = true, HelpMessage="ID of the solution, from the solution manifest")]
         public GuidPipeBind PackageId;

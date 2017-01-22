@@ -13,7 +13,7 @@ namespace SharePointPnP.PowerShell.Commands.Publishing
         Code = @"PS:> Remove-PnPWikiPage -PageUrl '/pages/wikipage.aspx'",
         Remarks = "Removes the page '/pages/wikipage.aspx'",
         SortOrder = 1)]
-    public class RemoveWikiPage : SPOWebCmdlet
+    public class RemoveWikiPage : PnPWebCmdlet
     {
         [Parameter(Mandatory = true, Position=0,ValueFromPipeline=true, ParameterSetName = "SERVER")]
         [Alias("PageUrl")]

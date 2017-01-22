@@ -12,7 +12,7 @@ namespace SharePointPnP.PowerShell.Commands.Taxonomy
     [CmdletAlias("Remove-SPOTaxonomyItem")]
     [CmdletHelp(@"Removes a taxonomy item",
          Category = CmdletHelpCategory.Taxonomy)]
-    public class RemoveTaxonomyItem : SPOCmdlet
+    public class RemoveTaxonomyItem : PnPCmdlet
     {
         [Parameter(Mandatory = true, Position = 0, ValueFromPipeline = true,
              HelpMessage =
@@ -80,7 +80,7 @@ namespace SharePointPnP.PowerShell.Commands.Taxonomy
             }
             else
             {
-                WriteError(new ErrorRecord(new Exception("Cannot find taxonomy item"), "INCORRECTIDENTIFIER", ErrorCategory.ObjectNotFound, TermPath));
+                ThrowTerminatingError(new ErrorRecord(new Exception("Cannot find taxonomy item"), "INCORRECTIDENTIFIER", ErrorCategory.ObjectNotFound, TermPath));
 
             }
         }

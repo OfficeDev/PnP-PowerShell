@@ -2,6 +2,7 @@
 using System.Management.Automation;
 using SharePointPnP.PowerShell.CmdletHelpAttributes;
 using System.Net;
+using Microsoft.SharePoint.Client;
 
 namespace SharePointPnP.PowerShell.Commands
 {
@@ -17,7 +18,7 @@ namespace SharePointPnP.PowerShell.Commands
         Code = @"PS:> Get-PnPAuthenticationRealm -Url https://contoso.sharepoint.com",
         Remarks = @"This will get the authentication realm for https://contoso.sharepoint.com",
         SortOrder = 2)]
-    public class GetAuthenticationRealm : SPOCmdlet
+    public class GetAuthenticationRealm : PnPCmdlet
     {
 
         [Parameter(Mandatory = false, Position=0, ValueFromPipeline=true, HelpMessage = "Specifies the URL of the site")]

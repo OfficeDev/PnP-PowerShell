@@ -14,7 +14,7 @@ namespace SharePointPnP.PowerShell.Commands.ContentTypes
         Code = @"PS:> Add-PnPContentType -Name ""Project Document"" -Description ""Use for Contoso projects"" -Group ""Contoso Content Types"" -ParentContentType $ct",
         Remarks = @"This will add a new content type based on the parent content type stored in the $ct variable.", 
         SortOrder = 1)]
-    public class AddContentType : SPOWebCmdlet
+    public class AddContentType : PnPWebCmdlet
     {
         [Parameter(Mandatory = true, HelpMessage = "Specify the name of the new content type")]
         public string Name;

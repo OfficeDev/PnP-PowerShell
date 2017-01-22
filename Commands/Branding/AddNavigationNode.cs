@@ -26,7 +26,7 @@ namespace SharePointPnP.PowerShell.Commands.Branding
         Code = @"PS:> Add-PnPNavigationNode -Title ""Contoso Pharmaceuticals"" -Url ""http://contoso.sharepoint.com/sites/contosopharma/"" -Location ""QuickLaunch"" -External",
         Remarks = @"Adds a navigation node to the quicklaunch. The navigation node will have the title ""Contoso Pharmaceuticals"" and will link to the external url ""http://contoso.sharepoint.com/sites/contosopharma/""",
         SortOrder = 4)]
-    public class AddNavigationNode : SPOWebCmdlet
+    public class AddNavigationNode : PnPWebCmdlet
     {
         [Parameter(Mandatory = true, HelpMessage = "The location of the node to add. Either TopNavigationBar, QuickLaunch or SearchNav")]
         public NavigationType Location;

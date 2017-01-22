@@ -15,7 +15,7 @@ namespace SharePointPnP.PowerShell.Commands.Principals
     [CmdletExample(
         Code = @"PS:> New-PnPGroup -Title ""My Site Users""",
         SortOrder = 1)]
-    public class NewGroup : SPOWebCmdlet
+    public class NewGroup : PnPWebCmdlet
     {
         [Parameter(Mandatory = true, HelpMessage = "The Title of the group")]
         public string Title = string.Empty;

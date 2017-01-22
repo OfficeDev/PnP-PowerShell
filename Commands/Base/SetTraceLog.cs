@@ -70,10 +70,12 @@ namespace SharePointPnP.PowerShell.Commands.Base
                     }
                     if (!string.IsNullOrEmpty(Delimiter))
                     {
-                        DelimitedListTraceListener delimitedListener = new DelimitedListTraceListener(LogFile);
-                        delimitedListener.Delimiter = Delimiter;
-                        delimitedListener.TraceOutputOptions = TraceOptions.DateTime;
-                        delimitedListener.Name = Listenername;
+                        DelimitedListTraceListener delimitedListener = new DelimitedListTraceListener(LogFile)
+                        {
+                            Delimiter = Delimiter,
+                            TraceOutputOptions = TraceOptions.DateTime,
+                            Name = Listenername
+                        };
                         Trace.Listeners.Add(delimitedListener);
                         OfficeDevPnP.Core.Diagnostics.Log.LogLevel = Level;
                     }

@@ -22,7 +22,7 @@ namespace SharePointPnP.PowerShell.Commands.Features
         Code = "PS:> Disable-PnPFeature -Identity 99a00f6e-fb81-4dc7-8eac-e09c6f9132fe -Scope Web", 
         Remarks = @"This will disable the feature with the id ""99a00f6e-fb81-4dc7-8eac-e09c6f9132fe"" with the web scope.", 
         SortOrder = 3)]
-    public class DisableFeature : SPOWebCmdlet
+    public class DisableFeature : PnPWebCmdlet
     {
         [Parameter(Mandatory = true, Position = 0, ParameterSetName = ParameterAttribute.AllParameterSets, HelpMessage = "The id of the feature to disable.")]
         public GuidPipeBind Identity;

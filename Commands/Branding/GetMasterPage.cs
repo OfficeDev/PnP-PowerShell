@@ -8,7 +8,7 @@ namespace SharePointPnP.PowerShell.Commands
     [CmdletAlias("Get-SPOMasterPage")]
     [CmdletHelp("Returns the URLs of the default Master Page and the custom Master Page.", 
         Category = CmdletHelpCategory.Branding)]
-    public class GetMasterPage : SPOWebCmdlet
+    public class GetMasterPage : PnPWebCmdlet
     {
 
         protected override void ExecuteCmdlet()

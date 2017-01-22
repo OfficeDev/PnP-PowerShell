@@ -3,6 +3,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Management.Automation.Runspaces;
 using System.Management.Automation;
 using System.Configuration;
+using System.Linq.Expressions;
+using Microsoft.SharePoint.Client;
 using SharePointPnP.PowerShell.Commands.Utilities;
 
 namespace SharePointPnP.PowerShell.Tests
@@ -122,6 +124,36 @@ namespace SharePointPnP.PowerShell.Tests
                     Assert.IsTrue(results.Count == 1);
                     Assert.IsTrue(results[0].BaseObject.GetType() == typeof(Microsoft.SharePoint.Client.ListCollection));
                 }
+            }
+        }
+
+        [TestMethod]
+        public void IncludesTest()
+        {
+            using (var ctx = TestCommon.CreateClientContext())
+            {
+                Expression<Func<List, object>> expressionRelativeUrl = l => l.RootFolder.ServerRelativeUrl;
+
+                var type = typeof(List);
+
+                var exp2 = (Expression<Func<List,object>>)SharePointPnP.PowerShell.Commands.Utilities.DynamicExpression.ParseLambda(type, typeof(object), "RootFolder.ServerRelativeUrl", null);
+                //var exp = Expression.Lambda<Func<List, object>>(Expression.Convert(body, typeof(object)), exp2);
+
+             
+                /*
+                var subMemberName = "ServerRelativeUrl";
+                var subMemberType = typeof(List).GetProperty(memberName).PropertyType;
+                var subparamExpression = Expression.Parameter(subMemberType, "s");
+                var subparamMemberExpressoin = Expression.Property(subparamExpression, subMemberName);
+                var subcast = Expression.Convert(subparamExpression, subMemberType);
+                var subBody = Expression.Property(subcast, subMemberName);
+                */
+                //exp = Expression.Lambda<Func<List, object>>(Expression.Convert(body, typeof(object)), paramExpression);
+
+
+                var query = (ctx.Web.Lists.IncludeWithDefaultProperties(new[] {exp2}));
+                var lists = ctx.LoadQuery(query);
+                ctx.ExecuteQueryRetry();
             }
         }
     }

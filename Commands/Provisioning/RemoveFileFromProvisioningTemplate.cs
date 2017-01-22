@@ -33,11 +33,6 @@ namespace SharePointPnP.PowerShell.Commands.Provisioning
 
         protected override void ProcessRecord()
         {
-            if (String.IsNullOrEmpty(FilePath))
-            {
-                throw new ArgumentNullException("FilePath");
-            }
-
             // Load the template
             ProvisioningTemplate template = LoadProvisioningTemplate
                 .LoadProvisioningTemplateFromFile(Path,

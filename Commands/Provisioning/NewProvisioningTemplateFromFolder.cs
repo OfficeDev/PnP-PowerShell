@@ -54,7 +54,7 @@ namespace SharePointPnP.PowerShell.Commands.Provisioning
        Text ="Encoding", 
        Url = "https://msdn.microsoft.com/en-us/library/system.text.encoding_properties.aspx")]
 
-    public class NewProvisioningTemplateFromFolder : SPOWebCmdlet
+    public class NewProvisioningTemplateFromFolder : PnPWebCmdlet
     {
         [Parameter(Mandatory = false, Position = 0, HelpMessage = "Filename to write to, optionally including full path.")]
         public string Out;

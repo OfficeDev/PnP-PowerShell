@@ -11,7 +11,7 @@ namespace SharePointPnP.PowerShell.Commands.Site
     [CmdletAlias("Install-SPOSolution")]
     [CmdletHelp("Installs a sandboxed solution to a site collection. WARNING! This method can delete your composed look gallery due to the method used to activate the solution. We recommend you to only to use this cmdlet if you are okay with that.",
         Category = CmdletHelpCategory.Sites)]
-    public class InstallSolution : SPOCmdlet
+    public class InstallSolution : PnPCmdlet
     {
         [Parameter(Mandatory = true, HelpMessage="ID of the solution, from the solution manifest")]
         public GuidPipeBind PackageId;

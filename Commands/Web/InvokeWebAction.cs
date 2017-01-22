@@ -20,7 +20,7 @@ namespace SharePointPnP.PowerShell.Commands
         Code = @"PS:> Invoke-PnPWebAction -ShouldProcessListAction ${function:ShouldProcessList} -ListAction ${function:ListAction}",
         Remarks = "This will call the function ShouldProcessList, if it returns true the function ListAction will then be called. This will occur on all lists located on the current web",
         SortOrder = 2)]
-    public class InvokeWebAction : SPOWebCmdlet
+    public class InvokeWebAction : PnPWebCmdlet
     {
         [Parameter(Mandatory = false, HelpMessage = "Webs you want to process (for example different site collections), will use Web parameter if not specified")]
         public web[] Webs;
@@ -82,7 +82,7 @@ namespace SharePointPnP.PowerShell.Commands
         {
             if (WebAction == null && ListAction == null && ListItemAction == null && PostWebAction == null && PostListAction == null)
             {
-                WriteError(new ErrorRecord(new ArgumentNullException("An action need to be specified"), "0", ErrorCategory.InvalidArgument, null));
+                ThrowTerminatingError(new ErrorRecord(new ArgumentNullException("An action need to be specified"), "0", ErrorCategory.InvalidArgument, null));
                 return;
             }
 

@@ -15,7 +15,7 @@ namespace SharePointPnP.PowerShell.Commands.Principals
         Code = @"PS:> Get-PnPGroupPermissions -Identity 'My Site Members'", 
         Remarks = "Returns the permissions for the SharePoint group with the name 'My Site Members'",
         SortOrder = 0)]
-    public class GetGroupPermissions : SPOWebCmdlet
+    public class GetGroupPermissions : PnPWebCmdlet
     {
         [Parameter(Mandatory = true, Position = 0, ValueFromPipeline = true, ParameterSetName = "ByName", HelpMessage = "Get the permissions of a specific group by name")]
         [Alias("Name")]

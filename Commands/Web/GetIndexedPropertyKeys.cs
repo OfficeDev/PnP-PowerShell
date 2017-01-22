@@ -8,7 +8,7 @@ namespace SharePointPnP.PowerShell.Commands
     [CmdletAlias("Get-SPOIndexedPropertyKeys")]
     [CmdletHelp("Returns the keys of the property bag values that have been marked for indexing by search",
         Category = CmdletHelpCategory.Webs)]
-    public class GetIndexedProperties : SPOWebCmdlet
+    public class GetIndexedProperties : PnPWebCmdlet
     {
         protected override void ExecuteCmdlet()
         {

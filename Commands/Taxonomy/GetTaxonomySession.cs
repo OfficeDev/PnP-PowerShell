@@ -11,7 +11,7 @@ namespace SharePointPnP.PowerShell.Commands.Taxonomy
         Category = CmdletHelpCategory.Taxonomy,
         OutputType = typeof(TaxonomySession),
         OutputTypeLink = "https://msdn.microsoft.com/en-us/library/microsoft.sharepoint.client.taxonomy.taxonomysession.aspx")]
-    public class GetTaxonomySession : SPOWebCmdlet
+    public class GetTaxonomySession : PnPWebCmdlet
     {
         protected override void ExecuteCmdlet()
         {

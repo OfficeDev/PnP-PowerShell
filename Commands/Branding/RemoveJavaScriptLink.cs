@@ -25,7 +25,7 @@ namespace SharePointPnP.PowerShell.Commands.Branding
     [CmdletExample(Code = "PS:> Remove-PnPJavaScriptLink -Scope Site",
                 Remarks = "Removes all the injected JavaScript files with from the current site collection after confirmation for each of them",
                 SortOrder = 4)]
-    public class RemoveJavaScriptLink : SPOWebCmdlet
+    public class RemoveJavaScriptLink : PnPWebCmdlet
     {
         [Parameter(Mandatory = false, ValueFromPipeline = true, Position = 0, HelpMessage = "Name of the JavaScriptLink to remove. Omit if you want to remove all JavaScript Links.")]
         [Alias("Key")]

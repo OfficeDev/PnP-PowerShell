@@ -8,7 +8,7 @@ namespace SharePointPnP.PowerShell.Commands
     [CmdletAlias("Set-SPOWeb")]
     [CmdletHelp("Sets properties on a web",
         Category = CmdletHelpCategory.Webs)]
-    public class SetWeb : SPOWebCmdlet
+    public class SetWeb : PnPWebCmdlet
     {
         [Parameter(Mandatory = false)]
         public string SiteLogoUrl;

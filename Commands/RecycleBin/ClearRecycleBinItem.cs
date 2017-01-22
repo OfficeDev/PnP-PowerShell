@@ -21,7 +21,7 @@ namespace SharePointPnP.PowerShell.Commands.RecycleBin
         Code = @"PS:> Clear-PnpRecycleBinItem -Identity $item -Force",
         Remarks = "Permanently deletes the recycle bin item stored under variable $item from the recycle bin without asking for confirmation from the end user first",
         SortOrder = 3)]
-    public class ClearRecycleBinItem : SPOCmdlet
+    public class ClearRecycleBinItem : PnPCmdlet
     {
         [Parameter(Mandatory = true, HelpMessage = "Id of the recycle bin item or the recycle bin item itself to permanently delete", ValueFromPipeline = true, ParameterSetName = "Identity")]
         public RecycleBinItemPipeBind Identity;

@@ -3,6 +3,8 @@ Returns a SharePoint AddIn Instance in the site
 ##Syntax
 ```powershell
 Get-PnPAppInstance [-Web <WebPipeBind>]
+                   [-Includes <String[]>]
+                   [-Includes <String[]>]
                    [-Identity <GuidPipeBind>]
 ```
 
@@ -14,6 +16,7 @@ Get-PnPAppInstance [-Web <WebPipeBind>]
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |Identity|GuidPipeBind|False|Specifies the Id of the App Instance|
+|Includes|String[]|False|Specify properties to include when retrieving objects from the server.|
 |Web|WebPipeBind|False|The web to apply the command to. Omit this parameter to use the current web.|
 ##Examples
 

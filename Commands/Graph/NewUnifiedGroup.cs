@@ -60,7 +60,7 @@ namespace SharePointPnP.PowerShell.Commands.Graph
 
         protected override void ExecuteCmdlet()
         {
-            bool forceCreation = false;
+            bool forceCreation;
 
             if (!Force)
             {

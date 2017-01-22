@@ -1,5 +1,15 @@
 # SharePointPnP.PowerShell Changelog #
 
+**2017-01-22**
+* Introducing the -Includes parameter. The parameter will allow you (on selected cmdlets) to retrieve values for properties that are not being retrieved by default. The parameter exposes the possible values on pressing tab, and you can specify multiple values. The parameter is available on the following cmdlets: Get-PnPAppInstance, Get-PnPCustomAction, Get-PnPDocumentSetTemplate, Get-PnPEventReceiver, Get-PnPFeature, Ensure-PnPFolder, Get-PnPFolder, Get-PnPList, Get-PnPView, Get-PnPGroup, Get-PnPRecyclyBinItem, Get-PnPSite, Get-PnPTermGroup, Get-PnPWeb.
+* Updated the output of a view cmdlets so return table formatted data.
+
+**2017-01-14**
+* Added Submit-PnPSearchQuery cmdlet
+* Added Set-PnPSiteClosure and Get-PnPSiteClosure cmdlets
+* Added Get-PnPContentTypePublishingHubUrl
+* Added Get-PnPSiteCollectionTermStore which returns the Site Collection Term Store.
+
 **2017-01-05**
 * Added Get-PnPTenantRecyclyBinItem cmdlet to list all items in the tenant scoped recycle bin
 * Added -Wait and -LockState properties to Set-PnPTenantSite

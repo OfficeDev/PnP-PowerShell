@@ -8,7 +8,7 @@ namespace SharePointPnP.PowerShell.Commands
     [CmdletAlias("Remove-SPOIndexedProperty")]
     [CmdletHelp("Removes a key from propertybag to be indexed by search. The key and it's value remain in the propertybag, however it will not be indexed anymore.",
         Category = CmdletHelpCategory.Webs)]
-    public class RemovedIndexedProperty : SPOWebCmdlet
+    public class RemovedIndexedProperty : PnPWebCmdlet
     {
         [Parameter(Mandatory = true, Position = 0, HelpMessage = @"Key of the property bag value to be removed from indexing")]
         public string Key;

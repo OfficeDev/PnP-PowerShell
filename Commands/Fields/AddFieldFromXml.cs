@@ -24,7 +24,7 @@ PS:> Add-PnPFieldFromXml -List ""Demo List"" -FieldXml $xml",
     [CmdletRelatedLink(
         Text = "Field CAML",
         Url = "http://msdn.microsoft.com/en-us/library/office/ms437580(v=office.15).aspx")]
-    public class AddFieldFromXml : SPOWebCmdlet
+    public class AddFieldFromXml : PnPWebCmdlet
     {
         [Parameter(Mandatory = false, ValueFromPipeline = true, HelpMessage = "The name of the list, its ID or an actual list object where this field needs to be added")]
         public ListPipeBind List;

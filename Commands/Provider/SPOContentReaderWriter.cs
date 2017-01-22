@@ -24,7 +24,7 @@ namespace SharePointPnP.PowerShell.Commands.Provider
             _stream = new MemoryStream();
 
             var spStream = _file.OpenBinaryStream();
-            _file.Context.ExecuteQuery();
+            _file.Context.ExecuteQueryRetry();
             spStream.Value.CopyTo(_stream);
             _stream.Position = 0;
 

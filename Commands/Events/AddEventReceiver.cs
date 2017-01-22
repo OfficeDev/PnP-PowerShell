@@ -14,7 +14,7 @@ namespace SharePointPnP.PowerShell.Commands.Events
     [CmdletExample(
       Code = @"PS:> Add-PnPEventReceiver -List ""ProjectList"" -Name ""TestEventReceiver"" -Url https://yourserver.azurewebsites.net/eventreceiver.svc -EventReceiverType ItemAdded -Synchronization Asynchronous",
       Remarks = @"This will add a new event receiver that is executed after an item has been added to the ProjectList list", SortOrder = 1)]
-    public class AddEventReceiver : SPOWebCmdlet
+    public class AddEventReceiver : PnPWebCmdlet
     {
         [Parameter(Mandatory = false, HelpMessage = "The list object or name where the event receiver needs to be added")]
         public ListPipeBind List;

@@ -11,7 +11,7 @@ namespace SharePointPnP.PowerShell.Commands.Publishing
     [CmdletAlias("Set-SPOWikiPageContent")]
     [CmdletHelp("Sets the contents of a wikipage",
         Category = CmdletHelpCategory.Publishing)]
-    public class SetWikiPageContent : SPOWebCmdlet
+    public class SetWikiPageContent : PnPWebCmdlet
     {
         [Parameter(Mandatory = true, ParameterSetName = "STRING")]
         public string Content = string.Empty;

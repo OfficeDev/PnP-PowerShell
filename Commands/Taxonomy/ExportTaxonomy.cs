@@ -27,7 +27,7 @@ namespace SharePointPnP.PowerShell.Commands.Taxonomy
         Code = @"PS:> Export-PnPTaxonomy -Path c:\output.txt -TermSet f6f43025-7242-4f7a-b739-41fa32847254 ",
         Remarks = "Exports the term set with the specified id",
         SortOrder = 3)]
-    public class ExportTaxonomy : SPOCmdlet
+    public class ExportTaxonomy : PnPCmdlet
     {
         [Parameter(Mandatory = false, ParameterSetName = "TermSet", HelpMessage = "If specified, will export the specified termset only")]
         public GuidPipeBind TermSetId = new GuidPipeBind();

@@ -12,7 +12,7 @@ namespace SharePointPnP.PowerShell.Commands.Taxonomy
     [CmdletAlias("Remove-SPOTermGroup")]
     [CmdletHelp(@"Removes a taxonomy term group and all its containing termsets",
         Category = CmdletHelpCategory.Taxonomy)]
-    public class RemoveTermGroup : SPOCmdlet
+    public class RemoveTermGroup : PnPCmdlet
     {
         [Parameter(Mandatory = true, ValueFromPipeline = true, Position = 0,
             HelpMessage = "Name of the taxonomy term group to delete.")]
@@ -60,13 +60,13 @@ namespace SharePointPnP.PowerShell.Commands.Taxonomy
                 }
                 else
                 {
-                    WriteError(new ErrorRecord(new Exception("Cannot find group"), "INCORRECTGROUPNAME", ErrorCategory.ObjectNotFound, GroupName));
+                    ThrowTerminatingError(new ErrorRecord(new Exception("Cannot find group"), "INCORRECTGROUPNAME", ErrorCategory.ObjectNotFound, GroupName));
 
                 }
             }
             else
             {
-                WriteError(new ErrorRecord(new Exception("Cannot find termstore"),"INCORRECTTERMSTORE",ErrorCategory.ObjectNotFound,TermStoreName));
+                ThrowTerminatingError(new ErrorRecord(new Exception("Cannot find termstore"),"INCORRECTTERMSTORE",ErrorCategory.ObjectNotFound,TermStoreName));
             }
         }
 

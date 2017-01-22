@@ -17,7 +17,7 @@ namespace SharePointPnP.PowerShell.Commands.Lists
         Code = "PS:> Remove-PnPList -Title Announcements -Force",
         SortOrder = 2,
         Remarks = @"Removes the list named 'Announcements' without asking for confirmation.")]
-    public class RemoveList : SPOWebCmdlet
+    public class RemoveList : PnPWebCmdlet
     {
         [Parameter(Mandatory = true, ValueFromPipeline = true, Position = 0, HelpMessage = "The ID or Title of the list.")]
         public ListPipeBind Identity = new ListPipeBind();

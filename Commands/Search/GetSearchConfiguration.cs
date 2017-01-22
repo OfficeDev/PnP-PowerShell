@@ -31,7 +31,7 @@ namespace SharePointPnP.PowerShell.Commands.Search
         Code = @"PS:> Get-PnPSearchConfiguration -Path searchconfig.xml -Scope Subscription",
         Remarks = "Returns the search configuration for the current tenant and saves it to the specified file",
         SortOrder = 4)]
-    public class GetSearchConfiguration : SPOWebCmdlet
+    public class GetSearchConfiguration : PnPWebCmdlet
     {
         [Parameter(Mandatory = false, HelpMessage = "Scope to use. Either Web, Site, or Subscription. Defaults to Web")]
         public SearchConfigurationScope Scope = SearchConfigurationScope.Web;

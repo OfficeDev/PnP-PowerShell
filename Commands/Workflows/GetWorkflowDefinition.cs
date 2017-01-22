@@ -12,7 +12,7 @@ namespace SharePointPnP.PowerShell.Commands.Workflows
         OutputType = typeof(WorkflowDefinition),
         OutputTypeLink = "https://msdn.microsoft.com/en-us/library/microsoft.sharepoint.client.workflowservices.workflowdefinition.aspx")]
 
-    public class GetWorkflowDefinition : SPOWebCmdlet
+    public class GetWorkflowDefinition : PnPWebCmdlet
     {
         [Parameter(Mandatory = false, HelpMessage = "The name of the workflow", Position = 0)]
         public string Name;

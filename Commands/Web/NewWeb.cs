@@ -14,7 +14,7 @@ namespace SharePointPnP.PowerShell.Commands
         Code = @"PS:> New-PnPWeb -Title ""Project A Web"" -Url projectA -Description ""Information about Project A"" -Locale 1033 -Template ""STS#0""", 
         Remarks = "Creates a new subweb under the current web with URL projectA", 
         SortOrder = 1)]
-    public class NewWeb : SPOWebCmdlet
+    public class NewWeb : PnPWebCmdlet
     {
         [Parameter(Mandatory = true, HelpMessage="The title of the new web")]
         public string Title;

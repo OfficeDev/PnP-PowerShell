@@ -25,7 +25,7 @@ namespace SharePointPnP.PowerShell.Commands.Lists
          Code = @"Set-PnPList -Identity ""Demo Library"" -EnableVersioning $true -EnableMinorVersions $true -MajorVersions 20 -MinorVersions 5",
          Remarks = "Turns on major versions on a document library and sets the maximum number of Major versions to keep to 20 and sets the maximum of Minor versions to 5.",
          SortOrder = 4)]
-    public class SetList : SPOWebCmdlet
+    public class SetList : PnPWebCmdlet
     {
         [Parameter(Mandatory = true, HelpMessage = "The ID, Title or Url of the list.")]
         public ListPipeBind Identity;

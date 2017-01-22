@@ -23,7 +23,7 @@ You must connect to the tenant admin website (https://:<tenant>-admin.sharepoint
         Code = @"PS:> Set-PnPUserProfileProperty -Account 'user@domain.com' -Property 'MyProperty' -Values 'Value 1','Value 2'",
         Remarks = "Sets the MyProperty multi value property for the user as specified by the Account parameter",
         SortOrder = 2)]
-    public class SetUserProfileProperty : SPOAdminCmdlet
+    public class SetUserProfileProperty : PnPAdminCmdlet
     {
         [Parameter(Mandatory = true, HelpMessage = "The account of the user, formatted either as a login name, or as a claims identity, e.g. i:0#.f|membership|user@domain.com", ParameterSetName = ParameterAttribute.AllParameterSets)]
         public string Account;

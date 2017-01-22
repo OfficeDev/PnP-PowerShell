@@ -33,18 +33,9 @@ namespace SharePointPnP.PowerShell.Commands.Base.PipeBinds
             }
         }
 
-        public RecycleBinItem Item
-        {
-            get
-            {
-                return _item;
-            }
-        }
+        public RecycleBinItem Item => _item;
 
-        public Guid? Id
-        {
-            get { return _id; }
-        }
+        public Guid? Id => _id;
 
         internal RecycleBinItem GetRecycleBinItem(Microsoft.SharePoint.Client.Site site)
         {

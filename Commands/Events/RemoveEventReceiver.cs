@@ -15,7 +15,7 @@ namespace SharePointPnP.PowerShell.Commands.Events
     [CmdletExample(
       Code = @"PS:> Remove-PnPEventReceiver -List ProjectList -Identity fb689d0e-eb99-4f13-beb3-86692fd39f22",
       Remarks = @"This will remove an event receiver with id fb689d0e-eb99-4f13-beb3-86692fd39f22 from the list with name ""ProjectList""", SortOrder = 2)]
-    public class RemoveEventReceiver : SPOWebCmdlet
+    public class RemoveEventReceiver : PnPWebCmdlet
     {
         [Parameter(Mandatory = true, HelpMessage = "The Guid of the event receiver on the list")]
         public GuidPipeBind Identity;

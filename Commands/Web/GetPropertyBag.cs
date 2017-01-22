@@ -31,7 +31,7 @@ namespace SharePointPnP.PowerShell.Commands
      Code = @"PS:> Get-PnPPropertyBag -Folder / -Key vti_mykey",
      Remarks = "This will return the value of the key vti_mykey from the root folder of the current web",
      SortOrder = 5)]
-    public class GetPropertyBag : SPOWebCmdlet
+    public class GetPropertyBag : PnPWebCmdlet
     {
         [Parameter(Mandatory = false, Position = 0, ValueFromPipeline = true, HelpMessage = "Key that should be looked up")]
         public string Key = string.Empty;

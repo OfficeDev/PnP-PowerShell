@@ -42,8 +42,8 @@ namespace SharePointPnP.PowerShell.Commands.Base.PipeBinds
             }
         }
 
-        internal string Name { get { return _name; } }
+        internal string Name => _name;
 
-        internal Feature Feature { get { return _feature; } }
+        internal Feature Feature => _feature;
     }
 }

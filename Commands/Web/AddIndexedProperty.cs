@@ -8,7 +8,7 @@ namespace SharePointPnP.PowerShell.Commands
     [CmdletAlias("Add-SPOIndexedProperty")]
     [CmdletHelp("Marks the value of the propertybag key specified to be indexed by search.",
         Category = CmdletHelpCategory.Webs)]
-    public class AddIndexedProperty : SPOWebCmdlet
+    public class AddIndexedProperty : PnPWebCmdlet
     {
         [Parameter(Mandatory = true, Position = 0, HelpMessage = @"Key of the property bag value to be indexed")]
         public string Key;

@@ -323,10 +323,13 @@
       <HintPath>..\packages\Microsoft.IdentityModel.Clients.ActiveDirectory.2.18.206251556\lib\net45\Microsoft.IdentityModel.Clients.ActiveDirectory.WindowsForms.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.IdentityModel.Extensions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=69c3241e6f0468ca, processorArchitecture=MSIL" />
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="SharePointPnP.IdentityModel.Extensions, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\PnP-Sites-Core\Assemblies\common\SharePointPnP.IdentityModel.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -360,7 +363,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base\PnPWebCmdlet.cs" />
+    <Compile Include="Base\PropertyLoadingAttribute.cs" />
     <Compile Include="Base\PipeBinds\ImageRenditionPipeBind.cs" />
+    <Compile Include="Base\PnPRetrievalsCmdlet.cs" />
+    <Compile Include="Base\PnPWebRetrievalsCmdlet.cs" />
+    <Compile Include="Base\PnPCmdlet.cs" />
+    <Compile Include="Base\PnPAdminCmdlet.cs" />
+    <Compile Include="ContentTypes\GetContentTypePublishingHubUrl.cs" />
     <Compile Include="Files\CopyFile.cs" />
     <Compile Include="Files\MoveFile.cs" />
     <Compile Include="Files\MoveFolder.cs" />
@@ -408,7 +418,7 @@
     <Compile Include="Base\PnPAzureADConnection.cs" />
     <Compile Include="Base\PnPGraphCmdlet.cs" />
     <Compile Include="Base\SetContext.cs" />
-    <Compile Include="Base\SPOAdminCmdlet.cs" />
+    <Compile Include="Base\deprecated\SPOAdminCmdlet.deprecated.cs" />
     <Compile Include="Base\SPOnlineConnection.cs" />
     <Compile Include="Base\SPOnlineConnectionHelper.cs" />
     <Compile Include="Base\ConnectOnline.cs" />
@@ -419,6 +429,9 @@
     <Compile Include="Enums\TargetScope.cs" />
     <Compile Include="Files\GetFolder.cs" />
     <Compile Include="Graph\SetUnifiedGroup.cs" />
+    <Compile Include="InformationManagement\ClosureState.cs" />
+    <Compile Include="InformationManagement\GetSiteClosure.cs" />
+    <Compile Include="InformationManagement\SetSiteClosure.cs" />
     <Compile Include="Provisioning\AddFileToProvisioningTemplate.cs" />
     <Compile Include="Provisioning\LoadProvisioningTemplate.cs" />
     <Compile Include="Provisioning\NewProvisioningTemplate.cs" />
@@ -513,12 +526,16 @@
     <Compile Include="Publishing\SetDefaultPageLayout.cs" />
     <Compile Include="Publishing\SetAvailablePageLayouts.cs" />
     <Compile Include="Search\GetSiteSearchQueryResults.cs" />
+    <Compile Include="Search\PnPResultTable.cs" />
+    <Compile Include="Search\PnPResultTableCollection.cs" />
     <Compile Include="Search\SetSearchConfiguration.cs" />
     <Compile Include="Search\GetSearchConfiguration.cs" />
     <Compile Include="RecycleBin\MoveRecycleBinItem.cs" />
+    <Compile Include="Search\SubmitSearchQuery.cs" />
     <Compile Include="Site\GetAuditing.cs" />
     <Compile Include="RecycleBin\GetRecycleBinItem.cs" />
     <Compile Include="Site\SetAuditing.cs" />
+    <Compile Include="Taxonomy\GetSiteCollectionTermStore.cs" />
     <Compile Include="Taxonomy\RemoveTaxonomyItem.cs" />
     <Compile Include="Taxonomy\RemoveTermGroup.cs" />
     <Compile Include="Taxonomy\ImportTermGroupFromXml.cs" />
@@ -527,6 +544,7 @@
     <Compile Include="Taxonomy\GetTermGroup.cs" />
     <Compile Include="Taxonomy\ImportTermSet.cs" />
     <Compile Include="UserProfiles\SetUserProfileProperty.cs" />
+    <Compile Include="Utilities\DynamicLinq.cs" />
     <Compile Include="Utilities\HttpHelper.cs" />
     <Compile Include="WebParts\GetWebPartProperty.cs" />
     <Compile Include="Branding\RemoveJavaScriptLink.cs" />
@@ -596,7 +614,7 @@
     <Compile Include="WebParts\SetWebPartProperty.cs" />
     <Compile Include="WebParts\RemoveWebPart.cs" />
     <Compile Include="WebParts\GetWebPart.cs" />
-    <Compile Include="Base\SPOCmdlet.cs" />
+    <Compile Include="Base\deprecated\SPOCmdlet.deprecated.cs" />
     <Compile Include="Apps\ImportAppPackage.cs" />
     <Compile Include="Apps\GetAppInstance.cs" />
     <Compile Include="Files\GetFile.cs" />
@@ -627,7 +645,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Branding\SetMasterPage.cs" />
     <Compile Include="Branding\SetTheme.cs" />
-    <Compile Include="Base\SPOWebCmdlet.cs" />
+    <Compile Include="Base\deprecated\SPOWebCmdlet.deprecated.cs" />
     <Compile Include="Web\SetWeb.cs" />
     <Compile Include="Publishing\RemoveWikiPage.cs" />
     <Compile Include="Publishing\AddWikiPage.cs" />

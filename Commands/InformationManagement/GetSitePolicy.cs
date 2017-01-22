@@ -19,7 +19,7 @@ namespace SharePointPnP.PowerShell.Commands.InformationManagement
       Code = @"PS:> Get-PnPSitePolicy -Name ""Contoso HBI""",
       Remarks = @"Retrieves an available site policy with the name ""Contoso HBI"".", SortOrder = 3)]
 
-    public class GetSitePolicy : SPOWebCmdlet
+    public class GetSitePolicy : PnPWebCmdlet
     {
         [Parameter(Mandatory = false, HelpMessage = "Retrieve all available site policies")]
         public SwitchParameter AllAvailable;

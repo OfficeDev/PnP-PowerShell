@@ -12,7 +12,7 @@ namespace SharePointPnP.PowerShell.Commands.Publishing
         Code = @"PS:> Add-PnPPublishingPageLayout -Title 'Our custom page layout' -SourceFilePath 'customlayout.aspx' -Description 'A custom page layout' -AssociatedContentTypeID 0x01010901",
         Remarks = "Uploads the pagelayout 'customlayout.aspx' to the current site as a 'web part page' pagelayout",
         SortOrder = 1)]
-    public class AddPublishingPageLayout : SPOWebCmdlet
+    public class AddPublishingPageLayout : PnPWebCmdlet
     {
         [Parameter(Mandatory = true, HelpMessage = "Path to the file which will be uploaded")]
         public string SourceFilePath = string.Empty;

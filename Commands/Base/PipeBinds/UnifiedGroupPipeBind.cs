@@ -35,28 +35,10 @@ namespace SharePointPnP.PowerShell.Commands.Base.PipeBinds
             }
         }
 
-        public UnifiedGroupEntity Group
-        {
-            get
-            {
-                return (_group);
-            }
-        }
+        public UnifiedGroupEntity Group => (_group);
 
-        public String DisplayName
-        {
-            get
-            {
-                return (_displayName);
-            }
-        }
+        public String DisplayName => (_displayName);
 
-        public String GroupId
-        {
-            get
-            {
-                return (_groupId);
-            }
-        }
+        public String GroupId => (_groupId);
     }
 }

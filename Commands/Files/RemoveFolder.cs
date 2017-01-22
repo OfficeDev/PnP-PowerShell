@@ -14,7 +14,7 @@ namespace SharePointPnP.PowerShell.Commands.Files
         Code = @"PS:> Remove-PnPFolder -Name NewFolder -Folder _catalogs/masterpage",
         SortOrder = 1,
         Remarks = @"Removes the folder 'NewFolder' from '_catalogsmasterpage'")]
-    public class RemoveFolder : SPOWebCmdlet
+    public class RemoveFolder : PnPWebCmdlet
     {
         [Parameter(Mandatory = true, HelpMessage = "The folder name")]
         public string Name = string.Empty;

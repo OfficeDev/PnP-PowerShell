@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Management.Automation;
 using Microsoft.SharePoint.Client;
 using OfficeDevPnP.Core.Utilities;
 using SharePointPnP.PowerShell.CmdletHelpAttributes;
+using SharePointPnP.PowerShell.Commands.Base;
 using File = Microsoft.SharePoint.Client.File;
 
 namespace SharePointPnP.PowerShell.Commands.Files
@@ -26,20 +28,25 @@ namespace SharePointPnP.PowerShell.Commands.Files
         SortOrder = 1
         )]
     [CmdletRelatedLink(
-        Text = "Ensure-PnPFolder", 
+        Text = "Ensure-PnPFolder",
         Url = "https://github.com/OfficeDev/PnP-PowerShell/blob/master/Documentation/EnsureSPOFolder.md")]
-    public class GetFolder : SPOWebCmdlet
+    public class GetFolder : PnPWebRetrievalsCmdlet<Folder>
     {
-
         [Parameter(Mandatory = true, Position = 0, ValueFromPipeline = true, HelpMessage = "Site or server relative URL of the folder to retrieve. In the case of a server relative url, make sure that the url starts with the managed path as the current web.")]
-        public string RelativeUrl;
+        [Alias("RelativeUrl")]
+        public string Url;
 
         protected override void ExecuteCmdlet()
         {
+            DefaultRetrievalExpressions = new Expression<Func<Folder, object>>[] { f => f.ServerRelativeUrl, f => f.Name, f => f.TimeLastModified, f => f.ItemCount };
+            var webServerRelativeUrl = SelectedWeb.EnsureProperty(w => w.ServerRelativeUrl);
+            if (!Url.ToLower().StartsWith(webServerRelativeUrl))
+            {
+                Url = UrlUtility.Combine(webServerRelativeUrl, Url);
+            }
+            var folder = SelectedWeb.GetFolderByServerRelativeUrl(Url);
 
-            var folder = SelectedWeb.GetFolderByServerRelativeUrl(RelativeUrl);
-            
-            folder.EnsureProperties(f => f.Name, f => f.ServerRelativeUrl);
+            folder.EnsureProperties(RetrievalExpressions);
 
             WriteObject(folder);
         }

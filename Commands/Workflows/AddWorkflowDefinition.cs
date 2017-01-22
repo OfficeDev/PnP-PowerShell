@@ -16,7 +16,7 @@ namespace SharePointPnP.PowerShell.Commands.Workflows
         Code = @"Add-PnPWorkflowDefinition -Definition $wfdef", 
         Remarks = "Adds an existing workflow definition, retrieved by Get-PnPWorkflowDefinition, to a site.",
         SortOrder = 1)]
-    public class AddWorkflowDefinition : SPOWebCmdlet
+    public class AddWorkflowDefinition : PnPWebCmdlet
     {
         [Parameter(Mandatory = true, HelpMessage = "The workflow definition to add.")]
         public WorkflowDefinition Definition;

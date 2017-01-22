@@ -13,7 +13,7 @@ namespace SharePointPnP.PowerShell.Commands.ContentTypes
         Code = @"PS:> Add-PnPContentTypeToList -List ""Documents"" -ContentType ""Project Document"" -DefaultContentType",
         Remarks = @"This will add an existing content type to a list and sets it as the default content type", 
         SortOrder = 1)]
-    public class AddContentTypeToList : SPOWebCmdlet
+    public class AddContentTypeToList : PnPWebCmdlet
     {
         [Parameter(Mandatory = true, HelpMessage = "Specifies the list the content type needs to be added to")]
         public ListPipeBind List;

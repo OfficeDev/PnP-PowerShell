@@ -17,7 +17,7 @@ namespace SharePointPnP.PowerShell.Commands.Branding
     [CmdletExample(Code = "PS:> Add-PnPJavaScriptBlock -Name myAction -script '<script>Alert(\"This is my Script block\");</script>'",
                 Remarks = "Add a JavaScript code block  to all pages within the current web under the name myAction",
                 SortOrder = 2)]
-    public class AddJavaScriptBlock : SPOWebCmdlet
+    public class AddJavaScriptBlock : PnPWebCmdlet
     {
         [Parameter(Mandatory = true, HelpMessage = "The name of the script block. Can be used to identify the script with other cmdlets or coded solutions")]
         [Alias("Key")]
@@ -65,7 +65,7 @@ namespace SharePointPnP.PowerShell.Commands.Branding
             }
             else
             {
-                WriteError(new ErrorRecord(new Exception("Scope parameter can only be set to Web or Site"),"INCORRECTVALUE",ErrorCategory.InvalidArgument, this));
+                ThrowTerminatingError(new ErrorRecord(new Exception("Scope parameter can only be set to Web or Site"),"INCORRECTVALUE",ErrorCategory.InvalidArgument, this));
             }
         }
     }

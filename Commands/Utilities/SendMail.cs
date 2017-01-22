@@ -17,7 +17,7 @@ namespace SharePointPnP.PowerShell.Commands.Utilities
     [CmdletExample(
         Code = @"PS:> Send-PnPMail -To address@contoso.com -Subject test -Body test -From me@server.net -Password xyz -Server yoursmtp.server.net",
         Remarks = @"Sends an e-mail via a custom SMTP server and requires a from address and password. E-mail is sent from the from user.", SortOrder = 3)]
-    public class SendMail : SPOWebCmdlet
+    public class SendMail : PnPWebCmdlet
     {
         [Parameter(Mandatory = false)]
         public string Server = "smtp.office365.com";

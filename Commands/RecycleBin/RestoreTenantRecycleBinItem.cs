@@ -18,7 +18,7 @@ namespace SharePointPnP.PowerShell.Commands.RecycleBin
     [CmdletExample(
         Code = @"PS:> Reset-PnPTenantRecycleBinItem -Url https://tenant.sharepoint.com/sites/contoso -Wait",
         Remarks = @"This will restore the deleted site collection with the url 'https://tenant.sharepoint.com/sites/contoso' to its original location and will wait with executing further PowerShell commands until the site collection restore has completed", SortOrder = 2)]
-    public class RestoreTenantRecycleBinItem : SPOAdminCmdlet
+    public class RestoreTenantRecycleBinItem : PnPAdminCmdlet
     {
         [Parameter(Mandatory = true, HelpMessage = "Url of the site collection to restore from the tenant recycle bin", ValueFromPipeline = false)]
         public string Url;

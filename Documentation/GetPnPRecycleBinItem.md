@@ -2,6 +2,11 @@
 Returns the items in the recycle bin from the context
 ##Syntax
 ```powershell
+Get-PnPRecycleBinItem [-Includes <String[]>]
+```
+
+
+```powershell
 Get-PnPRecycleBinItem [-FirstStage [<SwitchParameter>]]
 ```
 
@@ -24,6 +29,7 @@ Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |FirstStage|SwitchParameter|False|Return all items in the first stage recycle bin|
 |Identity|GuidPipeBind|False|Returns a recycle bin item with a specific identity|
+|Includes|String[]|False|Specify properties to include when retrieving objects from the server.|
 |SecondStage|SwitchParameter|False|Return all items in the second stage recycle bin|
 ##Examples
 

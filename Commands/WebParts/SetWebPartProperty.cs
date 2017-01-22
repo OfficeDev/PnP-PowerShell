@@ -11,7 +11,7 @@ namespace SharePointPnP.PowerShell.Commands.WebParts
     [CmdletAlias("Set-SPOWebPartProperty")]
     [CmdletHelp("Sets a web part property",
         Category = CmdletHelpCategory.WebParts)]
-    public class SetWebPartProperty : SPOWebCmdlet
+    public class SetWebPartProperty : PnPWebCmdlet
     {
         [Parameter(Mandatory = true)]
         [Alias("PageUrl")]
@@ -48,7 +48,7 @@ namespace SharePointPnP.PowerShell.Commands.WebParts
             }
             else
             {
-                WriteError(new ErrorRecord(new Exception("Type of value is not supported. Has to be of type string, int or bool"), "UNSUPPORTEDTYPE",ErrorCategory.InvalidType, this));
+                ThrowTerminatingError(new ErrorRecord(new Exception("Type of value is not supported. Has to be of type string, int or bool"), "UNSUPPORTEDTYPE",ErrorCategory.InvalidType, this));
             }
         }
     }

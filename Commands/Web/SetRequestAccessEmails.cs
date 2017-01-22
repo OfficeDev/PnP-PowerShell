@@ -17,7 +17,7 @@ namespace SharePointPnP.PowerShell.Commands
        Code = @"PS:> Set-PnPRequestAccessEmails -Emails @( someone@example.com; someoneelse@example.com )",
        Remarks = "This will update multiple request access e-mail addresses",
        SortOrder = 2)]
-    public class SetRequestAccessEmails : SPOWebCmdlet
+    public class SetRequestAccessEmails : PnPWebCmdlet
     {
         [Parameter(Mandatory = true, HelpMessage = "Email address(es) to set the RequestAccessEmails to")]
         public string[] Emails = null;

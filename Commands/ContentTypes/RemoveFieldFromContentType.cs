@@ -17,7 +17,7 @@ namespace SharePointPnP.PowerShell.Commands.ContentTypes
     [CmdletExample(
      Code = @"PS:> Remove-PnPFieldFromContentType -Field ""Project_Name"" -ContentType ""Project Document"" -DoNotUpdateChildren",
      Remarks = @"This will remove the site column with an internal name of ""Project_Name"" from a content type called ""Project Document"". It will not update content types that inherit from the ""Project Document"" content type.", SortOrder = 1)]
-    public class RemoveFieldFromContentType : SPOWebCmdlet
+    public class RemoveFieldFromContentType : PnPWebCmdlet
     {
         [Parameter(Mandatory = true, HelpMessage = "The field to remove.")]
         public FieldPipeBind Field;
@@ -58,7 +58,7 @@ namespace SharePointPnP.PowerShell.Commands.ContentTypes
                     }
                     else
                     {
-                        WriteError(new ErrorRecord(new Exception("Cannot find field reference in content type"), "FieldRefNotFound", ErrorCategory.ObjectNotFound, ContentType));
+                        ThrowTerminatingError(new ErrorRecord(new Exception("Cannot find field reference in content type"), "FieldRefNotFound", ErrorCategory.ObjectNotFound, ContentType));
                     }
 
                 }
@@ -86,14 +86,14 @@ namespace SharePointPnP.PowerShell.Commands.ContentTypes
                         }
                         else
                         {
-                            WriteError(new ErrorRecord(new Exception("Cannot find field reference in content type"), "FieldRefNotFound", ErrorCategory.ObjectNotFound, ContentType));
+                            ThrowTerminatingError(new ErrorRecord(new Exception("Cannot find field reference in content type"), "FieldRefNotFound", ErrorCategory.ObjectNotFound, ContentType));
                         }
                     }
                 }
             }
             else
             {
-                WriteError(new ErrorRecord(new Exception("Field not found"), "FieldNotFound", ErrorCategory.ObjectNotFound, this));
+                ThrowTerminatingError(new ErrorRecord(new Exception("Field not found"), "FieldNotFound", ErrorCategory.ObjectNotFound, this));
             }
         }
 

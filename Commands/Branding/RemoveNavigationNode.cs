@@ -16,7 +16,7 @@ namespace SharePointPnP.PowerShell.Commands.Branding
     [CmdletExample(Code = @"PS:> Remove-PnPNavigationNode -Title Home -Location TopNavigationBar -Force",
         Remarks = "Will remove the home navigation node from the top navigation bar without prompting for a confirmation in the current web.",
         SortOrder = 2)]
-    public class RemoveNavigationNode : SPOWebCmdlet
+    public class RemoveNavigationNode : PnPWebCmdlet
     {
         [Parameter(Mandatory = true, HelpMessage = "The location from where to remove the node (QuickLaunch, TopNavigationBar")]
         public NavigationType Location;

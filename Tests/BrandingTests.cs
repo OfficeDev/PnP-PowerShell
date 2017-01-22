@@ -306,7 +306,7 @@ namespace SharePointPnP.PowerShell.Tests
                         new CommandParameter("RootFolderRelativeUrl", "sitepages/demo.aspx"));
 
                     context.Load(context.Web, w => w.RootFolder.WelcomePage);
-                    context.ExecuteQuery();
+                    context.ExecuteQueryRetry();
                     var homePageUrl = context.Web.RootFolder.WelcomePage;
                     Assert.IsTrue(homePageUrl == "sitepages/demo.aspx");
 
@@ -409,7 +409,7 @@ namespace SharePointPnP.PowerShell.Tests
                         new CommandParameter("CustomMasterPageServerRelativeUrl", "/sites/tests/_catalogs/custom.master"));
 
                     context.Load(context.Web, w => w.MasterUrl, w => w.CustomMasterUrl);
-                    context.ExecuteQuery();
+                    context.ExecuteQueryRetry();
                     Assert.IsTrue(context.Web.MasterUrl == "/sites/tests/_catalogs/default.master");
                     Assert.IsTrue(context.Web.CustomMasterUrl == "/sites/tests/_catalogs/custom.master");
 
@@ -543,7 +543,7 @@ namespace SharePointPnP.PowerShell.Tests
             bool isActive = false;
             using (var context = TestCommon.CreateClientContext())
             {
-                isActive = context.Web.IsFeatureActive(OfficeDevPnP.Core.Constants.MINIMALDOWNLOADSTRATEGYFEATUREID);
+                isActive = context.Web.IsFeatureActive(OfficeDevPnP.Core.Constants.FeatureId_Web_MinimalDownloadStrategy);
 
                 using (var scope = new PSTestScope(true))
                 {
@@ -564,16 +564,16 @@ namespace SharePointPnP.PowerShell.Tests
             }
             using (var context = TestCommon.CreateClientContext())
             {
-                var featureActive = context.Web.IsFeatureActive(OfficeDevPnP.Core.Constants.MINIMALDOWNLOADSTRATEGYFEATUREID);
+                var featureActive = context.Web.IsFeatureActive(OfficeDevPnP.Core.Constants.FeatureId_Web_MinimalDownloadStrategy);
                 if (isActive)
                 {
                     Assert.IsFalse(featureActive);
-                    context.Web.ActivateFeature(OfficeDevPnP.Core.Constants.MINIMALDOWNLOADSTRATEGYFEATUREID);
+                    context.Web.ActivateFeature(OfficeDevPnP.Core.Constants.FeatureId_Web_MinimalDownloadStrategy);
                 }
                 else
                 {
                     Assert.IsTrue(featureActive);
-                    context.Web.DeactivateFeature(OfficeDevPnP.Core.Constants.MINIMALDOWNLOADSTRATEGYFEATUREID);
+                    context.Web.DeactivateFeature(OfficeDevPnP.Core.Constants.FeatureId_Web_MinimalDownloadStrategy);
                 }
             }
         }

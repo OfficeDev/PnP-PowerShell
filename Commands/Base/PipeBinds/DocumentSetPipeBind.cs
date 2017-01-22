@@ -56,18 +56,9 @@ namespace SharePointPnP.PowerShell.Commands.Base.PipeBinds
             }
         }
 
-        public string Name
-        {
-            get
-            {
-                return _name;
-            }
-        }
+        public string Name => _name;
 
-        public ContentType ContentType
-        {
-            get { return _contentType; }
-        }
+        public ContentType ContentType => _contentType;
 
         public DocumentSetTemplate GetDocumentSetTemplate(Web web)
         {

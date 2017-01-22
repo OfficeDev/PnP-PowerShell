@@ -28,7 +28,7 @@ namespace SharePointPnP.PowerShell.Commands
         SortOrder = 2)]
 
 
-    public class RemoveWeb : SPOWebCmdlet
+    public class RemoveWeb : PnPWebCmdlet
     {
         [Parameter(Mandatory = true, HelpMessage = "The site relative url of the web, e.g. 'Subweb1'", ParameterSetName = "ByUrl")]
         public string Url;
