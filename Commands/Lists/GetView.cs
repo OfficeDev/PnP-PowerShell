@@ -26,7 +26,7 @@ namespace SharePointPnP.PowerShell.Commands.Lists
         Code = @"Get-PnPView -List ""Demo List"" -Identity ""5275148a-6c6c-43d8-999a-d2186989a661""",
         Remarks = @"Returns the view with the specified ID from the specified list",
         SortOrder = 3)]
-    public class GetView : SPOWebCmdlet
+    public class GetView : PnPWebRetrievalCmdlet<View>
     {
         [Parameter(Mandatory = true, ValueFromPipeline = true, Position = 0, HelpMessage = "The ID or Url of the list.")]
         public ListPipeBind List;
@@ -36,6 +36,7 @@ namespace SharePointPnP.PowerShell.Commands.Lists
 
         protected override void ExecuteCmdlet()
         {
+            AlwaysLoadProperties = new[] { "ViewFields" };
 
             if (List != null)
             {
@@ -49,18 +50,18 @@ namespace SharePointPnP.PowerShell.Commands.Lists
                         if (Identity.Id != Guid.Empty)
                         {
                             view = list.GetViewById(Identity.Id);
-                            view.EnsureProperty(v => v.ViewFields);
+                            view.EnsureProperties(Expressions);
 
                         }
                         else if (!string.IsNullOrEmpty(Identity.Title))
                         {
                             view = list.GetViewByName(Identity.Title);
-                            view.EnsureProperty(v => v.ViewFields);
+                            view.EnsureProperties(Expressions);
                         }
                     }
                     else
                     {
-                        views = ClientContext.LoadQuery(list.Views.IncludeWithDefaultProperties(v => v.ViewFields));
+                        views = ClientContext.LoadQuery(list.Views.IncludeWithDefaultProperties(Expressions));
                         ClientContext.ExecuteQueryRetry();
 
                     }

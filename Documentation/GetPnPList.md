@@ -3,6 +3,7 @@ Returns a List object
 ##Syntax
 ```powershell
 Get-PnPList [-Web <WebPipeBind>]
+            [-Includes <String[]>]
             [-Identity <ListPipeBind>]
 ```
 
@@ -14,6 +15,7 @@ Get-PnPList [-Web <WebPipeBind>]
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |Identity|ListPipeBind|False|The ID, name or Url (Lists/MyList) of the list.|
+|Includes|String[]|False|Specify properties to include when retrieving objects from the server.|
 |Web|WebPipeBind|False|The web to apply the command to. Omit this parameter to use the current web.|
 ##Examples
 

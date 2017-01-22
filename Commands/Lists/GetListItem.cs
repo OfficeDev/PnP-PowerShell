@@ -54,7 +54,7 @@ namespace SharePointPnP.PowerShell.Commands.Lists
         public string Query;
 
         [Parameter(Mandatory = false, HelpMessage = "The fields to retrieve. If not specified all fields will be loaded in the returned list object.", ParameterSetName = "AllItems")]
-        [Parameter(Mandatory = false, HelpMessage = "TThe fields to retrieve. If not specified all fields will be loaded in the returned list object.", ParameterSetName = "ById")]
+        [Parameter(Mandatory = false, HelpMessage = "The fields to retrieve. If not specified all fields will be loaded in the returned list object.", ParameterSetName = "ById")]
         [Parameter(Mandatory = false, HelpMessage = "The fields to retrieve. If not specified all fields will be loaded in the returned list object.", ParameterSetName = "ByUniqueId")]
         public string[] Fields;
 

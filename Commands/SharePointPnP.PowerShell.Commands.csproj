@@ -323,10 +323,13 @@
       <HintPath>..\packages\Microsoft.IdentityModel.Clients.ActiveDirectory.2.18.206251556\lib\net45\Microsoft.IdentityModel.Clients.ActiveDirectory.WindowsForms.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.IdentityModel.Extensions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=69c3241e6f0468ca, processorArchitecture=MSIL" />
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="SharePointPnP.IdentityModel.Extensions, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\PnP-Sites-Core\Assemblies\common\SharePointPnP.IdentityModel.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -361,6 +364,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Base\PipeBinds\ImageRenditionPipeBind.cs" />
+    <Compile Include="Base\PnPWebRetrievalCmdlet.cs" />
+    <Compile Include="ContentTypes\GetContentTypePublishingHubUrl.cs" />
     <Compile Include="Files\CopyFile.cs" />
     <Compile Include="Files\MoveFile.cs" />
     <Compile Include="Files\MoveFolder.cs" />
@@ -419,6 +424,9 @@
     <Compile Include="Enums\TargetScope.cs" />
     <Compile Include="Files\GetFolder.cs" />
     <Compile Include="Graph\SetUnifiedGroup.cs" />
+    <Compile Include="InformationManagement\ClosureState.cs" />
+    <Compile Include="InformationManagement\GetSiteClosure.cs" />
+    <Compile Include="InformationManagement\SetSiteClosure.cs" />
     <Compile Include="Provisioning\AddFileToProvisioningTemplate.cs" />
     <Compile Include="Provisioning\LoadProvisioningTemplate.cs" />
     <Compile Include="Provisioning\NewProvisioningTemplate.cs" />
@@ -513,12 +521,16 @@
     <Compile Include="Publishing\SetDefaultPageLayout.cs" />
     <Compile Include="Publishing\SetAvailablePageLayouts.cs" />
     <Compile Include="Search\GetSiteSearchQueryResults.cs" />
+    <Compile Include="Search\PnPResultTable.cs" />
+    <Compile Include="Search\PnPResultTableCollection.cs" />
     <Compile Include="Search\SetSearchConfiguration.cs" />
     <Compile Include="Search\GetSearchConfiguration.cs" />
     <Compile Include="RecycleBin\MoveRecycleBinItem.cs" />
+    <Compile Include="Search\SubmitSearchQuery.cs" />
     <Compile Include="Site\GetAuditing.cs" />
     <Compile Include="RecycleBin\GetRecycleBinItem.cs" />
     <Compile Include="Site\SetAuditing.cs" />
+    <Compile Include="Taxonomy\GetSiteCollectionTermStore.cs" />
     <Compile Include="Taxonomy\RemoveTaxonomyItem.cs" />
     <Compile Include="Taxonomy\RemoveTermGroup.cs" />
     <Compile Include="Taxonomy\ImportTermGroupFromXml.cs" />

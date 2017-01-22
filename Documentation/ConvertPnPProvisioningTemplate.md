@@ -1,5 +1,5 @@
 #Convert-PnPProvisioningTemplate
-Converts a provisioning template to a other schema version
+Converts a provisioning template to an other schema version
 ##Syntax
 ```powershell
 Convert-PnPProvisioningTemplate [-Out <String>]

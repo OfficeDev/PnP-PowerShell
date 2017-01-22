@@ -32,9 +32,9 @@ namespace SharePointPnP.PowerShell.Commands.ContentTypes
     {
         [Parameter(Mandatory = false, Position = 0, ValueFromPipeline = true, HelpMessage = "Name or ID of the content type to retrieve")]
         public ContentTypePipeBind Identity;
-        [Parameter(Mandatory = false, Position = 1, ValueFromPipeline = true, HelpMessage = "List to query")]
+        [Parameter(Mandatory = false, ValueFromPipeline = true, HelpMessage = "List to query")]
         public ListPipeBind List;
-        [Parameter(Mandatory = false, Position = 1, ValueFromPipeline = false, HelpMessage = "Search site hierarchy for content types")]
+        [Parameter(Mandatory = false, ValueFromPipeline = false, HelpMessage = "Search site hierarchy for content types")]
         public SwitchParameter InSiteHierarchy;
 
         protected override void ExecuteCmdlet()

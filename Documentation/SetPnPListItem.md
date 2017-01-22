@@ -5,6 +5,7 @@ Updates a list item
 Set-PnPListItem -Identity <ListItemPipeBind>
                 [-ContentType <ContentTypePipeBind>]
                 [-Values <Hashtable>]
+                [-SystemUpdate [<SwitchParameter>]]
                 [-Web <WebPipeBind>]
                 -List <ListPipeBind>
 ```
@@ -19,6 +20,7 @@ Parameter|Type|Required|Description
 |ContentType|ContentTypePipeBind|False|Specify either the name, ID or an actual content type|
 |Identity|ListItemPipeBind|True|The ID of the listitem, or actual ListItem object|
 |List|ListPipeBind|True|The ID, Title or Url of the list.|
+|SystemUpdate|SwitchParameter|False|Updating item without updating the modified and modified by fields|
 |Values|Hashtable|False|Use the internal names of the fields when specifying field names.
 
 Single line of text: -Values @{"Title" = "Title New"}
@@ -42,6 +44,14 @@ Lookup (id of lookup value): -Values @{"Lookup" = "2"}
 Yes/No: -Values @{"YesNo" = "No"}
 
 Person/Group (id of user/group in Site User Info List or email of the user, seperate multiple values with a comma): -Values @{"Person" = "user1@domain.com","21"}
+
+Managed Metadata (single value with path to term): -Values @{"MetadataField" = "CORPORATE|DEPARTMENTS|FINANCE"}
+
+Managed Metadata (singel value with id of term): -Values @{"MetadataField" = "fe40a95b-2144-4fa2-b82a-0b3d0299d818"} with Id of term
+
+Managed Metadata (multiple values with paths to terms): -Values @{"MetadataField" = "CORPORATE|DEPARTMENTS|FINANCE","CORPORATE|DEPARTMENTS|HR"}
+
+Managed Metadata (multiple values with ids of terms): -Values @{"MetadataField" = "fe40a95b-2144-4fa2-b82a-0b3d0299d818","52d88107-c2a8-4bf0-adfa-04bc2305b593"}
 
 Hyperlink or Picture: -Values @{"Hyperlink" = "https://github.com/OfficeDev/, OfficePnp"}|
 |Web|WebPipeBind|False|The web to apply the command to. Omit this parameter to use the current web.|

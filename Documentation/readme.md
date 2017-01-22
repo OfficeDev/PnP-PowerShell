@@ -53,6 +53,7 @@ Cmdlet|Description
 **[Get&#8209;PnPContentType](GetPnPContentType.md)** |Retrieves a content type
 **[Add&#8209;PnPContentType](AddPnPContentType.md)** |Adds a new content type
 **[Remove&#8209;PnPContentTypeFromList](RemovePnPContentTypeFromList.md)** |Removes a content type from a list
+**[Get&#8209;PnPContentTypePublishingHubUrl](GetPnPContentTypePublishingHubUrl.md)** |Returns the url to Content Type Publishing Hub
 **[Add&#8209;PnPContentTypeToList](AddPnPContentTypeToList.md)** |Adds a new content type to a list
 **[Set&#8209;PnPDefaultContentTypeToList](SetPnPDefaultContentTypeToList.md)** |Sets the default content type for a list
 **[Remove&#8209;PnPFieldFromContentType](RemovePnPFieldFromContentType.md)** |Removes a site column from a content type
@@ -108,6 +109,8 @@ Cmdlet|Description
 ##Information Management
 Cmdlet|Description
 :-----|:----------
+**[Get&#8209;PnPSiteClosure](GetPnPSiteClosure.md)** |Get the site closure status of the site which has a site policy applied
+**[Set&#8209;PnPSiteClosure](SetPnPSiteClosure.md)** |Opens or closes a site which has a site policy applied
 **[Get&#8209;PnPSitePolicy](GetPnPSitePolicy.md)** |Retrieves all or a specific site policy
 **[Set&#8209;PnPSitePolicy](SetPnPSitePolicy.md)** |Sets a site policy
 ##Lists
@@ -145,7 +148,7 @@ Cmdlet|Description
 **[Load&#8209;PnPProvisioningTemplate](LoadPnPProvisioningTemplate.md)** |Loads a PnP file from the file systems
 **[New&#8209;PnPProvisioningTemplate](NewPnPProvisioningTemplate.md)** |Creates a new provisioning template object
 **[Save&#8209;PnPProvisioningTemplate](SavePnPProvisioningTemplate.md)** |Saves a PnP file to the file systems
-**[Convert&#8209;PnPProvisioningTemplate](ConvertPnPProvisioningTemplate.md)** |Converts a provisioning template to a other schema version
+**[Convert&#8209;PnPProvisioningTemplate](ConvertPnPProvisioningTemplate.md)** |Converts a provisioning template to an other schema version
 **[Apply&#8209;PnPProvisioningTemplate](ApplyPnPProvisioningTemplate.md)** |Applies a provisioning template to a web
 **[Get&#8209;PnPProvisioningTemplate](GetPnPProvisioningTemplate.md)** |Generates a provisioning template from a web
 **[New&#8209;PnPProvisioningTemplateFromFolder](NewPnPProvisioningTemplateFromFolder.md)** |Generates a provisioning template from a given folder, including only files that are present in that folder
@@ -171,6 +174,7 @@ Cmdlet|Description
 :-----|:----------
 **[Set&#8209;PnPSearchConfiguration](SetPnPSearchConfiguration.md)** |Sets the search configuration
 **[Get&#8209;PnPSearchConfiguration](GetPnPSearchConfiguration.md)** |Returns the search configuration
+**[Submit&#8209;PnPSearchQuery](SubmitPnPSearchQuery.md)** |Executes an arbitrary search query against the SharePoint search index
 **[Get&#8209;PnPSiteSearchQueryResults](GetPnPSiteSearchQueryResults.md)** |Executes a search query to retrieve indexed site collections
 ##SharePoint Recycle Bin
 Cmdlet|Description
@@ -189,10 +193,10 @@ Cmdlet|Description
 **[Get&#8209;PnPSite](GetPnPSite.md)** |Returns the current site collection from the context.
 **[Uninstall&#8209;PnPSolution](UninstallPnPSolution.md)** |Uninstalls a sandboxed solution from a site collection
 **[Install&#8209;PnPSolution](InstallPnPSolution.md)** |Installs a sandboxed solution to a site collection. WARNING! This method can delete your composed look gallery due to the method used to activate the solution. We recommend you to only to use this cmdlet if you are okay with that.
-**[Get&#8209;SPOSite](GetSPOSite.md)** |Returns the current site collection from the context.
 ##Taxonomy
 Cmdlet|Description
 :-----|:----------
+**[Get&#8209;PnPSiteCollectionTermStore](GetPnPSiteCollectionTermStore.md)** |Returns the site collection term store
 **[Import&#8209;PnPTaxonomy](ImportPnPTaxonomy.md)** |Imports a taxonomy from either a string array or a file
 **[Export&#8209;PnPTaxonomy](ExportPnPTaxonomy.md)** |Exports a taxonomy to either the output or to a file.
 **[Set&#8209;PnPTaxonomyFieldValue](SetPnPTaxonomyFieldValue.md)** |Sets a taxonomy term value in a listitem field

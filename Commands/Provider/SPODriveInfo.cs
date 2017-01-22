@@ -17,5 +17,12 @@ namespace SharePointPnP.PowerShell.Commands.Provider
             CachedItems = new List<SPODriveCacheItem>();
             CachedWebs = new List<SPODriveCacheWeb>();
         }
+
+        public void ClearState()
+        {
+            this.CachedItems = new List<SPODriveCacheItem>();
+            this.CachedWebs = new List<SPODriveCacheWeb>();
+            this.Web = null;
+        }
     }
 }

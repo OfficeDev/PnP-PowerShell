@@ -15,7 +15,7 @@ namespace SharePointPnP.PowerShell.Commands.Branding
         protected override void ExecuteCmdlet()
         {
             var site = ClientContext.Site;
-            site.DisableReponsiveUI();
+            site.DisableResponsiveUI();
         }
     }
 }
