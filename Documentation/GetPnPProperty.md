@@ -1,23 +1,23 @@
-#Get-PnPProperty
+# Get-PnPProperty
 Will populate properties of an object and optionally, if needed, load the value from the server. If one property is specified its value will be returned to the output.
-##Syntax
+## Syntax
 ```powershell
 Get-PnPProperty -ClientObject <ClientObject>
                 -Property <String[]>
 ```
 
 
-##Returns
+## Returns
 >[Microsoft.SharePoint.Client.ClientObject](https://msdn.microsoft.com/en-us/library/microsoft.sharepoint.client.clientobject.aspx)
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |ClientObject|ClientObject|True|Specifies the object where the properties of should be retrieved|
 |Property|String[]|True|The properties to load. If one property is specified its value will be returned to the output.|
-##Examples
+## Examples
 
-###Example 1
+### Example 1
 ```powershell
 
 PS:> $web = Get-PnPWeb
@@ -26,7 +26,7 @@ PS:> $web.Lists
 ```
 Will load both the Id and Lists properties of the specified Web object.
 
-###Example 2
+### Example 2
 ```powershell
 
 PS:> $list = Get-PnPList -Identity 'Site Assets'

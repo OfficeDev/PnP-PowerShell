@@ -1,6 +1,6 @@
-#Get-PnPTerm
+# Get-PnPTerm
 Returns a taxonomy term
-##Syntax
+## Syntax
 ```powershell
 Get-PnPTerm -TermSet <Id, Title or TaxonomyItem>
             -TermGroup <Id, Title or TermGroup>
@@ -10,10 +10,10 @@ Get-PnPTerm -TermSet <Id, Title or TaxonomyItem>
 ```
 
 
-##Returns
+## Returns
 >[Microsoft.SharePoint.Client.Taxonomy.Term](https://msdn.microsoft.com/en-us/library/microsoft.sharepoint.client.taxonomy.term.aspx)
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |TermGroup|Id, Title or TermGroup|True|Name of the termgroup to check.|
@@ -21,21 +21,21 @@ Parameter|Type|Required|Description
 |Identity|Id, Name or Object|False|The Id or Name of a Term|
 |Includes|String[]|False|Specify properties to include when retrieving objects from the server.|
 |TermStore|Id, Name or Object|False|Term store to check; if not specified the default term store is used.|
-##Examples
+## Examples
 
-###Example 1
+### Example 1
 ```powershell
 PS:> Get-PnPTerm -TermSet "Departments" -TermGroup "Corporate"
 ```
 Returns all term in the termset "Departments" which is in the group "Corporate" from the site collection termstore
 
-###Example 2
+### Example 2
 ```powershell
 PS:> Get-PnPTermSet -Identity "Finance" -TermSet "Departments" -TermGroup "Corporate"
 ```
 Returns the term named "Finance" in the termset "Departments" from the termgroup called "Corporate" from the site collection termstore
 
-###Example 3
+### Example 3
 ```powershell
 PS:> Get-PnPTermSet -Identity ab2af486-e097-4b4a-9444-527b251f1f8d -TermSet "Departments" -TermGroup "Corporate"
 ```

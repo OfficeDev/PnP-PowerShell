@@ -1,6 +1,6 @@
-#New-PnPList
+# New-PnPList
 Creates a new list
-##Syntax
+## Syntax
 ```powershell
 New-PnPList -Title <String>
             -Template <ListTemplateType>
@@ -12,7 +12,7 @@ New-PnPList -Title <String>
 ```
 
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |Template|ListTemplateType|True|The type of list to create.|
@@ -22,15 +22,15 @@ Parameter|Type|Required|Description
 |OnQuickLaunch|SwitchParameter|False|Switch parameter if this list should be visible on the QuickLaunch|
 |Url|String|False|If set, will override the url of the list.|
 |Web|WebPipeBind|False|The web to apply the command to. Omit this parameter to use the current web.|
-##Examples
+## Examples
 
-###Example 1
+### Example 1
 ```powershell
 PS:> New-PnPList -Title Announcements -Template Announcements
 ```
 Create a new announcements list
 
-###Example 2
+### Example 2
 ```powershell
 PS:> New-PnPList -Title "Demo List" -Url "DemoList" -Template Announcements
 ```

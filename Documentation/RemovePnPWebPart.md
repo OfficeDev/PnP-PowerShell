@@ -1,6 +1,6 @@
-#Remove-PnPWebPart
+# Remove-PnPWebPart
 Removes a webpart from a page
-##Syntax
+## Syntax
 ```powershell
 Remove-PnPWebPart -Identity <GuidPipeBind>
                   -ServerRelativePageUrl <String>
@@ -15,7 +15,7 @@ Remove-PnPWebPart -Title <String>
 ```
 
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |Identity|GuidPipeBind|True||

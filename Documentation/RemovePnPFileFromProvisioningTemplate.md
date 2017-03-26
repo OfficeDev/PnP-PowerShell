@@ -1,6 +1,6 @@
-#Remove-PnPFileFromProvisioningTemplate
+# Remove-PnPFileFromProvisioningTemplate
 Removes a file from a PnP Provisioning Template
-##Syntax
+## Syntax
 ```powershell
 Remove-PnPFileFromProvisioningTemplate -Path <String>
                                        -FilePath <String>
@@ -8,15 +8,15 @@ Remove-PnPFileFromProvisioningTemplate -Path <String>
 ```
 
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |FilePath|String|True|The relative File Path of the file to remove from the in-memory template|
 |Path|String|True|Filename to read the template from, optionally including full path.|
 |TemplateProviderExtensions|ITemplateProviderExtension[]|False|Allows you to specify ITemplateProviderExtension to execute while saving the template.|
-##Examples
+## Examples
 
-###Example 1
+### Example 1
 ```powershell
 PS:> Remove-PnPFileFromProvisioningTemplate -Path template.pnp -FilePath filePath
 ```

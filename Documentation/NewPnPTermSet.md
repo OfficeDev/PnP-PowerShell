@@ -1,6 +1,6 @@
-#New-PnPTermSet
+# New-PnPTermSet
 Creates a taxonomy term set
-##Syntax
+## Syntax
 ```powershell
 New-PnPTermSet -Name <String>
                -TermGroup <Id, Title or TermGroup>
@@ -17,10 +17,10 @@ New-PnPTermSet -Name <String>
 ```
 
 
-##Returns
+## Returns
 >[Microsoft.SharePoint.Client.Taxonomy.TermSet](https://msdn.microsoft.com/en-us/library/microsoft.sharepoint.client.taxonomy.termset.aspx)
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |Name|String|True|The name of the termset.|
@@ -35,9 +35,9 @@ Parameter|Type|Required|Description
 |Owner|String|False|The primary user or group of this term set.|
 |StakeHolders|String[]|False|People and groups in the organization that should be notified before major changes are made to the term set. You can enter multiple users or groups.|
 |TermStore|Id, Name or Object|False|Term store to check; if not specified the default term store is used.|
-##Examples
+## Examples
 
-###Example 1
+### Example 1
 ```powershell
 PS:> New-PnPTermSet -Name "Department" -TermGroup "Corporate"
 ```

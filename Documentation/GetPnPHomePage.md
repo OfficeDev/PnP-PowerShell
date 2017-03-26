@@ -1,21 +1,21 @@
-#Get-PnPHomePage
+# Get-PnPHomePage
 Returns the URL to the home page
-##Syntax
+## Syntax
 ```powershell
 Get-PnPHomePage [-Web <WebPipeBind>]
 ```
 
 
-##Returns
+## Returns
 >System.String
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |Web|WebPipeBind|False|The web to apply the command to. Omit this parameter to use the current web.|
-##Examples
+## Examples
 
-###Example 1
+### Example 1
 ```powershell
 PS:> Get-PnPHomePage
 ```

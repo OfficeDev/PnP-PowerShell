@@ -1,6 +1,6 @@
-#Set-PnPAuditing
+# Set-PnPAuditing
 Set Auditing setting for a site
-##Syntax
+## Syntax
 ```powershell
 Set-PnPAuditing [-EnableAll [<SwitchParameter>]]
                 [-RetentionTime <Int>]
@@ -26,7 +26,7 @@ Set-PnPAuditing [-RetentionTime <Int>]
 ```
 
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |CheckOutCheckInItems|SwitchParameter|False||
@@ -40,34 +40,34 @@ Parameter|Type|Required|Description
 |RetentionTime|Int|False||
 |SearchContent|SwitchParameter|False||
 |TrimAuditLog|SwitchParameter|False||
-##Examples
+## Examples
 
-###Example 1
+### Example 1
 ```powershell
 PS:> Set-PnPAuditing -EnableAll
 ```
 Enables all auditing settings for the current site
 
-###Example 2
+### Example 2
 ```powershell
 PS:> Set-PnPAuditing -DisableAll
 ```
 Disables all auditing settings for the current site
                     This also disables the automatic trimming of the audit log
 
-###Example 3
+### Example 3
 ```powershell
 PS:> Set-PnPAuditing -RetentionTime 7
 ```
 Sets the audit log trimming to 7 days, this also enables the automatic trimming of the audit log
 
-###Example 4
+### Example 4
 ```powershell
 PS:> Set-PnPAuditing -TrimAuditLog
 ```
 Enables the automatic trimming of the audit log
 
-###Example 5
+### Example 5
 ```powershell
 PS:> Set-PnPAuditing -RetentionTime 7 -CheckOutCheckInItems -MoveCopyItems -SearchContent
 ```

@@ -1,6 +1,6 @@
-#Add-PnPListItem
+# Add-PnPListItem
 Adds an item to a list
-##Syntax
+## Syntax
 ```powershell
 Add-PnPListItem -List <ListPipeBind>
                 [-ContentType <ContentTypePipeBind>]
@@ -10,10 +10,10 @@ Add-PnPListItem -List <ListPipeBind>
 ```
 
 
-##Returns
+## Returns
 >[Microsoft.SharePoint.Client.ListItem](https://msdn.microsoft.com/en-us/library/microsoft.sharepoint.client.listitem.aspx)
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |List|ListPipeBind|True|The ID, Title or Url of the list.|
@@ -59,27 +59,27 @@ Managed Metadata (multiple values with ids of terms): -Values @{"MetadataField" 
 
 Hyperlink or Picture: -Values @{"Hyperlink" = "https://github.com/OfficeDev/, OfficePnp"}|
 |Web|WebPipeBind|False|The web to apply the command to. Omit this parameter to use the current web.|
-##Examples
+## Examples
 
-###Example 1
+### Example 1
 ```powershell
 Add-PnPListItem -List "Demo List" -Values @{"Title" = "Test Title"; "Category"="Test Category"}
 ```
 Adds a new list item to the "Demo List", and sets both the Title and Category fields with the specified values. Notice, use the internal names of fields.
 
-###Example 2
+### Example 2
 ```powershell
 Add-PnPListItem -List "Demo List" -ContentType "Company" -Values @{"Title" = "Test Title"; "Category"="Test Category"}
 ```
 Adds a new list item to the "Demo List", sets the content type to "Company" and sets both the Title and Category fields with the specified values. Notice, use the internal names of fields.
 
-###Example 3
+### Example 3
 ```powershell
 Add-PnPListItem -List "Demo List" -Values @{"MultiUserField"="user1@domain.com","user2@domain.com"}
 ```
 Adds a new list item to the "Demo List" and sets the user field called MultiUserField to 2 users. Separate multiple users with a comma.
 
-###Example 4
+### Example 4
 ```powershell
 Add-PnPListItem -List "Demo List" -Values @{"Title"="Sales Report"} -Folder "projects/europe"
 ```

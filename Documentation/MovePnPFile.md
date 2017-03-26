@@ -1,6 +1,6 @@
-#Move-PnPFile
+# Move-PnPFile
 Moves a file to a different location
-##Syntax
+## Syntax
 ```powershell
 Move-PnPFile -ServerRelativeUrl <String>
              -TargetUrl <String>
@@ -19,7 +19,7 @@ Move-PnPFile -SiteRelativeUrl <String>
 ```
 
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |ServerRelativeUrl|String|True|Server relative Url specifying the file to move. Must include the file name.|
@@ -28,21 +28,21 @@ Parameter|Type|Required|Description
 |Force|SwitchParameter|False|If provided, no confirmation will be requested and the action will be performed|
 |OverwriteIfAlreadyExists|SwitchParameter|False|If provided, if a file already exists at the TargetUrl, it will be overwritten. If ommitted, the move operation will be canceled if the file already exists at the TargetUrl location.|
 |Web|WebPipeBind|False|The web to apply the command to. Omit this parameter to use the current web.|
-##Examples
+## Examples
 
-###Example 1
+### Example 1
 ```powershell
 PS:>Move-PnPFile -ServerRelativeUrl /sites/project/Documents/company.docx -TargetUrl /sites/otherproject/Documents/company.docx
 ```
 Moves a file named company.docx located in the document library called Documents located in the projects sitecollection under the managed path sites to the site collection otherproject located in the managed path sites. If a file named company.aspx already exists, it won't perform the move.
 
-###Example 2
+### Example 2
 ```powershell
 PS:>Move-PnPFile -SiteRelativeUrl Documents/company.aspx -TargetUrl /sites/otherproject/Documents/company.docx
 ```
 Moves a file named company.docx located in the document library called Documents located in the current site to the Documents library in the site collection otherproject located in the managed path sites. If a file named company.aspx already exists, it won't perform the move.
 
-###Example 3
+### Example 3
 ```powershell
 PS:>Move-PnPFile -ServerRelativeUrl /sites/project/Documents/company.docx -TargetUrl /sites/otherproject/Documents/company.docx -OverwriteIfAlreadyExists
 ```

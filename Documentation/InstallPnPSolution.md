@@ -1,6 +1,6 @@
-#Install-PnPSolution
+# Install-PnPSolution
 Installs a sandboxed solution to a site collection. WARNING! This method can delete your composed look gallery due to the method used to activate the solution. We recommend you to only to use this cmdlet if you are okay with that.
-##Syntax
+## Syntax
 ```powershell
 Install-PnPSolution -PackageId <GuidPipeBind>
                     -SourceFilePath <String>
@@ -9,7 +9,7 @@ Install-PnPSolution -PackageId <GuidPipeBind>
 ```
 
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |PackageId|GuidPipeBind|True|ID of the solution, from the solution manifest|

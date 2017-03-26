@@ -1,6 +1,6 @@
-#Add-PnPTaxonomyField
+# Add-PnPTaxonomyField
 Adds a taxonomy field to a list or as a site column.
-##Syntax
+## Syntax
 ```powershell
 Add-PnPTaxonomyField -DisplayName <String>
                      -InternalName <String>
@@ -32,10 +32,10 @@ Add-PnPTaxonomyField -TermSetPath <String>
 ```
 
 
-##Returns
+## Returns
 >[Microsoft.SharePoint.Client.Field](https://msdn.microsoft.com/en-us/library/microsoft.sharepoint.client.field.aspx)
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |DisplayName|String|True|The display name of the field|
@@ -51,9 +51,9 @@ Parameter|Type|Required|Description
 |TaxonomyItemId|GuidPipeBind|False|The ID of the Taxonomy item|
 |TermPathDelimiter|String|False|The path delimiter to be used, by default this is '|'|
 |Web|WebPipeBind|False|The web to apply the command to. Omit this parameter to use the current web.|
-##Examples
+## Examples
 
-###Example 1
+### Example 1
 ```powershell
 PS:> Add-PnPTaxonomyField -DisplayName "Test" -InternalName "Test" -TermSetPath "TestTermGroup|TestTermSet"
 ```

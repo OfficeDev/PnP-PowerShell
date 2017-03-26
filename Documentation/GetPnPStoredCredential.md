@@ -1,26 +1,26 @@
-#Get-PnPStoredCredential
+# Get-PnPStoredCredential
 Returns a stored credential from the Windows Credential Manager
-##Syntax
+## Syntax
 ```powershell
 Get-PnPStoredCredential -Name <String>
                         [-Type <CredentialType>]
 ```
 
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |Name|String|True|The credential to retrieve.|
 |Type|CredentialType|False|The object type of the credential to return from the Credential Manager. Possible valus are 'O365', 'OnPrem' or 'PSCredential'|
-##Examples
+## Examples
 
-###Example 1
+### Example 1
 ```powershell
 PS:> Get-SPOnlineStoredCredential -Name O365
 ```
 Returns the credential associated with the specified identifier
 
-###Example 2
+### Example 2
 ```powershell
 PS:> Get-SPOnlineStoredCredential -Name testEnvironment -Type OnPrem
 ```

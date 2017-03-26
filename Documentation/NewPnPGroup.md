@@ -1,6 +1,6 @@
-#New-PnPGroup
+# New-PnPGroup
 Adds group to the Site Groups List and returns a group object
-##Syntax
+## Syntax
 ```powershell
 New-PnPGroup -Title <String>
              [-Description <String>]
@@ -14,10 +14,10 @@ New-PnPGroup -Title <String>
 ```
 
 
-##Returns
+## Returns
 >[Microsoft.SharePoint.Client.Group](https://msdn.microsoft.com/en-us/library/microsoft.sharepoint.client.group.aspx)
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |Title|String|True|The Title of the group|
@@ -29,9 +29,9 @@ Parameter|Type|Required|Description
 |Owner|String|False|The owner for the group, which can be a user or another group|
 |RequestToJoinEmail|String|False|The e-mail address to which membership requests are sent|
 |Web|WebPipeBind|False|The web to apply the command to. Omit this parameter to use the current web.|
-##Examples
+## Examples
 
-###Example 1
+### Example 1
 ```powershell
 PS:> New-PnPGroup -Title "My Site Users"
 ```

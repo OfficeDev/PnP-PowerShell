@@ -1,13 +1,13 @@
-#Add-PnPIndexedProperty
+# Add-PnPIndexedProperty
 Marks the value of the propertybag key specified to be indexed by search.
-##Syntax
+## Syntax
 ```powershell
 Add-PnPIndexedProperty -Key <String>
                        [-Web <WebPipeBind>]
 ```
 
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |Key|String|True|Key of the property bag value to be indexed|

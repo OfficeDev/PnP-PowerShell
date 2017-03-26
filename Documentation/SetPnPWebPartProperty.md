@@ -1,6 +1,6 @@
-#Set-PnPWebPartProperty
+# Set-PnPWebPartProperty
 Sets a web part property
-##Syntax
+## Syntax
 ```powershell
 Set-PnPWebPartProperty -ServerRelativePageUrl <String>
                        -Identity <GuidPipeBind>
@@ -10,7 +10,7 @@ Set-PnPWebPartProperty -ServerRelativePageUrl <String>
 ```
 
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |Identity|GuidPipeBind|True||

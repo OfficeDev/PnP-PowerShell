@@ -1,6 +1,6 @@
-#Remove-PnPPublishingImageRendition
+# Remove-PnPPublishingImageRendition
 Removes an existing image rendition
-##Syntax
+## Syntax
 ```powershell
 Remove-PnPPublishingImageRendition -Identity <ImageRenditionPipeBind>
                                    [-Force [<SwitchParameter>]]
@@ -8,15 +8,15 @@ Remove-PnPPublishingImageRendition -Identity <ImageRenditionPipeBind>
 ```
 
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |Identity|ImageRenditionPipeBind|True|The display name or id of the Image Rendition.|
 |Force|SwitchParameter|False|If provided, no confirmation will be asked to remove the Image Rendition.|
 |Web|WebPipeBind|False|The web to apply the command to. Omit this parameter to use the current web.|
-##Examples
+## Examples
 
-###Example 1
+### Example 1
 ```powershell
 PS:> Remove-PnPPublishingImageRendition -Name "MyImageRendition" -Width 800 -Height 600
 ```

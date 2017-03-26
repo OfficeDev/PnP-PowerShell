@@ -1,6 +1,6 @@
-#Add-PnPFileToProvisioningTemplate
+# Add-PnPFileToProvisioningTemplate
 Adds a file to a PnP Provisioning Template
-##Syntax
+## Syntax
 ```powershell
 Add-PnPFileToProvisioningTemplate -Path <String>
                                   -Source <String>
@@ -10,7 +10,7 @@ Add-PnPFileToProvisioningTemplate -Path <String>
 ```
 
 
-##Parameters
+## arameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |Folder|String|True|The target Folder for the file to add to the in-memory template.|
@@ -18,15 +18,15 @@ Parameter|Type|Required|Description
 |Source|String|True|The file to add to the in-memory template, optionally including full path.|
 |Container|String|False|The target Container for the file to add to the in-memory template, optional argument.|
 |TemplateProviderExtensions|ITemplateProviderExtension[]|False|Allows you to specify ITemplateProviderExtension to execute while loading the template.|
-##Examples
+## Examples
 
-###Example 1
+### Example 1
 ```powershell
 PS:> Add-PnPFileToProvisioningTemplate -Path template.pnp -Source $sourceFilePath -Folder $targetFolder
 ```
 Adds a file to an in-memory PnP Provisioning Template
 
-###Example 2
+### Example 2
 ```powershell
 PS:> Add-PnPFileToProvisioningTemplate -Path template.pnp -Source $sourceFilePath -Folder $targetFolder -Container $container
 ```

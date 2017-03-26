@@ -1,6 +1,6 @@
-#Uninstall-PnPAppInstance
+# Uninstall-PnPAppInstance
 Removes an app from a site
-##Syntax
+## Syntax
 ```powershell
 Uninstall-PnPAppInstance -Identity <AppPipeBind>
                          [-Force [<SwitchParameter>]]
@@ -8,27 +8,27 @@ Uninstall-PnPAppInstance -Identity <AppPipeBind>
 ```
 
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |Identity|AppPipeBind|True|Appinstance or Id of the addin to remove.|
 |Force|SwitchParameter|False|Do not ask for confirmation.|
 |Web|WebPipeBind|False|The web to apply the command to. Omit this parameter to use the current web.|
-##Examples
+## Examples
 
-###Example 1
+### Example 1
 ```powershell
 PS:> Uninstall-PnPAppInstance -Identity $appinstance
 ```
 Uninstalls the app instance which was retrieved with the command Get-PnPAppInstance
 
-###Example 2
+### Example 2
 ```powershell
 PS:> Uninstall-PnPAppInstance -Identity 99a00f6e-fb81-4dc7-8eac-e09c6f9132fe
 ```
 Uninstalls the app instance with the ID '99a00f6e-fb81-4dc7-8eac-e09c6f9132fe'
 
-###Example 3
+### Example 3
 ```powershell
 PS:> Uninstall-PnPAppInstance -Identity 99a00f6e-fb81-4dc7-8eac-e09c6f9132fe -force
 ```

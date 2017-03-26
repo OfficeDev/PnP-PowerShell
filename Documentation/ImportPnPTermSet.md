@@ -1,6 +1,6 @@
-#Import-PnPTermSet
+# Import-PnPTermSet
 Imports a taxonomy term set from a file in the standard format.
-##Syntax
+## Syntax
 ```powershell
 Import-PnPTermSet -GroupName <String>
                   -Path <String>
@@ -13,7 +13,7 @@ Import-PnPTermSet -GroupName <String>
 ```
 
 
-##Detailed Description
+## Detailed Description
 The format of the file is the same as that used by the import function in the web interface. A sample file can be obtained from the web interface.
 
 This is a CSV file, with the following headings:
@@ -28,7 +28,7 @@ In contrast to the web interface import, this is not a one-off import but runs s
 
 The import file also supports an expanded syntax for the Term Set Name and term names (Level 1 Term, Level 2 Term, etc). These columns support values with the format 'Name | GUID', with the name and GUID separated by a pipe character (note that the pipe character is invalid to use within a taxomony item name). This expanded syntax is not required, but can be used to ensure all terms have fixed IDs.
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |GroupName|String|True|Group to import the term set to; an error is returned if the group does not exist.|
@@ -39,21 +39,21 @@ Parameter|Type|Required|Description
 |SynchronizeDeletions|SwitchParameter|False|If specified, the import will remove any terms (and children) previously in the term set but not in the import file; default is to leave them.|
 |TermSetId|Guid|False|GUID to use for the term set; if not specified, or the empty GUID, a random GUID is generated and used.|
 |TermStoreName|String|False|Term store to import into; if not specified the default term store is used.|
-##Examples
+## Examples
 
-###Example 1
+### Example 1
 ```powershell
 PS:> Import-PnPTermSet -GroupName 'Standard Terms' -Path 'C:\\Temp\\ImportTermSet.csv' -SynchronizeDeletions
 ```
 Creates (or updates) the term set specified in the import file, in the group specified, removing any existing terms not in the file.
 
-###Example 2
+### Example 2
 ```powershell
 PS:> Import-PnPTermSet -TermStoreName 'My Term Store' -GroupName 'Standard Terms' -Path 'C:\\Temp\\ImportTermSet.csv' -TermSetId '{15A98DB6-D8E2-43E6-8771-066C1EC2B8D8}' 
 ```
 Creates (or updates) the term set specified in the import file, in the term store and group specified, using the specified ID.
 
-###Example 3
+### Example 3
 ```powershell
 PS:> Import-PnPTermSet -GroupName 'Standard Terms' -Path 'C:\\Temp\\ImportTermSet.csv' -IsOpen $true -Contact 'user@example.org' -Owner 'user@example.org'
 ```

@@ -1,8 +1,8 @@
-#Get-PnPAccessToken
+# Get-PnPAccessToken
 Gets the OAuth 2.0 Access Token to consume the Microsoft Graph API
-##Examples
+## Examples
 
-###Example 1
+### Example 1
 ```powershell
 PS:> Get-PnPAccessToken
 ```

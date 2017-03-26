@@ -1,6 +1,6 @@
-#Set-PnPWikiPageContent
+# Set-PnPWikiPageContent
 Sets the contents of a wikipage
-##Syntax
+## Syntax
 ```powershell
 Set-PnPWikiPageContent -Content <String>
                        -ServerRelativePageUrl <String>
@@ -15,7 +15,7 @@ Set-PnPWikiPageContent -Path <String>
 ```
 
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |Content|String|True||

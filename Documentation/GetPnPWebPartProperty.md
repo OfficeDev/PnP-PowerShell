@@ -1,6 +1,6 @@
-#Get-PnPWebPartProperty
+# Get-PnPWebPartProperty
 Returns a web part property
-##Syntax
+## Syntax
 ```powershell
 Get-PnPWebPartProperty -ServerRelativePageUrl <String>
                        -Identity <GuidPipeBind>
@@ -9,22 +9,22 @@ Get-PnPWebPartProperty -ServerRelativePageUrl <String>
 ```
 
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |Identity|GuidPipeBind|True|The id of the webpart|
 |ServerRelativePageUrl|String|True|Full server relative URL of the webpart page, e.g. /sites/mysite/sitepages/home.aspx|
 |Key|String|False|Name of a single property to be returned|
 |Web|WebPipeBind|False|The web to apply the command to. Omit this parameter to use the current web.|
-##Examples
+## Examples
 
-###Example 1
+### Example 1
 ```powershell
 PS:> Get-PnPWebPartProperty -ServerRelativePageUrl /sites/demo/sitepages/home.aspx -Identity ccd2c98a-c9ae-483b-ae72-19992d583914
 ```
 Returns all properties of the webpart.
 
-###Example 2
+### Example 2
 ```powershell
 PS:> Get-PnPWebPartProperty -ServerRelativePageUrl /sites/demo/sitepages/home.aspx -Identity ccd2c98a-c9ae-483b-ae72-19992d583914 -Key "Title"
 ```

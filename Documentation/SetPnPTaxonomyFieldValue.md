@@ -1,6 +1,6 @@
-#Set-PnPTaxonomyFieldValue
+# Set-PnPTaxonomyFieldValue
 Sets a taxonomy term value in a listitem field
-##Syntax
+## Syntax
 ```powershell
 Set-PnPTaxonomyFieldValue -ListItem <ListItem>
                           -InternalFieldName <String>
@@ -23,7 +23,7 @@ Set-PnPTaxonomyFieldValue -TermPath <String>
 ```
 
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |InternalFieldName|String|True|The internal name of the field|
@@ -32,21 +32,21 @@ Parameter|Type|Required|Description
 |TermPath|String|True|A path in the form of GROUPLABEL|TERMSETLABEL|TERMLABEL|
 |Label|String|False|The Label value of the term|
 |Terms|Hashtable|False|Allows you to specify terms with key value pairs that can be referred to in the template by means of the {id:label} token. See examples on how to use this parameter.|
-##Examples
+## Examples
 
-###Example 1
+### Example 1
 ```powershell
 PS:> Set-PnPTaxonomyFieldValue -ListItem $item -InternalFieldName 'Department' -TermId 863b832b-6818-4e6a-966d-2d3ee057931c
 ```
 Sets the field called 'Department' to the value of the term with the ID specified
 
-###Example 2
+### Example 2
 ```powershell
 PS:> Set-PnPTaxonomyFieldValue -ListItem $item -InternalFieldName 'Department' -TermPath 'CORPORATE|DEPARTMENTS|HR'
 ```
 Sets the field called 'Department' to the term called HR which is located in the DEPARTMENTS termset, which in turn is located in the CORPORATE termgroup.
 
-###Example 3
+### Example 3
 ```powershell
 PS:> Set-PnPTaxonomyFieldValue -ListItem $item -InternalFieldName 'Department' -Terms @{"TermId1"="Label1";"TermId2"="Label2"}
 ```
