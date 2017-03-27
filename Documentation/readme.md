@@ -79,7 +79,7 @@ Cmdlet|Description
 **[Disable&#8209;PnPFeature](DisablePnPFeature.md)** |Disables a feature
 **[Enable&#8209;PnPFeature](EnablePnPFeature.md)** |Enables a feature
 **[Get&#8209;PnPFeature](GetPnPFeature.md)** |Returns all activated or a specific activated feature
-## xFields
+## Fields
 Cmdlet|Description
 :-----|:----------
 **[Add&#8209;PnPField](AddPnPField.md)** |Adds a field to a list or as a site column

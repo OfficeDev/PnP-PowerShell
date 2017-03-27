@@ -39,7 +39,7 @@ PS:> Get-PnPSearchConfiguration -Scope Subscription
 ```
 Returns the search configuration for the current tenant
 
-### xample 4
+### Example 4
 ```powershell
 PS:> Get-PnPSearchConfiguration -Path searchconfig.xml -Scope Subscription
 ```

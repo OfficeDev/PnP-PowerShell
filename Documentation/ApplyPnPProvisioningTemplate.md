@@ -61,7 +61,7 @@ Parameter|Type|Required|Description
 |IgnoreDuplicateDataRowErrors|SwitchParameter|False|Ignore duplicate data row errors when the data row in the template already exists.|
 |InputInstance|ProvisioningTemplate|False|Allows you to provide an in-memory instance of the ProvisioningTemplate type of the PnP Core Component. When using this parameter, the -Path parameter refers to the path of any supporting file for the template.|
 |OverwriteSystemPropertyBagValues|SwitchParameter|False|Specify this parameter if you want to overwrite and/or create properties that are known to be system entries (starting with vti_, dlc_, etc.)|
-|Parameters|Hashtable|False|Allows you to specify parameters that can be referred to in the template by means of the {parameter:<Key>} token. See examples on how to use this parameter.|
+|Parameters|Hashtable|False|Allows you to specify parameters that can be referred to in the template by means of the {parameter:`<Key>`} token. See examples on how to use this parameter.|
 |ProvisionContentTypesToSubWebs|SwitchParameter|False|If set content types will be provisioned if the target web is a subweb.|
 |ResourceFolder|String|False|Root folder where resources/files that are being referenced in the template are located. If not specified the same folder as where the provisioning template is located will be used.|
 |TemplateProviderExtensions|ITemplateProviderExtension[]|False|Allows you to specify ITemplateProviderExtension to execute while applying a template.|
@@ -84,7 +84,7 @@ Applies a provisioning template in XML format to the current web. Any resources 
 ```powershell
 PS:> Apply-PnPProvisioningTemplate -Path template.xml -Parameters @{"ListTitle"="Projects";"parameter2"="a second value"}
 ```
-Applies a provisioning template in XML format to the current web. It will populate the parameter in the template the values as specified and in the template you can refer to those values with the {parameter:<key>} token.
+Applies a provisioning template in XML format to the current web. It will populate the parameter in the template the values as specified and in the template you can refer to those values with the {parameter:`<key>`} token.
 
 For instance with the example above, specifying {parameter:ListTitle} in your template will translate to 'Projects' when applying the template. These tokens can be used in most string values in a template.
 

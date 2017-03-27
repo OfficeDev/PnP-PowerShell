@@ -28,7 +28,7 @@ PS:> Set-PnPProvisioningTemplateMetadata -Path template.xml -TemplateDisplayName
 ```
 Sets the DisplayName property of a provisioning template in XML format.
 
-###E xample 2
+### Example 2
 ```powershell
 PS:> Set-PnPProvisioningTemplateMetadata -Path template.pnp -TemplateDisplayName "DisplayNameValue"
 ```
@@ -40,7 +40,7 @@ PS:> Set-PnPProvisioningTemplateMetadata -Path template.xml -TemplateImagePrevie
 ```
 Sets the Url to the preview image of a provisioning template in XML format.
 
-### xample 4
+### Example 4
 ```powershell
 PS:> Set-PnPProvisioningTemplateMetadata -Path template.pnp -TemplateImagePreviewUrl "Full URL of the Image Preview"
 ```

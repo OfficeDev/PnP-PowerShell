@@ -10,7 +10,7 @@ Add-PnPFileToProvisioningTemplate -Path <String>
 ```
 
 
-## arameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |Folder|String|True|The target Folder for the file to add to the in-memory template.|

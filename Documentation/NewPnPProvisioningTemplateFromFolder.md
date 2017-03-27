@@ -19,7 +19,7 @@ New-PnPProvisioningTemplateFromFolder [-Match <String>]
 ## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
-|AsIncludeFile|SwitchParameter|False|If specified, the output will only contain the <pnp:Files> element. This allows the output to be included in another template.|
+|AsIncludeFile|SwitchParameter|False|If specified, the output will only contain the `<pnp:Files>` element. This allows the output to be included in another template.|
 |ContentType|ContentTypePipeBind|False|An optional content type to use.|
 |Encoding|Encoding|False|The encoding type of the XML file, Unicode is default|
 |Folder|String|False|Folder to process. If not specified the current folder will be used.|

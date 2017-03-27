@@ -1,4 +1,4 @@
-#Get-PnPAppInstance
+# Get-PnPAppInstance
 Returns a SharePoint AddIn Instance in the site
 ## Syntax
 ```powershell

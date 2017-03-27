@@ -15,7 +15,7 @@ Add-PnPView -Title <String>
 ```
 
 
-## eturns
+## Returns
 >[Microsoft.SharePoint.Client.View](https://msdn.microsoft.com/en-us/library/microsoft.sharepoint.client.view.aspx)
 
 ## Parameters

@@ -38,7 +38,7 @@ PS:> Send-PnPMail -To address@contoso.com -Subject test -Body test -From me@tena
 ```
 Sends an e-mail via Office 365 SMTP and requires a from address and password. E-mail is sent from the from user and can be sent to both internal and external addresses.
 
-###E xample 3
+### Example 3
 ```powershell
 PS:> Send-PnPMail -To address@contoso.com -Subject test -Body test -From me@server.net -Password xyz -Server yoursmtp.server.net
 ```

@@ -1,4 +1,4 @@
-#Export-PnPTaxonomy
+# Export-PnPTaxonomy
 Exports a taxonomy to either the output or to a file.
 ## Syntax
 ```powershell
@@ -18,7 +18,7 @@ Parameter|Type|Required|Description
 |Delimiter|String|False|The path delimiter to be used, by default this is '|'|
 |Encoding|Encoding|False|Defaults to Unicode|
 |Force|SwitchParameter|False|Overwrites the output file if it exists.|
-|IncludeID|SwitchParameter|False|If specified will include the ids of the taxonomy items in the output. Format: <label>;#<guid>|
+|IncludeID|SwitchParameter|False|If specified will include the ids of the taxonomy items in the output. Format: `<label>`;#`<guid>`|
 |Path|String|False|File to export the data to.|
 |TermSetId|GuidPipeBind|False|If specified, will export the specified termset only|
 |TermStoreName|String|False|Term store to export; if not specified the default term store is used.|

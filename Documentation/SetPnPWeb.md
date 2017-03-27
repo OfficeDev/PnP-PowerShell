@@ -1,4 +1,4 @@
-# et-PnPWeb
+# Set-PnPWeb
 Sets properties on a web
 ## Syntax
 ```powershell

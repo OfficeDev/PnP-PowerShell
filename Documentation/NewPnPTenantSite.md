@@ -1,4 +1,4 @@
-#N ew-PnPTenantSite
+# New-PnPTenantSite
 Creates a new site collection for the current tenant
 ## Syntax
 ```powershell
