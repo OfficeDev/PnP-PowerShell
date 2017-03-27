@@ -111,7 +111,7 @@ Parameter|Type|Required|Description
 |RetryCount|Int|False|Defines how often a retry should be executed if the server healthscore is not sufficient. Default is 10 times.|
 |RetryWait|Int|False|Defines how many seconds to wait before each retry. Default is 1 second.|
 |SkipTenantAdminCheck|SwitchParameter|False|Should we skip the check if this site is the Tenant admin site. Default is false|
-|TenantAdminUrl|String|False|The url to the Tenant Admin site. If not specified, the cmdlets will assume to connect automatically to https://<tenantname>-admin.sharepoint.com where appropriate.|
+|TenantAdminUrl|String|False|The url to the Tenant Admin site. If not specified, the cmdlets will assume to connect automatically to `https://<tenantname>-admin.sharepoint.com` where appropriate.|
 |UseAdfs|SwitchParameter|False|If you want to connect to your on-premises SharePoint farm using ADFS|
 ## Examples
 

@@ -1,7 +1,7 @@
 # Set-PnPUserProfileProperty
 Office365 only: Uses the tenant API to retrieve site information.
 
-You must connect to the tenant admin website (https://:<tenant>-admin.sharepoint.com) with Connect-PnPOnline in order to use this command. 
+You must connect to the tenant admin website (`https://<tenant>-admin.sharepoint.com`) with Connect-PnPOnline in order to use this command. 
 
 ## Syntax
 ```powershell
