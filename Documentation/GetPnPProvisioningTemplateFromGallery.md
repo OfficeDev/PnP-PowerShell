@@ -1,6 +1,6 @@
-#Get-PnPProvisioningTemplateFromGallery
+# Get-PnPProvisioningTemplateFromGallery
 Retrieves or searches provisioning templates from the PnP Template Gallery
-##Syntax
+## Syntax
 ```powershell
 Get-PnPProvisioningTemplateFromGallery [-Identity <Guid>]
                                        [-Path <String>]
@@ -15,7 +15,7 @@ Get-PnPProvisioningTemplateFromGallery [-Search <String>]
 ```
 
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |Force|SwitchParameter|False||
@@ -24,34 +24,34 @@ Parameter|Type|Required|Description
 |Search|String|False||
 |TargetPlatform|TargetPlatform|False||
 |TargetScope|TargetScope|False||
-##Examples
+## Examples
 
-###Example 1
+### Example 1
 ```powershell
 Get-PnPProvisioningTemplateFromGallery
 ```
 Retrieves all templates from the gallery
 
-###Example 2
+### Example 2
 ```powershell
 Get-PnPProvisioningTemplateFromGallery -Search "Data"
 ```
 Searches for a templates containing the word 'Data' in the Display Name
 
-###Example 3
+### Example 3
 ```powershell
 Get-PnPProvisioningTemplateFromGallery -Identity ae925674-8aa6-438b-acd0-d2699a022edd
 ```
 Retrieves a template with the specified ID
 
-###Example 4
+### Example 4
 ```powershell
 $template = Get-PnPProvisioningTemplateFromGallery -Identity ae925674-8aa6-438b-acd0-d2699a022edd
 Apply-PnPProvisioningTemplate -InputInstance $template
 ```
 Retrieves a template with the specified ID and applies it to the site.
 
-###Example 5
+### Example 5
 ```powershell
 $template = Get-PnPProvisioningTemplateFromGallery -Identity ae925674-8aa6-438b-acd0-d2699a022edd -Path c:\temp
 ```

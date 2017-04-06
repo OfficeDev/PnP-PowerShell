@@ -1,6 +1,6 @@
-#New-PnPExtensbilityHandlerObject
+# New-PnPExtensbilityHandlerObject
 Creates an ExtensibilityHandler Object, to be used by the Get-SPOProvisioningTemplate cmdlet
-##Syntax
+## Syntax
 ```powershell
 New-PnPExtensbilityHandlerObject -Type <String>
                                  -Assembly <String>
@@ -9,19 +9,19 @@ New-PnPExtensbilityHandlerObject -Type <String>
 ```
 
 
-##Returns
+## Returns
 >OfficeDevPnP.Core.Framework.Provisioning.Model.ExtensibilityHandler
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |Assembly|String|True|The full assembly name of the handler|
 |Type|String|True|The type of the handler|
 |Configuration|String|False|Any configuration data you want to send to the handler|
 |Disabled|SwitchParameter|False|If set, the handler will be disabled|
-##Examples
+## Examples
 
-###Example 1
+### Example 1
 ```powershell
 
 PS:> $handler = New-PnPExtensbilityHandlerObject -Assembly Contoso.Core.Handlers -Type Contoso.Core.Handlers.MyExtensibilityHandler

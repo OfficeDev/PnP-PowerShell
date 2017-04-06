@@ -1,6 +1,6 @@
-#Add-PnPFieldToContentType
+# Add-PnPFieldToContentType
 Adds an existing site column to a content type
-##Syntax
+## Syntax
 ```powershell
 Add-PnPFieldToContentType -Field <FieldPipeBind>
                           -ContentType <ContentTypePipeBind>
@@ -10,7 +10,7 @@ Add-PnPFieldToContentType -Field <FieldPipeBind>
 ```
 
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |ContentType|ContentTypePipeBind|True|Specifies which content type a field needs to be added to|
@@ -18,9 +18,9 @@ Parameter|Type|Required|Description
 |Hidden|SwitchParameter|False|Specifies whether the field should be hidden or not|
 |Required|SwitchParameter|False|Specifies whether the field is required or not|
 |Web|WebPipeBind|False|The web to apply the command to. Omit this parameter to use the current web.|
-##Examples
+## Examples
 
-###Example 1
+### Example 1
 ```powershell
 PS:> Add-PnPFieldToContentType -Field "Project_Name" -ContentType "Project Document"
 ```

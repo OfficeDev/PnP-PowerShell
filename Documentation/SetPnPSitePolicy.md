@@ -1,20 +1,20 @@
-#Set-PnPSitePolicy
+# Set-PnPSitePolicy
 Sets a site policy
-##Syntax
+## Syntax
 ```powershell
 Set-PnPSitePolicy -Name <String>
                   [-Web <WebPipeBind>]
 ```
 
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |Name|String|True|The name of the site policy to apply|
 |Web|WebPipeBind|False|The web to apply the command to. Omit this parameter to use the current web.|
-##Examples
+## Examples
 
-###Example 1
+### Example 1
 ```powershell
 PS:> Set-PnPSitePolicy -Name "Contoso HBI"
 ```

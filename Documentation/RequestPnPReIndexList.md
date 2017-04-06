@@ -1,20 +1,20 @@
-#Request-PnPReIndexList
+# Request-PnPReIndexList
 Marks the list for full indexing during the next incremental crawl
-##Syntax
+## Syntax
 ```powershell
 Request-PnPReIndexList -Identity <ListPipeBind>
                        [-Web <WebPipeBind>]
 ```
 
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |Identity|ListPipeBind|True|The ID, Title or Url of the list.|
 |Web|WebPipeBind|False|The web to apply the command to. Omit this parameter to use the current web.|
-##Examples
+## Examples
 
-###Example 1
+### Example 1
 ```powershell
 PS:> Request-PnPReIndexList -Identity "Demo List"
 ```

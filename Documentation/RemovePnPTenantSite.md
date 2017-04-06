@@ -1,6 +1,6 @@
-#Remove-PnPTenantSite
+# Remove-PnPTenantSite
 Office365 only: Removes a site collection from the current tenant
-##Syntax
+## Syntax
 ```powershell
 Remove-PnPTenantSite -Url <String>
                      [-SkipRecycleBin [<SwitchParameter>]]
@@ -8,27 +8,27 @@ Remove-PnPTenantSite -Url <String>
 ```
 
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |Url|String|True|Specifies the full URL of the site collection that needs to be deleted|
 |Force|SwitchParameter|False|Do not ask for confirmation.|
 |SkipRecycleBin|SwitchParameter|False|Do not add to the tenant scoped recycle bin when selected.|
-##Examples
+## Examples
 
-###Example 1
+### Example 1
 ```powershell
 PS:> Remove-PnPTenantSite -Url https://tenant.sharepoint.com/sites/contoso
 ```
 This will remove the site collection with the url 'https://tenant.sharepoint.com/sites/contoso'  and put it in the recycle bin.
 
-###Example 2
+### Example 2
 ```powershell
 PS:> Remove-PnPTenantSite -Url https://tenant.sharepoint.com/sites/contoso -Force -SkipRecycleBin
 ```
 This will remove the site collection with the url 'https://tenant.sharepoint.com/sites/contoso' with force and it will skip the recycle bin.
 
-###Example 3
+### Example 3
 ```powershell
 PS:> Remove-PnPTenantSite -Url https://tenant.sharepoint.com/sites/contoso -FromRecycleBin
 ```

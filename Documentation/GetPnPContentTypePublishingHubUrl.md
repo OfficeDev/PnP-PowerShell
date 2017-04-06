@@ -1,8 +1,8 @@
-#Get-PnPContentTypePublishingHubUrl
+# Get-PnPContentTypePublishingHubUrl
 Returns the url to Content Type Publishing Hub
-##Examples
+## Examples
 
-###Example 1
+### Example 1
 ```powershell
 PS:> $url = Get-PnPContentTypePublishingHubUrl
 PS:> Connect-PnPOnline -Url $url

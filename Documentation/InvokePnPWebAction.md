@@ -1,6 +1,6 @@
-#Invoke-PnPWebAction
+# Invoke-PnPWebAction
 Executes operations on web, lists and list items.
-##Syntax
+## Syntax
 ```powershell
 Invoke-PnPWebAction [-Webs <Web[]>]
                     [-WebAction <Action`1>]
@@ -23,7 +23,7 @@ Invoke-PnPWebAction [-Webs <Web[]>]
 ```
 
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |DisableStatisticsOutput|SwitchParameter|False|Will not output statistics after the operation|
@@ -44,15 +44,15 @@ Parameter|Type|Required|Description
 |WebAction|Action`1|False|Function to be executed on the web. There is one input parameter of type Web|
 |WebProperties|String[]|False|The properties to load for web.|
 |Webs|Web[]|False|Webs you want to process (for example different site collections), will use Web parameter if not specified|
-##Examples
+## Examples
 
-###Example 1
+### Example 1
 ```powershell
 PS:> Invoke-PnPWebAction -ListAction ${function:ListAction}
 ```
 This will call the function ListAction on all the lists located on the current web.
 
-###Example 2
+### Example 2
 ```powershell
 PS:> Invoke-PnPWebAction -ShouldProcessListAction ${function:ShouldProcessList} -ListAction ${function:ListAction}
 ```

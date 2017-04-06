@@ -1,6 +1,6 @@
-#Ensure-PnPFolder
+# Ensure-PnPFolder
 Returns a folder from a given site relative path, and will create it if it does not exist.
-##Syntax
+## Syntax
 ```powershell
 Ensure-PnPFolder -SiteRelativePath <String>
                  [-Web <WebPipeBind>]
@@ -8,21 +8,21 @@ Ensure-PnPFolder -SiteRelativePath <String>
 ```
 
 
-##Detailed Description
+## Detailed Description
 If you do not want the folder to be created, for instance just to test if a folder exists, check Get-PnPFolder
 
-##Returns
+## Returns
 >[Microsoft.SharePoint.Client.Folder](https://msdn.microsoft.com/en-us/library/microsoft.sharepoint.client.folder.aspx)
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |SiteRelativePath|String|True|Site Relative Folder Path|
 |Includes|String[]|False|Specify properties to include when retrieving objects from the server.|
 |Web|WebPipeBind|False|The web to apply the command to. Omit this parameter to use the current web.|
-##Examples
+## Examples
 
-###Example 1
+### Example 1
 ```powershell
 PS:> Ensure-PnPFolder -SiteRelativePath "demofolder/subfolder"
 ```

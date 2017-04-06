@@ -1,16 +1,16 @@
-#Get-PnPWeb
+# Get-PnPWeb
 Returns the current web object
-##Syntax
+## Syntax
 ```powershell
 Get-PnPWeb [-Includes <String[]>]
            [-Identity <WebPipeBind>]
 ```
 
 
-##Returns
+## Returns
 >[Microsoft.SharePoint.Client.Web](https://msdn.microsoft.com/en-us/library/microsoft.sharepoint.client.web.aspx)
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |Identity|WebPipeBind|False||

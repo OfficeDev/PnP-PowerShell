@@ -1,6 +1,6 @@
-#Add-PnPHtmlPublishingPageLayout
+# Add-PnPHtmlPublishingPageLayout
 Adds a HTML based publishing page layout
-##Syntax
+## Syntax
 ```powershell
 Add-PnPHtmlPublishingPageLayout -SourceFilePath <String>
                                 -Title <String>
@@ -10,8 +10,7 @@ Add-PnPHtmlPublishingPageLayout -SourceFilePath <String>
                                 [-Web <WebPipeBind>]
 ```
 
-
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |AssociatedContentTypeID|String|True|Associated content type ID|
@@ -20,9 +19,9 @@ Parameter|Type|Required|Description
 |Title|String|True|Title for the page layout|
 |DestinationFolderHierarchy|String|False|Folder hierarchy where the HTML page layouts will be deployed|
 |Web|WebPipeBind|False|The web to apply the command to. Omit this parameter to use the current web.|
-##Examples
+## Examples
 
-###Example 1
+### Example 1
 ```powershell
 PS:> Add-PnPHtmlPublishingPageLayout -Title 'Our custom page layout' -SourceFilePath 'customlayout.aspx' -Description 'A custom page layout' -AssociatedContentTypeID 0x01010901
 ```

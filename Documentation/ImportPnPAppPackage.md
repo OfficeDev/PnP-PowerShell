@@ -1,6 +1,6 @@
-#Import-PnPAppPackage
+# Import-PnPAppPackage
 Adds a SharePoint Addin to a site
-##Syntax
+## Syntax
 ```powershell
 Import-PnPAppPackage -Path <String>
                      [-Force [<SwitchParameter>]]
@@ -10,13 +10,13 @@ Import-PnPAppPackage -Path <String>
 ```
 
 
-##Detailed Description
+## Detailed Description
 This commands requires that you have an addin package to deploy
 
-##Returns
+## Returns
 >[Microsoft.SharePoint.Client.AppInstance](https://msdn.microsoft.com/en-us/library/microsoft.sharepoint.client.appinstance.aspx)
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |Path|String|True|Path pointing to the .app file|
@@ -24,16 +24,16 @@ Parameter|Type|Required|Description
 |LoadOnly|SwitchParameter|False|Will only upload the addin, but not install it|
 |Locale|Int|False|Will install the addin for the specified locale|
 |Web|WebPipeBind|False|The web to apply the command to. Omit this parameter to use the current web.|
-##Examples
+## Examples
 
-###Example 1
+### Example 1
 ```powershell
 PS:> Import-PnPAppPackage -Path c:\files\demo.app -LoadOnly
 ```
 This will load the addin in the demo.app package, but will not install it to the site.
  
 
-###Example 2
+### Example 2
 ```powershell
 PS:> Import-PnPAppPackage -Path c:\files\demo.app -Force
 ```

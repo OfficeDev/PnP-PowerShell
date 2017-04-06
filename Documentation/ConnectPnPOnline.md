@@ -1,6 +1,6 @@
-#Connect-PnPOnline
+# Connect-PnPOnline
 Connects to a SharePoint site and creates a context that is required for the other PnP Cmdlets
-##Syntax
+## Syntax
 ```powershell
 Connect-PnPOnline -Url <String>
                   [-Credentials <CredentialPipeBind>]
@@ -83,10 +83,10 @@ Connect-PnPOnline -ClientId <String>
 ```
 
 
-##Detailed Description
+## Detailed Description
 If no credentials have been specified, and the CurrentCredentials parameter has not been specified, you will be prompted for credentials.
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |AppId|String|True|The Application Client ID to use.|
@@ -111,41 +111,41 @@ Parameter|Type|Required|Description
 |RetryCount|Int|False|Defines how often a retry should be executed if the server healthscore is not sufficient. Default is 10 times.|
 |RetryWait|Int|False|Defines how many seconds to wait before each retry. Default is 1 second.|
 |SkipTenantAdminCheck|SwitchParameter|False|Should we skip the check if this site is the Tenant admin site. Default is false|
-|TenantAdminUrl|String|False|The url to the Tenant Admin site. If not specified, the cmdlets will assume to connect automatically to https://<tenantname>-admin.sharepoint.com where appropriate.|
+|TenantAdminUrl|String|False|The url to the Tenant Admin site. If not specified, the cmdlets will assume to connect automatically to `https://<tenantname>-admin.sharepoint.com` where appropriate.|
 |UseAdfs|SwitchParameter|False|If you want to connect to your on-premises SharePoint farm using ADFS|
-##Examples
+## Examples
 
-###Example 1
+### Example 1
 ```powershell
 PS:> Connect-PnPOnline -Url https://contoso.sharepoint.com
 ```
 This will prompt for username and password and creates a context for the other PowerShell commands to use. When a generic credential is added to the Windows Credential Manager with https://contoso.sharepoint.com, PowerShell will not prompt for username and password.
 
-###Example 2
+### Example 2
 ```powershell
 PS:> Connect-PnPOnline -Url https://contoso.sharepoint.com -Credentials (Get-Credential)
 ```
 This will prompt for username and password and creates a context for the other PowerShell commands to use. 
 
-###Example 3
+### Example 3
 ```powershell
 PS:> Connect-PnPOnline -Url http://yourlocalserver -CurrentCredentials
 ```
 This will use the current user credentials and connects to the server specified by the Url parameter.
 
-###Example 4
+### Example 4
 ```powershell
 PS:> Connect-PnPOnline -Url http://yourlocalserver -Credentials 'O365Creds'
 ```
 This will use credentials from the Windows Credential Manager, as defined by the label 'O365Creds'.
 
-###Example 5
+### Example 5
 ```powershell
 PS:> Connect-PnPOnline -Url http://yourlocalserver -Credentials (Get-Credential) -UseAdfs
 ```
 This will prompt for username and password and creates a context using ADFS to authenticate.
 
-###Example 6
+### Example 6
 ```powershell
 PS:> Connect-PnPOnline -Url https://yourserver -Credentials (Get-Credential) -CreateDrive
 cd SPO:\\
@@ -153,13 +153,13 @@ dir
 ```
 This will prompt you for credentials and creates a context for the other PowerShell commands to use. It will also create a SPO:\\ drive you can use to navigate around the site
 
-###Example 7
+### Example 7
 ```powershell
 PS:> Connect-PnPOnline -Url https://yourserver -Credentials (Get-Credential) -AuthenticationMode FormsAuthentication
 ```
 This will prompt you for credentials and creates a context for the other PowerShell commands to use. It assumes your server is configured for Forms Based Authentication (FBA)
 
-###Example 8
+### Example 8
 ```powershell
 PS:> Connect-PnPOnline -Url https://contoso.sharepoint.de -AppId 344b8aab-389c-4e4a-8fa1-4c1ae2c0a60d -ClientSecret a3f3faf33f3awf3a3sfs3f3ss3f4f4a3fawfas3ffsrrffssfd -AzureEnvironment Germany
 ```

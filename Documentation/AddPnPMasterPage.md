@@ -1,6 +1,6 @@
-#Add-PnPMasterPage
+# Add-PnPMasterPage
 Adds a Masterpage
-##Syntax
+## Syntax
 ```powershell
 Add-PnPMasterPage -SourceFilePath <String>
                   -Title <String>
@@ -12,10 +12,10 @@ Add-PnPMasterPage -SourceFilePath <String>
 ```
 
 
-##Returns
+## Returns
 >[Microsoft.SharePoint.Client.File](https://msdn.microsoft.com/en-us/library/microsoft.sharepoint.client.file.aspx)
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |Description|String|True|Description for the Masterpage|
@@ -25,9 +25,9 @@ Parameter|Type|Required|Description
 |DestinationFolderHierarchy|String|False|Folder hierarchy where the MasterPage will be deployed|
 |UIVersion|String|False|UIVersion of the Masterpage. Default = 15|
 |Web|WebPipeBind|False|The web to apply the command to. Omit this parameter to use the current web.|
-##Examples
+## Examples
 
-###Example 1
+### Example 1
 ```powershell
 PS:> Add-PnPMasterPage -SourceFilePath "page.master" -Title "MasterPage" -Description "MasterPage for Web" -DestinationFolderHierarchy "SubFolder"
 ```

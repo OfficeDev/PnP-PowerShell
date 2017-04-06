@@ -1,13 +1,13 @@
-#Resume-PnPWorkflowInstance
+# Resume-PnPWorkflowInstance
 Resumes a previously stopped workflow instance
-##Syntax
+## Syntax
 ```powershell
 Resume-PnPWorkflowInstance -Identity <WorkflowInstancePipeBind>
                            [-Web <WebPipeBind>]
 ```
 
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |Identity|WorkflowInstancePipeBind|True|The instance to resume|

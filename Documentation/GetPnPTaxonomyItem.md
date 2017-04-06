@@ -1,15 +1,15 @@
-#Get-PnPTaxonomyItem
+# Get-PnPTaxonomyItem
 Returns a taxonomy item
-##Syntax
+## Syntax
 ```powershell
 Get-PnPTaxonomyItem -TermPath <String>
 ```
 
 
-##Returns
+## Returns
 >[Microsoft.SharePoint.Client.Taxonomy.TaxonomyItem](https://msdn.microsoft.com/en-us/library/microsoft.sharepoint.client.taxonomy.taxonomyitem.aspx)
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |TermPath|String|True|The path, delimited by | of the taxonomy item to retrieve, alike GROUPLABEL|TERMSETLABEL|TERMLABEL|

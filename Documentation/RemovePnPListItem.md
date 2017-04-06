@@ -1,6 +1,6 @@
-#Remove-PnPListItem
+# Remove-PnPListItem
 Deletes an item from a list
-##Syntax
+## Syntax
 ```powershell
 Remove-PnPListItem -Identity <ListItemPipeBind>
                    -List <ListPipeBind>
@@ -9,16 +9,16 @@ Remove-PnPListItem -Identity <ListItemPipeBind>
 ```
 
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |Identity|ListItemPipeBind|True|The ID of the listitem, or actual ListItem object|
 |List|ListPipeBind|True|The ID, Title or Url of the list.|
 |Force|SwitchParameter|False|Specifying the Force parameter will skip the confirmation question.|
 |Web|WebPipeBind|False|The web to apply the command to. Omit this parameter to use the current web.|
-##Examples
+## Examples
 
-###Example 1
+### Example 1
 ```powershell
 PS:> Remove-PnPListItem -List "Demo List" -Identity "1" -Force
 ```

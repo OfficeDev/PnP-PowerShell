@@ -1,6 +1,6 @@
-#Add-PnPContentType
+# Add-PnPContentType
 Adds a new content type
-##Syntax
+## Syntax
 ```powershell
 Add-PnPContentType -Name <String>
                    [-ContentTypeId <String>]
@@ -11,10 +11,10 @@ Add-PnPContentType -Name <String>
 ```
 
 
-##Returns
+## Returns
 >[Microsoft.SharePoint.Client.ContentType](https://msdn.microsoft.com/en-us/library/microsoft.sharepoint.client.contenttype.aspx)
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |Name|String|True|Specify the name of the new content type|
@@ -23,9 +23,9 @@ Parameter|Type|Required|Description
 |Group|String|False|Specifies the group of the new content type|
 |ParentContentType|ContentType|False|Specifies the parent of the new content type|
 |Web|WebPipeBind|False|The web to apply the command to. Omit this parameter to use the current web.|
-##Examples
+## Examples
 
-###Example 1
+### Example 1
 ```powershell
 PS:> Add-PnPContentType -Name "Project Document" -Description "Use for Contoso projects" -Group "Contoso Content Types" -ParentContentType $ct
 ```

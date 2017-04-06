@@ -1,18 +1,18 @@
-#Disable-PnPResponsiveUI
+# Disable-PnPResponsiveUI
 Disables the PnP Responsive UI implementation on a classic SharePoint Site
-##Syntax
+## Syntax
 ```powershell
 Disable-PnPResponsiveUI [-Web <WebPipeBind>]
 ```
 
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |Web|WebPipeBind|False|The web to apply the command to. Omit this parameter to use the current web.|
-##Examples
+## Examples
 
-###Example 1
+### Example 1
 ```powershell
 PS:> Disable-PnPResponsiveUI
 ```

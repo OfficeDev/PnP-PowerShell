@@ -1,6 +1,6 @@
-#Set-PnPUnifiedGroup
+# Set-PnPUnifiedGroup
 Sets Office 365 Group (aka Unified Group) properties
-##Syntax
+## Syntax
 ```powershell
 Set-PnPUnifiedGroup -Identity <UnifiedGroupPipeBind>
                     [-DisplayName <String>]
@@ -12,7 +12,7 @@ Set-PnPUnifiedGroup -Identity <UnifiedGroupPipeBind>
 ```
 
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |Identity|UnifiedGroupPipeBind|True|The Identity of the Office 365 Group.|
@@ -22,33 +22,33 @@ Parameter|Type|Required|Description
 |IsPrivate|SwitchParameter|False|Makes the group private when selected.|
 |Members|String[]|False|The array UPN values of members to add to the group.|
 |Owners|String[]|False|The array UPN values of owners to add to the group.|
-##Examples
+## Examples
 
-###Example 1
+### Example 1
 ```powershell
 PS:> Set-PnPUnifiedGroup -Identity $group -DisplayName "My Displayname"
 ```
 Sets the display name of the group where $group is a Group entity
 
-###Example 2
+### Example 2
 ```powershell
 PS:> Set-PnPUnifiedGroup -Identity $groupId -Descriptions "My Description" -DisplayName "My DisplayName"
 ```
 Sets the display name and description of a group based upon its ID
 
-###Example 3
+### Example 3
 ```powershell
 PS:> Set-PnPUnifiedGroup -Identity $group -GroupLogoPath ".\MyLogo.png"
 ```
 Sets a specific Office 365 Group logo.
 
-###Example 4
+### Example 4
 ```powershell
 PS:> Set-PnPUnifiedGroup -Identity $group -IsPrivate:$false
 ```
 Sets a group to be Public if previously Private.
 
-###Example 5
+### Example 5
 ```powershell
 PS:> Set-PnPUnifiedGroup -Identity $group -Owners demo@contoso.com
 ```

@@ -1,6 +1,6 @@
-#Add-PnPFile
+# Add-PnPFile
 Uploads a file to Web
-##Syntax
+## Syntax
 ```powershell
 Add-PnPFile -Path <String>
             -Folder <String>
@@ -34,10 +34,10 @@ Add-PnPFile -FileName <String>
 ```
 
 
-##Returns
+## Returns
 >[Microsoft.SharePoint.Client.File](https://msdn.microsoft.com/en-us/library/microsoft.sharepoint.client.file.aspx)
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |FileName|String|True|Name for file|
@@ -54,33 +54,33 @@ Parameter|Type|Required|Description
 |UseWebDav|SwitchParameter|False||
 |Values|Hashtable|False|Use the internal names of the fields when specifying field names|
 |Web|WebPipeBind|False|The web to apply the command to. Omit this parameter to use the current web.|
-##Examples
+## Examples
 
-###Example 1
+### Example 1
 ```powershell
 PS:> Add-PnPFile -Path c:\temp\company.master -Folder "_catalogs/masterpage"
 ```
 This will upload the file company.master to the masterpage catalog
 
-###Example 2
+### Example 2
 ```powershell
 PS:> Add-PnPFile -Path .\displaytemplate.html -Folder "_catalogs/masterpage/display templates/test"
 ```
 This will upload the file displaytemplate.html to the test folder in the display templates folder. If the test folder does not exist it will create it.
 
-###Example 3
+### Example 3
 ```powershell
 PS:> Add-PnPFile -Path .\sample.doc -Folder "Shared Documents" -Values @{Modified="1/1/2016"}
 ```
 This will upload the file sample.doc to the Shared Documnets folder. After uploading it will set the Modified date to 1/1/2016.
 
-###Example 4
+### Example 4
 ```powershell
 PS:> Add-PnPFile -FileName sample.doc -Folder "Shared Documents" -Stream $fileStream -Values @{Modified="1/1/2016"}
 ```
 This will add a file sample.doc with the contents of the stream into the Shared Documents folder. After adding it will set the Modified date to 1/1/2016.
 
-###Example 5
+### Example 5
 ```powershell
 PS:> Add-PnPFile -FileName sample.doc -Folder "Shared Documents" -ContentType "Document" -Values @{Modified="1/1/2016"}
 ```

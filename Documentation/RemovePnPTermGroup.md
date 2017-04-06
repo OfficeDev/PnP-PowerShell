@@ -1,6 +1,6 @@
-#Remove-PnPTermGroup
+# Remove-PnPTermGroup
 Removes a taxonomy term group and all its containing termsets
-##Syntax
+## Syntax
 ```powershell
 Remove-PnPTermGroup -GroupName <String>
                     [-TermStoreName <String>]
@@ -8,7 +8,7 @@ Remove-PnPTermGroup -GroupName <String>
 ```
 
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |GroupName|String|True|Name of the taxonomy term group to delete.|

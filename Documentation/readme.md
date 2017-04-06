@@ -5,13 +5,13 @@ Below you can find a list of all the available cmdlets. Many commands provide bu
 Get-Help Connect-PnPOnline -Detailed
 ```
 
-##Apps
+## Apps
 Cmdlet|Description
 :-----|:----------
 **[Get&#8209;PnPAppInstance](GetPnPAppInstance.md)** |Returns a SharePoint AddIn Instance in the site
 **[Uninstall&#8209;PnPAppInstance](UninstallPnPAppInstance.md)** |Removes an app from a site
 **[Import&#8209;PnPAppPackage](ImportPnPAppPackage.md)** |Adds a SharePoint Addin to a site
-##Base Cmdlets
+## Base Cmdlets
 Cmdlet|Description
 :-----|:----------
 **[Get&#8209;PnPAuthenticationRealm](GetPnPAuthenticationRealm.md)** |Gets the authentication realm for the current web
@@ -25,7 +25,7 @@ Cmdlet|Description
 **[Execute&#8209;PnPQuery](ExecutePnPQuery.md)** |Executes any queued actions / changes on the SharePoint Client Side Object Model Context
 **[Get&#8209;PnPStoredCredential](GetPnPStoredCredential.md)** |Returns a stored credential from the Windows Credential Manager
 **[Set&#8209;PnPTraceLog](SetPnPTraceLog.md)** |Defines if tracing should be turned on. PnP Core, which is the foundation of these cmdlets uses the standard Trace functionality of .NET. With this cmdlet you can turn capturing of this trace to a log file on or off.
-##Branding
+## Branding
 Cmdlet|Description
 :-----|:----------
 **[Add&#8209;PnPCustomAction](AddPnPCustomAction.md)** |Adds a custom action to a web
@@ -46,7 +46,7 @@ Cmdlet|Description
 **[Enable&#8209;PnPResponsiveUI](EnablePnPResponsiveUI.md)** |Enables the PnP Responsive UI implementation on a classic SharePoint Site
 **[Get&#8209;PnPTheme](GetPnPTheme.md)** |Returns the current theme/composed look of the current web.
 **[Set&#8209;PnPTheme](SetPnPTheme.md)** |Sets the theme of the current web.
-##Content Types
+## Content Types
 Cmdlet|Description
 :-----|:----------
 **[Add&#8209;PnPContentType](AddPnPContentType.md)** |Adds a new content type
@@ -58,7 +58,7 @@ Cmdlet|Description
 **[Set&#8209;PnPDefaultContentTypeToList](SetPnPDefaultContentTypeToList.md)** |Sets the default content type for a list
 **[Remove&#8209;PnPFieldFromContentType](RemovePnPFieldFromContentType.md)** |Removes a site column from a content type
 **[Add&#8209;PnPFieldToContentType](AddPnPFieldToContentType.md)** |Adds an existing site column to a content type
-##Document Sets
+## Document Sets
 Cmdlet|Description
 :-----|:----------
 **[Remove&#8209;PnPContentTypeFromDocumentSet](RemovePnPContentTypeFromDocumentSet.md)** |Removes a content type from a document set
@@ -66,20 +66,20 @@ Cmdlet|Description
 **[Add&#8209;PnPDocumentSet](AddPnPDocumentSet.md)** |Creates a new document set in a library.
 **[Set&#8209;PnPDocumentSetField](SetPnPDocumentSetField.md)** |Sets a site column from the available content types to a document set
 **[Get&#8209;PnPDocumentSetTemplate](GetPnPDocumentSetTemplate.md)** |Retrieves a document set template
-##Event Receivers
+## Event Receivers
 Cmdlet|Description
 :-----|:----------
 **[Add&#8209;PnPEventReceiver](AddPnPEventReceiver.md)** |Adds a new event receiver
 **[Get&#8209;PnPEventReceiver](GetPnPEventReceiver.md)** |Returns all or a specific event receiver
 **[Remove&#8209;PnPEventReceiver](RemovePnPEventReceiver.md)** |Removes/unregisters a specific event receiver
-##Features
+## Features
 Cmdlet|Description
 :-----|:----------
 **[New&#8209;PnPExtensbilityHandlerObject](NewPnPExtensbilityHandlerObject.md)** |Creates an ExtensibilityHandler Object, to be used by the Get-SPOProvisioningTemplate cmdlet
 **[Disable&#8209;PnPFeature](DisablePnPFeature.md)** |Disables a feature
 **[Enable&#8209;PnPFeature](EnablePnPFeature.md)** |Enables a feature
 **[Get&#8209;PnPFeature](GetPnPFeature.md)** |Returns all activated or a specific activated feature
-##Fields
+## Fields
 Cmdlet|Description
 :-----|:----------
 **[Add&#8209;PnPField](AddPnPField.md)** |Adds a field to a list or as a site column
@@ -87,7 +87,7 @@ Cmdlet|Description
 **[Remove&#8209;PnPField](RemovePnPField.md)** |Removes a field from a list or a site
 **[Add&#8209;PnPFieldFromXml](AddPnPFieldFromXml.md)** |Adds a field to a list or as a site column based upon a CAML/XML field definition
 **[Add&#8209;PnPTaxonomyField](AddPnPTaxonomyField.md)** |Adds a taxonomy field to a list or as a site column.
-##Files and Folders
+## Files and Folders
 Cmdlet|Description
 :-----|:----------
 **[Add&#8209;PnPFile](AddPnPFile.md)** |Uploads a file to Web
@@ -108,14 +108,14 @@ Cmdlet|Description
 **[Get&#8209;PnPFolderItem](GetPnPFolderItem.md)** |List content in folder
 **[Copy&#8209;PnPItemProxy](CopyPnPItemProxy.md)** |Proxy cmdlet for using Copy-Item between SharePoint provider and FileSystem provider
 **[Move&#8209;PnPItemProxy](MovePnPItemProxy.md)** |Proxy cmdlet for using Move-Item between SharePoint provider and FileSystem provider
-##Information Management
+## Information Management
 Cmdlet|Description
 :-----|:----------
 **[Get&#8209;PnPSiteClosure](GetPnPSiteClosure.md)** |Get the site closure status of the site which has a site policy applied
 **[Set&#8209;PnPSiteClosure](SetPnPSiteClosure.md)** |Opens or closes a site which has a site policy applied
 **[Set&#8209;PnPSitePolicy](SetPnPSitePolicy.md)** |Sets a site policy
 **[Get&#8209;PnPSitePolicy](GetPnPSitePolicy.md)** |Retrieves all or a specific site policy
-##Lists
+## Lists
 Cmdlet|Description
 :-----|:----------
 **[Set&#8209;PnPDefaultColumnValues](SetPnPDefaultColumnValues.md)** |Sets default column values for a document library
@@ -133,7 +133,7 @@ Cmdlet|Description
 **[Add&#8209;PnPView](AddPnPView.md)** |Adds a view to a list
 **[Get&#8209;PnPView](GetPnPView.md)** |Returns one or all views from a list
 **[Remove&#8209;PnPView](RemovePnPView.md)** |Deletes a view from a list
-##Microsoft Graph
+## Microsoft Graph
 Cmdlet|Description
 :-----|:----------
 **[Connect&#8209;PnPMicrosoftGraph](ConnectPnPMicrosoftGraph.md)** |Uses the Microsoft Authentication Library (Preview) to connect to Azure AD and to get an OAuth 2.0 Access Token to consume the Microsoft Graph API
@@ -141,7 +141,7 @@ Cmdlet|Description
 **[New&#8209;PnPUnifiedGroup](NewPnPUnifiedGroup.md)** |Creates a new Office 365 Group (aka Unified Group)
 **[Remove&#8209;PnPUnifiedGroup](RemovePnPUnifiedGroup.md)** |Removes one Office 365 Group (aka Unified Group) or a list of Office 365 Groups
 **[Set&#8209;PnPUnifiedGroup](SetPnPUnifiedGroup.md)** |Sets Office 365 Group (aka Unified Group) properties
-##Provisioning
+## Provisioning
 Cmdlet|Description
 :-----|:----------
 **[Add&#8209;PnPDataRowsToProvisioningTemplate](AddPnPDataRowsToProvisioningTemplate.md)** |Adds datarows to a list inside a PnP Provisioning Template
@@ -157,7 +157,7 @@ Cmdlet|Description
 **[Save&#8209;PnPProvisioningTemplate](SavePnPProvisioningTemplate.md)** |Saves a PnP file to the file systems
 **[New&#8209;PnPProvisioningTemplateFromFolder](NewPnPProvisioningTemplateFromFolder.md)** |Generates a provisioning template from a given folder, including only files that are present in that folder
 **[Set&#8209;PnPProvisioningTemplateMetadata](SetPnPProvisioningTemplateMetadata.md)** |Sets metadata of a provisioning template
-##Publishing
+## Publishing
 Cmdlet|Description
 :-----|:----------
 **[Set&#8209;PnPAvailablePageLayouts](SetPnPAvailablePageLayouts.md)** |Sets the available page layouts for the current site
@@ -173,14 +173,14 @@ Cmdlet|Description
 **[Remove&#8209;PnPWikiPage](RemovePnPWikiPage.md)** |Removes a wiki page
 **[Get&#8209;PnPWikiPageContent](GetPnPWikiPageContent.md)** |Gets the contents/source of a wiki page
 **[Set&#8209;PnPWikiPageContent](SetPnPWikiPageContent.md)** |Sets the contents of a wikipage
-##Search
+## Search
 Cmdlet|Description
 :-----|:----------
 **[Get&#8209;PnPSearchConfiguration](GetPnPSearchConfiguration.md)** |Returns the search configuration
 **[Set&#8209;PnPSearchConfiguration](SetPnPSearchConfiguration.md)** |Sets the search configuration
 **[Submit&#8209;PnPSearchQuery](SubmitPnPSearchQuery.md)** |Executes an arbitrary search query against the SharePoint search index
 **[Get&#8209;PnPSiteSearchQueryResults](GetPnPSiteSearchQueryResults.md)** |Executes a search query to retrieve indexed site collections
-##SharePoint Recycle Bin
+## SharePoint Recycle Bin
 Cmdlet|Description
 :-----|:----------
 **[Clear&#8209;PnpRecycleBinItem](ClearPnpRecycleBinItem.md)** |Permanently deletes all or a specific recycle bin item
@@ -188,7 +188,7 @@ Cmdlet|Description
 **[Restore&#8209;PnpRecycleBinItem](RestorePnpRecycleBinItem.md)** |Restores the provided recycle bin item to its original location
 **[Get&#8209;PnPRecycleBinItem](GetPnPRecycleBinItem.md)** |Returns the items in the recycle bin from the context
 **[Get&#8209;PnPTenantRecycleBinItem](GetPnPTenantRecycleBinItem.md)** |Returns the items in the tenant scoped recycle bin
-##Sites
+## Sites
 Cmdlet|Description
 :-----|:----------
 **[Set&#8209;PnPAppSideLoading](SetPnPAppSideLoading.md)** |Enables the App SideLoading Feature on a site
@@ -197,7 +197,7 @@ Cmdlet|Description
 **[Get&#8209;PnPSite](GetPnPSite.md)** |Returns the current site collection from the context.
 **[Install&#8209;PnPSolution](InstallPnPSolution.md)** |Installs a sandboxed solution to a site collection. WARNING! This method can delete your composed look gallery due to the method used to activate the solution. We recommend you to only to use this cmdlet if you are okay with that.
 **[Uninstall&#8209;PnPSolution](UninstallPnPSolution.md)** |Uninstalls a sandboxed solution from a site collection
-##Taxonomy
+## Taxonomy
 Cmdlet|Description
 :-----|:----------
 **[Get&#8209;PnPSiteCollectionTermStore](GetPnPSiteCollectionTermStore.md)** |Returns the site collection term store
@@ -217,7 +217,7 @@ Cmdlet|Description
 **[Get&#8209;PnPTermSet](GetPnPTermSet.md)** |Returns a taxonomy term set
 **[Import&#8209;PnPTermSet](ImportPnPTermSet.md)** |Imports a taxonomy term set from a file in the standard format.
 **[New&#8209;PnPTermSet](NewPnPTermSet.md)** |Creates a taxonomy term set
-##Tenant Administration
+## Tenant Administration
 Cmdlet|Description
 :-----|:----------
 **[Get&#8209;PnPAccessToken](GetPnPAccessToken.md)** |Gets the OAuth 2.0 Access Token to consume the Microsoft Graph API
@@ -229,7 +229,7 @@ Cmdlet|Description
 **[Set&#8209;PnPTenantSite](SetPnPTenantSite.md)** |Office365 only: Uses the tenant API to set site information.
 **[Get&#8209;PnPTimeZoneId](GetPnPTimeZoneId.md)** |Returns a time zone ID
 **[Get&#8209;PnPWebTemplates](GetPnPWebTemplates.md)** |Office365 only: Returns the available web templates.
-##User and group management
+## User and group management
 Cmdlet|Description
 :-----|:----------
 **[Get&#8209;PnPGroup](GetPnPGroup.md)** |Returns a specific group or all groups.
@@ -241,17 +241,17 @@ Cmdlet|Description
 **[New&#8209;PnPUser](NewPnPUser.md)** |Adds a user to the built-in Site User Info List and returns a user object
 **[Remove&#8209;PnPUserFromGroup](RemovePnPUserFromGroup.md)** |Removes a user from a group
 **[Add&#8209;PnPUserToGroup](AddPnPUserToGroup.md)** |Adds a user to a group
-##User Profiles
+## User Profiles
 Cmdlet|Description
 :-----|:----------
 **[New&#8209;PnPPersonalSite](NewPnPPersonalSite.md)** |Office365 only: Creates a personal / OneDrive For Business site
-**[Get&#8209;PnPUserProfileProperty](GetPnPUserProfileProperty.md)** |You must connect to the tenant admin website (https://:<tenant>-admin.sharepoint.com) with Connect-PnPOnline in order to use this cmdlet.  
-**[Set&#8209;PnPUserProfileProperty](SetPnPUserProfileProperty.md)** |Office365 only: Uses the tenant API to retrieve site information.  You must connect to the tenant admin website (https://:<tenant>-admin.sharepoint.com) with Connect-PnPOnline in order to use this command.  
-##Utilities
+**[Get&#8209;PnPUserProfileProperty](GetPnPUserProfileProperty.md)** |You must connect to the tenant admin website (`https://<tenant>-admin.sharepoint.com`) with Connect-PnPOnline in order to use this cmdlet.  
+**[Set&#8209;PnPUserProfileProperty](SetPnPUserProfileProperty.md)** |Office365 only: Uses the tenant API to retrieve site information.  You must connect to the tenant admin website (`https://<tenant>-admin.sharepoint.com`) with Connect-PnPOnline in order to use this command.  
+## Utilities
 Cmdlet|Description
 :-----|:----------
 **[Send&#8209;PnPMail](SendPnPMail.md)** |Sends an email using the Office 365 SMTP Service or SharePoint, depending on the parameters specified. See detailed help for more information.
-##Web Parts
+## Web Parts
 Cmdlet|Description
 :-----|:----------
 **[Get&#8209;PnPWebPart](GetPnPWebPart.md)** |Returns a webpart definition object
@@ -261,7 +261,7 @@ Cmdlet|Description
 **[Add&#8209;PnPWebPartToWebPartPage](AddPnPWebPartToWebPartPage.md)** |Adds a webpart to a web part page in a specified zone
 **[Add&#8209;PnPWebPartToWikiPage](AddPnPWebPartToWikiPage.md)** |Adds a webpart to a wiki page in a specified table row and column
 **[Get&#8209;PnPWebPartXml](GetPnPWebPartXml.md)** |Returns the webpart XML of a webpart registered on a site
-##Webs
+## Webs
 Cmdlet|Description
 :-----|:----------
 **[Set&#8209;PnPIndexedProperties](SetPnPIndexedProperties.md)** |Marks values of the propertybag to be indexed by search. Notice that this will overwrite the existing flags, i.e. only the properties you define with the cmdlet will be indexed.
@@ -280,7 +280,7 @@ Cmdlet|Description
 **[Remove&#8209;PnPWeb](RemovePnPWeb.md)** |Removes a subweb in the current web
 **[Set&#8209;PnPWeb](SetPnPWeb.md)** |Sets properties on a web
 **[Invoke&#8209;PnPWebAction](InvokePnPWebAction.md)** |Executes operations on web, lists and list items.
-##Workflows
+## Workflows
 Cmdlet|Description
 :-----|:----------
 **[Add&#8209;PnPWorkflowDefinition](AddPnPWorkflowDefinition.md)** |Adds a workflow definition

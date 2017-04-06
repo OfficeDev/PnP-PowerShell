@@ -1,6 +1,6 @@
-#Add-PnPWorkflowSubscription
+# Add-PnPWorkflowSubscription
 Adds a workflow subscription to a list
-##Syntax
+## Syntax
 ```powershell
 Add-PnPWorkflowSubscription -Name <String>
                             -DefinitionName <String>
@@ -14,8 +14,7 @@ Add-PnPWorkflowSubscription -Name <String>
                             [-Web <WebPipeBind>]
 ```
 
-
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |DefinitionName|String|True|The name of the workflow definition|

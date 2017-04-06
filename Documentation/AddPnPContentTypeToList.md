@@ -1,6 +1,6 @@
-#Add-PnPContentTypeToList
+# Add-PnPContentTypeToList
 Adds a new content type to a list
-##Syntax
+## Syntax
 ```powershell
 Add-PnPContentTypeToList -List <ListPipeBind>
                          -ContentType <ContentTypePipeBind>
@@ -9,16 +9,16 @@ Add-PnPContentTypeToList -List <ListPipeBind>
 ```
 
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |ContentType|ContentTypePipeBind|True|Specifies the content type that needs to be added to the list|
 |List|ListPipeBind|True|Specifies the list the content type needs to be added to|
 |DefaultContentType|SwitchParameter|False|Specify if the content type needs to be the default content type or not|
 |Web|WebPipeBind|False|The web to apply the command to. Omit this parameter to use the current web.|
-##Examples
+## Examples
 
-###Example 1
+### Example 1
 ```powershell
 PS:> Add-PnPContentTypeToList -List "Documents" -ContentType "Project Document" -DefaultContentType
 ```

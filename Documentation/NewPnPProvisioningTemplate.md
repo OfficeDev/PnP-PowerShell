@@ -1,18 +1,18 @@
-#New-PnPProvisioningTemplate
+# New-PnPProvisioningTemplate
 Creates a new provisioning template object
-##Syntax
+## Syntax
 ```powershell
 New-PnPProvisioningTemplate [-Web <WebPipeBind>]
 ```
 
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |Web|WebPipeBind|False|The web to apply the command to. Omit this parameter to use the current web.|
-##Examples
+## Examples
 
-###Example 1
+### Example 1
 ```powershell
 PS:> $template = New-PnPProvisioningTemplate
 ```

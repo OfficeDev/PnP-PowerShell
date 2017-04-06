@@ -1,6 +1,6 @@
-#Set-PnPGroup
+# Set-PnPGroup
 Updates a group
-##Syntax
+## Syntax
 ```powershell
 Set-PnPGroup -Identity <GroupPipeBind>
              [-SetAssociatedGroup <AssociatedGroupType>]
@@ -18,7 +18,7 @@ Set-PnPGroup -Identity <GroupPipeBind>
 ```
 
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |Identity|GroupPipeBind|True|A group object, an ID or a name of a group|
@@ -34,15 +34,15 @@ Parameter|Type|Required|Description
 |SetAssociatedGroup|AssociatedGroupType|False|One of the associated group types (Visitors, Members, Owners|
 |Title|String|False|The title for the group|
 |Web|WebPipeBind|False|The web to apply the command to. Omit this parameter to use the current web.|
-##Examples
+## Examples
 
-###Example 1
+### Example 1
 ```powershell
 PS:> Set-PnPGroup -Identity 'My Site Members' -SetAssociatedGroup Members
 ```
 Sets the SharePoint group with the name 'My Site Members' as the associated members group
 
-###Example 2
+### Example 2
 ```powershell
 PS:> Set-PnPGroup -Identity 'My Site Members' -Owner 'site owners'
 ```

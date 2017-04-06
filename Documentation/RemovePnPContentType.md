@@ -1,6 +1,6 @@
-#Remove-PnPContentType
+# Remove-PnPContentType
 Removes a content type from a web
-##Syntax
+## Syntax
 ```powershell
 Remove-PnPContentType -Identity <ContentTypePipeBind>
                       [-Force [<SwitchParameter>]]
@@ -8,21 +8,21 @@ Remove-PnPContentType -Identity <ContentTypePipeBind>
 ```
 
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |Identity|ContentTypePipeBind|True|The name or ID of the content type to remove|
 |Force|SwitchParameter|False|Specifying the Force parameter will skip the confirmation question.|
 |Web|WebPipeBind|False|The web to apply the command to. Omit this parameter to use the current web.|
-##Examples
+## Examples
 
-###Example 1
+### Example 1
 ```powershell
 PS:> Remove-PnPContentType -Identity "Project Document"
 ```
 This will remove a content type called "Project Document" from the current web
 
-###Example 2
+### Example 2
 ```powershell
 PS:> Remove-PnPContentType -Identity "Project Document" -Force
 ```

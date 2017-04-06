@@ -1,23 +1,23 @@
-#Get-PnPGroupPermissions
+# Get-PnPGroupPermissions
 Returns the permissions for a specific SharePoint group
-##Syntax
+## Syntax
 ```powershell
 Get-PnPGroupPermissions -Identity <GroupPipeBind>
                         [-Web <WebPipeBind>]
 ```
 
 
-##Returns
+## Returns
 >[Microsoft.SharePoint.Client.RoleDefinitionBindingCollection](https://msdn.microsoft.com/en-us/library/microsoft.sharepoint.client.roledefinitionbindingcollection.aspx)
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |Identity|GroupPipeBind|True|Get the permissions of a specific group by name|
 |Web|WebPipeBind|False|The web to apply the command to. Omit this parameter to use the current web.|
-##Examples
+## Examples
 
-###Example 1
+### Example 1
 ```powershell
 PS:> Get-PnPGroupPermissions -Identity 'My Site Members'
 ```

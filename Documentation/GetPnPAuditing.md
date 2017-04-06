@@ -1,11 +1,11 @@
-#Get-PnPAuditing
+# Get-PnPAuditing
 Get the Auditing setting of a site
-##Returns
+## Returns
 >[Microsoft.SharePoint.Client.Audit](https://msdn.microsoft.com/en-us/library/microsoft.sharepoint.client.audit.aspx)
 
-##Examples
+## Examples
 
-###Example 1
+### Example 1
 ```powershell
 PS:> Get-PnPAuditing
 ```

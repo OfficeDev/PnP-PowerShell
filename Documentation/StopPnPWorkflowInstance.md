@@ -1,13 +1,13 @@
-#Stop-PnPWorkflowInstance
+# Stop-PnPWorkflowInstance
 Stops a workflow instance
-##Syntax
+## Syntax
 ```powershell
 Stop-PnPWorkflowInstance -Identity <WorkflowInstancePipeBind>
                          [-Web <WebPipeBind>]
 ```
 
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |Identity|WorkflowInstancePipeBind|True|The instance to stop|

@@ -1,6 +1,6 @@
-#Add-PnPDataRowsToProvisioningTemplate
+# Add-PnPDataRowsToProvisioningTemplate
 Adds datarows to a list inside a PnP Provisioning Template
-##Syntax
+## Syntax
 ```powershell
 Add-PnPDataRowsToProvisioningTemplate -List <ListPipeBind>
                                       -Query <String>
@@ -12,7 +12,7 @@ Add-PnPDataRowsToProvisioningTemplate -List <ListPipeBind>
 ```
 
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |List|ListPipeBind|True|The list to query|
@@ -22,15 +22,15 @@ Parameter|Type|Required|Description
 |IncludeSecurity|SwitchParameter|False|A switch to include ObjectSecurity information.|
 |TemplateProviderExtensions|ITemplateProviderExtension[]|False|Allows you to specify ITemplateProviderExtension to execute while loading the template.|
 |Web|WebPipeBind|False|The web to apply the command to. Omit this parameter to use the current web.|
-##Examples
+## Examples
 
-###Example 1
+### Example 1
 ```powershell
 PS:> Add-PnPDataRowsToProvisioningTemplate -Path template.pnp -List 'PnPTestList' -Query '<View></View>' -Fields 'Title','Choice'
 ```
 Adds datarows to a list in an in-memory PnP Provisioning Template
 
-###Example 2
+### Example 2
 ```powershell
 PS:> Add-PnPDataRowsToProvisioningTemplate -Path template.pnp -List 'PnPTestList' -Query '<View></View>' -Fields 'Title','Choice' -IncludeSecurity
 ```

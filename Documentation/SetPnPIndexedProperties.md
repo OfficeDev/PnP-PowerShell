@@ -1,13 +1,13 @@
-#Set-PnPIndexedProperties
+# Set-PnPIndexedProperties
 Marks values of the propertybag to be indexed by search. Notice that this will overwrite the existing flags, i.e. only the properties you define with the cmdlet will be indexed.
-##Syntax
+## Syntax
 ```powershell
 Set-PnPIndexedProperties -Keys <List`1>
                          [-Web <WebPipeBind>]
 ```
 
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |Keys|List`1|True||

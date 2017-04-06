@@ -1,6 +1,6 @@
-#Set-PnPListPermission
+# Set-PnPListPermission
 Sets list permissions
-##Syntax
+## Syntax
 ```powershell
 Set-PnPListPermission -Group <GroupPipeBind>
                       -Identity <ListPipeBind>
@@ -19,7 +19,7 @@ Set-PnPListPermission -User <String>
 ```
 
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |Group|GroupPipeBind|True||
@@ -28,15 +28,15 @@ Parameter|Type|Required|Description
 |AddRole|String|False|The role that must be assigned to the group or user|
 |RemoveRole|String|False|The role that must be removed from the group or user|
 |Web|WebPipeBind|False|The web to apply the command to. Omit this parameter to use the current web.|
-##Examples
+## Examples
 
-###Example 1
+### Example 1
 ```powershell
 PS:> Set-PnPListPermission -Identity 'Documents' -User 'user@contoso.com' -AddRole 'Contribute'
 ```
 Adds the 'Contribute' permission to the user 'user@contoso.com' for the list 'Documents'
 
-###Example 2
+### Example 2
 ```powershell
 PS:> Set-PnPListPermission -Identity 'Documents' -User 'user@contoso.com' -RemoveRole 'Contribute'
 ```

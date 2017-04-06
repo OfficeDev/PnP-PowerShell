@@ -1,6 +1,6 @@
-#Add-PnPWikiPage
+# Add-PnPWikiPage
 Adds a wiki page
-##Syntax
+## Syntax
 ```powershell
 Add-PnPWikiPage -Content <String>
                 -ServerRelativePageUrl <String>
@@ -15,16 +15,16 @@ Add-PnPWikiPage -Layout <WikiPageLayout>
 ```
 
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |Content|String|True||
 |Layout|WikiPageLayout|True||
 |ServerRelativePageUrl|String|True|The server relative page URL|
 |Web|WebPipeBind|False|The web to apply the command to. Omit this parameter to use the current web.|
-##Examples
+## Examples
 
-###Example 1
+### Example 1
 ```powershell
 PS:> Add-PnPWikiPage -PageUrl '/sites/demo1/pages/wikipage.aspx' -Content 'New WikiPage'
 ```

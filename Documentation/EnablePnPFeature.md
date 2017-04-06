@@ -1,6 +1,6 @@
-#Enable-PnPFeature
+# Enable-PnPFeature
 Enables a feature
-##Syntax
+## Syntax
 ```powershell
 Enable-PnPFeature -Identity <GuidPipeBind>
                   [-Force [<SwitchParameter>]]
@@ -10,7 +10,7 @@ Enable-PnPFeature -Identity <GuidPipeBind>
 ```
 
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |Identity|GuidPipeBind|True|The id of the feature to enable.|
@@ -18,21 +18,21 @@ Parameter|Type|Required|Description
 |Sandboxed|SwitchParameter|False|Specify this parameter if the feature you're trying to activate is part of a sandboxed solution.|
 |Scope|FeatureScope|False|Specify the scope of the feature to activate, either Web or Site. Defaults to Web.|
 |Web|WebPipeBind|False|The web to apply the command to. Omit this parameter to use the current web.|
-##Examples
+## Examples
 
-###Example 1
+### Example 1
 ```powershell
 PS:> Enable-PnPFeature -Identity 99a00f6e-fb81-4dc7-8eac-e09c6f9132fe
 ```
 This will enable the feature with the id "99a00f6e-fb81-4dc7-8eac-e09c6f9132fe"
 
-###Example 2
+### Example 2
 ```powershell
 PS:> Enable-PnPFeature -Identity 99a00f6e-fb81-4dc7-8eac-e09c6f9132fe -Force
 ```
 This will enable the feature with the id "99a00f6e-fb81-4dc7-8eac-e09c6f9132fe" with force.
 
-###Example 3
+### Example 3
 ```powershell
 PS:> Enable-PnPFeature -Identity 99a00f6e-fb81-4dc7-8eac-e09c6f9132fe -Scope Web
 ```

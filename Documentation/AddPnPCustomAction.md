@@ -1,6 +1,6 @@
-#Add-PnPCustomAction
+# Add-PnPCustomAction
 Adds a custom action to a web
-##Syntax
+## Syntax
 ```powershell
 Add-PnPCustomAction -Name <String>
                     -Title <String>
@@ -19,7 +19,7 @@ Add-PnPCustomAction -Name <String>
 ```
 
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |Description|String|True|The description of the custom action|
@@ -36,9 +36,9 @@ Parameter|Type|Required|Description
 |Sequence|Int|False|Sequence of this CustomAction being injected. Use when you have a specific sequence with which to have multiple CustomActions being added to the page.|
 |Url|String|False|The URL, URI or ECMAScript (JScript, JavaScript) function associated with the action|
 |Web|WebPipeBind|False|The web to apply the command to. Omit this parameter to use the current web.|
-##Examples
+## Examples
 
-###Example 1
+### Example 1
 ```powershell
 $cUIExtn = "<CommandUIExtension><CommandUIDefinitions><CommandUIDefinition Location=""Ribbon.List.Share.Controls._children""><Button Id=""Ribbon.List.Share.GetItemsCountButton"" Alt=""Get list items count"" Sequence=""11"" Command=""Invoke_GetItemsCountButtonRequest"" LabelText=""Get Items Count"" TemplateAlias=""o1"" Image32by32=""_layouts/15/images/placeholder32x32.png"" Image16by16=""_layouts/15/images/placeholder16x16.png"" /></CommandUIDefinition></CommandUIDefinitions><CommandUIHandlers><CommandUIHandler Command=""Invoke_GetItemsCountButtonRequest"" CommandAction=""javascript: alert('Total items in this list: '+ ctx.TotalListItems);"" EnabledScript=""javascript: function checkEnable() { return (true);} checkEnable();""/></CommandUIHandlers></CommandUIExtension>"
 

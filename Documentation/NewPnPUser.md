@@ -1,23 +1,23 @@
-#New-PnPUser
+# New-PnPUser
 Adds a user to the built-in Site User Info List and returns a user object
-##Syntax
+## Syntax
 ```powershell
 New-PnPUser -LoginName <String>
             [-Web <WebPipeBind>]
 ```
 
 
-##Returns
+## Returns
 >[Microsoft.SharePoint.Client.User](https://msdn.microsoft.com/en-us/library/microsoft.sharepoint.client.user.aspx)
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |LoginName|String|True|The users login name (user@company.com)|
 |Web|WebPipeBind|False|The web to apply the command to. Omit this parameter to use the current web.|
-##Examples
+## Examples
 
-###Example 1
+### Example 1
 ```powershell
 PS:> New-PnPUser -LoginName user@company.com
 ```
