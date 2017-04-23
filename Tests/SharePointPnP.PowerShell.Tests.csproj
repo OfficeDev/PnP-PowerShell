@@ -251,6 +251,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\WindowsPowerShell\3.0\System.Management.Automation.dll</HintPath>
     </Reference>
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <Choose>
@@ -280,6 +281,7 @@
     <Compile Include="WebPartsTests.cs" />
     <Compile Include="ListsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ProvisioningTemplateTests.cs" />
     <Compile Include="PSTestScope.cs" />
     <Compile Include="TestCommon.cs" />
     <Compile Include="BrandingTests.cs" />
