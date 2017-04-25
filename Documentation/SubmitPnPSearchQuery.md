@@ -88,24 +88,24 @@ Parameter|Type|Required|Description
 
 ### Example 1
 ```powershell
-PS:> Get-PnPSearchQuery -Query "finance"
+PS:> Submit-PnPSearchQuery -Query "finance"
 ```
 Returns the top 500 items with the term finance
 
 ### Example 2
 ```powershell
-PS:> Get-PnPSearchQuery -Query "Title:Intranet*" -MaxResults 10
+PS:> Submit-PnPSearchQuery -Query "Title:Intranet*" -MaxResults 10
 ```
 Returns the top 10 items indexed by SharePoint Search of which the title starts with the word Intranet
 
 ### Example 3
 ```powershell
-PS:> Get-PnPSearchQuery -Query "Title:Intranet*" -All
+PS:> Submit-PnPSearchQuery -Query "Title:Intranet*" -All
 ```
 Returns absolutely all items indexed by SharePoint Search of which the title starts with the word Intranet
 
 ### Example 4
 ```powershell
-PS:> Get-PnPSearchQuery -Query "Title:Intranet*" -Refiners "contentclass,FileType(filter=6/0/*)"
+PS:> Submit-PnPSearchQuery -Query "Title:Intranet*" -Refiners "contentclass,FileType(filter=6/0/*)"
 ```
 Returns absolutely all items indexed by SharePoint Search of which the title starts with the word Intranet, and return refiners for contentclass and FileType managed properties
