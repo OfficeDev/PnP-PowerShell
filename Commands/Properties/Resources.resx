@@ -244,6 +244,9 @@
   <data name="MoveFile0To1" xml:space="preserve">
     <value>Move file '{0}' to '{1}'?</value>
   </data>
+  <data name="MoveListItemWithId0ToRecycleBin" xml:space="preserve">
+    <value>Move list item with ID {0} to Recycle Bin?</value>
+  </data>
   <data name="RenameFile0To1" xml:space="preserve">
     <value>Rename file '{0}' to '{1}'?</value>
   </data>

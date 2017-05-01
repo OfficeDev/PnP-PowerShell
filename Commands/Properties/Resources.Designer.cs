@@ -260,6 +260,15 @@ namespace SharePointPnP.PowerShell.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Move list item with ID {0} to Recycle Bin?.
+        /// </summary>
+        internal static string MoveListItemWithId0ToRecycleBin {
+            get {
+                return ResourceManager.GetString("MoveListItemWithId0ToRecycleBin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Move recycle bin item with leaf &apos;{0}&apos; to the second stage recycle bin?.
         /// </summary>
         internal static string MoveRecycleBinItemWithLeaf0ToSecondStage {

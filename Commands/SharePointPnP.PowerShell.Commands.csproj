@@ -455,6 +455,7 @@
     <Compile Include="Enums\TargetScope.cs" />
     <Compile Include="Files\GetFolder.cs" />
     <Compile Include="Graph\SetUnifiedGroup.cs" />
+    <Compile Include="Lists\MoveLIstItemToRecycleBin.cs" />
     <Compile Include="Provider\SPOProxy\SPOProxyCmdletBase.cs" />
     <Compile Include="Provider\Parameters\SPOChildItemsParameters.cs" />
     <Compile Include="Provider\Parameters\SPOContentParameters.cs" />
