@@ -1,8 +1,8 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.SharePoint.Client;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Management.Automation.Runspaces;
-using OfficeDevPnP.Core.Framework.Provisioning.Model;
+using System.Xml;
 
 namespace SharePointPnP.PowerShell.Tests
 {
@@ -55,11 +55,28 @@ namespace SharePointPnP.PowerShell.Tests
         {
             using (var scope = new PSTestScope(true))
             {
+                // Arrange
                 var results = scope.ExecuteCommand("Get-PnPProvisioningTemplate",
                     new CommandParameter("ContentTypeGroups", ContentTypeGroupName));
+                var doc = new XmlDocument();
+                doc.LoadXml(results[0].BaseObject.ToString());
 
-                var template = results[0].BaseObject as ProvisioningTemplate;
-                Assert.IsNotNull(template);
+                XmlNamespaceManager nsmgr = new XmlNamespaceManager(doc.NameTable);
+                nsmgr.AddNamespace("pnp", "http://schemas.dev.office.com/PnP/2016/05/ProvisioningSchema");
+
+                var xpath = "/pnp:Provisioning/pnp:Templates[1]/pnp:ProvisioningTemplate[1]/pnp:ContentTypes/pnp:ContentType";
+                var attributeName = "Name";
+                var root = doc.DocumentElement;
+
+                // Act
+                var elements = root.SelectNodes(xpath, nsmgr);
+                var name1 = elements[0].Attributes[attributeName].Value;
+                var name2 = elements[1].Attributes[attributeName].Value;
+
+                // Assert
+                Assert.AreEqual(2, elements.Count);
+                Assert.AreEqual(ContentTypeName1, name1);
+                Assert.AreEqual(ContentTypeName2, name2);
             }
         }
     }
