@@ -9,7 +9,7 @@ using SharePointPnP.PowerShell.Commands.Base.PipeBinds;
 
 namespace SharePointPnP.PowerShell.Commands.Lists
 {
-    [Cmdlet(VerbsCommon.Get, "PnPListItem", DefaultParameterSetName = "ById")]
+    [Cmdlet(VerbsCommon.Get, "PnPListItem", DefaultParameterSetName = "AllItems")]
     [CmdletAlias("Get-SPOListItem")]
     [CmdletHelp("Retrieves list items",
         Category = CmdletHelpCategory.Lists,
@@ -40,7 +40,7 @@ namespace SharePointPnP.PowerShell.Commands.Lists
         Remarks = "Retrieves all list items from the Tasks list in pages of 1000 items. This parameter is ignored if the Query parameter is specified.",
         SortOrder = 6)]
     [CmdletExample(
-        Code = "PS:> Get-PnPListItem -List Tasks -PageSize 1000 -ScriptBlock { $args.Context.ExecuteQuery() } | % { $_.BreakRoleInheritance($true, $true) }",
+        Code = "PS:> Get-PnPListItem -List Tasks -PageSize 1000 -ScriptBlock { Param($items) $items.Context.ExecuteQuery() } | % { $_.BreakRoleInheritance($true, $true) }",
         Remarks = "Retrieves all list items from the Tasks list in pages of 1000 items and breaks permission inheritance on each item.",
         SortOrder = 7)]
     public class GetListItem : PnPWebCmdlet
@@ -63,12 +63,14 @@ namespace SharePointPnP.PowerShell.Commands.Lists
         public string[] Fields;
 
         [Parameter(Mandatory = false, HelpMessage = "The number of items to retrieve per page request.", ParameterSetName = "AllItems")]
+		[Parameter(Mandatory = false, HelpMessage = "The number of items to retrieve per page request.", ParameterSetName = "ByQuery")]
         public int PageSize = -1;
 
-        [Parameter(Mandatory = false, HelpMessage = "The script block to run after every page request.", ParameterSetName = "AllItems")]
-        public ScriptBlock ScriptBlock = null;
+		[Parameter(Mandatory = false, HelpMessage = "The script block to run after every page request.", ParameterSetName = "AllItems")]
+		[Parameter(Mandatory = false, HelpMessage = "The script block to run after every page request.", ParameterSetName = "ByQuery")]
+		public ScriptBlock ScriptBlock;
 
-        protected override void ExecuteCmdlet()
+		protected override void ExecuteCmdlet()
         {
             var list = List.GetList(SelectedWeb);
 
@@ -108,18 +110,11 @@ namespace SharePointPnP.PowerShell.Commands.Lists
                 ClientContext.ExecuteQueryRetry();
                 WriteObject(listItem);
             }
-            else if (HasCamlQuery())
-            {
-                CamlQuery query = new CamlQuery { ViewXml = Query };
-                var listItems = list.GetItems(query);
-                ClientContext.Load(listItems);
-                ClientContext.ExecuteQueryRetry();
-                WriteObject(listItems, true);
-            }
             else
             {
-                var query = CamlQuery.CreateAllItemsQuery();
-                if (Fields != null)
+				CamlQuery query = HasCamlQuery() ? new CamlQuery { ViewXml = Query } : CamlQuery.CreateAllItemsQuery();
+
+				if (Fields != null)
                 {
                     var queryElement = XElement.Parse(query.ViewXml);
 
@@ -174,10 +169,10 @@ namespace SharePointPnP.PowerShell.Commands.Lists
 
                     if (ScriptBlock != null)
                     {
-                        ScriptBlock.Invoke(listItems);
-                    }
+						ScriptBlock.Invoke(listItems);
+					}
 
-                    query.ListItemCollectionPosition = listItems.ListItemCollectionPosition;
+					query.ListItemCollectionPosition = listItems.ListItemCollectionPosition;
                 } while (query.ListItemCollectionPosition != null);
             }
         }

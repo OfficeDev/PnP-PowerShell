@@ -4,6 +4,7 @@ using Microsoft.SharePoint.Client;
 using System.Management.Automation.Runspaces;
 using System.Collections;
 using System.Linq;
+using System.Management.Automation;
 
 namespace SharePointPnP.PowerShell.Tests
 {
@@ -112,7 +113,6 @@ namespace SharePointPnP.PowerShell.Tests
                 item.Update();
 
                 ctx.ExecuteQueryRetry();
-
             }
             using (var scope = new PSTestScope(true))
             {
@@ -124,7 +124,78 @@ namespace SharePointPnP.PowerShell.Tests
             }
         }
 
-        [TestMethod]
+		[TestMethod]
+		public void GetListItemScriptBlockTest()
+		{
+			int itemId;
+			const string updatedItemTitle = "Test Updated";
+
+			// Create item
+			using (var ctx = TestCommon.CreateClientContext())
+			{
+				var list = ctx.Web.GetListByTitle("PnPTestList");
+				var item = list.AddItem(new ListItemCreationInformation());
+				item["Title"] = "Test";
+				item.Update();
+				ctx.ExecuteQueryRetry();
+
+				// Execute Get-PnPListItem cmd-let
+				using (var scope = new PSTestScope(true))
+				{
+					var results = scope.ExecuteCommand("Get-PnPListItem",
+						new CommandParameter("List", "PnPTestList"),
+						new CommandParameter("PageSize", 1),
+						new CommandParameter("ScriptBlock", ScriptBlock.Create(
+							"Param($items) $item = $items[0]; $item['Title'] = '" + updatedItemTitle + "'; $item.Update(); $item.Context.ExecuteQuery()")
+						));
+					itemId = (int)results[0].Properties["Id"].Value;
+				}
+
+				// Check that item's Title was updated
+				var updatedItem = list.GetItemById(itemId);
+				ctx.Load(updatedItem);
+				ctx.ExecuteQueryRetry();
+				Assert.IsTrue((string)updatedItem["Title"] == updatedItemTitle);
+			}
+		}
+
+		[TestMethod]
+		public void GetListItemByQueryScriptBlockTest()
+		{
+			int itemId;
+			const string updatedItemTitle = "Test Updated";
+
+			// Create item
+			using (var ctx = TestCommon.CreateClientContext())
+			{
+				var list = ctx.Web.GetListByTitle("PnPTestList");
+				var item = list.AddItem(new ListItemCreationInformation());
+				item["Title"] = "Test";
+				item.Update();
+				ctx.ExecuteQueryRetry();
+
+				// Execute Get-PnPListItem cmd-let
+				using (var scope = new PSTestScope(true))
+				{
+					var results = scope.ExecuteCommand("Get-PnPListItem",
+						new CommandParameter("List", "PnPTestList"),
+						new CommandParameter("Query", "<View></View>"),
+						new CommandParameter("PageSize", 1),
+						new CommandParameter("ScriptBlock", ScriptBlock.Create(
+							"Param($items) $item = $items[0]; $item['Title'] = '" + updatedItemTitle + "'; $item.Update(); $item.Context.ExecuteQuery()")
+						));
+					itemId = (int)results[0].Properties["Id"].Value;
+				}
+
+				// Check that item's Title was updated
+				var updatedItem = list.GetItemById(itemId);
+				ctx.Load(updatedItem);
+				ctx.ExecuteQueryRetry();
+				Assert.IsTrue((string)updatedItem["Title"] == updatedItemTitle);
+			}
+		}
+
+		[TestMethod]
         public void GetViewTest()
         {
             using (var scope = new PSTestScope(true))
