@@ -85,9 +85,12 @@ Online site collection fails if a deleted site with the same URL exists in the R
             {
                 Uri uri = BaseUri;
                 Url = $"{uri.ToString().TrimEnd('/')}/{Url.TrimStart('/')}";
-                shouldContinue = ShouldContinue(string.Format(Resources.CreateSiteWithUrl0, Url), Resources.Confirm);
+                if (!Force)
+                {
+                    shouldContinue = ShouldContinue(string.Format(Resources.CreateSiteWithUrl0, Url), Resources.Confirm);
+                }
             }
-            if (Force || shouldContinue)
+            if (shouldContinue)
             {
 #if ONPREMISES
                 var entity = new SiteEntity();

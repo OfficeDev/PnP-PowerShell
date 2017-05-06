@@ -1,18 +1,18 @@
-#Set-PnPContext
+# Set-PnPContext
 Sets the Client Context to use by the cmdlets
-##Syntax
+## Syntax
 ```powershell
 Set-PnPContext -Context <ClientContext>
 ```
 
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |Context|ClientContext|True|The ClientContext to set|
-##Examples
+## Examples
 
-###Example 1
+### Example 1
 ```powershell
 PS:> Connect-PnPOnline -Url $siteAurl -Credentials $credentials
 PS:> $ctx = Get-PnPContext

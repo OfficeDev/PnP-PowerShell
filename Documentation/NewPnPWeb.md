@@ -1,6 +1,6 @@
-#New-PnPWeb
+# New-PnPWeb
 Creates a new subweb under the current web
-##Syntax
+## Syntax
 ```powershell
 New-PnPWeb -Title <String>
            -Url <String>
@@ -13,10 +13,10 @@ New-PnPWeb -Title <String>
 ```
 
 
-##Returns
+## Returns
 >[Microsoft.SharePoint.Client.Web](https://msdn.microsoft.com/en-us/library/microsoft.sharepoint.client.web.aspx)
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |Template|String|True|The site definition template to use for the new web, e.g. STS#0. Use Get-PnPWebTemplates to fetch a list of available templates|
@@ -27,9 +27,9 @@ Parameter|Type|Required|Description
 |InheritNavigation|SwitchParameter|False|Specifies whether the site inherits navigation.|
 |Locale|Int|False||
 |Web|WebPipeBind|False|The web to apply the command to. Omit this parameter to use the current web.|
-##Examples
+## Examples
 
-###Example 1
+### Example 1
 ```powershell
 PS:> New-PnPWeb -Title "Project A Web" -Url projectA -Description "Information about Project A" -Locale 1033 -Template "STS#0"
 ```

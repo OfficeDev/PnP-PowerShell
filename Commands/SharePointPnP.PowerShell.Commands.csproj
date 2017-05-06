@@ -599,6 +599,7 @@
     <Compile Include="Web\AddIndexedProperty.cs" />
     <Compile Include="Files\RemoveFolder.cs" />
     <Compile Include="Web\RemoveWeb.cs" />
+    <Compile Include="Web\SetWebPermission.cs" />
     <Compile Include="Web\SetRequestAccessEmails.cs" />
     <Compile Include="Workflows\AddWorkflowDefinition.cs" />
     <Compile Include="Workflows\ResumeWorkflowInstance.cs" />

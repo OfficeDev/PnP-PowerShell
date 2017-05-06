@@ -1,6 +1,6 @@
-#Rename-PnPFolder
+# Rename-PnPFolder
 Renames a folder
-##Syntax
+## Syntax
 ```powershell
 Rename-PnPFolder -Folder <String>
                  -TargetFolderName <String>
@@ -8,15 +8,15 @@ Rename-PnPFolder -Folder <String>
 ```
 
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |Folder|String|True|The folder to rename|
 |TargetFolderName|String|True|The new folder name|
 |Web|WebPipeBind|False|The web to apply the command to. Omit this parameter to use the current web.|
-##Examples
+## Examples
 
-###Example 1
+### Example 1
 ```powershell
 PS:> Rename-PnPFolder -Folder Documents/Reports -TargetFolderName 'Archived Reports'
 ```

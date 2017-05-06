@@ -1,6 +1,6 @@
-#Uninstall-PnPSolution
+# Uninstall-PnPSolution
 Uninstalls a sandboxed solution from a site collection
-##Syntax
+## Syntax
 ```powershell
 Uninstall-PnPSolution -PackageId <GuidPipeBind>
                       -PackageName <String>
@@ -9,7 +9,7 @@ Uninstall-PnPSolution -PackageId <GuidPipeBind>
 ```
 
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |PackageId|GuidPipeBind|True|ID of the solution, from the solution manifest|

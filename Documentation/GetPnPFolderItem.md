@@ -1,6 +1,6 @@
-#Get-PnPFolderItem
+# Get-PnPFolderItem
 List content in folder
-##Syntax
+## Syntax
 ```powershell
 Get-PnPFolderItem [-ItemType <String>]
                   [-ItemName <String>]
@@ -9,7 +9,7 @@ Get-PnPFolderItem [-ItemType <String>]
 ```
 
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |FolderSiteRelativeUrl|String|False||

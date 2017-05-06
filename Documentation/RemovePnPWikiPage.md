@@ -1,6 +1,6 @@
-#Remove-PnPWikiPage
+# Remove-PnPWikiPage
 Removes a wiki page
-##Syntax
+## Syntax
 ```powershell
 Remove-PnPWikiPage -ServerRelativePageUrl <String>
                    [-Web <WebPipeBind>]
@@ -13,15 +13,15 @@ Remove-PnPWikiPage -SiteRelativePageUrl <String>
 ```
 
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |ServerRelativePageUrl|String|True||
 |SiteRelativePageUrl|String|True||
 |Web|WebPipeBind|False|The web to apply the command to. Omit this parameter to use the current web.|
-##Examples
+## Examples
 
-###Example 1
+### Example 1
 ```powershell
 PS:> Remove-PnPWikiPage -PageUrl '/pages/wikipage.aspx'
 ```

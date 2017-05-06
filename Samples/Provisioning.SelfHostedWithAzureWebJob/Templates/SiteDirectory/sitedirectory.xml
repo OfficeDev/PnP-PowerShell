@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<pnp:Provisioning 
+  xmlns:pnp="http://schemas.dev.office.com/PnP/2016/05/ProvisioningSchema">
+  <pnp:Preferences Generator="OfficeDevPnP.Core, Version=2.10.1612.0, Culture=neutral, PublicKeyToken=null">
+    <pnp:Parameters>
+      <pnp:Parameter Key="PerformCleanup">True</pnp:Parameter>
+      <pnp:Parameter Key="GenericFieldsPrefix">PZL_</pnp:Parameter>
+      <pnp:Parameter Key="TemplateSpecificFieldsGroup">Puzzlepart Site Directory Site Columns</pnp:Parameter>
+      <pnp:Parameter Key="TemplateSpecificContentTypesGroup">Puzzlepart Site Directory Content Types</pnp:Parameter>
+    </pnp:Parameters>
+  </pnp:Preferences>
+  <pnp:Localizations>
+    <pnp:Localization LCID="1033" Name="English" ResourceFile="sitedirectory.en-US.resx" />
+  </pnp:Localizations>
+  <pnp:Templates ID="CONTAINER-TEMPLATE-PZL">
+    <pnp:ProvisioningTemplate ID="TEMPLATE-PZL-SITEDIRECTORY" Version="1">
+      <pnp:RegionalSettings AdjustHijriDays="0" AlternateCalendarType="None" CalendarType="Gregorian" Collation="25" FirstDayOfWeek="Monday" FirstWeekOfYear="2" LocaleId="2057" ShowWeeks="false" Time24="true" TimeZone="4" WorkDayEndHour="5:00PM" WorkDays="62" WorkDayStartHour="8:00AM" />
+      <pnp:SupportedUILanguages>
+        <pnp:SupportedUILanguage LCID="1033" />
+      </pnp:SupportedUILanguages>
+      <pnp:WebSettings SiteLogo="{sitecollection}/SiteAssets/sp_logo.png" />
+      <pnp:Files>
+        <pnp:File Folder="{sitecollection}/SiteAssets" Overwrite="true" Src="Assets\sp_logo.png" />
+      </pnp:Files>
+      <xi:include 
+        xmlns:xi="http://www.w3.org/2001/XInclude" href="Objects/SiteFields.xml" />
+      <xi:include 
+        xmlns:xi="http://www.w3.org/2001/XInclude" href="Objects/ContentTypes.xml" />
+      <xi:include 
+        xmlns:xi="http://www.w3.org/2001/XInclude" href="Objects/Lists.xml" />
+    </pnp:ProvisioningTemplate>
+  </pnp:Templates>
+</pnp:Provisioning>

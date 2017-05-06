@@ -1,6 +1,6 @@
-#Apply-PnPProvisioningTemplate
+# Apply-PnPProvisioningTemplate
 Applies a provisioning template to a web
-##Syntax
+## Syntax
 ```powershell
 Apply-PnPProvisioningTemplate [-InputInstance <ProvisioningTemplate>]
                               [-ResourceFolder <String>]
@@ -49,7 +49,7 @@ Apply-PnPProvisioningTemplate -Path <String>
 ```
 
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |Path|String|True|Path to the xml or pnp file containing the provisioning template.|
@@ -66,21 +66,21 @@ Parameter|Type|Required|Description
 |ResourceFolder|String|False|Root folder where resources/files that are being referenced in the template are located. If not specified the same folder as where the provisioning template is located will be used.|
 |TemplateProviderExtensions|ITemplateProviderExtension[]|False|Allows you to specify ITemplateProviderExtension to execute while applying a template.|
 |Web|WebPipeBind|False|The web to apply the command to. Omit this parameter to use the current web.|
-##Examples
+## Examples
 
-###Example 1
+### Example 1
 ```powershell
 PS:> Apply-PnPProvisioningTemplate -Path template.xml
 ```
 Applies a provisioning template in XML format to the current web.
 
-###Example 2
+### Example 2
 ```powershell
 PS:> Apply-PnPProvisioningTemplate -Path template.xml -ResourceFolder c:\provisioning\resources
 ```
 Applies a provisioning template in XML format to the current web. Any resources like files that are referenced in the template will be retrieved from the folder as specified with the ResourceFolder parameter.
 
-###Example 3
+### Example 3
 ```powershell
 PS:> Apply-PnPProvisioningTemplate -Path template.xml -Parameters @{"ListTitle"="Projects";"parameter2"="a second value"}
 ```
@@ -88,25 +88,25 @@ Applies a provisioning template in XML format to the current web. It will popula
 
 For instance with the example above, specifying {parameter:ListTitle} in your template will translate to 'Projects' when applying the template. These tokens can be used in most string values in a template.
 
-###Example 4
+### Example 4
 ```powershell
 PS:> Apply-PnPProvisioningTemplate -Path template.xml -Handlers Lists, SiteSecurity
 ```
 Applies a provisioning template in XML format to the current web. It will only apply the lists and site security part of the template.
 
-###Example 5
+### Example 5
 ```powershell
 PS:> Apply-PnPProvisioningTemplate -Path template.pnp
 ```
 Applies a provisioning template from a pnp package to the current web.
 
-###Example 6
+### Example 6
 ```powershell
 PS:> Apply-PnPProvisioningTemplate -Path https://tenant.sharepoint.com/sites/templatestorage/Documents/template.pnp
 ```
 Applies a provisioning template from a pnp package stored in a library to the current web.
 
-###Example 7
+### Example 7
 ```powershell
 
 PS:> $handler1 = New-PnPExtensibilityHandlerObject -Assembly Contoso.Core.Handlers -Type Contoso.Core.Handlers.MyExtensibilityHandler1
@@ -115,7 +115,7 @@ PS:> Apply-PnPProvisioningTemplate -Path NewTemplate.xml -ExtensibilityHandlers 
 ```
 This will create two new ExtensibilityHandler objects that are run while provisioning the template
 
-###Example 8
+### Example 8
 ```powershell
 PS:> Apply-PnPProvisioningTemplate -Path .\ -InputInstance $template
 ```

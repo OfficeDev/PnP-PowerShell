@@ -1,6 +1,6 @@
-#Add-PnPWebPartToWebPartPage
+# Add-PnPWebPartToWebPartPage
 Adds a webpart to a web part page in a specified zone
-##Syntax
+## Syntax
 ```powershell
 Add-PnPWebPartToWebPartPage -Xml <String>
                             -ServerRelativePageUrl <String>
@@ -19,7 +19,7 @@ Add-PnPWebPartToWebPartPage -Path <String>
 ```
 
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |Path|String|True|A path to a webpart file on a the file system.|
@@ -28,15 +28,15 @@ Parameter|Type|Required|Description
 |ZoneId|String|True||
 |ZoneIndex|Int|True||
 |Web|WebPipeBind|False|The web to apply the command to. Omit this parameter to use the current web.|
-##Examples
+## Examples
 
-###Example 1
+### Example 1
 ```powershell
 PS:> Add-PnPWebPartToWebPartPage -ServerRelativePageUrl "/sites/demo/sitepages/home.aspx" -Path "c:\myfiles\listview.webpart" -ZoneId "Header" -ZoneIndex 1 
 ```
 This will add the webpart as defined by the XML in the listview.webpart file to the specified page in the specified zone and with the order index of 1
 
-###Example 2
+### Example 2
 ```powershell
 PS:> Add-PnPWebPartToWebPartPage -ServerRelativePageUrl "/sites/demo/sitepages/home.aspx" -XML $webpart -ZoneId "Header" -ZoneIndex 1 
 ```

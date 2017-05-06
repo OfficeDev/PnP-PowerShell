@@ -1,6 +1,6 @@
-#Set-PnPListItem
+# Set-PnPListItem
 Updates a list item
-##Syntax
+## Syntax
 ```powershell
 Set-PnPListItem -Identity <ListItemPipeBind>
                 -List <ListPipeBind>
@@ -11,10 +11,10 @@ Set-PnPListItem -Identity <ListItemPipeBind>
 ```
 
 
-##Returns
+## Returns
 >[Microsoft.SharePoint.Client.ListItem](https://msdn.microsoft.com/en-us/library/microsoft.sharepoint.client.listitem.aspx)
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |Identity|ListItemPipeBind|True|The ID of the listitem, or actual ListItem object|
@@ -61,21 +61,21 @@ Managed Metadata (multiple values with ids of terms): -Values @{"MetadataField" 
 
 Hyperlink or Picture: -Values @{"HyperlinkField" = "https://github.com/OfficeDev/, OfficePnp"}|
 |Web|WebPipeBind|False|The web to apply the command to. Omit this parameter to use the current web.|
-##Examples
+## Examples
 
-###Example 1
+### Example 1
 ```powershell
 Set-PnPListItem -List "Demo List" -Identity 1 -Values @{"Title" = "Test Title"; "Category"="Test Category"}
 ```
 Sets fields value in the list item with ID 1 in the "Demo List". It sets both the Title and Category fields with the specified values. Notice, use the internal names of fields.
 
-###Example 2
+### Example 2
 ```powershell
 Set-PnPListItem -List "Demo List" -Identity 1 -ContentType "Company" -Values @{"Title" = "Test Title"; "Category"="Test Category"}
 ```
 Sets fields value in the list item with ID 1 in the "Demo List". It sets the content type of the item to "Company" and it sets both the Title and Category fields with the specified values. Notice, use the internal names of fields.
 
-###Example 3
+### Example 3
 ```powershell
 Set-PnPListItem -List "Demo List" -Identity $item -Values @{"Title" = "Test Title"; "Category"="Test Category"}
 ```

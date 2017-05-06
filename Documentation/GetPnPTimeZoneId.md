@@ -1,29 +1,29 @@
-#Get-PnPTimeZoneId
+# Get-PnPTimeZoneId
 Returns a time zone ID
-##Syntax
+## Syntax
 ```powershell
 Get-PnPTimeZoneId [-Match <String>]
 ```
 
 
-##Returns
+## Returns
 >List<SharePointPnP.PowerShell.Commands.GetTimeZoneId+Zone>
 
 Returns a list of matching zones. Use the ID property of the object for use in New-SPOTenantSite
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |Match|String|False|A string to search for like 'Stockholm'|
-##Examples
+## Examples
 
-###Example 1
+### Example 1
 ```powershell
 PS:> Get-PnPTimeZoneId
 ```
 This will return all time zone IDs in use by Office 365.
 
-###Example 2
+### Example 2
 ```powershell
 PS:> Get-PnPTimeZoneId -Match Stockholm
 ```

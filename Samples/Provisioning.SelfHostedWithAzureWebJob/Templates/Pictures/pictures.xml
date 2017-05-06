@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<pnp:Provisioning 
+  xmlns:pnp="http://schemas.dev.office.com/PnP/2015/12/ProvisioningSchema">
+  <pnp:Preferences Generator="OfficeDevPnP.Core, Version=2.10.1612.0, Culture=neutral, PublicKeyToken=null">
+    <pnp:Parameters>
+      <pnp:Parameter Key="GenericFieldsPrefix">VD_</pnp:Parameter>
+    </pnp:Parameters>
+  </pnp:Preferences>
+  <pnp:Templates ID="CONTAINER-TEMPLATE-PZL-PICTURES">
+    <pnp:ProvisioningTemplate ID="TEMPLATE-PZL-PICTURES" Version="1">
+      <pnp:Lists>
+        <pnp:ListInstance Title="Pictures" TemplateType="109" Url="Pictures" EnableVersioning="true" MinorVersionLimit="0" MaxVersionLimit="0" DraftVersionVisibility="0" OnQuickLaunch="true" />
+      </pnp:Lists>
+    </pnp:ProvisioningTemplate>
+  </pnp:Templates>
+</pnp:Provisioning>

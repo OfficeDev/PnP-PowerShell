@@ -1,6 +1,6 @@
-#Convert-PnPFolderToProvisioningTemplate
+# Convert-PnPFolderToProvisioningTemplate
 Creates a pnp package file of an existing template xml, and includes all files in the current folder
-##Syntax
+## Syntax
 ```powershell
 Convert-PnPFolderToProvisioningTemplate -Out <String>
                                         [-Force [<SwitchParameter>]]
@@ -8,21 +8,21 @@ Convert-PnPFolderToProvisioningTemplate -Out <String>
 ```
 
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |Out|String|True|Filename to write to, optionally including full path.|
 |Folder|String|False|Folder to process. If not specified the current folder will be used.|
 |Force|SwitchParameter|False|Overwrites the output file if it exists.|
-##Examples
+## Examples
 
-###Example 1
+### Example 1
 ```powershell
 PS:> Convert-PnPFolderToProvisioningTemplate -Out template.pnp
 ```
 Creates a pnp package file of an existing template xml, and includes all files in the current folder
 
-###Example 2
+### Example 2
 ```powershell
 PS:> Convert-PnPFolderToProvisioningTemplate -Out template.pnp -Folder c:\temp
 ```

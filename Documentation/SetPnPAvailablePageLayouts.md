@@ -1,6 +1,6 @@
-#Set-PnPAvailablePageLayouts
+# Set-PnPAvailablePageLayouts
 Sets the available page layouts for the current site
-##Syntax
+## Syntax
 ```powershell
 Set-PnPAvailablePageLayouts -PageLayouts <String[]>
                             [-Web <WebPipeBind>]
@@ -19,7 +19,7 @@ Set-PnPAvailablePageLayouts -InheritPageLayouts [<SwitchParameter>]
 ```
 
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |AllowAllPageLayouts|SwitchParameter|True|An array of page layout files to set as available page layouts for the site.|

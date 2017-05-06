@@ -1,6 +1,6 @@
-#Set-PnPList
+# Set-PnPList
 Updates list settings
-##Syntax
+## Syntax
 ```powershell
 Set-PnPList -Identity <ListPipeBind>
             [-EnableContentTypes <Boolean>]
@@ -16,7 +16,7 @@ Set-PnPList -Identity <ListPipeBind>
 ```
 
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |Identity|ListPipeBind|True|The ID, Title or Url of the list.|
@@ -30,27 +30,27 @@ Parameter|Type|Required|Description
 |MinorVersions|UInt32|False|Maximum minor versions to keep|
 |Title|String|False|The title of the list|
 |Web|WebPipeBind|False|The web to apply the command to. Omit this parameter to use the current web.|
-##Examples
+## Examples
 
-###Example 1
+### Example 1
 ```powershell
 Set-PnPList -Identity "Demo List" -EnableContentTypes $true
 ```
 Switches the Enable Content Type switch on the list
 
-###Example 2
+### Example 2
 ```powershell
 Set-PnPList -Identity "Demo List" -EnableVersioning $true
 ```
 Turns on major versions on a list
 
-###Example 3
+### Example 3
 ```powershell
 Set-PnPList -Identity "Demo List" -EnableVersioning $true -MajorVersions 20
 ```
 Turns on major versions on a list and sets the maximum number of Major Versions to keep to 20.
 
-###Example 4
+### Example 4
 ```powershell
 Set-PnPList -Identity "Demo Library" -EnableVersioning $true -EnableMinorVersions $true -MajorVersions 20 -MinorVersions 5
 ```

@@ -1,6 +1,6 @@
-#Set-PnPAppSideLoading
+# Set-PnPAppSideLoading
 Enables the App SideLoading Feature on a site
-##Syntax
+## Syntax
 ```powershell
 Set-PnPAppSideLoading -On [<SwitchParameter>]
 ```
@@ -11,7 +11,7 @@ Set-PnPAppSideLoading -Off [<SwitchParameter>]
 ```
 
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |Off|SwitchParameter|True||

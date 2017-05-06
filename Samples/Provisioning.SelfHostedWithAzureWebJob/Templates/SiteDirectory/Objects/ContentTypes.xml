@@ -1,0 +1,18 @@
+<pnp:ContentTypes 
+	xmlns:pnp="http://schemas.dev.office.com/PnP/2016/05/ProvisioningSchema">
+	<pnp:ContentType ID="0x0100E4D7DDB5A27749089422751FF2C0CDC3" Name="Top Level Site Element" Description="" Group="{parameter:TemplateSpecificContentTypesGroup}" />
+	<pnp:ContentType ID="0x0100E4D7DDB5A27749089422751FF2C0CDC301" Name="Team Site" Description="" Group="{parameter:TemplateSpecificContentTypesGroup}">
+		<pnp:FieldRefs>
+			<pnp:FieldRef ID="fa564e0f-0c70-4ab9-b863-0177e6ddd247" Name="Title" Required="true" />
+			<pnp:FieldRef ID="0cedaa12-9d11-45d9-8847-8a88fa282ec4" Name="{parameter:GenericFieldsPrefix}ProjectDescription" Required="true" />
+			<pnp:FieldRef ID="b6819305-b14d-4110-8854-bb3633ced4b8" Name="{parameter:GenericFieldsPrefix}TemplateConfig" Required="true" />
+			<pnp:FieldRef ID="5f56a87f-be15-4a28-8596-ada81c39fbaa" Name="{parameter:GenericFieldsPrefix}SubModules" />
+			<pnp:FieldRef ID="7d6e9eb3-6120-4f7c-b462-d8b068773769" Name="{parameter:GenericFieldsPrefix}SiteURL" />
+			<pnp:FieldRef ID="dc07b242-3368-4fe5-934b-7548a4cfbbbe" Name="{parameter:GenericFieldsPrefix}BusinessOwner" Required="true" />
+			<pnp:FieldRef ID="c5d84c7b-8fed-4823-9e00-4077770b4f51" Name="{parameter:GenericFieldsPrefix}SiteOwners" Required="true" />
+			<pnp:FieldRef ID="e4cd48a9-2c5c-4f60-86ff-a9bf4fb0d110" Name="{parameter:GenericFieldsPrefix}SiteMembers" Required="false" />
+			<pnp:FieldRef ID="4330bb13-b27d-4a71-81a5-2b65a7547f56" Name="{parameter:GenericFieldsPrefix}SiteVisitors" />
+			<pnp:FieldRef ID="465ba4e9-aa5d-480f-b83a-2be27f472bea" Name="{parameter:GenericFieldsPrefix}SiteStatus" />
+		</pnp:FieldRefs>
+	</pnp:ContentType>
+</pnp:ContentTypes>

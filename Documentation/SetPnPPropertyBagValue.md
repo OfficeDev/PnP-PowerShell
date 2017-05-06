@@ -1,6 +1,6 @@
-#Set-PnPPropertyBagValue
+# Set-PnPPropertyBagValue
 Sets a property bag value
-##Syntax
+## Syntax
 ```powershell
 Set-PnPPropertyBagValue -Key <String>
                         -Value <String>
@@ -17,7 +17,7 @@ Set-PnPPropertyBagValue -Key <String>
 ```
 
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |Indexed|SwitchParameter|True||
@@ -25,21 +25,21 @@ Parameter|Type|Required|Description
 |Value|String|True||
 |Folder|String|False|Site relative url of the folder. See examples for use.|
 |Web|WebPipeBind|False|The web to apply the command to. Omit this parameter to use the current web.|
-##Examples
+## Examples
 
-###Example 1
+### Example 1
 ```powershell
 PS:> Set-PnPPropertyBagValue -Key MyKey -Value MyValue
 ```
 This sets or adds a value to the current web property bag
 
-###Example 2
+### Example 2
 ```powershell
 PS:> Set-PnPPropertyBagValue -Key MyKey -Value MyValue -Folder /
 ```
 This sets or adds a value to the root folder of the current web
 
-###Example 3
+### Example 3
 ```powershell
 PS:> Set-PnPPropertyBagValue -Key MyKey -Value MyValue -Folder /MyFolder
 ```

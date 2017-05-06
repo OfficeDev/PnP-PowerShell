@@ -11,7 +11,7 @@ namespace SharePointPnP.PowerShell.ModuleFilesGenerator
             var assemblyPath = args[0];
             var configurationName = args[1];
             var solutionDir = args[2];
-
+        
             try
             {
                 Assembly cmdletAssembly = Assembly.LoadFrom(assemblyPath);

@@ -1,6 +1,6 @@
-#Get-PnPFeature
+# Get-PnPFeature
 Returns all activated or a specific activated feature
-##Syntax
+## Syntax
 ```powershell
 Get-PnPFeature [-Scope <FeatureScope>]
                [-Web <WebPipeBind>]
@@ -9,37 +9,37 @@ Get-PnPFeature [-Scope <FeatureScope>]
 ```
 
 
-##Returns
+## Returns
 >[List<Microsoft.SharePoint.Client.Feature>](https://msdn.microsoft.com/en-us/library/microsoft.sharepoint.client.feature.aspx)
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |Identity|FeaturePipeBind|False|The feature ID or name to query for, Querying by name is not supported in version 15 of the Client Side Object Model|
 |Includes|String[]|False|Specify properties to include when retrieving objects from the server.|
 |Scope|FeatureScope|False|The scope of the feature. Defaults to Web.|
 |Web|WebPipeBind|False|The web to apply the command to. Omit this parameter to use the current web.|
-##Examples
+## Examples
 
-###Example 1
+### Example 1
 ```powershell
 PS:> Get-PnPFeature
 ```
 This will return all activated web scoped features
 
-###Example 2
+### Example 2
 ```powershell
 PS:> Get-PnPFeature -Scope Site
 ```
 This will return all activated site scoped features
 
-###Example 3
+### Example 3
 ```powershell
 PS:> Get-PnPFeature -Identity fb689d0e-eb99-4f13-beb3-86692fd39f22
 ```
 This will return a specific activated web scoped feature
 
-###Example 4
+### Example 4
 ```powershell
 PS:> Get-PnPFeature -Identity fb689d0e-eb99-4f13-beb3-86692fd39f22 -Scope Site
 ```

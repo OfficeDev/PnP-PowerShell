@@ -1,6 +1,6 @@
-#Send-PnPMail
+# Send-PnPMail
 Sends an email using the Office 365 SMTP Service or SharePoint, depending on the parameters specified. See detailed help for more information.
-##Syntax
+## Syntax
 ```powershell
 Send-PnPMail -To <String[]>
              -Subject <String>
@@ -13,7 +13,7 @@ Send-PnPMail -To <String[]>
 ```
 
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |Body|String|True|Body of the email|
@@ -24,21 +24,21 @@ Parameter|Type|Required|Description
 |Password|String|False|If using a password, you also have to provide the associated from address|
 |Server|String|False||
 |Web|WebPipeBind|False|The web to apply the command to. Omit this parameter to use the current web.|
-##Examples
+## Examples
 
-###Example 1
+### Example 1
 ```powershell
 PS:> Send-PnPMail -To address@tenant.sharepointonline.com -Subject test -Body test
 ```
 Sends an e-mail using the SharePoint SendEmail method using the current context. E-mail is sent from the system account and can only be sent to accounts in the same tenant
 
-###Example 2
+### Example 2
 ```powershell
 PS:> Send-PnPMail -To address@contoso.com -Subject test -Body test -From me@tenant.onmicrosoft.com -Password xyz
 ```
 Sends an e-mail via Office 365 SMTP and requires a from address and password. E-mail is sent from the from user and can be sent to both internal and external addresses.
 
-###Example 3
+### Example 3
 ```powershell
 PS:> Send-PnPMail -To address@contoso.com -Subject test -Body test -From me@server.net -Password xyz -Server yoursmtp.server.net
 ```

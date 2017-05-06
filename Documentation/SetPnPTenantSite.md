@@ -1,6 +1,6 @@
-#Set-PnPTenantSite
+# Set-PnPTenantSite
 Office365 only: Uses the tenant API to set site information.
-##Syntax
+## Syntax
 ```powershell
 Set-PnPTenantSite -Url <String>
                   [-Title <String>]
@@ -16,7 +16,7 @@ Set-PnPTenantSite -Url <String>
 ```
 
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |Url|String|True|Specifies the URL of the site|
@@ -30,21 +30,21 @@ Parameter|Type|Required|Description
 |UserCodeMaximumLevel|Nullable`1|False|Specifies the quota for this site collection in Sandboxed Solutions units. This value must not exceed the company's aggregate available Sandboxed Solutions quota. The default value is 0. For more information, see Resource Usage Limits on Sandboxed Solutions in SharePoint 2010 : http://msdn.microsoft.com/en-us/library/gg615462.aspx.|
 |UserCodeWarningLevel|Nullable`1|False|Specifies the warning level for the resource quota. This value must not exceed the value set for the UserCodeMaximumLevel parameter|
 |Wait|SwitchParameter|False|Wait for the operation to complete|
-##Examples
+## Examples
 
-###Example 1
+### Example 1
 ```powershell
 PS:> Set-PnPTenantSite -Url https://contoso.sharepoint.com -Title 'Contoso Website' -Sharing Disabled
 ```
 This will set the title of the site collection with the URL 'https://contoso.sharepoint.com' to 'Contoso Website' and disable sharing on this site collection.
 
-###Example 2
+### Example 2
 ```powershell
 PS:> Set-PnPTenantSite -Url https://contoso.sharepoint.com -Title 'Contoso Website' -StorageWarningLevel 8000 -StorageMaximumLevel 10000
 ```
 This will set the title of the site collection with the URL 'https://contoso.sharepoint.com' to 'Contoso Website', set the storage warning level to 8GB and set the storage maximum level to 10GB.
 
-###Example 3
+### Example 3
 ```powershell
 PS:> Set-PnPTenantSite -Url https://contoso.sharepoint.com/sites/sales -Owners 'user@contoso.onmicrosoft.com'
 ```

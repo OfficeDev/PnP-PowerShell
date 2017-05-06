@@ -30,7 +30,7 @@ SharePointPnP.PowerShell | Erwin van Hunen and countless number of community con
 
 # Installation #
 
-There are 3 ways to install the cmdlets. We recommend, where possible, to install them from the [PowerShell Gallery](https://www.powershellgallery.com). Alternatively you can download the setup files or run a PowerShell script to download the PowerShellGet module and install the cmdlets subsequently.
+There are 2 ways to install the cmdlets. We recommend, where possible, to install them from the [PowerShell Gallery](https://www.powershellgallery.com). Check out the "Getting Started with the Gallery" section to make sure you have all requirements in place. Alternatively you can download the setup files and install the cmdlets directly.
 
 ## PowerShell Gallery ##
 
@@ -49,21 +49,6 @@ In order to install the cmdlets when you get this error specify the -SkipPublish
 
 ## Setup files ##
 You can download setup files from the [releases](https://github.com/officedev/pnp-powershell/releases) section of the PnP PowerShell repository. These files will up be updated on a monthly basis. Run the install and restart any open instances of PowerShell to use the cmdlets.
-
-## Installation script ##
-This is an alternative for installation on machines that have at least PowerShell v3 installed. You can find the version of PowerShell  by opening PowerShell and running ```$PSVersionTable.PSVersion```. The value for ```Major``` should be above 3.
-
-To install the cmdlets you can run the below command which will install PowerShell Package Management and then install the PowerShell Modules from the PowerShell Gallery.
-
-```powershell
-Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/OfficeDev/PnP-PowerShell/master/Samples/Modules.Install/Install-SharePointPnPPowerShell.ps1')
-```
-
-If you wish to see the commands that the above will run please see the files as stored in the below locations:
-* https://raw.githubusercontent.com/OfficeDev/PnP-PowerShell/master/Samples/Modules.Install/Install-PowerShellPackageMangement.ps1
-* https://raw.githubusercontent.com/OfficeDev/PnP-PowerShell/master/Samples/Modules.Install/Install-SharePointPnPPowerShellHelperModule.ps1
-
-Once the above has been completed you can then start to use the PowerShell Modules.
 
 # Updating #
 Every month a new release will be made available of the PnP PowerShell Cmdlets. If you earlier installed the cmdlets using the setup file, simply download the [latest version](https://github.com/SharePoint/PnP-PowerShell/releases/latest) and run the setup. This will update your existing installation.

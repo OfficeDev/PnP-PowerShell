@@ -1,0 +1,158 @@
+<pnp:Lists 
+	xmlns:pnp="http://schemas.dev.office.com/PnP/2016/05/ProvisioningSchema">
+	<pnp:ListInstance Title="{resource:SiteDirectory_ListTitle}" Description="" DocumentTemplate="" OnQuickLaunch="true" TemplateType="100" Url="Lists/Sites" EnableVersioning="true" MinorVersionLimit="0" MaxVersionLimit="0" DraftVersionVisibility="0" RemoveExistingContentTypes="true" TemplateFeatureID="00bfea71-de22-43b2-a848-c05709900100" ContentTypesEnabled="true" EnableFolderCreation="false" EnableAttachments="false">
+		<pnp:ContentTypeBindings>
+			<pnp:ContentTypeBinding ContentTypeID="0x0100E4D7DDB5A27749089422751FF2C0CDC301" Default="true" />
+			<pnp:ContentTypeBinding ContentTypeID="0x0120" />
+		</pnp:ContentTypeBindings>
+		<pnp:Views RemoveExistingViews="true">
+			<View Name="{FB42F274-FD70-49E4-91A0-F284ECC4AC3E}" DefaultView="TRUE" MobileView="TRUE" MobileDefaultView="TRUE" Type="HTML" DisplayName="All Items" Url="{site}/Lists/Sites/AllItems.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/generic.png?rev=43">
+				<Query>
+					<OrderBy>
+						<FieldRef Name="ID" Ascending="False" />
+					</OrderBy>
+				</Query>
+				<ViewFields>
+					<FieldRef Name="LinkTitle" />
+					<FieldRef Name="PZL_BusinessOwner" />
+					<FieldRef Name="Editor" />
+					<FieldRef Name="Modified" />
+					<FieldRef Name="PZL_ProjectDescription" />
+					<FieldRef Name="PZL_SiteURL" />
+					<FieldRef Name="PZL_TemplateConfig" />
+					<FieldRef Name="PZL_SubModules" />
+					<FieldRef Name="PZL_SiteOwners" />
+					<FieldRef Name="PZL_SiteMembers" />
+					<FieldRef Name="PZL_SiteVisitors" />
+				</ViewFields>
+				<RowLimit Paged="TRUE">30</RowLimit>
+				<Aggregations Value="Off" />
+				<JSLink>clienttemplates.js</JSLink>
+			</View>
+			<View Name="{C6D765D5-33E9-4125-9B8C-43529EEE3075}" MobileView="TRUE" MobileDefaultView="TRUE" Type="HTML" DisplayName="Requested" Url="{site}/Lists/Sites/Requested.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/generic.png?rev=44">
+				<Query>
+					<OrderBy>
+						<FieldRef Name="ID" Ascending="False" />
+					</OrderBy>
+					<Where>
+						<Eq>
+							<FieldRef Name="PZL_SiteStatus" />
+							<Value Type="Text">Requested</Value>
+						</Eq>
+					</Where>
+				</Query>
+				<ViewFields>
+					<FieldRef Name="LinkTitle" />
+					<FieldRef Name="PZL_BusinessOwner" />
+					<FieldRef Name="Editor" />
+					<FieldRef Name="Modified" />
+					<FieldRef Name="PZL_ProjectDescription" />
+					<FieldRef Name="PZL_SiteURL" />
+					<FieldRef Name="PZL_TemplateConfig" />
+					<FieldRef Name="PZL_SubModules" />
+					<FieldRef Name="PZL_SiteStatus" />
+				</ViewFields>
+				<RowLimit Paged="TRUE">30</RowLimit>
+				<Aggregations Value="Off" />
+				<JSLink>clienttemplates.js</JSLink>
+			</View>
+		</pnp:Views>
+		<pnp:Fields>
+			<Field ID="{fa564e0f-0c70-4ab9-b863-0177e6ddd247}" Type="Text" Name="Title" StaticName="Title" Description="Name of your site" />
+		</pnp:Fields>
+		<pnp:FieldRefs>
+			<pnp:FieldRef ID="fa564e0f-0c70-4ab9-b863-0177e6ddd247" Name="Title" Required="true" />
+			<pnp:FieldRef ID="0cedaa12-9d11-45d9-8847-8a88fa282ec4" Name="{parameter:GenericFieldsPrefix}ProjectDescription" Required="true" />
+		</pnp:FieldRefs>
+	</pnp:ListInstance>
+	<pnp:ListInstance Title="{resource:TemplatesListTitle}" Description="" OnQuickLaunch="true" TemplateType="100" Url="Lists/Templates" EnableVersioning="true" MinorVersionLimit="0" MaxVersionLimit="0" DraftVersionVisibility="0" TemplateFeatureID="00bfea71-de22-43b2-a848-c05709900100" EnableAttachments="false" EnableFolderCreation="false">
+		<pnp:Views RemoveExistingViews="true">
+			<View Name="{b2d72a7b-9310-4e4f-a92f-f342b65a9399}" DefaultView="TRUE" MobileView="TRUE" MobileDefaultView="TRUE" Type="HTML" DisplayName="All Items" Url="{site}/Lists/Templates/Forms/AllItems.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/dlicon.png?rev=43">
+				<Query>
+					<OrderBy>
+						<FieldRef Name="LinkTitle" />
+					</OrderBy>
+				</Query>
+				<ViewFields>
+					<FieldRef Name="LinkTitle" />
+					<FieldRef Name="PZL_Description" />
+					<FieldRef Name="Modified" />
+					<FieldRef Name="Editor" />
+					<FieldRef Name="PZL_BaseModule" />
+					<FieldRef Name="PZL_SubModules" />
+				</ViewFields>
+				<RowLimit Paged="TRUE">30</RowLimit>
+				<Aggregations Value="Off" />
+				<JSLink>clienttemplates.js</JSLink>
+			</View>
+		</pnp:Views>
+		<pnp:FieldRefs>
+			<pnp:FieldRef ID="85ca8205-4466-4134-ad6d-34e276430222" Name="{parameter:GenericFieldsPrefix}Description" />
+			<pnp:FieldRef ID="d667bbbb-75f2-4f97-b373-4a4f958eb34f" Name="{parameter:GenericFieldsPrefix}BaseModule" />
+			<pnp:FieldRef ID="5f56a87f-be15-4a28-8596-ada81c39fbaa" Name="{parameter:GenericFieldsPrefix}SubModules" />
+		</pnp:FieldRefs>
+		<pnp:Fields>
+			<Field Type="LookupMulti" DisplayName="{resource:SiteDirectory_SubModules}" List="AppsModules" ShowField="Title" Mult="TRUE" Sortable="FALSE" UnlimitedLengthInDocumentLibrary="FALSE" RelationshipDeleteBehavior="None" ID="{5f56a87f-be15-4a28-8596-ada81c39fbaa}" StaticName="{parameter:GenericFieldsPrefix}SubModules" Name="{parameter:GenericFieldsPrefix}SubModules" ShowInNewForm="TRUE" ShowInEditForm="TRUE" ShowInDisplayForm="TRUE" />
+		</pnp:Fields>
+	</pnp:ListInstance>
+	<pnp:ListInstance Title="{resource:BaseModulesListTitle}" Description="" OnQuickLaunch="true" TemplateType="101" Url="BaseModules" EnableVersioning="true" MinorVersionLimit="0" MaxVersionLimit="0" DraftVersionVisibility="0" TemplateFeatureID="00bfea71-e717-4e80-aa17-d0c71b360101" EnableAttachments="false" EnableFolderCreation="false">
+		<pnp:ContentTypeBindings>
+			<pnp:ContentTypeBinding ContentTypeID="0x0101" Default="true" />
+			<pnp:ContentTypeBinding ContentTypeID="0x0120" />
+		</pnp:ContentTypeBindings>
+		<pnp:Views RemoveExistingViews="true">
+			<View Name="{C7EABCB1-E928-47CA-8327-285A07ECF5EB}" DefaultView="TRUE" MobileView="TRUE" MobileDefaultView="TRUE" Type="HTML" DisplayName="All Items" Url="{site}/BaseModules/Forms/AllItems.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/dlicon.png?rev=43">
+				<Query>
+					<OrderBy>
+						<FieldRef Name="FileLeafRef" />
+					</OrderBy>
+				</Query>
+				<ViewFields>
+					<FieldRef Name="DocIcon" />
+					<FieldRef Name="Title" />
+					<FieldRef Name="LinkFilename" />
+					<FieldRef Name="Modified" />
+					<FieldRef Name="Editor" />
+					<FieldRef Name="PZL_Description" />
+				</ViewFields>
+				<RowLimit Paged="TRUE">30</RowLimit>
+				<Aggregations Value="Off" />
+				<JSLink>clienttemplates.js</JSLink>
+			</View>
+		</pnp:Views>
+		<pnp:FieldRefs>
+			<pnp:FieldRef ID="fa564e0f-0c70-4ab9-b863-0177e6ddd247" Name="Title" Required="true" />
+			<pnp:FieldRef ID="85ca8205-4466-4134-ad6d-34e276430222" Name="{parameter:GenericFieldsPrefix}Description" />
+		</pnp:FieldRefs>
+	</pnp:ListInstance>
+	<pnp:ListInstance Title="{resource:AppModulesListTitle}" Description="" OnQuickLaunch="true" TemplateType="101" Url="AppsModules" EnableVersioning="true" MinorVersionLimit="0" MaxVersionLimit="0" DraftVersionVisibility="0" TemplateFeatureID="00bfea71-e717-4e80-aa17-d0c71b360101" EnableAttachments="false" EnableFolderCreation="false">
+		<pnp:ContentTypeBindings>
+			<pnp:ContentTypeBinding ContentTypeID="0x0101" Default="true" />
+			<pnp:ContentTypeBinding ContentTypeID="0x0120" />
+		</pnp:ContentTypeBindings>
+		<pnp:Views RemoveExistingViews="true">
+			<View Name="{6E70A298-0F70-4BE6-943E-F7501CD0695E}" DefaultView="TRUE" MobileView="TRUE" MobileDefaultView="TRUE" Type="HTML" DisplayName="All Items" Url="{site}/AppsModules/Forms/AllItems.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/dlicon.png?rev=43">
+				<Query>
+					<OrderBy>
+						<FieldRef Name="FileLeafRef" />
+					</OrderBy>
+				</Query>
+				<ViewFields>
+					<FieldRef Name="DocIcon" />
+					<FieldRef Name="Title" />
+					<FieldRef Name="LinkFilename" />
+					<FieldRef Name="Modified" />
+					<FieldRef Name="Editor" />
+					<FieldRef Name="PZL_Description" />
+				</ViewFields>
+				<RowLimit Paged="TRUE">30</RowLimit>
+				<Aggregations Value="Off" />
+				<JSLink>clienttemplates.js</JSLink>
+			</View>
+		</pnp:Views>
+		<pnp:FieldRefs>
+			<pnp:FieldRef ID="fa564e0f-0c70-4ab9-b863-0177e6ddd247" Name="Title" Required="true" />
+			<pnp:FieldRef ID="85ca8205-4466-4134-ad6d-34e276430222" Name="{parameter:GenericFieldsPrefix}Description" />
+		</pnp:FieldRefs>
+	</pnp:ListInstance>
+</pnp:Lists>

@@ -1,8 +1,8 @@
-#Disconnect-PnPOnline
+# Disconnect-PnPOnline
 Disconnects the context
-##Examples
+## Examples
 
-###Example 1
+### Example 1
 ```powershell
 PS:> Disconnect-PnPOnline
 ```

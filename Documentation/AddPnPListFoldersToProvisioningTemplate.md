@@ -1,6 +1,6 @@
-#Add-PnPListFoldersToProvisioningTemplate
+# Add-PnPListFoldersToProvisioningTemplate
 Adds folders to a list in a PnP Provisioning Template
-##Syntax
+## Syntax
 ```powershell
 Add-PnPListFoldersToProvisioningTemplate -Path <String>
                                          -List <ListPipeBind>
@@ -11,7 +11,7 @@ Add-PnPListFoldersToProvisioningTemplate -Path <String>
 ```
 
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |List|ListPipeBind|True|The list to query|
@@ -20,21 +20,21 @@ Parameter|Type|Required|Description
 |Recursive|SwitchParameter|False|A switch parameter to include all folders in the list, or just top level folders.|
 |TemplateProviderExtensions|ITemplateProviderExtension[]|False|Allows you to specify ITemplateProviderExtension to execute while loading the template.|
 |Web|WebPipeBind|False|The web to apply the command to. Omit this parameter to use the current web.|
-##Examples
+## Examples
 
-###Example 1
+### Example 1
 ```powershell
 PS:> Add-PnPListFoldersToProvisioningTemplate -Path template.pnp -List 'PnPTestList'
 ```
 Adds top level folders from a list to an existing template and returns an in-memory PnP Provisioning Template
 
-###Example 2
+### Example 2
 ```powershell
 PS:> Add-PnPListFoldersToProvisioningTemplate -Path template.pnp -List 'PnPTestList' -Recursive
 ```
 Adds all folders from a list to an existing template and returns an in-memory PnP Provisioning Template
 
-###Example 3
+### Example 3
 ```powershell
 PS:> Add-PnPListFoldersToProvisioningTemplate -Path template.pnp -List 'PnPTestList' -Recursive -IncludeSecurity
 ```

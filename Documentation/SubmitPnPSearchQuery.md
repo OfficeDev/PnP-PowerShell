@@ -1,6 +1,6 @@
-#Submit-PnPSearchQuery
+# Submit-PnPSearchQuery
 Executes an arbitrary search query against the SharePoint search index
-##Syntax
+## Syntax
 ```powershell
 Submit-PnPSearchQuery -Query <String>
                       [-StartRow <Int>]
@@ -23,6 +23,7 @@ Submit-PnPSearchQuery -Query <String>
                       [-SourceId <Guid>]
                       [-ProcessBestBets <Boolean>]
                       [-ProcessPersonalFavorites <Boolean>]
+                      [-RelevantResults [<SwitchParameter>]]
                       [-Web <WebPipeBind>]
 ```
 
@@ -48,14 +49,15 @@ Submit-PnPSearchQuery -Query <String>
                       [-SourceId <Guid>]
                       [-ProcessBestBets <Boolean>]
                       [-ProcessPersonalFavorites <Boolean>]
+                      [-RelevantResults [<SwitchParameter>]]
                       [-Web <WebPipeBind>]
 ```
 
 
-##Returns
+## Returns
 >List<System.Object>
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |Query|String|True|Search query in Keyword Query Language (KQL).|
@@ -74,6 +76,7 @@ Parameter|Type|Required|Description
 |RankingModelId|String|False|The identifier (ID) of the ranking model to use for the query.|
 |RefinementFilters|String[]|False|The set of refinement filters used.|
 |Refiners|String|False|The list of refiners to be returned in a search result.|
+|RelevantResults|SwitchParameter|False|Specifies whether only relevant results are returned|
 |SelectProperties|String[]|False|The list of properties to return in the search results.|
 |SortList|Hashtable|False|The list of properties by which the search results are ordered.|
 |SourceId|Guid|False|Specifies the identifier (ID or name) of the result source to be used to run the query.|
@@ -81,28 +84,28 @@ Parameter|Type|Required|Description
 |TimeZoneId|Int|False|The identifier for the search query time zone.|
 |TrimDuplicates|Boolean|False|Specifies whether near duplicate items should be removed from the search results.|
 |Web|WebPipeBind|False|The web to apply the command to. Omit this parameter to use the current web.|
-##Examples
+## Examples
 
-###Example 1
+### Example 1
 ```powershell
-PS:> Get-PnPSearchQuery -Query "finance"
+PS:> Submit-PnPSearchQuery -Query "finance"
 ```
 Returns the top 500 items with the term finance
 
-###Example 2
+### Example 2
 ```powershell
-PS:> Get-PnPSearchQuery -Query "Title:Intranet*" -MaxResults 10
+PS:> Submit-PnPSearchQuery -Query "Title:Intranet*" -MaxResults 10
 ```
 Returns the top 10 items indexed by SharePoint Search of which the title starts with the word Intranet
 
-###Example 3
+### Example 3
 ```powershell
-PS:> Get-PnPSearchQuery -Query "Title:Intranet*" -All
+PS:> Submit-PnPSearchQuery -Query "Title:Intranet*" -All
 ```
 Returns absolutely all items indexed by SharePoint Search of which the title starts with the word Intranet
 
-###Example 4
+### Example 4
 ```powershell
-PS:> Get-PnPSearchQuery -Query "Title:Intranet*" -Refiners "contentclass,FileType(filter=6/0/*)"
+PS:> Submit-PnPSearchQuery -Query "Title:Intranet*" -Refiners "contentclass,FileType(filter=6/0/*)"
 ```
 Returns absolutely all items indexed by SharePoint Search of which the title starts with the word Intranet, and return refiners for contentclass and FileType managed properties

@@ -1,6 +1,6 @@
-#Add-PnPPublishingPage
+# Add-PnPPublishingPage
 Adds a publishing page
-##Syntax
+## Syntax
 ```powershell
 Add-PnPPublishingPage -PageName <String>
                       -PageTemplateName <String>
@@ -11,7 +11,7 @@ Add-PnPPublishingPage -PageName <String>
 ```
 
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |PageName|String|True|The name of the page to be added as an aspx file|
@@ -20,15 +20,15 @@ Parameter|Type|Required|Description
 |Publish|SwitchParameter|False|Publishes the page. Also Approves it if moderation is enabled on the Pages library.|
 |Title|String|False|The title of the page|
 |Web|WebPipeBind|False|The web to apply the command to. Omit this parameter to use the current web.|
-##Examples
+## Examples
 
-###Example 1
+### Example 1
 ```powershell
 PS:> Add-PnPPublishingPage -PageName 'OurNewPage' -Title 'Our new page' -PageTemplateName 'ArticleLeft'
 ```
 Creates a new page based on the pagelayout 'ArticleLeft'
 
-###Example 2
+### Example 2
 ```powershell
 PS:> Add-PnPPublishingPage -PageName 'OurNewPage' -Title 'Our new page' -PageTemplateName 'ArticleLeft' -Folder '/Pages/folder'
 ```

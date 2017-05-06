@@ -64,7 +64,7 @@ namespace SharePointPnP.PowerShell.ModuleFilesGenerator
 
                     // Header
 
-                    docBuilder.AppendFormat("#{0}{1}", cmdletInfo.FullCommand, Environment.NewLine);
+                    docBuilder.AppendFormat("# {0}{1}", cmdletInfo.FullCommand, Environment.NewLine);
 
                     // Body 
 
@@ -72,7 +72,7 @@ namespace SharePointPnP.PowerShell.ModuleFilesGenerator
 
                     if (cmdletInfo.Syntaxes.Any())
                     {
-                        docBuilder.AppendFormat("##Syntax{0}", Environment.NewLine);
+                        docBuilder.AppendFormat("## Syntax{0}", Environment.NewLine);
                         foreach (var cmdletSyntax in cmdletInfo.Syntaxes.OrderBy(s => s.Parameters.Count(p => p.Required)))
                         {
                             var syntaxText = new StringBuilder();
@@ -118,13 +118,13 @@ namespace SharePointPnP.PowerShell.ModuleFilesGenerator
                     }
                     if (!string.IsNullOrEmpty(cmdletInfo.DetailedDescription))
                     {
-                        docBuilder.Append("##Detailed Description\n");
+                        docBuilder.Append("## Detailed Description\n");
                         docBuilder.AppendFormat("{0}\n\n", cmdletInfo.DetailedDescription);
                     }
 
                     if (cmdletInfo.OutputType != null)
                     {
-                        docBuilder.Append("##Returns\n");
+                        docBuilder.Append("## Returns\n");
                         var outputType = "";
                         if (cmdletInfo.OutputType != null)
                         {
@@ -167,7 +167,7 @@ namespace SharePointPnP.PowerShell.ModuleFilesGenerator
                     }
                     if (cmdletInfo.Parameters.Any())
                     {
-                        docBuilder.Append("##Parameters\n");
+                        docBuilder.Append("## Parameters\n");
                         docBuilder.Append("Parameter|Type|Required|Description\n");
                         docBuilder.Append("---------|----|--------|-----------\n");
                         foreach (var par in cmdletInfo.Parameters.OrderBy(x => x.Name).Distinct(new ParameterComparer()).OrderBy(p => !p.Required))
@@ -180,12 +180,12 @@ namespace SharePointPnP.PowerShell.ModuleFilesGenerator
                         }
                     }
                     if (cmdletInfo.Examples.Any())
-                        docBuilder.Append("##Examples\n");
+                        docBuilder.Append("## Examples\n");
                     var examplesCount = 1;
                     foreach (var example in cmdletInfo.Examples.OrderBy(e => e.SortOrder))
                     {
                         docBuilder.AppendFormat("{0}\n", example.Introduction);
-                        docBuilder.AppendFormat("###Example {0}\n", examplesCount);
+                        docBuilder.AppendFormat("### Example {0}\n", examplesCount);
                         docBuilder.AppendFormat("```powershell\n{0}\n```\n", example.Code);
                         docBuilder.AppendFormat("{0}\n", example.Remarks);
                         examplesCount++;
@@ -232,7 +232,7 @@ namespace SharePointPnP.PowerShell.ModuleFilesGenerator
 
             foreach (var category in categories.OrderBy(c => c))
             {
-                docBuilder.AppendFormat("##{0}{1}", category, Environment.NewLine);
+                docBuilder.AppendFormat("## {0}{1}", category, Environment.NewLine);
 
                 docBuilder.AppendFormat("Cmdlet|Description{0}", Environment.NewLine);
                 docBuilder.AppendFormat(":-----|:----------{0}", Environment.NewLine);

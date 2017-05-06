@@ -15,19 +15,19 @@ namespace SharePointPnP.PowerShell.Commands.Search
         Category = CmdletHelpCategory.Search,
         OutputType = typeof(List<dynamic>))]
     [CmdletExample(
-        Code = @"PS:> Get-PnPSearchQuery -Query ""finance""",
+        Code = @"PS:> Submit-PnPSearchQuery -Query ""finance""",
         Remarks = "Returns the top 500 items with the term finance",
         SortOrder = 1)]
     [CmdletExample(
-        Code = @"PS:> Get-PnPSearchQuery -Query ""Title:Intranet*"" -MaxResults 10",
+        Code = @"PS:> Submit-PnPSearchQuery -Query ""Title:Intranet*"" -MaxResults 10",
         Remarks = "Returns the top 10 items indexed by SharePoint Search of which the title starts with the word Intranet",
         SortOrder = 2)]
     [CmdletExample(
-        Code = @"PS:> Get-PnPSearchQuery -Query ""Title:Intranet*"" -All",
+        Code = @"PS:> Submit-PnPSearchQuery -Query ""Title:Intranet*"" -All",
         Remarks = "Returns absolutely all items indexed by SharePoint Search of which the title starts with the word Intranet",
         SortOrder = 3)]
     [CmdletExample(
-        Code = @"PS:> Get-PnPSearchQuery -Query ""Title:Intranet*"" -Refiners ""contentclass,FileType(filter=6/0/*)""",
+        Code = @"PS:> Submit-PnPSearchQuery -Query ""Title:Intranet*"" -Refiners ""contentclass,FileType(filter=6/0/*)""",
         Remarks = "Returns absolutely all items indexed by SharePoint Search of which the title starts with the word Intranet, and return refiners for contentclass and FileType managed properties",
         SortOrder = 4)]
     public class SubmitSearchQuery : PnPWebCmdlet
@@ -99,6 +99,9 @@ namespace SharePointPnP.PowerShell.Commands.Search
         [Parameter(Mandatory = false, HelpMessage = "Determines whether personal favorites data is processed or not.", ParameterSetName = ParameterAttribute.AllParameterSets)]
         public bool ProcessPersonalFavorites;
 
+        [Parameter(Mandatory = false, HelpMessage = "Specifies whether only relevant results are returned", ParameterSetName = ParameterAttribute.AllParameterSets)]
+        public SwitchParameter RelevantResults;
+
         protected override void ExecuteCmdlet()
         {
             int startRow = StartRow;
@@ -164,7 +167,29 @@ namespace SharePointPnP.PowerShell.Commands.Search
                 }
                 startRow += rowLimit;
             } while (currentCount == rowLimit && All.IsPresent);
-            WriteObject(finalResults, true);
+            if (!RelevantResults.IsPresent)
+            {
+                WriteObject(finalResults, true);
+            }
+            else
+            {
+                var results = finalResults.FirstOrDefault(t => t.TableType == "RelevantResults")?
+                    .ResultRows.Select(r => ConvertToPSObject(r));
+                WriteObject(results, true);
+            }
+        }
+
+        private object ConvertToPSObject(IDictionary<string, object> r)
+        {
+            PSObject res = new PSObject();
+            if(r != null)
+            {
+                foreach(var kvp in r)
+                {
+                    res.Properties.Add(new PSNoteProperty(kvp.Key, kvp.Value));
+                }
+            }
+            return res;
         }
 
         private KeywordQuery CreateKeywordQuery()

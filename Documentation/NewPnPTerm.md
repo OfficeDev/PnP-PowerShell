@@ -1,6 +1,6 @@
-#New-PnPTerm
+# New-PnPTerm
 Creates a taxonomy term
-##Syntax
+## Syntax
 ```powershell
 New-PnPTerm -Name <String>
             -TermGroup <Id, Title or TermGroup>
@@ -14,10 +14,10 @@ New-PnPTerm -Name <String>
 ```
 
 
-##Returns
+## Returns
 >[Microsoft.SharePoint.Client.Taxonomy.Term](https://msdn.microsoft.com/en-us/library/microsoft.sharepoint.client.taxonomy.term.aspx)
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |Name|String|True|The name of the term.|
@@ -29,9 +29,9 @@ Parameter|Type|Required|Description
 |Lcid|Int|False|The locale id to use for the term. Defaults to the current locale id.|
 |LocalCustomProperties|Hashtable|False|Custom Properties|
 |TermStore|Id, Name or Object|False|Term store to check; if not specified the default term store is used.|
-##Examples
+## Examples
 
-###Example 1
+### Example 1
 ```powershell
 PS:> New-PnPTerm -TermSet "Departments" -TermGroup "Corporate" -Name "Finance"
 ```

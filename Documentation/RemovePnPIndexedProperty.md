@@ -1,13 +1,13 @@
-#Remove-PnPIndexedProperty
+# Remove-PnPIndexedProperty
 Removes a key from propertybag to be indexed by search. The key and it's value remain in the propertybag, however it will not be indexed anymore.
-##Syntax
+## Syntax
 ```powershell
 Remove-PnPIndexedProperty -Key <String>
                           [-Web <WebPipeBind>]
 ```
 
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |Key|String|True|Key of the property bag value to be removed from indexing|

@@ -1,11 +1,11 @@
-#Get-PnPSiteCollectionTermStore
+# Get-PnPSiteCollectionTermStore
 Returns the site collection term store
-##Returns
+## Returns
 >[Microsoft.SharePoint.Client.Taxonomy.TermStore](https://msdn.microsoft.com/en-us/library/microsoft.sharepoint.client.taxonomy.termstore.aspx)
 
-##Examples
+## Examples
 
-###Example 1
+### Example 1
 ```powershell
 PS:> Get-PnPSiteCollectionTermStore
 ```

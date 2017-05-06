@@ -1,6 +1,6 @@
-#Add-PnPWebPartToWikiPage
+# Add-PnPWebPartToWikiPage
 Adds a webpart to a wiki page in a specified table row and column
-##Syntax
+## Syntax
 ```powershell
 Add-PnPWebPartToWikiPage -Xml <String>
                          -ServerRelativePageUrl <String>
@@ -21,7 +21,7 @@ Add-PnPWebPartToWikiPage -Path <String>
 ```
 
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |Column|Int|True||
@@ -31,15 +31,15 @@ Parameter|Type|Required|Description
 |Xml|String|True||
 |AddSpace|SwitchParameter|False||
 |Web|WebPipeBind|False|The web to apply the command to. Omit this parameter to use the current web.|
-##Examples
+## Examples
 
-###Example 1
+### Example 1
 ```powershell
 PS:> Add-PnPWebPartToWikiPage -ServerRelativePageUrl "/sites/demo/sitepages/home.aspx" -Path "c:\myfiles\listview.webpart" -Row 1 -Column 1
 ```
 This will add the webpart as defined by the XML in the listview.webpart file to the specified page in the first row and the first column of the HTML table present on the page
 
-###Example 2
+### Example 2
 ```powershell
 PS:> Add-PnPWebPartToWikiPage -ServerRelativePageUrl "/sites/demo/sitepages/home.aspx" -XML $webpart -Row 1 -Column 1
 ```

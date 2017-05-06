@@ -1,20 +1,20 @@
-#Enable-PnPResponsiveUI
+# Enable-PnPResponsiveUI
 Enables the PnP Responsive UI implementation on a classic SharePoint Site
-##Syntax
+## Syntax
 ```powershell
 Enable-PnPResponsiveUI [-InfrastructureSiteUrl <String>]
                        [-Web <WebPipeBind>]
 ```
 
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |InfrastructureSiteUrl|String|False|A full URL pointing to an infrastructure site. If specified, it will add a custom action pointing to the responsive UI JS code in that site.|
 |Web|WebPipeBind|False|The web to apply the command to. Omit this parameter to use the current web.|
-##Examples
+## Examples
 
-###Example 1
+### Example 1
 ```powershell
 PS:> Enable-PnPResponsiveUI
 ```

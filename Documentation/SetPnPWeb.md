@@ -1,6 +1,6 @@
-#Set-PnPWeb
+# Set-PnPWeb
 Sets properties on a web
-##Syntax
+## Syntax
 ```powershell
 Set-PnPWeb [-SiteLogoUrl <String>]
            [-AlternateCssUrl <String>]
@@ -12,7 +12,7 @@ Set-PnPWeb [-SiteLogoUrl <String>]
 ```
 
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |AlternateCssUrl|String|False||

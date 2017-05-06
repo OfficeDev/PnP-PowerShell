@@ -1,29 +1,29 @@
-#Get-PnPTheme
+# Get-PnPTheme
 Returns the current theme/composed look of the current web.
-##Syntax
+## Syntax
 ```powershell
 Get-PnPTheme [-DetectCurrentComposedLook [<SwitchParameter>]]
              [-Web <WebPipeBind>]
 ```
 
 
-##Returns
+## Returns
 >OfficeDevPnP.Core.Entities.ThemeEntity
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |DetectCurrentComposedLook|SwitchParameter|False|Specify this switch to not use the PnP Provisioning engine based composed look information but try to detect the current composed look as is.|
 |Web|WebPipeBind|False|The web to apply the command to. Omit this parameter to use the current web.|
-##Examples
+## Examples
 
-###Example 1
+### Example 1
 ```powershell
 PS:> Get-PnPTheme
 ```
 Returns the current composed look of the current web.
 
-###Example 2
+### Example 2
 ```powershell
 PS:> Get-PnPTheme -DetectCurrentComposedLook
 ```

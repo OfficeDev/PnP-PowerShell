@@ -1,6 +1,6 @@
-#Get-PnPWorkflowDefinition
+# Get-PnPWorkflowDefinition
 Returns a workflow definition
-##Syntax
+## Syntax
 ```powershell
 Get-PnPWorkflowDefinition [-PublishedOnly [<SwitchParameter>]]
                           [-Web <WebPipeBind>]
@@ -8,10 +8,10 @@ Get-PnPWorkflowDefinition [-PublishedOnly [<SwitchParameter>]]
 ```
 
 
-##Returns
+## Returns
 >[Microsoft.SharePoint.Client.WorkflowServices.WorkflowDefinition](https://msdn.microsoft.com/en-us/library/microsoft.sharepoint.client.workflowservices.workflowdefinition.aspx)
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |Name|String|False|The name of the workflow|

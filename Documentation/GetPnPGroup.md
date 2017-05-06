@@ -1,6 +1,6 @@
-#Get-PnPGroup
+# Get-PnPGroup
 Returns a specific group or all groups.
-##Syntax
+## Syntax
 ```powershell
 Get-PnPGroup [-Web <WebPipeBind>]
              [-Identity <GroupPipeBind>]
@@ -31,10 +31,10 @@ Get-PnPGroup [-Web <WebPipeBind>]
 ```
 
 
-##Returns
+## Returns
 >[List<Microsoft.SharePoint.Client.Group>](https://msdn.microsoft.com/en-us/library/microsoft.sharepoint.client.group.aspx)
 
-##Parameters
+## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |AssociatedMemberGroup|SwitchParameter|False|Retrieve the associated member group|
@@ -43,21 +43,21 @@ Parameter|Type|Required|Description
 |Identity|GroupPipeBind|False|Get a specific group by name|
 |Includes|String[]|False|Specify properties to include when retrieving objects from the server.|
 |Web|WebPipeBind|False|The web to apply the command to. Omit this parameter to use the current web.|
-##Examples
+## Examples
 
-###Example 1
+### Example 1
 ```powershell
 PS:> Get-PnPGroup
 ```
 Returns all groups
 
-###Example 2
+### Example 2
 ```powershell
 PS:> Get-PnPGroup -Identity 'My Site Users'
 ```
 This will return the group called 'My Site Users' if available
 
-###Example 3
+### Example 3
 ```powershell
 PS:> Get-PnPGroup -AssociatedMemberGroup
 ```
