@@ -1,11 +1,6 @@
-﻿using Microsoft.Graph;
-using SharePointPnP.PowerShell.Commands.Properties;
+﻿using SharePointPnP.PowerShell.Commands.Properties;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Management.Automation;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SharePointPnP.PowerShell.Commands.Base
 {
@@ -24,18 +19,29 @@ namespace SharePointPnP.PowerShell.Commands.Base
                     {
                         WriteWarning(Resources.MicrosoftGraphOAuthAccessTokenExpired);
                         PnPAzureADConnection.AuthenticationResult = null;
-                        return (null);
                     }
                     else
                     {
-                        return (PnPAzureADConnection.AuthenticationResult.Token);
+                        return PnPAzureADConnection.AuthenticationResult.Token;
+                    }
+                }
+                else if (PnPAzureADConnection.ADALAuthenticationResult != null)
+                {
+                    if (PnPAzureADConnection.ADALAuthenticationResult.ExpiresOn < DateTimeOffset.Now)
+                    {
+                        WriteWarning(Resources.MicrosoftGraphOAuthAccessTokenExpired);
+                        PnPAzureADConnection.AuthenticationResult = null;
+                    }
+                    else
+                    {
+                        return PnPAzureADConnection.ADALAuthenticationResult.AccessToken;
                     }
                 }
                 else
                 {
                     ThrowTerminatingError(new ErrorRecord(new InvalidOperationException(Resources.NoAzureADAccessToken), "NO_OAUTH_TOKEN", ErrorCategory.ConnectionError, null));
-                    return (null);
                 }
+                return null;
             }
         }
 
@@ -43,8 +49,8 @@ namespace SharePointPnP.PowerShell.Commands.Base
         {
             base.BeginProcessing();
 
-            if (PnPAzureADConnection.AuthenticationResult == null || 
-                String.IsNullOrEmpty(PnPAzureADConnection.AuthenticationResult.Token))
+            if ((PnPAzureADConnection.AuthenticationResult == null || String.IsNullOrEmpty(PnPAzureADConnection.AuthenticationResult.Token))
+                && (PnPAzureADConnection.ADALAuthenticationResult == null || String.IsNullOrEmpty(PnPAzureADConnection.ADALAuthenticationResult.AccessToken)))
             {
                 throw new InvalidOperationException(Resources.NoAzureADAccessToken);
             }

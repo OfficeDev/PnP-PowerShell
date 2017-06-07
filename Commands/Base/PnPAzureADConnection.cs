@@ -1,9 +1,5 @@
 ﻿using Microsoft.Identity.Client;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ADAL = Microsoft.IdentityModel.Clients.ActiveDirectory;
 
 namespace SharePointPnP.PowerShell.Commands.Base
 {
@@ -16,5 +12,10 @@ namespace SharePointPnP.PowerShell.Commands.Base
         /// Holds the OAuth 2.0 Authentication Result
         /// </summary>
         public static AuthenticationResult AuthenticationResult;
+
+        /// <summary>
+        /// Holds the OAuth 1.0 Authentication Result from ADAL
+        /// </summary>
+        public static ADAL.AuthenticationResult ADALAuthenticationResult;
     }
 }
