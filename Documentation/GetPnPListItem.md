@@ -22,6 +22,7 @@ Get-PnPListItem -List <ListPipeBind>
                 [-Query <String>]
                 [-PageSize <Int>]
                 [-ScriptBlock <ScriptBlock>]
+                [-LimitResults [<SwitchParameter>]]
                 [-Web <WebPipeBind>]
 ```
 
@@ -31,6 +32,7 @@ Get-PnPListItem -List <ListPipeBind>
                 [-Fields <String[]>]
                 [-PageSize <Int>]
                 [-ScriptBlock <ScriptBlock>]
+                [-LimitResults [<SwitchParameter>]]
                 [-Web <WebPipeBind>]
 ```
 
@@ -44,6 +46,7 @@ Parameter|Type|Required|Description
 |List|ListPipeBind|True|The list to query|
 |Fields|String[]|False|The fields to retrieve. If not specified all fields will be loaded in the returned list object.|
 |Id|Int|False|The ID of the item to retrieve|
+|LimitResults|SwitchParameter|False|Limit the number of items to the set PageSize, otherwise it will return all results paged.|
 |PageSize|Int|False|The number of items to retrieve per page request.|
 |Query|String|False|The CAML query to execute against the list|
 |ScriptBlock|ScriptBlock|False|The script block to run after every page request.|
