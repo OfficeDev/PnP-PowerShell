@@ -167,6 +167,8 @@ Cmdlet|Description
 **[Set&#8209;PnPDefaultPageLayout](SetPnPDefaultPageLayout.md)** |Sets a specific page layout to be the default page layout for a publishing site
 **[Add&#8209;PnPHtmlPublishingPageLayout](AddPnPHtmlPublishingPageLayout.md)** |Adds a HTML based publishing page layout
 **[Add&#8209;PnPMasterPage](AddPnPMasterPage.md)** |Adds a Masterpage
+**[Add&#8209;PnPModernPage](AddPnPModernPage.md)** |Adds a modern page
+**[Add&#8209;PnPPublishing2](AddPnPPublishing2.md)** |Adds a publishing page
 **[Add&#8209;PnPPublishingImageRendition](AddPnPPublishingImageRendition.md)** |Adds an Image Rendition if the Name of the Image Rendition does not already exist. This prevents creating two Image Renditions that share the same name.
 **[Get&#8209;PnPPublishingImageRendition](GetPnPPublishingImageRendition.md)** |Returns all image renditions or if Identity is specified a specific one
 **[Remove&#8209;PnPPublishingImageRendition](RemovePnPPublishingImageRendition.md)** |Removes an existing image rendition
@@ -262,6 +264,7 @@ Cmdlet|Description
 **[Remove&#8209;PnPWebPart](RemovePnPWebPart.md)** |Removes a webpart from a page
 **[Get&#8209;PnPWebPartProperty](GetPnPWebPartProperty.md)** |Returns a web part property
 **[Set&#8209;PnPWebPartProperty](SetPnPWebPartProperty.md)** |Sets a web part property
+**[Add&#8209;PnPWebPartToModernPage](AddPnPWebPartToModernPage.md)** |Adds a webpart to a Modern Page in a specified zone
 **[Add&#8209;PnPWebPartToWebPartPage](AddPnPWebPartToWebPartPage.md)** |Adds a webpart to a web part page in a specified zone
 **[Add&#8209;PnPWebPartToWikiPage](AddPnPWebPartToWikiPage.md)** |Adds a webpart to a wiki page in a specified table row and column
 **[Get&#8209;PnPWebPartXml](GetPnPWebPartXml.md)** |Returns the webpart XML of a webpart registered on a site

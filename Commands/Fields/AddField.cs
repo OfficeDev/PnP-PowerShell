@@ -107,16 +107,7 @@ Remarks = @"This will add a field of type Multiple Choice to the list ""Demo Lis
                         Group = Group,
                         AddToDefaultView = AddToDefaultView
                     };
-#if !ONPREMISES
-                    if(ClientSideComponentId != null)
-                    {
-                        fieldCI.ClientSideComponentId = ClientSideComponentId.Id;
-                    }
-                    if(!string.IsNullOrEmpty(ClientSideComponentProperties))
-                    {
-                        fieldCI.ClientSideComponentProperties = ClientSideComponentProperties;
-                    }
-#endif
+
                     if (Type == FieldType.Choice || Type == FieldType.MultiChoice)
                     {
                         f = list.CreateField<FieldChoice>(fieldCI);
@@ -191,16 +182,7 @@ Remarks = @"This will add a field of type Multiple Choice to the list ""Demo Lis
                     AddToDefaultView = AddToDefaultView
                 };
 
-#if !ONPREMISES
-                if (ClientSideComponentId != null)
-                {
-                    fieldCI.ClientSideComponentId = ClientSideComponentId.Id;
-                }
-                if (!string.IsNullOrEmpty(ClientSideComponentProperties))
-                {
-                    fieldCI.ClientSideComponentProperties = ClientSideComponentProperties;
-                }
-#endif
+
 
                 if (Type == FieldType.Choice || Type == FieldType.MultiChoice)
                 {

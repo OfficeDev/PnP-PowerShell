@@ -96,16 +96,6 @@ Add-PnPCustomAction -Name 'GetItemsCount' -Title 'Invoke GetItemsCount Action' -
                 Rights = permissions,
             };
 
-#if !ONPREMISES
-            if(ClientSideComponentId.Id != Guid.Empty)
-            {
-                ca.ClientSideComponentId = ClientSideComponentId.Id;
-            }
-            if(!string.IsNullOrEmpty(ClientSideComponentProperties))
-            {
-                ca.ClientSideComponentProperties = ClientSideComponentProperties;
-            }
-#endif
 
             switch (Scope)
             {

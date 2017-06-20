@@ -278,14 +278,7 @@
     </Otherwise>
   </Choose>
   <Choose>
-    <When Condition=" '$(PnPCorePath)' == '' ">
-      <ItemGroup>
-        <Reference Include="OfficeDevPnP.Core">
-          <SpecificVersion>False</SpecificVersion>
-          <HintPath>..\..\PnP-Sites-Core\Core\OfficeDevPnP.Core\bin\$(Configuration)\OfficeDevPnP.Core.dll</HintPath>
-        </Reference>
-      </ItemGroup>
-    </When>
+    <When Condition=" '$(PnPCorePath)' == '' " />
     <Otherwise>
       <ItemGroup>
         <Reference Include="OfficeDevPnP.Core">
@@ -358,6 +351,9 @@
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="OfficeDevPnP.Core">
+      <HintPath>..\..\PnP-Sites-Core\Core\OfficeDevPnP.Core\bin\Release\OfficeDevPnP.Core.dll</HintPath>
     </Reference>
     <Reference Include="SharePointPnP.IdentityModel.Extensions, Version=1.2.2.0, Culture=neutral, PublicKeyToken=3751622786b357c2, processorArchitecture=MSIL">
       <HintPath>..\packages\SharePointPnP.IdentityModel.Extensions.1.2.2\lib\net45\SharePointPnP.IdentityModel.Extensions.dll</HintPath>
@@ -570,6 +566,7 @@
     <Compile Include="Provider\SPODriveInfo.cs" />
     <Compile Include="Provider\SPOProvider.cs" />
     <Compile Include="Publishing\AddMasterPage.cs" />
+    <Compile Include="Publishing\AddModernPage.cs" />
     <Compile Include="Publishing\RemovePublishingImageRendition.cs" />
     <Compile Include="Publishing\GetPublishingImageRendition.cs" />
     <Compile Include="RecycleBin\ClearTenantRecycleBinItem.cs" />
@@ -605,6 +602,7 @@
     <Compile Include="UserProfiles\SetUserProfileProperty.cs" />
     <Compile Include="Utilities\DynamicLinq.cs" />
     <Compile Include="Utilities\HttpHelper.cs" />
+    <Compile Include="WebParts\AddWebPartToModernPage.cs" />
     <Compile Include="WebParts\GetWebPartProperty.cs" />
     <Compile Include="Branding\RemoveJavaScriptLink.cs" />
     <Compile Include="Branding\AddJavaScriptLink.cs" />
