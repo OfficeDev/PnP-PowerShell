@@ -411,6 +411,7 @@
     <Compile Include="Base\PnPWebRetrievalsCmdlet.cs" />
     <Compile Include="Base\PnPCmdlet.cs" />
     <Compile Include="Base\PnPAdminCmdlet.cs" />
+    <Compile Include="Branding\SetSiteLogo.cs" />
     <Compile Include="ContentTypes\GetContentTypePublishingHubUrl.cs" />
     <Compile Include="Files\CopyFile.cs" />
     <Compile Include="Files\MoveFile.cs" />

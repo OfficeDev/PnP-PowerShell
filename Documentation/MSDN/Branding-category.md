@@ -17,5 +17,6 @@ Cmdlet|Description
 **[Remove&#8209;PnPNavigationNode](RemovePnPNavigationNode.md)** |Removes a menu item from either the quicklaunch or top navigation
 **[Disable&#8209;PnPResponsiveUI](DisablePnPResponsiveUI.md)** |Disables the PnP Responsive UI implementation on a classic SharePoint Site
 **[Enable&#8209;PnPResponsiveUI](EnablePnPResponsiveUI.md)** |Enables the PnP Responsive UI implementation on a classic SharePoint Site
+**[Set&#8209;PnPSiteLogo](SetPnPSiteLogo.md)** |Sets the Site Logo of the current web.
 **[Get&#8209;PnPTheme](GetPnPTheme.md)** |Returns the current theme/composed look of the current web.
 **[Set&#8209;PnPTheme](SetPnPTheme.md)** |Sets the theme of the current web.

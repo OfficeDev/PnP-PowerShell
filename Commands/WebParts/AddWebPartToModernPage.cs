@@ -17,7 +17,7 @@ namespace SharePointPnP.PowerShell.Commands.WebParts
         [Parameter(Mandatory = true, HelpMessage = "Server Relative Url of the page to add the webpart to.")]
         [Alias("PageUrl")] public string ServerRelativePageUrl = string.Empty;
 
-        [Parameter(Mandatory = true, HelpMessage = "A name for the webpart.")] [Alias("NameWebPart")]
+        [Parameter(Mandatory = true, HelpMessage = "A name for the webpart.")] [Alias("WebPart")]
         public string NameWebPart = string.Empty;
 
         [Parameter(Mandatory = true)] public int ZoneIndex;

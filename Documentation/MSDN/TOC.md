@@ -32,6 +32,7 @@
 ### [Remove-PnPNavigationNode](RemovePnPNavigationNode.md)
 ### [Disable-PnPResponsiveUI](DisablePnPResponsiveUI.md)
 ### [Enable-PnPResponsiveUI](EnablePnPResponsiveUI.md)
+### [Set-PnPSiteLogo](SetPnPSiteLogo.md)
 ### [Get-PnPTheme](GetPnPTheme.md)
 ### [Set-PnPTheme](SetPnPTheme.md)
 ## [Content Types](ContentTypes-category.md)
