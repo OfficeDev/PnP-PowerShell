@@ -2,7 +2,7 @@
 using System.Management.Automation;
 using OfficeDevPnP.Core.Pages;
 using SharePointPnP.PowerShell.CmdletHelpAttributes;
-
+#if !ONPREMISES
 namespace SharePointPnP.PowerShell.Commands.WebParts
 {
     [Cmdlet(VerbsCommon.Add, "PnPWebPartToModernPage")]
@@ -38,3 +38,4 @@ namespace SharePointPnP.PowerShell.Commands.WebParts
 
     }
 }
+#endif

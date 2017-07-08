@@ -1,7 +1,7 @@
 ﻿using System.Management.Automation;
 using OfficeDevPnP.Core.Pages;
 using SharePointPnP.PowerShell.CmdletHelpAttributes;
-
+#if !ONPREMISES
 namespace SharePointPnP.PowerShell.Commands.Publishing
 {
     [Cmdlet(VerbsCommon.Add, "PnPModernPage")]
@@ -20,11 +20,10 @@ namespace SharePointPnP.PowerShell.Commands.Publishing
         protected override void ExecuteCmdlet()
         {
             var modernPage = new ClientSidePage(ClientContext);
-
             modernPage.Save(this.NamePage);
 
 
         }
     }
-
 }
+#endif

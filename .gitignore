@@ -216,3 +216,5 @@ ModelManifest.xml
 
 # TabsStudio generated files
 *.tss
+/InstallModule.ps1
+/InstallModule.ps1
