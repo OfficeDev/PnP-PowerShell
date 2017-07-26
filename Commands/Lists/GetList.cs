@@ -43,7 +43,7 @@ namespace SharePointPnP.PowerShell.Commands.Lists
                     throw new ArgumentException($"No list found with id, title or url '{Identity}'", "Identity");
                 }
 
-                var listProperties = Utilities.PSObjectConverter.ConvertGenericObject(list);
+                var listProperties = Utilities.PSObjectConverter.ConvertGenericObject(list, this);
                 WriteObject(listProperties);
             }
             else
@@ -52,7 +52,7 @@ namespace SharePointPnP.PowerShell.Commands.Lists
                 var lists = ClientContext.LoadQuery(query);
                 ClientContext.ExecuteQueryRetry();
 
-                var listsProperties = Utilities.PSObjectConverter.ConvertGenericObjects(lists);
+                var listsProperties = Utilities.PSObjectConverter.ConvertGenericObjects(lists, this);
                 WriteObject(listsProperties, true);
             }
         }

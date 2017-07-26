@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Management.Automation;
 
 namespace SharePointPnP.PowerShell.Commands.Utilities
@@ -61,34 +62,43 @@ namespace SharePointPnP.PowerShell.Commands.Utilities
         }
 
         /// <summary>
-        /// Takes an IEnumerable collection of object and converts all of their properties to a PSObject IENumerable
+        /// Takes an IEnumerable ClientObject collection of object and converts all of their properties to a PSObject IENumerable
         /// </summary>
-        /// <param name="collection">Collection of objects to take their properties from</param>
+        /// <param name="collection">Collection of ClientObjects to take their properties from</param>
+        /// <param name="cmdLet">The cmdlet for which this command is executed</param>
         /// <returns>PSObject IEnumerable which can be used to output the properties</returns>
-        public static IEnumerable<PSObject> ConvertGenericObjects(IEnumerable collection, string[] defaultProperties = null)
+        public static IEnumerable<PSObject> ConvertGenericObjects(IEnumerable<ClientObject> collection, Cmdlet cmdLet, string[] defaultProperties = null)
         {
             var records = new List<PSObject>();
             foreach(var item in collection)
             {
-                records.Add(ConvertGenericObject(item, defaultProperties));
+                records.Add(ConvertGenericObject(item, cmdLet, defaultProperties));
             }
             return records;
         }
 
         /// <summary>
-        /// Takes an object and converts its properties to a PSObject
+        /// Takes a ClientObject and converts its properties to a PSObject
         /// </summary>
-        /// <param name="instance">Instance of an object to take its properties from</param>
+        /// <param name="clientObject">Instance of an object to take its properties from</param>
+        /// <param name="cmdLet">The cmdlet for which this command is executed</param>
         /// <returns>PSObject which can be used to output the properties</returns>
-        public static PSObject ConvertGenericObject(object instance, string[] defaultProperties = null)
+        public static PSObject ConvertGenericObject(ClientObject clientObject, Cmdlet cmdLet, string[] defaultProperties = null)
         {
             var record = new PSObject();
-            var properties = instance.GetType().GetProperties();
+            var properties = clientObject.GetType().GetProperties();
             foreach (var property in properties)
             {
                 try
                 {
-                    record.Properties.Add(new PSVariableProperty(new PSVariable(property.Name, property.GetValue(instance, null)?.ToString())));
+                    if (clientObject.IsPropertyAvailable(property.Name))
+                    {
+                        record.Properties.Add(new PSVariableProperty(new PSVariable(property.Name, property.GetValue(clientObject, null)?.ToString())));
+                    }
+                    else
+                    {
+                        cmdLet.WriteVerbose($"Property '{property.Name}' has not been loaded. Will be skipped in output.");
+                    }
                 }
                 catch(Exception)
                 {
@@ -99,6 +109,7 @@ namespace SharePointPnP.PowerShell.Commands.Utilities
             // Check if the default properties must be set or if all available properties should be returned. If delimiting the default properties to return, the other properties not included in the defaults can be requested by piping the output to Select -Property *.
             if (defaultProperties?.Length > 0)
             {
+                cmdLet.WriteVerbose($"Setting default properties to '{defaultProperties.Aggregate((a, b) => a + ", " + b)}'. Use Select -Property * to display all available properties on this object.");
                 record.Members.Add(new PSMemberSet("PSStandardMembers", new PSMemberInfo[] { new PSPropertySet("DefaultDisplayPropertySet", defaultProperties) }));
             }
             return record;
