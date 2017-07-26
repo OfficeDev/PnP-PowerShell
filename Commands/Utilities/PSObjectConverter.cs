@@ -45,22 +45,27 @@ namespace SharePointPnP.PowerShell.Commands.Utilities
             return record;
         }
 
-        public static List<PSObject> ConvertGenericObjects(IEnumerable collection)
+        /// <summary>
+        /// Takes an IEnumerable collection of object and converts all of their properties to a PSObject IENumerable
+        /// </summary>
+        /// <param name="collection">Collection of objects to take their properties from</param>
+        /// <returns>PSObject IEnumerable which can be used to output the properties</returns>
+        public static IEnumerable<PSObject> ConvertGenericObjects(IEnumerable collection, string[] defaultProperties = null)
         {
             var records = new List<PSObject>();
             foreach(var item in collection)
             {
-                records.Add(ConvertGenericObject(item));
+                records.Add(ConvertGenericObject(item, defaultProperties));
             }
             return records;
         }
 
         /// <summary>
-        /// Takes a List and converts its properties to a PSObject
+        /// Takes an object and converts its properties to a PSObject
         /// </summary>
-        /// <param name="list">List to take its properties from</param>
+        /// <param name="instance">Instance of an object to take its properties from</param>
         /// <returns>PSObject which can be used to output the properties</returns>
-        public static PSObject ConvertGenericObject(object instance)
+        public static PSObject ConvertGenericObject(object instance, string[] defaultProperties = null)
         {
             var record = new PSObject();
             var properties = instance.GetType().GetProperties();
@@ -70,16 +75,17 @@ namespace SharePointPnP.PowerShell.Commands.Utilities
                 {
                     record.Properties.Add(new PSVariableProperty(new PSVariable(property.Name, property.GetValue(instance, null)?.ToString())));
                 }
-                catch(Exception e)
+                catch(Exception)
                 {
                     // Swallow exceptions thay may occur when using reflection to get properties
                 }
             }
-            
-            record.Members.Add(new PSMemberSet("PSStandardMembers", new PSMemberInfo[]
+
+            // Check if the default properties must be set or if all available properties should be returned. If delimiting the default properties to return, the other properties not included in the defaults can be requested by piping the output to Select -Property *.
+            if (defaultProperties?.Length > 0)
             {
-                new PSPropertySet("DefaultDisplayPropertySet", new[] { "Title", "Url" })
-            }));
+                record.Members.Add(new PSMemberSet("PSStandardMembers", new PSMemberInfo[] { new PSPropertySet("DefaultDisplayPropertySet", defaultProperties) }));
+            }
             return record;
         }
     }
