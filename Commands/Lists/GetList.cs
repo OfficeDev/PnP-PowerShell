@@ -24,6 +24,10 @@ namespace SharePointPnP.PowerShell.Commands.Lists
         Code = "PS:> Get-PnPList -Identity Lists/Announcements",
         Remarks = "Returns a list with the given url.",
         SortOrder = 3)]
+    [CmdletExample(
+        Code = "PS:> Get-PnPList -Identity Documents",
+        Remarks = "Returns a list with the given title.",
+        SortOrder = 4)]
     public class GetList : PnPWebRetrievalsCmdlet<List>
     {
         [Parameter(Mandatory = false, ValueFromPipeline = true, Position = 0, HelpMessage = "The ID, name or Url (Lists/MyList) of the list.")]
