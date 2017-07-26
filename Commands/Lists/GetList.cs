@@ -35,8 +35,6 @@ namespace SharePointPnP.PowerShell.Commands.Lists
 
         protected override void ExecuteCmdlet()
         {
-            DefaultRetrievalExpressions = new Expression<Func<List, object>>[] { l => l.Id, l => l.BaseTemplate, l => l.OnQuickLaunch, l => l.DefaultViewUrl, l => l.Title, l => l.Hidden, l => l.RootFolder.ServerRelativeUrl };
-
             if (Identity != null)
             {
                 var list = Identity.GetList(SelectedWeb);
@@ -45,16 +43,20 @@ namespace SharePointPnP.PowerShell.Commands.Lists
                     throw new ArgumentException($"No list found with id, title or url '{Identity}'", "Identity");
                 }
 
-                list?.EnsureProperties(RetrievalExpressions);
+                ClientContext.Load(list);
+                ClientContext.ExecuteQueryRetry();
 
-                WriteObject(list);
+                var listProperties = Utilities.PSObjectConverter.ConvertGenericObject(list);
+                WriteObject(listProperties);
             }
             else
             {
                 var query = SelectedWeb.Lists.IncludeWithDefaultProperties(RetrievalExpressions);
                 var lists = ClientContext.LoadQuery(query);
                 ClientContext.ExecuteQueryRetry();
-                WriteObject(lists, true);
+
+                var listsProperties = Utilities.PSObjectConverter.ConvertGenericObjects(lists);
+                WriteObject(listsProperties, true);
             }
         }
     }

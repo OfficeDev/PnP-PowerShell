@@ -1,4 +1,7 @@
 ﻿using Microsoft.SharePoint.Client;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Management.Automation;
 
 namespace SharePointPnP.PowerShell.Commands.Utilities
@@ -39,6 +42,44 @@ namespace SharePointPnP.PowerShell.Commands.Utilities
                 }
             }
 
+            return record;
+        }
+
+        public static List<PSObject> ConvertGenericObjects(IEnumerable collection)
+        {
+            var records = new List<PSObject>();
+            foreach(var item in collection)
+            {
+                records.Add(ConvertGenericObject(item));
+            }
+            return records;
+        }
+
+        /// <summary>
+        /// Takes a List and converts its properties to a PSObject
+        /// </summary>
+        /// <param name="list">List to take its properties from</param>
+        /// <returns>PSObject which can be used to output the properties</returns>
+        public static PSObject ConvertGenericObject(object instance)
+        {
+            var record = new PSObject();
+            var properties = instance.GetType().GetProperties();
+            foreach (var property in properties)
+            {
+                try
+                {
+                    record.Properties.Add(new PSVariableProperty(new PSVariable(property.Name, property.GetValue(instance, null)?.ToString())));
+                }
+                catch(Exception e)
+                {
+                    // Swallow exceptions thay may occur when using reflection to get properties
+                }
+            }
+            
+            record.Members.Add(new PSMemberSet("PSStandardMembers", new PSMemberInfo[]
+            {
+                new PSPropertySet("DefaultDisplayPropertySet", new[] { "Title", "Url" })
+            }));
             return record;
         }
     }
