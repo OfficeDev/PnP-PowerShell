@@ -47,7 +47,7 @@ namespace SharePointPnP.PowerShell.Commands.Lists
         SortOrder = 7)]
     public class GetListItem : PnPWebCmdlet
     {
-        [Parameter(Mandatory = true, HelpMessage = "The list to query", Position = 0, ParameterSetName = ParameterAttribute.AllParameterSets)]
+        [Parameter(Mandatory = true, ValueFromPipeline = true, HelpMessage = "The list to query", Position = 0, ParameterSetName = ParameterAttribute.AllParameterSets)]
         public ListPipeBind List;
 
         [Parameter(Mandatory = false, HelpMessage = "The ID of the item to retrieve", ParameterSetName = "ById")]
@@ -113,7 +113,7 @@ namespace SharePointPnP.PowerShell.Commands.Lists
                 }
                 query.ViewXml = $"<View><Query><Where><Eq><FieldRef Name='UniqueId'/><Value Type='Guid'>{UniqueId.Id}</Value></Eq></Where></Query>{viewFieldsStringBuilder}</View>";
                 var listItems = list.GetItems(query);
-                
+
                 ClientContext.Load(listItems);
                 ClientContext.ExecuteQueryRetry();
 
