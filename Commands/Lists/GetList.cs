@@ -43,9 +43,6 @@ namespace SharePointPnP.PowerShell.Commands.Lists
                     throw new ArgumentException($"No list found with id, title or url '{Identity}'", "Identity");
                 }
 
-                ClientContext.Load(list);
-                ClientContext.ExecuteQueryRetry();
-
                 var listProperties = Utilities.PSObjectConverter.ConvertGenericObject(list);
                 WriteObject(listProperties);
             }
