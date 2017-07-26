@@ -12,6 +12,21 @@ namespace SharePointPnP.PowerShell.Commands.Utilities
     public static class PSObjectConverter
     {
         /// <summary>
+        /// Takes a ListItemCollection and converts the properties of all ListItems contained within to a PSObject
+        /// </summary>
+        /// <param name="listItemCollection">ListItemCollection to take its properties from its ListItems</param>
+        /// <returns>PSObject which can be used to output the properties</returns>
+        public static IList<PSObject> ConvertListItems(ListItemCollection listItemCollection)
+        {
+            var records = new List<PSObject>();
+            foreach(var listItem in listItemCollection)
+            {
+                records.Add(ConvertListItem(listItem));
+            }
+            return records;
+        }
+
+        /// <summary>
         /// Takes a ListItem and converts its properties to a PSObject
         /// </summary>
         /// <param name="listItem">ListItem to take its properties from</param>

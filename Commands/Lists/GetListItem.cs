@@ -109,10 +109,13 @@ namespace SharePointPnP.PowerShell.Commands.Lists
                     viewFieldsStringBuilder.Append("</ViewFields>");
                 }
                 query.ViewXml = $"<View><Query><Where><Eq><FieldRef Name='GUID'/><Value Type='Guid'>{UniqueId.Id}</Value></Eq></Where></Query>{viewFieldsStringBuilder}</View>";
-                var listItem = list.GetItems(query);
-                ClientContext.Load(listItem);
+                var listItems = list.GetItems(query);
+                
+                ClientContext.Load(listItems);
                 ClientContext.ExecuteQueryRetry();
-                WriteObject(listItem);
+
+                var records = Utilities.PSObjectConverter.ConvertListItems(listItems);
+                WriteObject(records, true);
             }
             else
             {
@@ -169,7 +172,8 @@ namespace SharePointPnP.PowerShell.Commands.Lists
                     ClientContext.Load(listItems);
                     ClientContext.ExecuteQueryRetry();
 
-                    WriteObject(listItems, true);
+                    var records = Utilities.PSObjectConverter.ConvertListItems(listItems);
+                    WriteObject(records, true);
 
                     if (ScriptBlock != null)
                     {
