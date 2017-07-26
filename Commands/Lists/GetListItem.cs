@@ -53,8 +53,11 @@ namespace SharePointPnP.PowerShell.Commands.Lists
         [Parameter(Mandatory = false, HelpMessage = "The ID of the item to retrieve", ParameterSetName = "ById")]
         public int Id = -1;
 
-        [Parameter(Mandatory = false, HelpMessage = "The unique id (GUID) of the item to retrieve", ParameterSetName = "ByUniqueId")]
+        [Parameter(Mandatory = false, HelpMessage = "The unique id (UniqueId field) of the item to retrieve", ParameterSetName = "ByUniqueId")]
         public GuidPipeBind UniqueId;
+
+        [Parameter(Mandatory = false, HelpMessage = "The unique id (GUID field) of the item to retrieve", ParameterSetName = "ByGuid")]
+        public GuidPipeBind Guid;
 
         [Parameter(Mandatory = false, HelpMessage = "The CAML query to execute against the list", ParameterSetName = "ByQuery")]
         public string Query;
@@ -108,9 +111,31 @@ namespace SharePointPnP.PowerShell.Commands.Lists
                     }
                     viewFieldsStringBuilder.Append("</ViewFields>");
                 }
-                query.ViewXml = $"<View><Query><Where><Eq><FieldRef Name='GUID'/><Value Type='Guid'>{UniqueId.Id}</Value></Eq></Where></Query>{viewFieldsStringBuilder}</View>";
+                query.ViewXml = $"<View><Query><Where><Eq><FieldRef Name='UniqueId'/><Value Type='Guid'>{UniqueId.Id}</Value></Eq></Where></Query>{viewFieldsStringBuilder}</View>";
                 var listItems = list.GetItems(query);
                 
+                ClientContext.Load(listItems);
+                ClientContext.ExecuteQueryRetry();
+
+                var records = Utilities.PSObjectConverter.ConvertListItems(listItems);
+                WriteObject(records, true);
+            }
+            else if (HasGuid())
+            {
+                CamlQuery query = new CamlQuery();
+                var viewFieldsStringBuilder = new StringBuilder();
+                if (HasFields())
+                {
+                    viewFieldsStringBuilder.Append("<ViewFields>");
+                    foreach (var field in Fields)
+                    {
+                        viewFieldsStringBuilder.AppendFormat("<FieldRef Name='{0}'/>", field);
+                    }
+                    viewFieldsStringBuilder.Append("</ViewFields>");
+                }
+                query.ViewXml = $"<View><Query><Where><Eq><FieldRef Name='GUID'/><Value Type='Guid'>{Guid.Id}</Value></Eq></Where></Query>{viewFieldsStringBuilder}</View>";
+                var listItems = list.GetItems(query);
+
                 ClientContext.Load(listItems);
                 ClientContext.ExecuteQueryRetry();
 
@@ -192,7 +217,12 @@ namespace SharePointPnP.PowerShell.Commands.Lists
 
         private bool HasUniqueId()
         {
-            return UniqueId != null && UniqueId.Id != Guid.Empty;
+            return UniqueId != null && UniqueId.Id != System.Guid.Empty;
+        }
+
+        private bool HasGuid()
+        {
+            return Guid != null && Guid.Id != System.Guid.Empty;
         }
 
         private bool HasCamlQuery()
