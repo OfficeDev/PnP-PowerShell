@@ -121,6 +121,10 @@ namespace SharePointPnP.PowerShell.Commands.Files
                         var record = Utilities.PSObjectConverter.ConvertListItem(file.ListItemAllFields);
                         WriteObject(record);
                     }
+                    else
+                    {
+                        throw new ArgumentException($"No file found with the provided Url {serverRelativeUrl}", "Url");
+                    }
                     break;
                 case URLASSTRING:
                     WriteObject(SelectedWeb.GetFileAsString(serverRelativeUrl));
