@@ -118,7 +118,8 @@ namespace SharePointPnP.PowerShell.Commands.Files
                     ClientContext.ExecuteQueryRetry();
                     if (file.Exists)
                     {
-                        WriteObject(file.ListItemAllFields);
+                        var record = Utilities.PSObjectConverter.ConvertListItem(file.ListItemAllFields);
+                        WriteObject(record);
                     }
                     break;
                 case URLASSTRING:

@@ -92,28 +92,7 @@ namespace SharePointPnP.PowerShell.Commands.Lists
                 }
                 ClientContext.ExecuteQueryRetry();
 
-                // Some fields require special handling to make their contents readable, do that here
-                var record = new PSObject();
-                foreach (var field in listItem.FieldValues)
-                {
-                    switch(field.Value?.GetType().ToString())
-                    {
-                        case "Microsoft.SharePoint.Client.FieldUserValue":
-                            var user = (FieldUserValue)field.Value;
-                            record.Properties.Add(new PSVariableProperty(new PSVariable(field.Key, $"{user.LookupId};#{user.LookupValue} {user.Email}")));
-                            break;
-
-                        case "Microsoft.SharePoint.Client.FieldLookupValue":
-                            var lookup = (FieldLookupValue)field.Value;
-                            record.Properties.Add(new PSVariableProperty(new PSVariable(field.Key, $"{lookup.LookupId};#{lookup.LookupValue}")));
-                            break;
-
-                        default:
-                            record.Properties.Add(new PSVariableProperty(new PSVariable(field.Key, field.Value)));
-                            break;
-                    }
-                }
-                
+                var record = Utilities.PSObjectConverter.ConvertListItem(listItem);
                 WriteObject(record);
             }
             else if (HasUniqueId())
