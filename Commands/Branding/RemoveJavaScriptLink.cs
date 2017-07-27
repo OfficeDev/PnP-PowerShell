@@ -62,13 +62,23 @@ namespace SharePointPnP.PowerShell.Commands.Branding
                 actions.AddRange(ClientContext.Site.GetCustomActions().Where(c => c.Location == "ScriptLink"));
             }
 
-            if (!actions.Any()) return;
-
             if(!string.IsNullOrEmpty(Name))
             {
-                actions = actions.Where(action => action.Name == Name).ToList();
+                actions = actions.Where(action => action.Name == Name).ToList(); 
+
+                if(!actions.Any())
+                {
+                    throw new ArgumentException($"No JavaScriptLink found with the name '{Name}' within the scope '{Scope}'", "Name");
+                }
             }
-            foreach (var action in actions.Where(action => Force || (MyInvocation.BoundParameters.ContainsKey("Confirm") && !bool.Parse(MyInvocation.BoundParameters["Confirm"].ToString())) || ShouldContinue(string.Format(Resources.RemoveJavaScript0, action.Name), Resources.Confirm)))
+
+            if (!actions.Any())
+            {
+                WriteVerbose($"No JavaScriptLink registrations found within the scope '{Scope}'");
+                return;
+            }
+
+            foreach (var action in actions.Where(action => Force || (MyInvocation.BoundParameters.ContainsKey("Confirm") && !bool.Parse(MyInvocation.BoundParameters["Confirm"].ToString())) || ShouldContinue(string.Format(Resources.RemoveJavaScript0, action.Name, action.Id, action.Scope), Resources.Confirm)))
             {
                 switch (action.Scope)
                 {
