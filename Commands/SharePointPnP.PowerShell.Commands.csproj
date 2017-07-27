@@ -406,6 +406,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Base\PipeBinds\GenericObjectNameIdPipeBind.cs" />
+    <Compile Include="Base\PipeBinds\UserCustomActionPipeBind.cs" />
     <Compile Include="Base\PipeBinds\WebPartPipeBind.cs" />
     <Compile Include="Base\PipeBinds\UserPipeBind.cs" />
     <Compile Include="Base\PnPWebCmdlet.cs" />
