@@ -60,10 +60,10 @@ namespace SharePointPnP.PowerShell.Commands.Search
                 rowLimit = 500;
             }
             int currentCount = 0;
-            var dynamicList = new List<dynamic>();
+            var searchResultsList = new List<PSObject>();
+            var keywordQuery = GetKeywordQuery();
             do
             {
-                var keywordQuery = GetKeywordQuery();
                 keywordQuery.StartRow = startRow;
                 keywordQuery.RowLimit = rowLimit;
 
@@ -76,22 +76,12 @@ namespace SharePointPnP.PowerShell.Commands.Search
                     var result = results.Value[0];
                     currentCount = result.ResultRows.Count();
 
-                    foreach (var row in result.ResultRows)
-                    {
-                        dynamicList.Add(
-                            new
-                            {
-                                Title = row["Title"]?.ToString() ?? "",
-                                Url = row["SPSiteUrl"]?.ToString() ?? "",
-                                Description = row["Description"]?.ToString() ?? "",
-                                WebTemplate = row["WebTemplate"]?.ToString() ?? ""
-                            });
-                    }
+                    searchResultsList.AddRange(Utilities.PSObjectConverter.ConvertSearchResultRows(result.ResultRows, this));
                 }
                 startRow += rowLimit;
 
             } while (currentCount == rowLimit && All.IsPresent);
-            WriteObject(dynamicList, true);
+            WriteObject(searchResultsList, true);
         }
 
         private KeywordQuery GetKeywordQuery()
@@ -106,10 +96,6 @@ namespace SharePointPnP.PowerShell.Commands.Search
             }
 
             keywordQuery.QueryText = query;
-            keywordQuery.SelectProperties.Add("Title");
-            keywordQuery.SelectProperties.Add("SPSiteUrl");
-            keywordQuery.SelectProperties.Add("Description");
-            keywordQuery.SelectProperties.Add("WebTemplate");
             keywordQuery.SortList.Add("SPSiteUrl", SortDirection.Ascending);
             // Important to avoid trimming "similar" site collections
             keywordQuery.TrimDuplicates = false;

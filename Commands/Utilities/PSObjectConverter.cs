@@ -100,10 +100,50 @@ namespace SharePointPnP.PowerShell.Commands.Utilities
                         cmdLet.WriteVerbose($"Property '{property.Name}' has not been loaded. Will be skipped in output.");
                     }
                 }
-                catch(Exception)
+                catch (Exception)
                 {
                     // Swallow exceptions thay may occur when using reflection to get properties
                 }
+            }
+
+            // Check if the default properties must be set or if all available properties should be returned. If delimiting the default properties to return, the other properties not included in the defaults can be requested by piping the output to Select -Property *.
+            if (defaultProperties?.Length > 0)
+            {
+                cmdLet.WriteVerbose($"Setting default properties to '{defaultProperties.Aggregate((a, b) => a + ", " + b)}'. Use Select -Property * to display all available properties on this object.");
+                record.Members.Add(new PSMemberSet("PSStandardMembers", new PSMemberInfo[] { new PSPropertySet("DefaultDisplayPropertySet", defaultProperties) }));
+            }
+            return record;
+        }
+
+
+        /// <summary>
+        /// Takes an IEnumerable IDictionary<string, object> collection which is returned by Search Queryies and converts all of their properties to a PSObject IENumerable
+        /// </summary>
+        /// <param name="searchResultRows">Collection of IDictionary<string, object> to take their properties from</param>
+        /// <param name="cmdLet">The cmdlet for which this command is executed</param>
+        /// <returns>PSObject IEnumerable which can be used to output the properties</returns>
+        public static IEnumerable<PSObject> ConvertSearchResultRows(IEnumerable<IDictionary<string, object>> searchResultRows, Cmdlet cmdLet, string[] defaultProperties = null)
+        {
+            var records = new List<PSObject>();
+            foreach (var searchResultRow in searchResultRows)
+            {
+                records.Add(ConvertSearchResultRow(searchResultRow, cmdLet, defaultProperties));
+            }
+            return records;
+        }
+
+        /// <summary>
+        /// Takes an IDictionary<string, object> item which is returned by Search Queryies and converts all of their properties to a PSObject IENumerable
+        /// </summary>
+        /// <param name="searchResultRow">Instance of an IDictionary<string, object> to take its properties from</param>
+        /// <param name="cmdLet">The cmdlet for which this command is executed</param>
+        /// <returns>PSObject which can be used to output the properties</returns>
+        public static PSObject ConvertSearchResultRow(IDictionary<string, object> searchResultRow, Cmdlet cmdLet, string[] defaultProperties = null)
+        {
+            var record = new PSObject();
+            foreach(KeyValuePair<string, object> searchResult in searchResultRow)
+            {
+                record.Properties.Add(new PSVariableProperty(new PSVariable(searchResult.Key, searchResult.Value?.ToString())));
             }
 
             // Check if the default properties must be set or if all available properties should be returned. If delimiting the default properties to return, the other properties not included in the defaults can be requested by piping the output to Select -Property *.
