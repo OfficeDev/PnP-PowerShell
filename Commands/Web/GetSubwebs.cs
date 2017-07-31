@@ -8,25 +8,66 @@ using System.Collections.Generic;
 namespace SharePointPnP.PowerShell.Commands
 {
     [Cmdlet(VerbsCommon.Get, "PnPSubWebs")]
-    [CmdletHelp("Returns the subwebs of the current web", 
+    [CmdletHelp("Returns the subsites of a specific web", 
         Category = CmdletHelpCategory.Webs,
+        DetailedDescription = "This command allows returning all subsites located under the current web",
         OutputType = typeof(List<web>),
         OutputTypeLink = "https://msdn.microsoft.com/en-us/library/microsoft.sharepoint.client.web.aspx")]
+    [CmdletExample(Code = @"PS:> Get-PnPSubWebs",
+                Remarks = @"Returns all the subsites directly located under the current web",
+                SortOrder = 1)]
+    [CmdletExample(Code = @"PS:> Get-PnPSubWebs -Recurse",
+                Remarks = @"Returns all the subsites directly located under the current web and all the subsites underneath those recursively",
+                SortOrder = 2)]
+    [CmdletExample(Code = @"PS:> Get-PnPSubWebs -Identity Project1 -Recurse",
+                Remarks = @"Returns all the subsites located under the Project1 subsite and all the subsites underneath it recursively",
+                SortOrder = 3)]
     public class GetSubWebs : PnPWebCmdlet
     {
-        [Parameter(Mandatory = false, ValueFromPipeline = true, Position = 0)]
+        [Parameter(Mandatory = false, ValueFromPipeline = true, Position = 0, HelpMessage = "Relative Url, Id or instance of a pecific web to list the subsites under")]
         public WebPipeBind Identity;
 
-        [Parameter(Mandatory = false)]
+        [Parameter(Mandatory = false, HelpMessage = "If provided, all subsites underneath the subsites will be added recursively")]
         public SwitchParameter Recurse;
 
         protected override void ExecuteCmdlet()
         {
-            var webs = SelectedWeb.Context.LoadQuery(SelectedWeb.Webs);
+            Web web = null;
+            if(Identity != null)
+            {
+                if(Identity.Id != System.Guid.Empty)
+                {
+                    WriteVerbose($"Retrieving web by Id {Identity.Id}");
+                    web = ClientContext.Site.OpenWebById(Identity.Id);
+                }
+                else if(!string.IsNullOrEmpty(Identity.Url))
+                {
+                    WriteVerbose($"Retrieving web by Url {Identity.Url}");
+                    web = ClientContext.Site.OpenWeb(Identity.Url);
+                }
+                else if(Identity.Web != null)
+                {
+                    WriteVerbose("Using web instance passed along");
+                    web = Identity.Web;
+                }
+            }
+            else
+            {
+                WriteVerbose("Using web from current context");
+                web = SelectedWeb;
+            }
+
+            if(web == null)
+            {
+                throw new PSArgumentException("Unable to define web from Identity", "Identity");
+            }
+
+            var webs = SelectedWeb.Context.LoadQuery(web.Webs);
             SelectedWeb.Context.ExecuteQueryRetry();
             if (!Recurse)
             {
-                WriteObject(webs, true);
+                var subwebProperties = Utilities.PSObjectConverter.ConvertGenericObjects(webs, this);
+                WriteObject(subwebProperties, true);
             }
             else
             {
@@ -36,7 +77,8 @@ namespace SharePointPnP.PowerShell.Commands
                 {
                     subwebs.AddRange(GetSubWebsInternal(subweb));
                 }
-                WriteObject(subwebs, true);
+                var subwebProperties = Utilities.PSObjectConverter.ConvertGenericObjects(subwebs, this);
+                WriteObject(subwebProperties, true);
             }
         }
 

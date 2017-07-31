@@ -400,7 +400,7 @@ Cmdlet|Description
 **[Request&#8209;PnPReIndexWeb](RequestPnPReIndexWeb.md)** |Marks the web for full indexing during the next incremental crawl
 **[Get&#8209;PnPRequestAccessEmails](GetPnPRequestAccessEmails.md)** |Returns the request access e-mail addresses
 **[Set&#8209;PnPRequestAccessEmails](SetPnPRequestAccessEmails.md)** |Sets Request Access Emails on a web
-**[Get&#8209;PnPSubWebs](GetPnPSubWebs.md)** |Returns the subwebs of the current web
+**[Get&#8209;PnPSubWebs](GetPnPSubWebs.md)** |Returns the subsites of a specific web
 **[Get&#8209;PnPWeb](GetPnPWeb.md)** |Returns a web object
 **[New&#8209;PnPWeb](NewPnPWeb.md)** |Creates a new subweb under the current web
 **[Remove&#8209;PnPWeb](RemovePnPWeb.md)** |Removes a subweb in the current web
