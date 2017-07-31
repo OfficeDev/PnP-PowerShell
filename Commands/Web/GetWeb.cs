@@ -1,11 +1,8 @@
 ﻿using Microsoft.SharePoint.Client;
 using SharePointPnP.PowerShell.Commands.Base.PipeBinds;
 using System;
-using System.Linq.Expressions;
 using System.Management.Automation;
 using SharePointPnP.PowerShell.CmdletHelpAttributes;
-using SharePointPnP.PowerShell.Commands.Base;
-using SharePointPnP.PowerShell.Commands.Extensions;
 
 namespace SharePointPnP.PowerShell.Commands
 {
@@ -21,28 +18,40 @@ namespace SharePointPnP.PowerShell.Commands
 
         protected override void ExecuteCmdlet()
         {
-            DefaultRetrievalExpressions = new Expression<Func<Web, object>>[] { w => w.Id, w => w.Url, w => w.Title, w => w.ServerRelativeUrl };
+            Web web = null;
             if (Identity == null)
             {
-                ClientContext.Web.EnsureProperties(RetrievalExpressions);
-                WriteObject(ClientContext.Web);
+                WriteVerbose("Listing current web");
+                web = ClientContext.Web;
             }
             else
             {
                 if (Identity.Id != Guid.Empty)
                 {
-                    WriteObject(ClientContext.Web.GetWebById(Identity.Id, RetrievalExpressions));
+                    WriteVerbose($"Retrieving web through Id {Identity.Id}");
+                    web = ClientContext.Site.OpenWebById(Identity.Id);
                 }
                 else if (Identity.Web != null)
                 {
-                    WriteObject(ClientContext.Web.GetWebById(Identity.Web.Id, RetrievalExpressions));
+                    WriteVerbose("Received web instance");
+                    web = Identity.Web;
                 }
                 else if (Identity.Url != null)
                 {
-                    WriteObject(ClientContext.Web.GetWebByUrl(Identity.Url, RetrievalExpressions));
+                    WriteVerbose($"Retrieving web through Url {Identity.Url}");
+                    web = ClientContext.Site.OpenWeb(Identity.Url);
                 }
             }
-        }
 
+            if(web == null)
+            {
+                throw new ArgumentException("Unable to define web to retrieve", "Identity");
+            }
+            ClientContext.Load(web);
+            ClientContext.ExecuteQueryRetry();
+
+            var webProperties = Utilities.PSObjectConverter.ConvertGenericObject(web, this);
+            WriteObject(webProperties);
+        }
     }
 }
