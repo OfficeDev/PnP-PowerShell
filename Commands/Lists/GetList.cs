@@ -38,7 +38,7 @@ namespace SharePointPnP.PowerShell.Commands.Lists
                 var list = Identity.GetList(SelectedWeb);
                 if(list == null)
                 {
-                    throw new ArgumentException($"No list found with id, title or url '{Identity}'", "Identity");
+                    throw new PSArgumentException($"No list found with id, title or url '{Identity}'", "Identity");
                 }
 
                 list?.EnsureProperties(RetrievalExpressions);
