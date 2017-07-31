@@ -283,4 +283,7 @@
   <data name="CreateSiteWithUrl0" xml:space="preserve">
     <value>Create site with url '{0}'?</value>
   </data>
+  <data name="RemoveUser" xml:space="preserve">
+    <value>Remove User with Id {0}, LoginName '{1}', Email '{2}' from the User Information List?</value>
+  </data>
 </root>

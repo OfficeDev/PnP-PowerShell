@@ -478,6 +478,7 @@
     <Compile Include="Graph\SetUnifiedGroup.cs" />
     <Compile Include="Lists\MoveListItemToRecycleBin.cs" />
     <Compile Include="Lists\SetListItemPermission.cs" />
+    <Compile Include="Principals\RemoveUser.cs" />
     <Compile Include="Provider\SPOProxy\SPOProxyCmdletBase.cs" />
     <Compile Include="Lists\GetDefaultColumnValues.cs" />
     <Compile Include="Provider\Parameters\SPOChildItemsParameters.cs" />

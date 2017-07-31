@@ -477,6 +477,15 @@ namespace SharePointPnP.PowerShell.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Remove User with Id {0}, LoginName &apos;{1}&apos;, Email &apos;{2}&apos; from the User Information List?.
+        /// </summary>
+        internal static string RemoveUser {
+            get {
+                return ResourceManager.GetString("RemoveUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Remove view &apos;{0}&apos;?.
         /// </summary>
         internal static string RemoveView0 {

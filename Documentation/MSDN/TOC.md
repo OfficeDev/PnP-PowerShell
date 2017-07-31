@@ -198,6 +198,7 @@
 ### [Set-PnPGroupPermissions](SetPnPGroupPermissions.md)
 ### [Get-PnPUser](GetPnPUser.md)
 ### [New-PnPUser](NewPnPUser.md)
+### [Remove-PnPUser](RemovePnPUser.md)
 ### [Remove-PnPUserFromGroup](RemovePnPUserFromGroup.md)
 ### [Add-PnPUserToGroup](AddPnPUserToGroup.md)
 ## [User Profiles](UserProfiles-category.md)
