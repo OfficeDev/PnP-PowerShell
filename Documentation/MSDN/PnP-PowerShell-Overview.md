@@ -401,7 +401,7 @@ Cmdlet|Description
 **[Get&#8209;PnPRequestAccessEmails](GetPnPRequestAccessEmails.md)** |Returns the request access e-mail addresses
 **[Set&#8209;PnPRequestAccessEmails](SetPnPRequestAccessEmails.md)** |Sets Request Access Emails on a web
 **[Get&#8209;PnPSubWebs](GetPnPSubWebs.md)** |Returns the subwebs of the current web
-**[Get&#8209;PnPWeb](GetPnPWeb.md)** |Returns the current web object
+**[Get&#8209;PnPWeb](GetPnPWeb.md)** |Returns a web object
 **[New&#8209;PnPWeb](NewPnPWeb.md)** |Creates a new subweb under the current web
 **[Remove&#8209;PnPWeb](RemovePnPWeb.md)** |Removes a subweb in the current web
 **[Set&#8209;PnPWeb](SetPnPWeb.md)** |Sets properties on a web

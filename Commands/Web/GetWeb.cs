@@ -9,7 +9,7 @@ namespace SharePointPnP.PowerShell.Commands
     [Cmdlet(VerbsCommon.Get, "PnPWeb")]
     [CmdletHelp("Returns a web object",
         Category = CmdletHelpCategory.Webs,
-        DetailedDescription = "This allows returning a web object representing either the current context its web or one of the webs located underneath it"
+        DetailedDescription = "This allows returning a web object representing either the current context its web or one of the webs located underneath it",
         OutputType = typeof(Web),
         OutputTypeLink = "https://msdn.microsoft.com/en-us/library/microsoft.sharepoint.client.web.aspx")]
     [CmdletExample(Code = @"PS:> Get-PnPWeb",
@@ -58,7 +58,19 @@ namespace SharePointPnP.PowerShell.Commands
                 throw new ArgumentException("Unable to define web to retrieve", "Identity");
             }
             ClientContext.Load(web);
-            ClientContext.ExecuteQueryRetry();
+
+            try
+            {
+                ClientContext.ExecuteQueryRetry();
+            }
+            catch(ServerException e)
+            {
+                if (e.ServerErrorTypeName == "System.IO.FileNotFoundException")
+                {
+                    throw new ArgumentException("A web with the provided Identity does not exist", "Identity", e);
+                }
+                throw e;
+            }
 
             var webProperties = Utilities.PSObjectConverter.ConvertGenericObject(web, this);
             WriteObject(webProperties);
