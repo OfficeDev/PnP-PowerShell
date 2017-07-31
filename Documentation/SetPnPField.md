@@ -1,5 +1,5 @@
 # Set-PnPField
-Changes a property of a field from a list or site
+Changes one or more properties of a field in a specific list or for the whole web
 ## Syntax
 ```powershell
 Set-PnPField -Values <Hashtable>
@@ -15,20 +15,20 @@ Set-PnPField -Values <Hashtable>
 ## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
-|Identity|FieldPipeBind|True|The field object or name to get|
-|Values|Hashtable|True|Hashtable of properties to update on the field. Use the internal names of the fields when specifying field names or use the field id.|
-|List|ListPipeBind|False|The list object or name where to get the field from|
+|Identity|FieldPipeBind|True|The field object, internal field name or field id to update|
+|Values|Hashtable|True|Hashtable of properties to update on the field. Use the syntax @{property1="value";property2="value"}.|
+|List|ListPipeBind|False|The list object, name or id where to update the field. If omited the field will be updated on the web.|
 |Web|WebPipeBind|False|The web to apply the command to. Omit this parameter to use the current web.|
 ## Examples
 
 ### Example 1
 ```powershell
-PS:> Set-PnPField
+PS:> Set-PnPField -Identity AssignedTo -Values @{JSLink="customrendering.js";Group="My fields"}
 ```
-Gets all the fields from the current site
+Updates the AssignedTo field on the current web to use customrendering.js for the JSLink and sets the group name the field is categorized in to "My Fields"
 
 ### Example 2
 ```powershell
-PS:> Get-PnPField -List "Demo list" -Identity "Speakers"
+PS:> Set-PnPField -List "Tasks" -Identity "AssignedTo" -Values @{JSLink="customrendering.js"}
 ```
-Gets the speakers field from the list Demo list
+Updates the AssignedTo field on the Tasks list to use customrendering.js for the JSLink
