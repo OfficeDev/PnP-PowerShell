@@ -4,11 +4,11 @@ using Microsoft.SharePoint.Client;
 using SharePointPnP.PowerShell.CmdletHelpAttributes;
 using SharePointPnP.PowerShell.Commands.Base.PipeBinds;
 
-namespace SharePointPnP.PowerShell.Commands.Lists
+namespace SharePointPnP.PowerShell.Commands.Views
 {
     [Cmdlet(VerbsCommon.Remove, "PnPView", SupportsShouldProcess = true)]
     [CmdletHelp("Deletes a view from a list",
-        Category = CmdletHelpCategory.Lists)]
+        Category = CmdletHelpCategory.Views)]
     [CmdletExample(
         Code = @"PS:> Remove-PnPView -List ""Demo List"" -Identity ""All Items""",
         SortOrder = 1,

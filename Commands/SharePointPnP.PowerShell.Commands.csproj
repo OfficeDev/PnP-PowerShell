@@ -477,7 +477,7 @@
     <Compile Include="Files\GetFolder.cs" />
     <Compile Include="Graph\SetUnifiedGroup.cs" />
     <Compile Include="Lists\MoveListItemToRecycleBin.cs" />
-    <Compile Include="Lists\SetView.cs" />
+    <Compile Include="Views\SetView.cs" />
     <Compile Include="Lists\SetListItemPermission.cs" />
     <Compile Include="Provider\SPOProxy\SPOProxyCmdletBase.cs" />
     <Compile Include="Lists\GetDefaultColumnValues.cs" />
@@ -551,14 +551,14 @@
     <Compile Include="InvokeAction\InvokeWebActionParameter.cs" />
     <Compile Include="InvokeAction\InvokeWebActionResult.cs" />
     <Compile Include="Lists\AddListItem.cs" />
-    <Compile Include="Lists\AddView.cs" />
+    <Compile Include="Views\AddView.cs" />
     <Compile Include="Lists\RemoveListItem.cs" />
     <Compile Include="Lists\SetListItem.cs" />
     <Compile Include="Lists\GetListItem.cs" />
     <Compile Include="Lists\RequestReIndexList.cs" />
     <Compile Include="Lists\SetDefaultColumnValues.cs" />
-    <Compile Include="Lists\GetView.cs" />
-    <Compile Include="Lists\RemoveView.cs" />
+    <Compile Include="Views\GetView.cs" />
+    <Compile Include="Views\RemoveView.cs" />
     <Compile Include="Lists\RemoveList.cs" />
     <Compile Include="Base\PipeBinds\ViewPipeBind.cs" />
     <Compile Include="Lists\SetList.cs" />

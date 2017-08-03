@@ -7,4 +7,3 @@ Cmdlet|Description
 **[Set&#8209;PnPField](SetPnPField.md)** |Changes one or more properties of a field in a specific list or for the whole web
 **[Add&#8209;PnPFieldFromXml](AddPnPFieldFromXml.md)** |Adds a field to a list or as a site column based upon a CAML/XML field definition
 **[Add&#8209;PnPTaxonomyField](AddPnPTaxonomyField.md)** |Adds a taxonomy field to a list or as a site column.
-**[Set&#8209;PnPView](SetPnPView.md)** |Changes one or more properties of a specific view

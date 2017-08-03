@@ -5,11 +5,11 @@ using SharePointPnP.PowerShell.CmdletHelpAttributes;
 using SharePointPnP.PowerShell.Commands.Base.PipeBinds;
 using System.Collections;
 
-namespace SharePointPnP.PowerShell.Commands.Fields
+namespace SharePointPnP.PowerShell.Commands.Views
 {
     [Cmdlet(VerbsCommon.Set, "PnPView")]
     [CmdletHelp("Changes one or more properties of a specific view",
-        Category = CmdletHelpCategory.Fields,
+        Category = CmdletHelpCategory.Views,
         OutputType = typeof(Field),
         OutputTypeLink = "https://msdn.microsoft.com/en-us/library/microsoft.sharepoint.client.view.aspx")]
     [CmdletExample(

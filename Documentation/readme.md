@@ -88,7 +88,6 @@ Cmdlet|Description
 **[Set&#8209;PnPField](SetPnPField.md)** |Changes one or more properties of a field in a specific list or for the whole web
 **[Add&#8209;PnPFieldFromXml](AddPnPFieldFromXml.md)** |Adds a field to a list or as a site column based upon a CAML/XML field definition
 **[Add&#8209;PnPTaxonomyField](AddPnPTaxonomyField.md)** |Adds a taxonomy field to a list or as a site column.
-**[Set&#8209;PnPView](SetPnPView.md)** |Changes one or more properties of a specific view
 ## Files and Folders
 Cmdlet|Description
 :-----|:----------
@@ -117,6 +116,13 @@ Cmdlet|Description
 **[Set&#8209;PnPSiteClosure](SetPnPSiteClosure.md)** |Opens or closes a site which has a site policy applied
 **[Set&#8209;PnPSitePolicy](SetPnPSitePolicy.md)** |Sets a site policy
 **[Get&#8209;PnPSitePolicy](GetPnPSitePolicy.md)** |Retrieves all or a specific site policy
+## List views
+Cmdlet|Description
+:-----|:----------
+**[Add&#8209;PnPView](AddPnPView.md)** |Adds a view to a list
+**[Get&#8209;PnPView](GetPnPView.md)** |Returns one or all views from a list
+**[Remove&#8209;PnPView](RemovePnPView.md)** |Deletes a view from a list
+**[Set&#8209;PnPView](SetPnPView.md)** |Changes one or more properties of a specific view
 ## Lists
 Cmdlet|Description
 :-----|:----------
@@ -135,9 +141,6 @@ Cmdlet|Description
 **[Set&#8209;PnPListPermission](SetPnPListPermission.md)** |Sets list permissions
 **[Get&#8209;PnPProvisioningTemplateFromGallery](GetPnPProvisioningTemplateFromGallery.md)** |Retrieves or searches provisioning templates from the PnP Template Gallery
 **[Request&#8209;PnPReIndexList](RequestPnPReIndexList.md)** |Marks the list for full indexing during the next incremental crawl
-**[Add&#8209;PnPView](AddPnPView.md)** |Adds a view to a list
-**[Get&#8209;PnPView](GetPnPView.md)** |Returns one or all views from a list
-**[Remove&#8209;PnPView](RemovePnPView.md)** |Deletes a view from a list
 ## Microsoft Graph
 Cmdlet|Description
 :-----|:----------
