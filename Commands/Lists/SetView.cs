@@ -56,8 +56,18 @@ namespace SharePointPnP.PowerShell.Commands.Fields
             }
             else if(Identity.View != null)
             {
-                WriteVerbose("Using view passed through the pipeline");
+                WriteVerbose("Using view passed through the view in the pipeline");
                 view = Identity.View;
+            }
+            else if (Identity.Id != Guid.Empty && Identity.ParentListId != Guid.Empty)
+            {
+                WriteVerbose("Using view passed through the PSObject in the pipeline");
+                list = ClientContext.Web.Lists.GetById(Identity.ParentListId);
+                if(list == null)
+                {
+                    throw new PSArgumentException("View provided in the Identity argument has an invalid ParentListId", "Identity");
+                }
+                view = list.GetViewById(Identity.Id);
             }
             else
             {
