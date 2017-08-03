@@ -477,6 +477,7 @@
     <Compile Include="Files\GetFolder.cs" />
     <Compile Include="Graph\SetUnifiedGroup.cs" />
     <Compile Include="Lists\MoveListItemToRecycleBin.cs" />
+    <Compile Include="Lists\SetView.cs" />
     <Compile Include="Lists\SetListItemPermission.cs" />
     <Compile Include="Provider\SPOProxy\SPOProxyCmdletBase.cs" />
     <Compile Include="Lists\GetDefaultColumnValues.cs" />

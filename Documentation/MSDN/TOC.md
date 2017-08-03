@@ -66,6 +66,7 @@
 ### [Set-PnPField](SetPnPField.md)
 ### [Add-PnPFieldFromXml](AddPnPFieldFromXml.md)
 ### [Add-PnPTaxonomyField](AddPnPTaxonomyField.md)
+### [Set-PnPView](SetPnPView.md)
 ## [Files and Folders](FilesandFolders-category.md)
 ### [Add-PnPFile](AddPnPFile.md)
 ### [Copy-PnPFile](CopyPnPFile.md)
