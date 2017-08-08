@@ -2,7 +2,6 @@
 using Microsoft.SharePoint.Client;
 using SharePointPnP.PowerShell.CmdletHelpAttributes;
 using SharePointPnP.PowerShell.Commands.Base.PipeBinds;
-using System.Linq.Expressions;
 using System;
 
 namespace SharePointPnP.PowerShell.Commands.Lists
