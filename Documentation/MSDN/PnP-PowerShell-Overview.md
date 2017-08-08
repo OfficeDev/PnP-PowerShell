@@ -122,6 +122,7 @@ Cmdlet|Description
 **[Remove&#8209;PnPNavigationNode](RemovePnPNavigationNode.md)** |Removes a menu item from either the quicklaunch or top navigation
 **[Disable&#8209;PnPResponsiveUI](DisablePnPResponsiveUI.md)** |Disables the PnP Responsive UI implementation on a classic SharePoint Site
 **[Enable&#8209;PnPResponsiveUI](EnablePnPResponsiveUI.md)** |Enables the PnP Responsive UI implementation on a classic SharePoint Site
+**[Set&#8209;PnPSiteLogo](SetPnPSiteLogo.md)** |Sets the Site Logo of the current web.
 **[Get&#8209;PnPTheme](GetPnPTheme.md)** |Returns the current theme/composed look of the current web.
 **[Set&#8209;PnPTheme](SetPnPTheme.md)** |Sets the theme of the current web.
 
@@ -267,6 +268,8 @@ Cmdlet|Description
 **[Set&#8209;PnPDefaultPageLayout](SetPnPDefaultPageLayout.md)** |Sets a specific page layout to be the default page layout for a publishing site
 **[Add&#8209;PnPHtmlPublishingPageLayout](AddPnPHtmlPublishingPageLayout.md)** |Adds a HTML based publishing page layout
 **[Add&#8209;PnPMasterPage](AddPnPMasterPage.md)** |Adds a Masterpage
+**[Add&#8209;PnPModernPage](AddPnPModernPage.md)** |Adds a modern page
+**[Add&#8209;PnPPublishing2](AddPnPPublishing2.md)** |Adds a publishing page
 **[Add&#8209;PnPPublishingImageRendition](AddPnPPublishingImageRendition.md)** |Adds an Image Rendition if the Name of the Image Rendition does not already exist. This prevents creating two Image Renditions that share the same name.
 **[Get&#8209;PnPPublishingImageRendition](GetPnPPublishingImageRendition.md)** |Returns all image renditions or if Identity is specified a specific one
 **[Remove&#8209;PnPPublishingImageRendition](RemovePnPPublishingImageRendition.md)** |Removes an existing image rendition
@@ -380,6 +383,7 @@ Cmdlet|Description
 **[Remove&#8209;PnPWebPart](RemovePnPWebPart.md)** |Removes a webpart from a page
 **[Get&#8209;PnPWebPartProperty](GetPnPWebPartProperty.md)** |Returns a web part property
 **[Set&#8209;PnPWebPartProperty](SetPnPWebPartProperty.md)** |Sets a web part property
+**[Add&#8209;PnPWebPartToModernPage](AddPnPWebPartToModernPage.md)** |Adds a webpart to a Modern Page in a specified zone
 **[Add&#8209;PnPWebPartToWebPartPage](AddPnPWebPartToWebPartPage.md)** |Adds a webpart to a web part page in a specified zone
 **[Add&#8209;PnPWebPartToWikiPage](AddPnPWebPartToWikiPage.md)** |Adds a webpart to a wiki page in a specified table row and column
 **[Get&#8209;PnPWebPartXml](GetPnPWebPartXml.md)** |Returns the webpart XML of a webpart registered on a site
