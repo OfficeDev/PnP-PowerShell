@@ -4,6 +4,7 @@
 ### [Uninstall-PnPAppInstance](UninstallPnPAppInstance.md)
 ### [Import-PnPAppPackage](ImportPnPAppPackage.md)
 ## [Base Cmdlets](BaseCmdlets-category.md)
+### [Get-PnPAppAuthAccessToken](GetPnPAppAuthAccessToken.md)
 ### [Get-PnPAuthenticationRealm](GetPnPAuthenticationRealm.md)
 ### [Get-PnPAzureADManifestKeyCredentials](GetPnPAzureADManifestKeyCredentials.md)
 ### [Get-PnPContext](GetPnPContext.md)

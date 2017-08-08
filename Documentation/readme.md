@@ -14,6 +14,7 @@ Cmdlet|Description
 ## Base Cmdlets
 Cmdlet|Description
 :-----|:----------
+**[Get&#8209;PnPAppAuthAccessToken](GetPnPAppAuthAccessToken.md)** |Returns the access token from the current client context (In App authentication mode only)
 **[Get&#8209;PnPAuthenticationRealm](GetPnPAuthenticationRealm.md)** |Gets the authentication realm for the current web
 **[Get&#8209;PnPAzureADManifestKeyCredentials](GetPnPAzureADManifestKeyCredentials.md)** |Creates the JSON snippet that is required for the manifest JSON file for Azure WebApplication / WebAPI apps
 **[Get&#8209;PnPContext](GetPnPContext.md)** |Returns a Client Side Object Model context
