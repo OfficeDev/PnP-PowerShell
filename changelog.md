@@ -1,5 +1,9 @@
 # SharePointPnP.PowerShell Changelog #
 
+**2017-07-11**
+* Added Set-PnPUserPermissions
+* Added UserPipeBand.GetUser
+
 **2017-05-06**
 * Added Set-PnPWebPermissions
 * Updated Get-PnPListItem to execute scriptblocks
