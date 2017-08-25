@@ -3,11 +3,11 @@ using Microsoft.SharePoint.Client;
 using SharePointPnP.PowerShell.CmdletHelpAttributes;
 using SharePointPnP.PowerShell.Commands.Base.PipeBinds;
 
-namespace SharePointPnP.PowerShell.Commands.Lists
+namespace SharePointPnP.PowerShell.Commands.Views
 {
     [Cmdlet(VerbsCommon.Add, "PnPView")]
     [CmdletHelp("Adds a view to a list",
-        Category = CmdletHelpCategory.Lists,
+        Category = CmdletHelpCategory.Views,
           OutputType = typeof(View),
         OutputTypeLink = "https://msdn.microsoft.com/en-us/library/microsoft.sharepoint.client.view.aspx")]
     [CmdletExample(

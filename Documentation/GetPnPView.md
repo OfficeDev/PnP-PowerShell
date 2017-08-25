@@ -15,8 +15,8 @@ Get-PnPView -List <ListPipeBind>
 ## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
-|List|ListPipeBind|True|The ID or Url of the list.|
-|Identity|ViewPipeBind|False|The ID or name of the view|
+|List|ListPipeBind|True|The Id, Title or Url of the list|
+|Identity|ViewPipeBind|False|The Id, Title or instance of the view|
 |Includes|String[]|False|Specify properties to include when retrieving objects from the server.|
 |Web|WebPipeBind|False|The web to apply the command to. Omit this parameter to use the current web.|
 ## Examples
@@ -25,16 +25,22 @@ Parameter|Type|Required|Description
 ```powershell
 Get-PnPView -List "Demo List"
 ```
-Returns all views associated from the specified list
+Returns all views associated from the list titled "Demo List"
 
 ### Example 2
 ```powershell
 Get-PnPView -List "Demo List" -Identity "Demo View"
 ```
-Returns the view called "Demo View" from the specified list
+Returns the view called "Demo View" from the list titled "Demo List"
 
 ### Example 3
 ```powershell
 Get-PnPView -List "Demo List" -Identity "5275148a-6c6c-43d8-999a-d2186989a661"
 ```
-Returns the view with the specified ID from the specified list
+Returns the view with the Id "5275148a-6c6c-43d8-999a-d2186989a661" from the list titled "Demo List"
+
+### Example 4
+```powershell
+Get-PnPList -Identity "Demo List" | Get-PnPView -Identity "Demo View"
+```
+Returns the view called "Demo View" from the list titled "Demo List"

@@ -40,6 +40,8 @@ namespace SharePointPnP.PowerShell.CmdletHelpAttributes
         [EnumMember(Value = "Microsoft Graph")]
         Graph = 23,
         [EnumMember(Value = "SharePoint Recycle Bin")]
-        RecycleBin = 24
+        RecycleBin = 24,
+        [EnumMember(Value = "List views")]
+        Views = 25
     }
 }
