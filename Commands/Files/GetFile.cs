@@ -60,8 +60,11 @@ namespace SharePointPnP.PowerShell.Commands.Files
         [Parameter(Mandatory = true, ParameterSetName = URLTOPATH)]
         public SwitchParameter AsFile;
 
-        [Parameter(Mandatory = false, ParameterSetName = URLASLISTITEM)]
+        [Parameter(Mandatory = false, ParameterSetName = URLASLISTITEM, HelpMessage = "Returns the file as a listitem showing all its properties")]
         public SwitchParameter AsListItem;
+
+        [Parameter(Mandatory = false, ParameterSetName = URLASLISTITEM, HelpMessage = "If provided in combination with -AsListItem, a Sytem.ArgumentException will be thrown if the file specified in the -Url argument does not exist. Otherwise it will return nothing instead.")]
+        public SwitchParameter ThrowExceptionIfFileNotFound;
 
         [Parameter(Mandatory = false, ParameterSetName = URLASSTRING, HelpMessage = "Retrieve the file contents as a string")]
         public SwitchParameter AsString;
@@ -123,7 +126,10 @@ namespace SharePointPnP.PowerShell.Commands.Files
                     }
                     else
                     {
-                        throw new ArgumentException($"No file found with the provided Url {serverRelativeUrl}", "Url");
+                        if (ThrowExceptionIfFileNotFound)
+                        {
+                            throw new ArgumentException($"No file found with the provided Url {serverRelativeUrl}", "Url");
+                        }
                     }
                     break;
                 case URLASSTRING:
