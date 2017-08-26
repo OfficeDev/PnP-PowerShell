@@ -15,6 +15,7 @@ Connect-PnPOnline -Url <String>
                   [-DriveName <String>]
                   [-TenantAdminUrl <String>]
                   [-SkipTenantAdminCheck [<SwitchParameter>]]
+                  [-IgnoreSslErrors [<SwitchParameter>]]
 ```
 
 
@@ -29,6 +30,7 @@ Connect-PnPOnline -UseWebLogin [<SwitchParameter>]
                   [-DriveName <String>]
                   [-TenantAdminUrl <String>]
                   [-SkipTenantAdminCheck [<SwitchParameter>]]
+                  [-IgnoreSslErrors [<SwitchParameter>]]
 ```
 
 
@@ -45,6 +47,7 @@ Connect-PnPOnline -AppId <String>
                   [-DriveName <String>]
                   [-TenantAdminUrl <String>]
                   [-SkipTenantAdminCheck [<SwitchParameter>]]
+                  [-IgnoreSslErrors [<SwitchParameter>]]
 ```
 
 
@@ -62,6 +65,7 @@ Connect-PnPOnline -ClientId <String>
                   [-DriveName <String>]
                   [-TenantAdminUrl <String>]
                   [-SkipTenantAdminCheck [<SwitchParameter>]]
+                  [-IgnoreSslErrors [<SwitchParameter>]]
 ```
 
 
@@ -80,6 +84,7 @@ Connect-PnPOnline -ClientId <String>
                   [-DriveName <String>]
                   [-TenantAdminUrl <String>]
                   [-SkipTenantAdminCheck [<SwitchParameter>]]
+                  [-IgnoreSslErrors [<SwitchParameter>]]
 ```
 
 
@@ -105,6 +110,7 @@ Parameter|Type|Required|Description
 |Credentials|CredentialPipeBind|False|Credentials of the user to connect with. Either specify a PSCredential object or a string. In case of a string value a lookup will be done to the Windows Credential Manager for the correct credentials.|
 |CurrentCredentials|SwitchParameter|False|If you want to connect with the current user credentials|
 |DriveName|String|False|Name of the PSDrive to create (default: SPO)|
+|IgnoreSslErrors|SwitchParameter|False|Ignores any SSL errors. To be used i.e. when connecting to a SharePoint farm using self signed certificates or using a certificate authority not trusted by this machine.|
 |MinimalHealthScore|Int|False|Specifies a minimal server healthscore before any requests are executed.|
 |Realm|String|False|Authentication realm. If not specified will be resolved from the url specified.|
 |RequestTimeout|Int|False|The request timeout. Default is 180000|
