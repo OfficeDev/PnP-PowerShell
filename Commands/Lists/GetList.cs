@@ -4,9 +4,6 @@ using SharePointPnP.PowerShell.CmdletHelpAttributes;
 using SharePointPnP.PowerShell.Commands.Base.PipeBinds;
 using System.Linq.Expressions;
 using System;
-using System.Linq;
-using System.Collections.Generic;
-using SharePointPnP.PowerShell.Commands.Base;
 
 namespace SharePointPnP.PowerShell.Commands.Lists
 {
@@ -27,6 +24,10 @@ namespace SharePointPnP.PowerShell.Commands.Lists
         Code = "PS:> Get-PnPList -Identity Lists/Announcements",
         Remarks = "Returns a list with the given url.",
         SortOrder = 3)]
+    [CmdletExample(
+        Code = "PS:> Get-PnPList -Identity Documents",
+        Remarks = "Returns a list with the given title.",
+        SortOrder = 4)]
     public class GetList : PnPWebRetrievalsCmdlet<List>
     {
         [Parameter(Mandatory = false, ValueFromPipeline = true, Position = 0, HelpMessage = "The ID, name or Url (Lists/MyList) of the list.")]
@@ -34,24 +35,26 @@ namespace SharePointPnP.PowerShell.Commands.Lists
 
         protected override void ExecuteCmdlet()
         {
-            DefaultRetrievalExpressions = new Expression<Func<List, object>>[] { l => l.Id, l => l.BaseTemplate, l => l.OnQuickLaunch, l => l.DefaultViewUrl, l => l.Title, l => l.Hidden, l => l.RootFolder.ServerRelativeUrl };
-
             if (Identity != null)
             {
                 var list = Identity.GetList(SelectedWeb);
-                list?.EnsureProperties(RetrievalExpressions);
+                if(list == null)
+                {
+                    throw new ArgumentException($"No list found with id, title or url '{Identity}'", "Identity");
+                }
 
-                WriteObject(list);
-
+                var listProperties = Utilities.PSObjectConverter.ConvertGenericObject(list);
+                WriteObject(listProperties);
             }
             else
             {
                 var query = SelectedWeb.Lists.IncludeWithDefaultProperties(RetrievalExpressions);
                 var lists = ClientContext.LoadQuery(query);
                 ClientContext.ExecuteQueryRetry();
-                WriteObject(lists, true);
+
+                var listsProperties = Utilities.PSObjectConverter.ConvertGenericObjects(lists);
+                WriteObject(listsProperties, true);
             }
         }
     }
-
 }
