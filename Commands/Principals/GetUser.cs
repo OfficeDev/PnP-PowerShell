@@ -9,7 +9,26 @@ namespace SharePointPnP.PowerShell.Commands.Principals
 {
     [Cmdlet(VerbsCommon.Get, "PnPUser")]
     [CmdletHelp("Returns site users of current web",
-        Category = CmdletHelpCategory.Principals)]
+        Category = CmdletHelpCategory.Principals,
+        DetailedDescription = "This command will return all the users that exist in the current site collection its User Information List",
+        OutputType = typeof(User),
+        OutputTypeLink = "https://msdn.microsoft.com/en-us/library/microsoft.sharepoint.client.user.aspx")]
+    [CmdletExample(
+        Code = @"PS:> Get-PnPUser",
+        Remarks = "Returns all users from the User Information List of the current site collection",
+        SortOrder = 1)]
+    [CmdletExample(
+        Code = @"PS:> Get-PnPUser -Identity 23",
+        Remarks = "Returns the user with Id 23 from the User Information List of the current site collection",
+        SortOrder = 2)]
+    [CmdletExample(
+        Code = @"PS:> Get-PnPUser -Identity i:0#.f|membership|user@tenant.onmicrosoft.com",
+        Remarks = "Returns the user with LoginName i:0#.f|membership|user@tenant.onmicrosoft.com from the User Information List of the current site collection",
+        SortOrder = 3)]
+    [CmdletExample(
+        Code = @"PS:> Get-PnPUser | ? Email -eq ""user@tenant.onmicrosoft.com""",
+        Remarks = "Returns the user with e-mail address user@tenant.onmicrosoft.com from the User Information List of the current site collection",
+        SortOrder = 4)]
     public class GetUser : PnPWebCmdlet
     {
         [Parameter(Mandatory = false, ValueFromPipeline = true, Position = 0, HelpMessage = "User ID or login name")]
