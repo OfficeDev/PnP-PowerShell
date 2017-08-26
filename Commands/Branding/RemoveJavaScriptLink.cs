@@ -37,6 +37,9 @@ namespace SharePointPnP.PowerShell.Commands.Branding
         [Parameter(Mandatory = false, HelpMessage = "Use the -Force flag to bypass the confirmation question")]
         public SwitchParameter Force;
 
+        //[Parameter(Mandatory = false, HelpMessage = "Use the -Confirm:$false flag to bypass the confirmation question")]
+        //public SwitchParameter Confirm;
+
         [Parameter(Mandatory = false, HelpMessage = "Define if the JavaScriptLink is to be found at the web or site collection scope. Specify All to allow deletion from either web or site collection.")]
         public CustomActionScope Scope = CustomActionScope.Web;
 
@@ -59,14 +62,23 @@ namespace SharePointPnP.PowerShell.Commands.Branding
                 actions.AddRange(ClientContext.Site.GetCustomActions().Where(c => c.Location == "ScriptLink"));
             }
 
-            if (!actions.Any()) return;
-
             if(!string.IsNullOrEmpty(Name))
             {
-                actions = actions.Where(action => action.Name == Name).ToList();
+                actions = actions.Where(action => action.Name == Name).ToList(); 
+
+                if(!actions.Any())
+                {
+                    throw new ArgumentException($"No JavaScriptLink found with the name '{Name}' within the scope '{Scope}'", "Name");
+                }
             }
 
-            foreach (var action in actions.Where(action => Force || ShouldContinue(string.Format(Resources.RemoveJavaScript0, action.Name), Resources.Confirm)))
+            if (!actions.Any())
+            {
+                WriteVerbose($"No JavaScriptLink registrations found within the scope '{Scope}'");
+                return;
+            }
+
+            foreach (var action in actions.Where(action => Force || (MyInvocation.BoundParameters.ContainsKey("Confirm") && !bool.Parse(MyInvocation.BoundParameters["Confirm"].ToString())) || ShouldContinue(string.Format(Resources.RemoveJavaScript0, action.Name, action.Id, action.Scope), Resources.Confirm)))
             {
                 switch (action.Scope)
                 {
