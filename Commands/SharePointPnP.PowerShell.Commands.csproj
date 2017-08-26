@@ -406,6 +406,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Base\PipeBinds\GenericObjectNameIdPipeBind.cs" />
+    <Compile Include="Base\PipeBinds\UserCustomActionPipeBind.cs" />
     <Compile Include="Base\PipeBinds\WebPartPipeBind.cs" />
     <Compile Include="Base\PipeBinds\UserPipeBind.cs" />
     <Compile Include="Base\PnPWebCmdlet.cs" />
@@ -416,6 +417,7 @@
     <Compile Include="Base\PnPCmdlet.cs" />
     <Compile Include="Base\PnPAdminCmdlet.cs" />
     <Compile Include="ContentTypes\GetContentTypePublishingHubUrl.cs" />
+    <Compile Include="Fields\SetField.cs" />
     <Compile Include="Files\CopyFile.cs" />
     <Compile Include="Files\MoveFile.cs" />
     <Compile Include="Files\MoveFolder.cs" />
@@ -480,6 +482,7 @@
     <Compile Include="RecordsManagement\SetListItemAsRecord.cs" />
     <Compile Include="Lists\MoveListItemToRecycleBin.cs" />
     <Compile Include="Lists\SetListItemPermission.cs" />
+    <Compile Include="Principals\RemoveUser.cs" />
     <Compile Include="Provider\SPOProxy\SPOProxyCmdletBase.cs" />
     <Compile Include="Lists\GetDefaultColumnValues.cs" />
     <Compile Include="Provider\Parameters\SPOChildItemsParameters.cs" />
@@ -609,6 +612,7 @@
     <Compile Include="UserProfiles\SetUserProfileProperty.cs" />
     <Compile Include="Utilities\DynamicLinq.cs" />
     <Compile Include="Utilities\HttpHelper.cs" />
+    <Compile Include="Utilities\PSObjectConverter.cs" />
     <Compile Include="WebParts\GetWebPartProperty.cs" />
     <Compile Include="Branding\RemoveJavaScriptLink.cs" />
     <Compile Include="Branding\AddJavaScriptLink.cs" />

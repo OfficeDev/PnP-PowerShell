@@ -6,6 +6,7 @@ using SharePointPnP.PowerShell.CmdletHelpAttributes;
 using SharePointPnP.PowerShell.Commands.Base;
 using SharePointPnP.PowerShell.Commands.Base.PipeBinds;
 using SharePointPnP.PowerShell.Commands.Enums;
+using System;
 
 namespace SharePointPnP.PowerShell.Commands.Branding
 {
@@ -41,11 +42,25 @@ namespace SharePointPnP.PowerShell.Commands.Branding
             if (Identity != null)
             {
                 var foundAction = actions.FirstOrDefault(x => x.Id == Identity.Id);
-                WriteObject(foundAction, true);
+                if (foundAction != null)
+                {
+                    WriteObject(foundAction, true);
+                }
+                else
+                {
+                    throw new ArgumentException($"No CustomAction found with the Id '{Identity.Id}' within the scope '{Scope}'", "Identity");
+                }
             }
             else
             {
-                WriteObject(actions, true);
+                if (actions.Any())
+                {
+                    WriteObject(actions, true);
+                }
+                else
+                {
+                    WriteVerbose($"No CustomActions found within the scope '{Scope}'");
+                }
             }
         }
     }

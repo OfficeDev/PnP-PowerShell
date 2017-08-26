@@ -342,7 +342,7 @@ namespace SharePointPnP.PowerShell.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Remove custom action?.
+        ///   Looks up a localized string similar to Remove CustomAction named &apos;{0}&apos; with id &apos;{1}&apos; on scope &apos;{2}&apos;?.
         /// </summary>
         internal static string RemoveCustomAction {
             get {
@@ -378,7 +378,7 @@ namespace SharePointPnP.PowerShell.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Remove JavaScript (&apos;{0}&apos;)?.
+        ///   Looks up a localized string similar to Remove JavaScriptLink named &apos;{0}&apos; with id &apos;{1}&apos; on scope &apos;{2}&apos;?.
         /// </summary>
         internal static string RemoveJavaScript0 {
             get {
@@ -473,6 +473,15 @@ namespace SharePointPnP.PowerShell.Commands.Properties {
         internal static string RemoveThe0KeyAndItsValueFromThePropertyBag {
             get {
                 return ResourceManager.GetString("RemoveThe0KeyAndItsValueFromThePropertyBag", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove User with Id {0}, LoginName &apos;{1}&apos;, Email &apos;{2}&apos; from the User Information List?.
+        /// </summary>
+        internal static string RemoveUser {
+            get {
+                return ResourceManager.GetString("RemoveUser", resourceCulture);
             }
         }
         

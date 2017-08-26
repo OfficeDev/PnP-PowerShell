@@ -85,6 +85,7 @@ Cmdlet|Description
 **[Add&#8209;PnPField](AddPnPField.md)** |Adds a field to a list or as a site column
 **[Get&#8209;PnPField](GetPnPField.md)** |Returns a field from a list or site
 **[Remove&#8209;PnPField](RemovePnPField.md)** |Removes a field from a list or a site
+**[Set&#8209;PnPField](SetPnPField.md)** |Changes one or more properties of a field in a specific list or for the whole web
 **[Add&#8209;PnPFieldFromXml](AddPnPFieldFromXml.md)** |Adds a field to a list or as a site column based upon a CAML/XML field definition
 **[Add&#8209;PnPTaxonomyField](AddPnPTaxonomyField.md)** |Adds a taxonomy field to a list or as a site column.
 ## Files and Folders
@@ -204,7 +205,7 @@ Cmdlet|Description
 **[Set&#8209;PnPAppSideLoading](SetPnPAppSideLoading.md)** |Enables the App SideLoading Feature on a site
 **[Get&#8209;PnPAuditing](GetPnPAuditing.md)** |Get the Auditing setting of a site
 **[Set&#8209;PnPAuditing](SetPnPAuditing.md)** |Set Auditing setting for a site
-**[Get&#8209;PnPSite](GetPnPSite.md)** |Returns the current site collection from the context.
+**[Get&#8209;PnPSite](GetPnPSite.md)** |Returns the current site collection from the context
 **[Install&#8209;PnPSolution](InstallPnPSolution.md)** |Installs a sandboxed solution to a site collection. WARNING! This method can delete your composed look gallery due to the method used to activate the solution. We recommend you to only to use this cmdlet if you are okay with that.
 **[Uninstall&#8209;PnPSolution](UninstallPnPSolution.md)** |Uninstalls a sandboxed solution from a site collection
 ## Taxonomy
@@ -250,6 +251,7 @@ Cmdlet|Description
 **[Set&#8209;PnPGroupPermissions](SetPnPGroupPermissions.md)** |Adds and/or removes permissions of a specific SharePoint group
 **[Get&#8209;PnPUser](GetPnPUser.md)** |Returns site users of current web
 **[New&#8209;PnPUser](NewPnPUser.md)** |Adds a user to the built-in Site User Info List and returns a user object
+**[Remove&#8209;PnPUser](RemovePnPUser.md)** |Removes a specific user from the site collection User Information List
 **[Remove&#8209;PnPUserFromGroup](RemovePnPUserFromGroup.md)** |Removes a user from a group
 **[Add&#8209;PnPUserToGroup](AddPnPUserToGroup.md)** |Adds a user to a group
 ## User Profiles
@@ -285,8 +287,8 @@ Cmdlet|Description
 **[Request&#8209;PnPReIndexWeb](RequestPnPReIndexWeb.md)** |Marks the web for full indexing during the next incremental crawl
 **[Get&#8209;PnPRequestAccessEmails](GetPnPRequestAccessEmails.md)** |Returns the request access e-mail addresses
 **[Set&#8209;PnPRequestAccessEmails](SetPnPRequestAccessEmails.md)** |Sets Request Access Emails on a web
-**[Get&#8209;PnPSubWebs](GetPnPSubWebs.md)** |Returns the subwebs of the current web
-**[Get&#8209;PnPWeb](GetPnPWeb.md)** |Returns the current web object
+**[Get&#8209;PnPSubWebs](GetPnPSubWebs.md)** |Returns the subsites of a specific web
+**[Get&#8209;PnPWeb](GetPnPWeb.md)** |Returns a web object
 **[New&#8209;PnPWeb](NewPnPWeb.md)** |Creates a new subweb under the current web
 **[Remove&#8209;PnPWeb](RemovePnPWeb.md)** |Removes a subweb in the current web
 **[Set&#8209;PnPWeb](SetPnPWeb.md)** |Sets properties on a web
