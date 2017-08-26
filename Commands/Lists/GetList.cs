@@ -4,9 +4,6 @@ using SharePointPnP.PowerShell.CmdletHelpAttributes;
 using SharePointPnP.PowerShell.Commands.Base.PipeBinds;
 using System.Linq.Expressions;
 using System;
-using System.Linq;
-using System.Collections.Generic;
-using SharePointPnP.PowerShell.Commands.Base;
 
 namespace SharePointPnP.PowerShell.Commands.Lists
 {
@@ -39,10 +36,14 @@ namespace SharePointPnP.PowerShell.Commands.Lists
             if (Identity != null)
             {
                 var list = Identity.GetList(SelectedWeb);
+                if(list == null)
+                {
+                    throw new PSArgumentException($"No list found with id, title or url '{Identity}'", "Identity");
+                }
+
                 list?.EnsureProperties(RetrievalExpressions);
 
                 WriteObject(list);
-
             }
             else
             {
@@ -53,5 +54,4 @@ namespace SharePointPnP.PowerShell.Commands.Lists
             }
         }
     }
-
 }

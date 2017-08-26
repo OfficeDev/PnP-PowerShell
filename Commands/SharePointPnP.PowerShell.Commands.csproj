@@ -591,8 +591,11 @@
     <Compile Include="Search\GetSearchConfiguration.cs" />
     <Compile Include="RecycleBin\MoveRecycleBinItem.cs" />
     <Compile Include="Search\SubmitSearchQuery.cs" />
+    <Compile Include="Site\GetSiteCollectionAdmin.cs" />
+    <Compile Include="Site\RemoveSiteCollectionAdmin.cs" />
     <Compile Include="Site\GetAuditing.cs" />
     <Compile Include="RecycleBin\GetRecycleBinItem.cs" />
+    <Compile Include="Site\AddSiteCollectionAdmin.cs" />
     <Compile Include="Site\SetAuditing.cs" />
     <Compile Include="Taxonomy\GetSiteCollectionTermStore.cs" />
     <Compile Include="Taxonomy\GetTerm.cs" />
@@ -609,6 +612,7 @@
     <Compile Include="UserProfiles\SetUserProfileProperty.cs" />
     <Compile Include="Utilities\DynamicLinq.cs" />
     <Compile Include="Utilities\HttpHelper.cs" />
+    <Compile Include="Utilities\PSObjectConverter.cs" />
     <Compile Include="WebParts\GetWebPartProperty.cs" />
     <Compile Include="Branding\RemoveJavaScriptLink.cs" />
     <Compile Include="Branding\AddJavaScriptLink.cs" />
