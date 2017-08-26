@@ -36,3 +36,9 @@ Returns a list with the given id.
 PS:> Get-PnPList -Identity Lists/Announcements
 ```
 Returns a list with the given url.
+
+### Example 4
+```powershell
+PS:> Get-PnPList -Identity Documents
+```
+Returns a list with the given title.
