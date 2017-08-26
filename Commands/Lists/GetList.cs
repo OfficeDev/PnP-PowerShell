@@ -4,9 +4,6 @@ using SharePointPnP.PowerShell.CmdletHelpAttributes;
 using SharePointPnP.PowerShell.Commands.Base.PipeBinds;
 using System.Linq.Expressions;
 using System;
-using System.Linq;
-using System.Collections.Generic;
-using SharePointPnP.PowerShell.Commands.Base;
 
 namespace SharePointPnP.PowerShell.Commands.Lists
 {
@@ -27,6 +24,10 @@ namespace SharePointPnP.PowerShell.Commands.Lists
         Code = "PS:> Get-PnPList -Identity Lists/Announcements",
         Remarks = "Returns a list with the given url.",
         SortOrder = 3)]
+    [CmdletExample(
+        Code = "PS:> Get-PnPList -Identity Documents",
+        Remarks = "Returns a list with the given title.",
+        SortOrder = 4)]
     public class GetList : PnPWebRetrievalsCmdlet<List>
     {
         [Parameter(Mandatory = false, ValueFromPipeline = true, Position = 0, HelpMessage = "The ID, name or Url (Lists/MyList) of the list.")]
@@ -39,10 +40,14 @@ namespace SharePointPnP.PowerShell.Commands.Lists
             if (Identity != null)
             {
                 var list = Identity.GetList(SelectedWeb);
+                if(list == null)
+                {
+                    throw new ArgumentException($"No list found with id, title or url '{Identity}'", "Identity");
+                }
+
                 list?.EnsureProperties(RetrievalExpressions);
 
                 WriteObject(list);
-
             }
             else
             {
@@ -53,5 +58,4 @@ namespace SharePointPnP.PowerShell.Commands.Lists
             }
         }
     }
-
 }
