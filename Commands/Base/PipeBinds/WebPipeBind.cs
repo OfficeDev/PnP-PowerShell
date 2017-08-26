@@ -1,5 +1,6 @@
 ﻿using Microsoft.SharePoint.Client;
 using System;
+using System.Management.Automation;
 
 namespace SharePointPnP.PowerShell.Commands.Base.PipeBinds
 {
@@ -14,6 +15,14 @@ namespace SharePointPnP.PowerShell.Commands.Base.PipeBinds
             _id = Guid.Empty;
             _url = string.Empty;
             _web = null;
+        }
+
+        public WebPipeBind(PSObject psObject)
+        {
+            if (psObject.Properties["Id"] != null && Guid.TryParse(psObject.Properties["Id"].Value.ToString(), out Guid result))
+            {
+                _id = result;
+            }
         }
 
         public WebPipeBind(Guid guid)

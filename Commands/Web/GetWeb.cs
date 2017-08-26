@@ -1,19 +1,26 @@
 ﻿using Microsoft.SharePoint.Client;
 using SharePointPnP.PowerShell.Commands.Base.PipeBinds;
 using System;
-using System.Linq.Expressions;
 using System.Management.Automation;
 using SharePointPnP.PowerShell.CmdletHelpAttributes;
-using SharePointPnP.PowerShell.Commands.Base;
-using SharePointPnP.PowerShell.Commands.Extensions;
 
 namespace SharePointPnP.PowerShell.Commands
 {
     [Cmdlet(VerbsCommon.Get, "PnPWeb")]
-    [CmdletHelp("Returns the current web object",
+    [CmdletHelp("Returns a web object",
         Category = CmdletHelpCategory.Webs,
+        DetailedDescription = "This allows returning a web object representing either the current context its web or one of the webs located underneath it",
         OutputType = typeof(Web),
         OutputTypeLink = "https://msdn.microsoft.com/en-us/library/microsoft.sharepoint.client.web.aspx")]
+    [CmdletExample(Code = @"PS:> Get-PnPWeb",
+                Remarks = @"Returns the web of the current context",
+                SortOrder = 1)]
+    [CmdletExample(Code = @"PS:> Get-PnPWeb -Identity aa66f67e-46c0-4474-8a82-42bf467d07f2",
+                Remarks = @"Returns the current web or a subweb with the Id 'aa66f67e-46c0-4474-8a82-42bf467d07f2'",
+                SortOrder = 2)]
+    [CmdletExample(Code = @"PS:> Get-PnPWeb -Identity ""HR""",
+                Remarks = @"Returns the subsite located at /HR",
+                SortOrder = 3)]
     public class GetWeb : PnPRetrievalsCmdlet<Web>
     {
         [Parameter(Mandatory = false, ValueFromPipeline = true, Position = 0)]
@@ -21,28 +28,52 @@ namespace SharePointPnP.PowerShell.Commands
 
         protected override void ExecuteCmdlet()
         {
-            DefaultRetrievalExpressions = new Expression<Func<Web, object>>[] { w => w.Id, w => w.Url, w => w.Title, w => w.ServerRelativeUrl };
+            Web web = null;
             if (Identity == null)
             {
-                ClientContext.Web.EnsureProperties(RetrievalExpressions);
-                WriteObject(ClientContext.Web);
+                WriteVerbose("Listing current web");
+                web = ClientContext.Web;
             }
             else
             {
                 if (Identity.Id != Guid.Empty)
                 {
-                    WriteObject(ClientContext.Web.GetWebById(Identity.Id, RetrievalExpressions));
+                    WriteVerbose($"Retrieving web through Id {Identity.Id}");
+                    web = ClientContext.Site.OpenWebById(Identity.Id);
                 }
                 else if (Identity.Web != null)
                 {
-                    WriteObject(ClientContext.Web.GetWebById(Identity.Web.Id, RetrievalExpressions));
+                    WriteVerbose("Received web instance");
+                    web = Identity.Web;
                 }
                 else if (Identity.Url != null)
                 {
-                    WriteObject(ClientContext.Web.GetWebByUrl(Identity.Url, RetrievalExpressions));
+                    WriteVerbose($"Retrieving web through Url {Identity.Url}");
+                    web = ClientContext.Site.OpenWeb(Identity.Url);
                 }
             }
-        }
 
+            if(web == null)
+            {
+                throw new ArgumentException("Unable to define web to retrieve", "Identity");
+            }
+            ClientContext.Load(web);
+
+            try
+            {
+                ClientContext.ExecuteQueryRetry();
+            }
+            catch(ServerException e)
+            {
+                if (e.ServerErrorTypeName == "System.IO.FileNotFoundException")
+                {
+                    throw new ArgumentException("A web with the provided Identity does not exist", "Identity", e);
+                }
+                throw e;
+            }
+
+            var webProperties = Utilities.PSObjectConverter.ConvertGenericObject(web, this);
+            WriteObject(webProperties);
+        }
     }
 }
