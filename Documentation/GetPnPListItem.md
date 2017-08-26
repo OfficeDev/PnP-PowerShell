@@ -19,6 +19,13 @@ Get-PnPListItem -List <ListPipeBind>
 
 ```powershell
 Get-PnPListItem -List <ListPipeBind>
+                [-Guid <GuidPipeBind>]
+                [-Web <WebPipeBind>]
+```
+
+
+```powershell
+Get-PnPListItem -List <ListPipeBind>
                 [-Query <String>]
                 [-PageSize <Int>]
                 [-ScriptBlock <ScriptBlock>]
@@ -43,11 +50,12 @@ Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |List|ListPipeBind|True|The list to query|
 |Fields|String[]|False|The fields to retrieve. If not specified all fields will be loaded in the returned list object.|
+|Guid|GuidPipeBind|False|The unique id (GUID field) of the item to retrieve|
 |Id|Int|False|The ID of the item to retrieve|
 |PageSize|Int|False|The number of items to retrieve per page request.|
 |Query|String|False|The CAML query to execute against the list|
 |ScriptBlock|ScriptBlock|False|The script block to run after every page request.|
-|UniqueId|GuidPipeBind|False|The unique id (GUID) of the item to retrieve|
+|UniqueId|GuidPipeBind|False|The unique id (UniqueId field) of the item to retrieve|
 |Web|WebPipeBind|False|The web to apply the command to. Omit this parameter to use the current web.|
 ## Examples
 

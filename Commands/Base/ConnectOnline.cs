@@ -9,6 +9,7 @@ using Microsoft.SharePoint.Client;
 using OfficeDevPnP.Core;
 using SharePointPnP.PowerShell.Commands.Provider;
 using File = System.IO.File;
+using System.Net;
 #if !ONPREMISES
 using Microsoft.SharePoint.Client.CompliancePolicy;
 #endif
@@ -137,9 +138,16 @@ dir",
         [Parameter(Mandatory = false, ParameterSetName = ParameterAttribute.AllParameterSets, HelpMessage = "Should we skip the check if this site is the Tenant admin site. Default is false")]
         public SwitchParameter SkipTenantAdminCheck;
 
+        [Parameter(Mandatory = false, HelpMessage = "Ignores any SSL errors. To be used i.e. when connecting to a SharePoint farm using self signed certificates or using a certificate authority not trusted by this machine.")]
+        public SwitchParameter IgnoreSslErrors;
 
         protected override void ProcessRecord()
         {
+            if(IgnoreSslErrors)
+            {
+                ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
+            }
+
             PSCredential creds = null;
             if (Credentials != null)
             {
