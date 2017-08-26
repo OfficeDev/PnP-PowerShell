@@ -6,6 +6,9 @@ using System.Xml.Linq;
 using Microsoft.SharePoint.Client;
 using SharePointPnP.PowerShell.CmdletHelpAttributes;
 using SharePointPnP.PowerShell.Commands.Base.PipeBinds;
+using System.Linq;
+using System.Dynamic;
+using System.Collections.Generic;
 
 namespace SharePointPnP.PowerShell.Commands.Lists
 {
@@ -62,16 +65,16 @@ namespace SharePointPnP.PowerShell.Commands.Lists
         public string[] Fields;
 
         [Parameter(Mandatory = false, HelpMessage = "The number of items to retrieve per page request.", ParameterSetName = "AllItems")]
-		[Parameter(Mandatory = false, HelpMessage = "The number of items to retrieve per page request.", ParameterSetName = "ByQuery")]
+        [Parameter(Mandatory = false, HelpMessage = "The number of items to retrieve per page request.", ParameterSetName = "ByQuery")]
         public int PageSize = -1;
 
-		[Parameter(Mandatory = false, HelpMessage = "The script block to run after every page request.", ParameterSetName = "AllItems")]
-		[Parameter(Mandatory = false, HelpMessage = "The script block to run after every page request.", ParameterSetName = "ByQuery")]
-		public ScriptBlock ScriptBlock;
+        [Parameter(Mandatory = false, HelpMessage = "The script block to run after every page request.", ParameterSetName = "AllItems")]
+        [Parameter(Mandatory = false, HelpMessage = "The script block to run after every page request.", ParameterSetName = "ByQuery")]
+        public ScriptBlock ScriptBlock;
 
-		protected override void ExecuteCmdlet()
+        protected override void ExecuteCmdlet()
         {
-            var list = List.GetList(SelectedWeb);
+            var list = List.GetList(ClientContext.Web);
 
             if (HasId())
             {
@@ -88,7 +91,9 @@ namespace SharePointPnP.PowerShell.Commands.Lists
                     ClientContext.Load(listItem);
                 }
                 ClientContext.ExecuteQueryRetry();
-                WriteObject(listItem);
+
+                var record = Utilities.PSObjectConverter.ConvertListItem(listItem);
+                WriteObject(record);
             }
             else if (HasUniqueId())
             {
@@ -111,9 +116,9 @@ namespace SharePointPnP.PowerShell.Commands.Lists
             }
             else
             {
-				CamlQuery query = HasCamlQuery() ? new CamlQuery { ViewXml = Query } : CamlQuery.CreateAllItemsQuery();
+                CamlQuery query = HasCamlQuery() ? new CamlQuery { ViewXml = Query } : CamlQuery.CreateAllItemsQuery();
 
-				if (Fields != null)
+                if (Fields != null)
                 {
                     var queryElement = XElement.Parse(query.ViewXml);
 
@@ -168,10 +173,10 @@ namespace SharePointPnP.PowerShell.Commands.Lists
 
                     if (ScriptBlock != null)
                     {
-						ScriptBlock.Invoke(listItems);
-					}
+                        ScriptBlock.Invoke(listItems);
+                    }
 
-					query.ListItemCollectionPosition = listItems.ListItemCollectionPosition;
+                    query.ListItemCollectionPosition = listItems.ListItemCollectionPosition;
                 } while (query.ListItemCollectionPosition != null);
             }
         }
