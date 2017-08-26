@@ -118,7 +118,12 @@ namespace SharePointPnP.PowerShell.Commands.Files
                     ClientContext.ExecuteQueryRetry();
                     if (file.Exists)
                     {
-                        WriteObject(file.ListItemAllFields);
+                        var record = Utilities.PSObjectConverter.ConvertListItem(file.ListItemAllFields);
+                        WriteObject(record);
+                    }
+                    else
+                    {
+                        throw new ArgumentException($"No file found with the provided Url {serverRelativeUrl}", "Url");
                     }
                     break;
                 case URLASSTRING:
