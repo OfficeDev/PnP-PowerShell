@@ -37,6 +37,9 @@ namespace SharePointPnP.PowerShell.Commands.Branding
         [Parameter(Mandatory = false, HelpMessage = "Use the -Force flag to bypass the confirmation question")]
         public SwitchParameter Force;
 
+        //[Parameter(Mandatory = false, HelpMessage = "Use the -Confirm:$false flag to bypass the confirmation question")]
+        //public SwitchParameter Confirm;
+
         [Parameter(Mandatory = false, HelpMessage = "Define if the JavaScriptLink is to be found at the web or site collection scope. Specify All to allow deletion from either web or site collection.")]
         public CustomActionScope Scope = CustomActionScope.Web;
 
@@ -65,8 +68,7 @@ namespace SharePointPnP.PowerShell.Commands.Branding
             {
                 actions = actions.Where(action => action.Name == Name).ToList();
             }
-
-            foreach (var action in actions.Where(action => Force || ShouldContinue(string.Format(Resources.RemoveJavaScript0, action.Name), Resources.Confirm)))
+            foreach (var action in actions.Where(action => Force || (MyInvocation.BoundParameters.ContainsKey("Confirm") && !bool.Parse(MyInvocation.BoundParameters["Confirm"].ToString())) || ShouldContinue(string.Format(Resources.RemoveJavaScript0, action.Name), Resources.Confirm)))
             {
                 switch (action.Scope)
                 {

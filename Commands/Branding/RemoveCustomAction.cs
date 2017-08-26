@@ -28,7 +28,7 @@ namespace SharePointPnP.PowerShell.Commands.Branding
         {
             if (Identity != null)
             {
-                if (Force || ShouldContinue(Resources.RemoveCustomAction, Resources.Confirm))
+                if (Force || (MyInvocation.BoundParameters.ContainsKey("Confirm") && !bool.Parse(MyInvocation.BoundParameters["Confirm"].ToString())) || ShouldContinue(Resources.RemoveCustomAction, Resources.Confirm))
                 {
                     if (Scope == CustomActionScope.All || Scope == CustomActionScope.Web)
                     {
