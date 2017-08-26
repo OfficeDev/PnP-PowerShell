@@ -85,6 +85,7 @@ Cmdlet|Description
 **[Add&#8209;PnPField](AddPnPField.md)** |Adds a field to a list or as a site column
 **[Get&#8209;PnPField](GetPnPField.md)** |Returns a field from a list or site
 **[Remove&#8209;PnPField](RemovePnPField.md)** |Removes a field from a list or a site
+**[Set&#8209;PnPField](SetPnPField.md)** |Changes one or more properties of a field in a specific list or for the whole web
 **[Add&#8209;PnPFieldFromXml](AddPnPFieldFromXml.md)** |Adds a field to a list or as a site column based upon a CAML/XML field definition
 **[Add&#8209;PnPTaxonomyField](AddPnPTaxonomyField.md)** |Adds a taxonomy field to a list or as a site column.
 ## Files and Folders
@@ -250,6 +251,7 @@ Cmdlet|Description
 **[Set&#8209;PnPGroupPermissions](SetPnPGroupPermissions.md)** |Adds and/or removes permissions of a specific SharePoint group
 **[Get&#8209;PnPUser](GetPnPUser.md)** |Returns site users of current web
 **[New&#8209;PnPUser](NewPnPUser.md)** |Adds a user to the built-in Site User Info List and returns a user object
+**[Remove&#8209;PnPUser](RemovePnPUser.md)** |Removes a specific user from the site collection User Information List
 **[Remove&#8209;PnPUserFromGroup](RemovePnPUserFromGroup.md)** |Removes a user from a group
 **[Add&#8209;PnPUserToGroup](AddPnPUserToGroup.md)** |Adds a user to a group
 ## User Profiles

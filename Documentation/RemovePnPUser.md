@@ -1,9 +1,11 @@
-# Get-PnPUser
-Returns site users of current web
+# Remove-PnPUser
+Removes a specific user from the site collection User Information List
 ## Syntax
 ```powershell
-Get-PnPUser [-Web <WebPipeBind>]
-            [-Identity <UserPipeBind>]
+Remove-PnPUser -Identity <UserPipeBind>
+               [-Force [<SwitchParameter>]]
+               [-Confirm [<SwitchParameter>]]
+               [-Web <WebPipeBind>]
 ```
 
 
@@ -16,7 +18,9 @@ This command will return all the users that exist in the current site collection
 ## Parameters
 Parameter|Type|Required|Description
 ---------|----|--------|-----------
-|Identity|UserPipeBind|False|User ID or login name|
+|Identity|UserPipeBind|True|User ID or login name|
+|Confirm|SwitchParameter|False|Specifying the Force parameter will skip the confirmation question.|
+|Force|SwitchParameter|False|Specifying the Force parameter will skip the confirmation question.|
 |Web|WebPipeBind|False|The web to apply the command to. Omit this parameter to use the current web.|
 ## Examples
 

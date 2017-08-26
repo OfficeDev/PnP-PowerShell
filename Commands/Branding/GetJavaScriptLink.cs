@@ -4,6 +4,7 @@ using System.Management.Automation;
 using Microsoft.SharePoint.Client;
 using SharePointPnP.PowerShell.CmdletHelpAttributes;
 using SharePointPnP.PowerShell.Commands.Enums;
+using System;
 
 namespace SharePointPnP.PowerShell.Commands.Branding
 {
@@ -52,7 +53,14 @@ namespace SharePointPnP.PowerShell.Commands.Branding
             if (!string.IsNullOrEmpty(Name))
             {
                 var foundAction = actions.FirstOrDefault(x => x.Name == Name);
-                WriteObject(foundAction, true);
+                if(foundAction != null)
+                {
+                    WriteObject(foundAction, true);
+                }
+                else
+                {
+                    throw new ArgumentException($"No JavaScriptLink found with the name '{Name}' within the scope '{Scope}'", "Name");
+                }
             }
             else
             {
