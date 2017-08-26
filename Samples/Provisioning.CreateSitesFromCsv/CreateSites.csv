@@ -1,0 +1,6 @@
+RootUrl,SiteUrl,Type,Title,Owner,TemplatePath,Template
+https://<your_site>.sharepoint.com/sites,SiteColletcionTest1,SiteCollection,Site Colletcion Test 1,velin.georgiev@<your_site>.onmicrosoft.com,,STS#0
+https://<your_site>.sharepoint.com/sites,SiteColletcionTest2,SiteCollection,Site Colletcion Test 2,velin.georgiev@<your_site>.onmicrosoft.com,,STS#0
+https://<your_site>.sharepoint.com/sites,SiteColletcionTest3,SiteCollection,Site Colletcion Test 3,velin.georgiev@<your_site>.onmicrosoft.com,,STS#0
+https://<your_site>.sharepoint.com/sites/SiteColletcionTest1,SubWebTest1,SubWeb,SubWeb Test 1,velin.georgiev@<your_site>.onmicrosoft.com,,STS#0
+https://<your_site>.sharepoint.com/sites/SiteColletcionTest1,SubWebTest2,SubWeb,SubWeb Test 2,velin.georgiev@<your_site>.onmicrosoft.com,,STS#0
