@@ -38,6 +38,8 @@ namespace SharePointPnP.PowerShell.ModuleFilesGenerator.Model
 
         public Type CmdletType { get; set; }
 
+        public string Platform { get; set; }
+
         public CmdletInfo()
         {
             Parameters = new List<CmdletParameterInfo>();

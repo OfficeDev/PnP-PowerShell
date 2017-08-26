@@ -406,6 +406,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Base\PipeBinds\GenericObjectNameIdPipeBind.cs" />
+    <Compile Include="Base\PipeBinds\WebhookSubscriptionPipeBind.cs" />
     <Compile Include="Base\PipeBinds\WebPartPipeBind.cs" />
     <Compile Include="Base\PipeBinds\UserPipeBind.cs" />
     <Compile Include="Base\PnPWebCmdlet.cs" />
@@ -474,6 +475,10 @@
     <Compile Include="Enums\TargetScope.cs" />
     <Compile Include="Files\GetFolder.cs" />
     <Compile Include="Graph\SetUnifiedGroup.cs" />
+    <Compile Include="RecordsManagement\SetInPlaceRecordsManagement.cs" />
+    <Compile Include="RecordsManagement\TestListItemIsRecord.cs" />
+    <Compile Include="RecordsManagement\ClearListItemAsRecord.cs" />
+    <Compile Include="RecordsManagement\SetListItemAsRecord.cs" />
     <Compile Include="Lists\MoveListItemToRecycleBin.cs" />
     <Compile Include="Lists\SetListItemPermission.cs" />
     <Compile Include="Provider\SPOProxy\SPOProxyCmdletBase.cs" />
@@ -605,6 +610,10 @@
     <Compile Include="UserProfiles\SetUserProfileProperty.cs" />
     <Compile Include="Utilities\DynamicLinq.cs" />
     <Compile Include="Utilities\HttpHelper.cs" />
+    <Compile Include="Webhooks\RemoveWebhookSubscription.cs" />
+    <Compile Include="Webhooks\SetWebhookSubscription.cs" />
+    <Compile Include="Webhooks\GetWebhookSubscriptions.cs" />
+    <Compile Include="Webhooks\AddWebhookSubscription.cs" />
     <Compile Include="WebParts\GetWebPartProperty.cs" />
     <Compile Include="Branding\RemoveJavaScriptLink.cs" />
     <Compile Include="Branding\AddJavaScriptLink.cs" />

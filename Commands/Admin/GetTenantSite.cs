@@ -11,8 +11,9 @@ namespace SharePointPnP.PowerShell.Commands
 {
 
     [Cmdlet(VerbsCommon.Get, "PnPTenantSite", SupportsShouldProcess = true)]
-    [CmdletHelp(@"Office365 only: Uses the tenant API to retrieve site information.", 
+    [CmdletHelp(@"Uses the tenant API to retrieve site information.", 
         Category = CmdletHelpCategory.TenantAdmin,
+        SupportedPlatform = CmdletSupportedPlatform.Online,
         OutputType = typeof(Microsoft.Online.SharePoint.TenantAdministration.SiteProperties),
         OutputTypeLink = "https://msdn.microsoft.com/en-us/library/microsoft.online.sharepoint.tenantadministration.siteproperties.aspx")]
     [CmdletExample(Code = @"PS:> Get-PnPTenantSite", Remarks = "Returns all site collections", SortOrder = 1)]

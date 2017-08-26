@@ -10,7 +10,8 @@ using OfficeDevPnP.Core;
 namespace SharePointPnP.PowerShell.Commands
 {
     [Cmdlet(VerbsCommon.Remove, "PnPTenantSite", ConfirmImpact = ConfirmImpact.High, SupportsShouldProcess = true)]
-    [CmdletHelp("Office365 only: Removes a site collection from the current tenant",
+    [CmdletHelp("Removes a site collection from the current tenant",
+        SupportedPlatform = CmdletSupportedPlatform.Online,
          Category = CmdletHelpCategory.TenantAdmin)]
     [CmdletExample(
          Code = @"PS:> Remove-PnPTenantSite -Url https://tenant.sharepoint.com/sites/contoso",
@@ -43,7 +44,7 @@ namespace SharePointPnP.PowerShell.Commands
         [Parameter(Mandatory = false, HelpMessage = "If specified, will search for the site in the Recycle Bin and remove it from there.")]
         [Obsolete("Use Clear-PnPTenantRecycleBinItem instead.")]
         public SwitchParameter FromRecycleBin;
-        
+
         [Parameter(Mandatory = false, HelpMessage = "Do not ask for confirmation.")] public SwitchParameter Force;
 
         protected override void ExecuteCmdlet()
@@ -62,7 +63,7 @@ namespace SharePointPnP.PowerShell.Commands
                 if (!FromRecycleBin)
 #pragma warning restore 618
                 {
-                    
+
                     Tenant.DeleteSiteCollection(Url, !MyInvocation.BoundParameters.ContainsKey("SkipRecycleBin"), timeoutFunction);
                 }
                 else

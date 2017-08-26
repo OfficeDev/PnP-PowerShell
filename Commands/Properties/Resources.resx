@@ -283,4 +283,10 @@
   <data name="CreateSiteWithUrl0" xml:space="preserve">
     <value>Create site with url '{0}'?</value>
   </data>
+  <data name="List" xml:space="preserve">
+    <value>List</value>
+  </data>
+  <data name="RemoveWebhookSubscription0From1_2" xml:space="preserve">
+    <value>Remove Webhook Subscription '{0}' from {1} '{2}' ?</value>
+  </data>
 </root>

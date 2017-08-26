@@ -1,5 +1,6 @@
 # Get-PnPTenantSite
-Office365 only: Uses the tenant API to retrieve site information.
+Uses the tenant API to retrieve site information.
+>*Only available for SharePoint Online*
 ## Syntax
 ```powershell
 Get-PnPTenantSite [-Template <String>]

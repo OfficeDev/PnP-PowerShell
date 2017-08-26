@@ -17,6 +17,10 @@ namespace SharePointPnP.PowerShell.Commands.Files
         Code = @"PS:>Remove-PnPFile -SiteRelativeUrl _catalogs/themes/15/company.spcolor",
         SortOrder = 2,
         Remarks = @"Removes the file company.spcolor")]
+    [CmdletExample(
+        Code = @"PS:>Remove-PnPFile -SiteRelativeUrl _catalogs/themes/15/company.spcolor -Recycle",
+        SortOrder = 3,
+        Remarks = @"Removes the file company.spcolor and saves it to the Recycle Bin")]
 
     public class RemoveFile : PnPWebCmdlet
     {
@@ -25,6 +29,9 @@ namespace SharePointPnP.PowerShell.Commands.Files
 
         [Parameter(Mandatory = true, Position = 0, ValueFromPipeline = true, ParameterSetName = "SITE", HelpMessage = "Site relative URL to the file")]
         public string SiteRelativeUrl = string.Empty;
+
+        [Parameter(Mandatory = false)]
+        public SwitchParameter Recycle;
 
         [Parameter(Mandatory = false)]
         public SwitchParameter Force;
@@ -44,7 +51,14 @@ namespace SharePointPnP.PowerShell.Commands.Files
 
             if (Force || ShouldContinue(string.Format(Resources.Delete0, file.Name), Resources.Confirm))
             {
-                file.DeleteObject();
+                if (Recycle)
+                {
+                    file.Recycle();
+                }
+                else
+                {
+                    file.DeleteObject();
+                }
 
                 ClientContext.ExecuteQueryRetry();
             }

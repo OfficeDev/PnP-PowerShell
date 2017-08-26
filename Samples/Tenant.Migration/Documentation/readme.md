@@ -18,7 +18,7 @@ This section describes:
 - config.xml.sample
 - CopySolution.ps1
 ## Configure the solution
-To configure the solution update the config.xml using your editor of preference. Config.xml.sample can be useds as a starting point. For more details see the [config.xml Documentation](Documentation/config.md).
+To configure the solution update the config.xml using your editor of preference. Config.xml.sample can be useds as a starting point. For more details see the [config.xml Documentation](config.md).
 
 ## Software dependencies
 To run the scripts provided you will need:

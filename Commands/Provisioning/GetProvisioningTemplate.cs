@@ -73,6 +73,10 @@ PS:> Get-PnPProvisioningTemplate -Out NewTemplate.xml -ExtensibilityHandlers $ha
         Code = "PS:> Get-PnPProvisioningTemplate -Out template.pnp -ContentTypeGroups \"Group A\",\"Group B\"",
         Remarks = @"Extracts a provisioning template in Office Open XML from the current web, but only processes content types from the to given content type groups.",
         SortOrder = 12)]
+    [CmdletExample(
+        Code = @"PS:> Get-PnPProvisioningTemplate -Out template.pnp -ExcludeContentTypesFromSyndication",
+        Remarks = "Extracts a provisioning template in Office Open XML from the current web, excluding content types provisioned through content type syndication (content type hub), in order to prevent provisioning errors if the target also provision the content type using syndication.",
+        SortOrder = 13)]
     [CmdletRelatedLink(
         Text = "Encoding",
         Url = "https://msdn.microsoft.com/en-us/library/system.text.encoding_properties.aspx")]
@@ -161,6 +165,9 @@ PS:> Get-PnPProvisioningTemplate -Out NewTemplate.xml -ExtensibilityHandlers $ha
 
         [Parameter(Mandatory = false, HelpMessage = "Returns the template as an in-memory object, which is an instance of the ProvisioningTemplate type of the PnP Core Component. It cannot be used together with the -Out parameter.")]
         public SwitchParameter OutputInstance;
+
+        [Parameter(Mandatory = false, HelpMessage = "Specify whether or not content types issued from a content hub should be exported. By default, these content types are included.")]
+        public SwitchParameter ExcludeContentTypesFromSyndication;
 
         protected override void ExecuteCmdlet()
         {
@@ -361,6 +368,8 @@ PS:> Get-PnPProvisioningTemplate -Out NewTemplate.xml -ExtensibilityHandlers $ha
                     creationInformation.IncludeSiteCollectionTermGroup = true;
                 }
             }
+
+            creationInformation.IncludeContentTypesFromSyndication = !ExcludeContentTypesFromSyndication.ToBool();
 
             var template = SelectedWeb.GetProvisioningTemplate(creationInformation);
 

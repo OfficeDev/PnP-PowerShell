@@ -11,6 +11,7 @@ namespace SharePointPnP.PowerShell.Commands.RecycleBin
     [Cmdlet(VerbsCommon.Get, "PnPTenantRecycleBinItem", DefaultParameterSetName = "All")]
     [CmdletHelp("Returns the items in the tenant scoped recycle bin",
         Category = CmdletHelpCategory.RecycleBin,
+        SupportedPlatform = CmdletSupportedPlatform.Online,
         OutputType = typeof(DeletedSiteProperties),
         OutputTypeLink = "https://msdn.microsoft.com/en-us/library/microsoft.online.sharepoint.tenantadministration.deletedsiteproperties.aspx")]
     [CmdletExample(

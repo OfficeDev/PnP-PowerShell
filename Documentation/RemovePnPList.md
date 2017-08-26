@@ -3,6 +3,7 @@ Deletes a list
 ## Syntax
 ```powershell
 Remove-PnPList -Identity <ListPipeBind>
+               [-Recycle [<SwitchParameter>]]
                [-Force [<SwitchParameter>]]
                [-Web <WebPipeBind>]
 ```
@@ -13,6 +14,7 @@ Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |Identity|ListPipeBind|True|The ID or Title of the list.|
 |Force|SwitchParameter|False|Specifying the Force parameter will skip the confirmation question.|
+|Recycle|SwitchParameter|False||
 |Web|WebPipeBind|False|The web to apply the command to. Omit this parameter to use the current web.|
 ## Examples
 
@@ -27,3 +29,9 @@ Removes the list named 'Announcements'. Asks for confirmation.
 PS:> Remove-PnPList -Identity Announcements -Force
 ```
 Removes the list named 'Announcements' without asking for confirmation.
+
+### Example 3
+```powershell
+PS:> Remove-PnPList -Title Announcements -Recycle
+```
+Removes the list named 'Announcements' and saves to the Recycle Bin

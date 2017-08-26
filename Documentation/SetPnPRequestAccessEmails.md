@@ -1,5 +1,6 @@
 # Set-PnPRequestAccessEmails
 Sets Request Access Emails on a web
+>*Only available for SharePoint Online*
 ## Syntax
 ```powershell
 Set-PnPRequestAccessEmails -Emails <String[]>

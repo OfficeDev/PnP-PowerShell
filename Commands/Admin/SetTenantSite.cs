@@ -12,7 +12,8 @@ using OfficeDevPnP.Core.Entities;
 namespace SharePointPnP.PowerShell.Commands
 {
     [Cmdlet(VerbsCommon.Set, "PnPTenantSite")]
-    [CmdletHelp(@"Office365 only: Uses the tenant API to set site information.",
+    [CmdletHelp(@"Uses the tenant API to set site information.",
+        SupportedPlatform = CmdletSupportedPlatform.Online,
         Category = CmdletHelpCategory.TenantAdmin)]
     [CmdletExample(
       Code = @"PS:> Set-PnPTenantSite -Url https://contoso.sharepoint.com -Title 'Contoso Website' -Sharing Disabled",

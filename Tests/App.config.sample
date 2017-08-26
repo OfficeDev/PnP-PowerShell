@@ -61,6 +61,8 @@
     <!-- Support for Azure based testing -->
     <add key="AzureStorageKey" value="" />
 
+    <!--Testing for Webhook test endpoint-->
+    <add key="WebHookTestUrl" value="https://[test-functions].azurewebsites.net" />
   </appSettings>
   <system.diagnostics>
     <sharedListeners>

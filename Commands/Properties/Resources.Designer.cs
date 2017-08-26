@@ -224,6 +224,15 @@ namespace SharePointPnP.PowerShell.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to List.
+        /// </summary>
+        internal static string List {
+            get {
+                return ResourceManager.GetString("List", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to List not found.
         /// </summary>
         internal static string ListNotFound {
@@ -491,6 +500,15 @@ namespace SharePointPnP.PowerShell.Commands.Properties {
         internal static string RemoveWeb0 {
             get {
                 return ResourceManager.GetString("RemoveWeb0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove Webhook Subscription &apos;{0}&apos; from {1} &apos;{2}&apos; ?.
+        /// </summary>
+        internal static string RemoveWebhookSubscription0From1_2 {
+            get {
+                return ResourceManager.GetString("RemoveWebhookSubscription0From1_2", resourceCulture);
             }
         }
         

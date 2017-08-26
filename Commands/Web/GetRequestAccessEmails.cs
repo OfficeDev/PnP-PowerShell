@@ -8,6 +8,7 @@ namespace SharePointPnP.PowerShell.Commands
 {
     [Cmdlet(VerbsCommon.Get, "PnPRequestAccessEmails")]
     [CmdletHelp("Returns the request access e-mail addresses",
+        SupportedPlatform = CmdletSupportedPlatform.Online,
         Category = CmdletHelpCategory.Webs,
         OutputType = typeof(List<string>))]
     [CmdletExample(

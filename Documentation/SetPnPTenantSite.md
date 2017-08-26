@@ -1,5 +1,6 @@
 # Set-PnPTenantSite
-Office365 only: Uses the tenant API to set site information.
+Uses the tenant API to set site information.
+>*Only available for SharePoint Online*
 ## Syntax
 ```powershell
 Set-PnPTenantSite -Url <String>

@@ -1,5 +1,6 @@
 # Restore-PnPTenantRecycleBinItem
 Restores a site collection from the tenant scoped recycle bin
+>*Only available for SharePoint Online*
 ## Syntax
 ```powershell
 Restore-PnPTenantRecycleBinItem -Url <String>

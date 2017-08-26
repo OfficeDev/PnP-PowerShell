@@ -24,6 +24,7 @@ Get-PnPProvisioningTemplate [-IncludeAllTermGroups [<SwitchParameter>]]
                             [-TemplateImagePreviewUrl <String>]
                             [-TemplateProperties <Hashtable>]
                             [-OutputInstance [<SwitchParameter>]]
+                            [-ExcludeContentTypesFromSyndication [<SwitchParameter>]]
                             [-Web <WebPipeBind>]
                             [-Out <String>]
                             [-Schema <XMLPnPSchemaVersion>]
@@ -35,6 +36,7 @@ Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |ContentTypeGroups|String[]|False|Allows you to specify from which content type group(s) the content types should be included into the template.|
 |Encoding|Encoding|False|The encoding type of the XML file, Unicode is default|
+|ExcludeContentTypesFromSyndication|SwitchParameter|False|Specify whether or not content types issued from a content hub should be exported. By default, these content types are included.|
 |ExcludeHandlers|Handlers|False|Allows you to run all handlers, excluding the ones specified.|
 |ExtensibilityHandlers|ExtensibilityHandler[]|False|Allows you to specify ExtensbilityHandlers to execute while extracting a template.|
 |Force|SwitchParameter|False|Overwrites the output file if it exists.|
@@ -134,3 +136,9 @@ Extracts an instance of a provisioning template object from the current web. Thi
 PS:> Get-PnPProvisioningTemplate -Out template.pnp -ContentTypeGroups "Group A","Group B"
 ```
 Extracts a provisioning template in Office Open XML from the current web, but only processes content types from the to given content type groups.
+
+### Example 13
+```powershell
+PS:> Get-PnPProvisioningTemplate -Out template.pnp -ExcludeContentTypesFromSyndication
+```
+Extracts a provisioning template in Office Open XML from the current web, excluding content types provisioned through content type syndication (content type hub), in order to prevent provisioning errors if the target also provision the content type using syndication.
