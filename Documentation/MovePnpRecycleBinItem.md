@@ -1,5 +1,6 @@
 # Move-PnpRecycleBinItem
 Moves all items or a specific item in the first stage recycle bin of the current site collection to the second stage recycle bin
+>*Only available for SharePoint Online*
 ## Syntax
 ```powershell
 Move-PnpRecycleBinItem [-Identity <RecycleBinItemPipeBind>]

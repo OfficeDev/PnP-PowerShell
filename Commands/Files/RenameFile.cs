@@ -11,15 +11,15 @@ namespace SharePointPnP.PowerShell.Commands.Files
         Category = CmdletHelpCategory.Files)]
     [CmdletExample(
         Remarks = "Renames a file named company.docx located in the document library called Documents located in the projects sitecollection under the managed path sites to mycompany.docx. If a file named mycompany.aspx already exists, it won't perform the rename.",
-        Code = @"PS:>Move-PnPFile -ServerRelativeUrl /sites/project/Documents/company.docx -TargetFileName mycompany.docx",
+        Code = @"PS:>Rename-PnPFile -ServerRelativeUrl /sites/project/Documents/company.docx -TargetFileName mycompany.docx",
         SortOrder = 1)]
     [CmdletExample(
         Remarks = "Renames a file named company.docx located in the document library called Documents located in the current site to mycompany.aspx. If a file named mycompany.aspx already exists, it won't perform the rename.",
-        Code = @"PS:>Move-PnPFile -SiteRelativeUrl Documents/company.aspx -TargetFileName mycompany.docx",
+        Code = @"PS:>Rename-PnPFile -SiteRelativeUrl Documents/company.aspx -TargetFileName mycompany.docx",
         SortOrder = 2)]
     [CmdletExample(
         Remarks = "Renames a file named company.docx located in the document library called Documents located in the projects sitecollection under the managed path sites to mycompany.aspx. If a file named mycompany.aspx already exists, it will still perform the rename and replace the original mycompany.aspx file.",
-        Code = @"PS:>Move-PnPFile -ServerRelativeUrl /sites/project/Documents/company.docx -TargetFileName mycompany.docx -OverwriteIfAlreadyExists",
+        Code = @"PS:>Rename-PnPFile -ServerRelativeUrl /sites/project/Documents/company.docx -TargetFileName mycompany.docx -OverwriteIfAlreadyExists",
         SortOrder = 3)]
 
     public class RenameFile : PnPWebCmdlet

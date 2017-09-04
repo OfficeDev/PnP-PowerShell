@@ -88,7 +88,7 @@ The verb of a cmdlet (get-, add-, etc.) should follow acceptable cmdlet standard
 
 ## Documentation contributions
 If you want to contribute to cmdlet documentation, please do not make a pull request to modify the actual files in the Documentation folder itself. Those files
-are automatically generated based upon comments in the actual classes. So if you want to modify documentation and or add an example of a cmdlet, navigate to the
+are automatically generated based upon comments in the actual classes. So if you want to modify documentation or add an example of a cmdlet, navigate to the
 corresponding class where the cmdlet is being implemented and add the comments there. An example can for instance be found in
 
 https://github.com/OfficeDev/PnP-PowerShell/blob/dev/Commands/Fields/AddField.cs

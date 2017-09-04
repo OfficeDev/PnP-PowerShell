@@ -278,6 +278,7 @@
     <Compile Include="InvokeWebActionTest.cs" />
     <Compile Include="ListDataRowProvisioningTemplate.cs" />
     <Compile Include="ProvisioningTemplateTests.cs" />
+    <Compile Include="WebhookSubscriptionsTests.cs" />
     <Compile Include="WebTests.cs" />
     <Compile Include="ProvisioningTemplateFromFolderTest.cs" />
     <Compile Include="WebPartsTests.cs" />

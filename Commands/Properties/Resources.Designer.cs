@@ -19,7 +19,7 @@ namespace SharePointPnP.PowerShell.Commands.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -220,6 +220,15 @@ namespace SharePointPnP.PowerShell.Commands.Properties {
         internal static string HealthScoreNotSufficient {
             get {
                 return ResourceManager.GetString("HealthScoreNotSufficient", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to List.
+        /// </summary>
+        internal static string List {
+            get {
+                return ResourceManager.GetString("List", resourceCulture);
             }
         }
         
@@ -477,6 +486,15 @@ namespace SharePointPnP.PowerShell.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Remove User with Id {0}, LoginName &apos;{1}&apos;, Email &apos;{2}&apos; from the User Information List?.
+        /// </summary>
+        internal static string RemoveUser {
+            get {
+                return ResourceManager.GetString("RemoveUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Remove view &apos;{0}&apos;?.
         /// </summary>
         internal static string RemoveView0 {
@@ -491,6 +509,15 @@ namespace SharePointPnP.PowerShell.Commands.Properties {
         internal static string RemoveWeb0 {
             get {
                 return ResourceManager.GetString("RemoveWeb0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove Webhook Subscription &apos;{0}&apos; from {1} &apos;{2}&apos; ?.
+        /// </summary>
+        internal static string RemoveWebhookSubscription0From1_2 {
+            get {
+                return ResourceManager.GetString("RemoveWebhookSubscription0From1_2", resourceCulture);
             }
         }
         

@@ -90,6 +90,7 @@
     <Compile Include="CmdletExampleAttribute.cs" />
     <Compile Include="CmdletHelpCategory.cs" />
     <Compile Include="CmdletRelatedLinkAttribute.cs" />
+    <Compile Include="CmdletSupportedPlatform.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CmdletHelpAttribute.cs" />
   </ItemGroup>

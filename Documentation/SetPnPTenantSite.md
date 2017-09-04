@@ -1,5 +1,6 @@
 # Set-PnPTenantSite
-Office365 only: Uses the tenant API to set site information.
+Uses the tenant API to set site information.
+>*Only available for SharePoint Online*
 ## Syntax
 ```powershell
 Set-PnPTenantSite -Url <String>
@@ -24,7 +25,7 @@ Parameter|Type|Required|Description
 |AllowSelfServiceUpgrade|Nullable`1|False|Specifies if the site administrator can upgrade the site collection|
 |LockState|SiteLockState|False|Sets the lockstate of a site|
 |NoScriptSite|SwitchParameter|False|Specifies if a site allows custom script or not. See https://support.office.com/en-us/article/Turn-scripting-capabilities-on-or-off-1f2c515f-5d7e-448a-9fd7-835da935584f for more information.|
-|Owners|List`1|False|Specifies owners to add as site collection adminstrators. Can be both users and groups.|
+|Owners|List`1|False|Specifies owner(s) to add as site collection adminstrators. They will be added as additional site collection administrators. Existing administrators will stay. Can be both users and groups.|
 |Sharing|Nullable`1|False|Specifies what the sharing capablilites are for the site. Possible values: Disabled, ExternalUserSharingOnly, ExternalUserAndGuestSharing, ExistingExternalUserSharingOnly|
 |StorageMaximumLevel|Nullable`1|False|Specifies the storage quota for this site collection in megabytes. This value must not exceed the company's available quota.|
 |StorageWarningLevel|Nullable`1|False|Specifies the warning level for the storage quota in megabytes. This value must not exceed the values set for the StorageMaximumLevel parameter|
@@ -36,23 +37,29 @@ Parameter|Type|Required|Description
 
 ### Example 1
 ```powershell
-PS:> Set-PnPTenantSite -Url https://contoso.sharepoint.com -Title 'Contoso Website' -Sharing Disabled
+PS:> Set-PnPTenantSite -Url https://contoso.sharepoint.com -Title "Contoso Website" -Sharing Disabled
 ```
 This will set the title of the site collection with the URL 'https://contoso.sharepoint.com' to 'Contoso Website' and disable sharing on this site collection.
 
 ### Example 2
 ```powershell
-PS:> Set-PnPTenantSite -Url https://contoso.sharepoint.com -Title 'Contoso Website' -StorageWarningLevel 8000 -StorageMaximumLevel 10000
+PS:> Set-PnPTenantSite -Url https://contoso.sharepoint.com -Title "Contoso Website" -StorageWarningLevel 8000 -StorageMaximumLevel 10000
 ```
 This will set the title of the site collection with the URL 'https://contoso.sharepoint.com' to 'Contoso Website', set the storage warning level to 8GB and set the storage maximum level to 10GB.
 
 ### Example 3
 ```powershell
-PS:> Set-PnPTenantSite -Url https://contoso.sharepoint.com/sites/sales -Owners 'user@contoso.onmicrosoft.com'
+PS:> Set-PnPTenantSite -Url https://contoso.sharepoint.com/sites/sales -Owners "user@contoso.onmicrosoft.com"
 ```
-This will set user@contoso.onmicrosoft.com as a site collection owner at 'https://contoso.sharepoint.com/sites/sales'.
+This will add user@contoso.onmicrosoft.com as an additional site collection owner at 'https://contoso.sharepoint.com/sites/sales'.
 
 ### Example 4
+```powershell
+PS:> Set-PnPTenantSite -Url https://contoso.sharepoint.com/sites/sales -Owners @("user1@contoso.onmicrosoft.com", "user2@contoso.onmicrosoft.com")
+```
+This will add user1@contoso.onmicrosoft.com and user2@contoso.onmicrosoft.com as additional site collection owners at 'https://contoso.sharepoint.com/sites/sales'.
+
+### Example 5
 ```powershell
 PS:> Set-PnPTenantSite -Url https://contoso.sharepoint.com/sites/sales -NoScriptSite:$false
 ```

@@ -10,6 +10,7 @@ namespace SharePointPnP.PowerShell.Commands.UserProfiles
 
     [Cmdlet(VerbsCommon.New, "PnPPersonalSite")]
     [CmdletHelp(@"Office365 only: Creates a personal / OneDrive For Business site",
+        SupportedPlatform = CmdletSupportedPlatform.Online,
         Category = CmdletHelpCategory.UserProfiles)]
     [CmdletExample(
         Code = @"PS:> $users = ('katiej@contoso.onmicrosoft.com','garth@contoso.onmicrosoft.com')

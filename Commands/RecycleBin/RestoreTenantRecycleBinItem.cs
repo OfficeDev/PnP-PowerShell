@@ -9,7 +9,8 @@ using Resources = SharePointPnP.PowerShell.Commands.Properties.Resources;
 namespace SharePointPnP.PowerShell.Commands.RecycleBin
 {
     [Cmdlet(VerbsData.Restore, "PnPTenantRecycleBinItem")]
-    [CmdletHelp("Restores a site collection from the tenant scoped recycle bin", 
+    [CmdletHelp("Restores a site collection from the tenant scoped recycle bin",
+        SupportedPlatform = CmdletSupportedPlatform.Online,
         DetailedDescription = @"The Reset-PnPTenantRecycleBinItem cmdlet allows a site collection that has been deleted and still exists in the tenant recycle bin to be restored to its original location.", 
         Category = CmdletHelpCategory.TenantAdmin)]
     [CmdletExample(

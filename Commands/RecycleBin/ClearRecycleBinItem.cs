@@ -43,12 +43,9 @@ namespace SharePointPnP.PowerShell.Commands.RecycleBin
             {
                 case "Identity":
                     var recycleBinItem = Identity.GetRecycleBinItem(ClientContext.Site);
-                    ClientContext.Load(recycleBinItem);
-                    ClientContext.ExecuteQueryRetry();
 
                     if (Force ||
-                        ShouldContinue(string.Format(Resources.ClearRecycleBinItem, recycleBinItem.LeafName),
-                            Resources.Confirm))
+                        ShouldContinue(string.Format(Resources.ClearRecycleBinItem, recycleBinItem.LeafName), Resources.Confirm))
                     {
                         recycleBinItem.DeleteObject();
                         ClientContext.ExecuteQueryRetry();

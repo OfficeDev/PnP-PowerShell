@@ -65,6 +65,34 @@ namespace SharePointPnP.PowerShell.ModuleFilesGenerator
                         cmdletInfo.OutputType = a.OutputType;
                         cmdletInfo.OutputTypeLink = a.OutputTypeLink;
                         cmdletInfo.OutputTypeDescription = a.OutputTypeDescription;
+                        switch (a.SupportedPlatform)
+                        {
+                            case CmdletSupportedPlatform.All:
+                                {
+                                    cmdletInfo.Platform = "All";
+                                    break;
+                                }
+                            case CmdletSupportedPlatform.Online:
+                                {
+                                    cmdletInfo.Platform = "SharePoint Online";
+                                    break;
+                                }
+                            case CmdletSupportedPlatform.OnPremises:
+                                {
+                                    cmdletInfo.Platform = "SharePoint On-Premises";
+                                    break;
+                                }
+                            case CmdletSupportedPlatform.SP2013:
+                                {
+                                    cmdletInfo.Platform = "SharePoint 2013";
+                                    break;
+                                }
+                            case CmdletSupportedPlatform.SP2016:
+                                {
+                                    cmdletInfo.Platform = "SharePoint 2016";
+                                    break;
+                                }
+                        }
                     }
                     var exampleAttribute = attribute as CmdletExampleAttribute;
                     if (exampleAttribute != null)

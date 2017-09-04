@@ -1,5 +1,6 @@
 # Remove-PnPTenantSite
-Office365 only: Removes a site collection from the current tenant
+Removes a site collection from the current tenant
+>*Only available for SharePoint Online*
 ## Syntax
 ```powershell
 Remove-PnPTenantSite -Url <String>

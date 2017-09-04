@@ -7,9 +7,10 @@ using System.Management.Automation;
 namespace SharePointPnP.PowerShell.Commands
 {
     [Cmdlet(VerbsCommon.Get, "PnPWebTemplates")]
-    [CmdletHelp(@"Office365 only: Returns the available web templates.", 
+    [CmdletHelp(@"Returns the available web templates.", 
         Category = CmdletHelpCategory.TenantAdmin,
-        OutputType=typeof(Microsoft.Online.SharePoint.TenantAdministration.SPOTenantWebTemplateCollection),
+        SupportedPlatform = CmdletSupportedPlatform.Online,
+        OutputType =typeof(Microsoft.Online.SharePoint.TenantAdministration.SPOTenantWebTemplateCollection),
         OutputTypeLink = "https://msdn.microsoft.com/en-us/library/microsoft.online.sharepoint.tenantadministration.spotenantwebtemplatecollection.aspx")]
     [CmdletExample(Code = @"PS:> Get-PnPWebTemplates", SortOrder = 1)]
     [CmdletExample(Code = @"PS:> Get-PnPWebTemplates -LCID 1033", Remarks = @"Returns all webtemplates for the Locale with ID 1033 (English)", SortOrder = 2)]

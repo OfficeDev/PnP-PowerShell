@@ -13,6 +13,7 @@ namespace SharePointPnP.PowerShell.Commands.UserProfiles
 
 You must connect to the tenant admin website (https://:<tenant>-admin.sharepoint.com) with Connect-PnPOnline in order to use this command. 
 ", DetailedDescription = "Requires a connection to a SharePoint Tenant Admin site.",
+        SupportedPlatform = CmdletSupportedPlatform.Online,
         Category = CmdletHelpCategory.UserProfiles)]
     [CmdletExample(
         Code = @"PS:> Set-PnPUserProfileProperty -Account 'user@domain.com' -Property 'SPS-Location' -Value 'Stockholm'",

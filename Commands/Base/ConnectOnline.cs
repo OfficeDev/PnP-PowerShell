@@ -53,6 +53,12 @@ dir",
         Code = @"PS:> Connect-PnPOnline -Url https://contoso.sharepoint.de -AppId 344b8aab-389c-4e4a-8fa1-4c1ae2c0a60d -AppSecret a3f3faf33f3awf3a3sfs3f3ss3f4f4a3fawfas3ffsrrffssfd -AzureEnvironment Germany",
         Remarks = @"This will authenticate you to the German Azure environment using the German Azure endpoints for authentication",
         SortOrder = 8)]
+#if ONPREMISES
+    [CmdletExample(
+        Code = @"PS:> Connect-PnPOnline -Url https://yourserver -ClientId 763d5e60-b57e-426e-8e87-b7258f7f8188 -HighTrustCertificatePath c:\HighTrust.pfx -HighTrustCertificatePassword 'password' -HighTrustCertificateIssuerId 6b9534d8-c2c1-49d6-9f4b-cd415620bca8",
+        Remarks = @"Connect to an on-premises SharePoint environment using a high trust certificate",
+        SortOrder = 9)]
+#endif
     public class ConnectOnline : PSCmdlet
     {
         private const string ParameterSet_MAIN = "Main";
@@ -61,6 +67,9 @@ dir",
 #if !ONPREMISES
         private const string ParameterSet_NATIVEAAD = "NativeAAD";
         private const string ParameterSet_APPONLYAAD = "AppOnlyAAD";
+#endif
+#if ONPREMISES
+        private const string ParameterSet_HIGHTRUST = "HighTrust";
 #endif
         [Parameter(Mandatory = true, Position = 0, ParameterSetName = ParameterAttribute.AllParameterSets, ValueFromPipeline = true, HelpMessage = "The Url of the site collection to connect to.")]
         public string Url;
@@ -110,8 +119,13 @@ dir",
 #if !ONPREMISES
         [Parameter(Mandatory = true, ParameterSetName = ParameterSet_NATIVEAAD, HelpMessage = "The Client ID of the Azure AD Application")]
         [Parameter(Mandatory = true, ParameterSetName = ParameterSet_APPONLYAAD, HelpMessage = "The Client ID of the Azure AD Application")]
+#endif
+#if ONPREMISES
+        [Parameter(Mandatory = true, ParameterSetName = ParameterSet_HIGHTRUST, HelpMessage = "The Client ID of the Add-In Registration in SharePoint")]
+#endif
         public string ClientId;
 
+#if !ONPREMISES
         [Parameter(Mandatory = true, ParameterSetName = ParameterSet_NATIVEAAD, HelpMessage = "The Redirect URI of the Azure AD Application")]
         public string RedirectUri;
 
@@ -137,6 +151,16 @@ dir",
         [Parameter(Mandatory = false, ParameterSetName = ParameterAttribute.AllParameterSets, HelpMessage = "Should we skip the check if this site is the Tenant admin site. Default is false")]
         public SwitchParameter SkipTenantAdminCheck;
 
+#if ONPREMISES
+        [Parameter(Mandatory = true, ParameterSetName = ParameterSet_HIGHTRUST, HelpMessage = "The path to the private key certificate (.pfx) to use for the High Trust connection")]
+        public string HighTrustCertificatePath;
+
+        [Parameter(Mandatory = true, ParameterSetName = ParameterSet_HIGHTRUST, HelpMessage = "The password of the private key certificate (.pfx) to use for the High Trust connection")]
+        public string HighTrustCertificatePassword;
+
+        [Parameter(Mandatory = true, ParameterSetName = ParameterSet_HIGHTRUST, HelpMessage = "The IssuerID under which the CER counterpart of the PFX has been registered in SharePoint as a Trusted Security Token issuer to use for the High Trust connection")]
+        public string HighTrustCertificateIssuerId;
+#endif
 
         protected override void ProcessRecord()
         {
@@ -183,6 +207,12 @@ dir",
             else if (ParameterSetName == ParameterSet_APPONLYAAD)
             {
                 SPOnlineConnection.CurrentConnection = SPOnlineConnectionHelper.InitiateAzureADAppOnlyConnection(new Uri(Url), ClientId, Tenant, CertificatePath, CertificatePassword, MinimalHealthScore, RetryCount, RetryWait, RequestTimeout, TenantAdminUrl, SkipTenantAdminCheck, AzureEnvironment);
+            }
+#endif
+#if ONPREMISES
+            else if (ParameterSetName == ParameterSet_HIGHTRUST)
+            {
+                SPOnlineConnection.CurrentConnection = SPOnlineConnectionHelper.InstantiateHighTrustConnection(Url, ClientId, HighTrustCertificatePath, HighTrustCertificatePassword, HighTrustCertificateIssuerId, MinimalHealthScore, RetryCount, RetryWait, RequestTimeout, TenantAdminUrl, SkipTenantAdminCheck);
             }
 #endif
             else

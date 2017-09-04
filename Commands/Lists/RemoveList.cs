@@ -16,10 +16,17 @@ namespace SharePointPnP.PowerShell.Commands.Lists
         Code = "PS:> Remove-PnPList -Identity Announcements -Force",
         SortOrder = 2,
         Remarks = @"Removes the list named 'Announcements' without asking for confirmation.")]
+    [CmdletExample(
+        Code = "PS:> Remove-PnPList -Title Announcements -Recycle",
+        SortOrder = 3,
+        Remarks = @"Removes the list named 'Announcements' and saves to the Recycle Bin")]
     public class RemoveList : PnPWebCmdlet
     {
         [Parameter(Mandatory = true, ValueFromPipeline = true, Position = 0, HelpMessage = "The ID or Title of the list.")]
         public ListPipeBind Identity = new ListPipeBind();
+
+        [Parameter(Mandatory = false)]
+        public SwitchParameter Recycle;
 
         [Parameter(Mandatory = false, HelpMessage = "Specifying the Force parameter will skip the confirmation question.")]
         public SwitchParameter Force;
@@ -32,7 +39,14 @@ namespace SharePointPnP.PowerShell.Commands.Lists
                 {
                     if (Force || ShouldContinue(Properties.Resources.RemoveList, Properties.Resources.Confirm))
                     {
-                        list.DeleteObject();
+                        if (Recycle)
+                        {
+                            list.Recycle();
+                        }
+                        else
+                        {
+                            list.DeleteObject();
+                        }
                         ClientContext.ExecuteQueryRetry();
                     }
                 }

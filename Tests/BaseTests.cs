@@ -6,6 +6,7 @@ using System.Configuration;
 using System.Linq.Expressions;
 using Microsoft.SharePoint.Client;
 using SharePointPnP.PowerShell.Commands.Utilities;
+using System.Linq;
 
 namespace SharePointPnP.PowerShell.Tests
 {
@@ -154,6 +155,30 @@ namespace SharePointPnP.PowerShell.Tests
                 var query = (ctx.Web.Lists.IncludeWithDefaultProperties(new[] {exp2}));
                 var lists = ctx.LoadQuery(query);
                 ctx.ExecuteQueryRetry();
+            }
+        }
+
+
+        [TestMethod]
+        public void GetAppAccessTokenTest()
+        {
+            using (var scope = new PSTestScope(true))
+            {
+                using (var ctx = TestCommon.CreateClientContext())
+                {
+                    var results = scope.ExecuteCommand("Get-PnPAppAuthAccessToken");
+                    if (TestCommon.AppOnlyTesting())
+                    {
+                        Assert.IsTrue(results.Any());
+                    }
+                    else
+                    {
+                        // If not testing in app only, the test passes
+                        Assert.IsTrue(true);
+                    }
+
+                }
+
             }
         }
     }

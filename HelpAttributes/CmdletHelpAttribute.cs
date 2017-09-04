@@ -20,12 +20,14 @@ namespace SharePointPnP.PowerShell.CmdletHelpAttributes
         public string OutputTypeLink { get; set; }
 
         public CmdletHelpCategory Category { get; set; }
-        public CmdletHelpAttribute(string description)
+        public CmdletHelpAttribute(string description, CmdletSupportedPlatform supportedPlatform = CmdletSupportedPlatform.All)
         {
             _description = description;
+            SupportedPlatform = supportedPlatform;
         }
 
         public string Description => _description;
+        public CmdletSupportedPlatform SupportedPlatform { get; set; }
     }
 
 }

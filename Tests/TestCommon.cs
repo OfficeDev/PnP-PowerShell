@@ -91,6 +91,14 @@ namespace SharePointPnP.PowerShell.Tests
                 return ConfigurationManager.AppSettings["AzureStorageKey"];
             }
         }
+
+        public static string WebHookTestUrl
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["WebHookTestUrl"];
+            }
+        }
         #endregion
 
         #region Methods

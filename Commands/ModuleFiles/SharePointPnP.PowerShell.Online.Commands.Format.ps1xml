@@ -439,7 +439,7 @@
             <Alignment>left</Alignment>
           </TableColumnHeader>
           <TableColumnHeader>
-            <Label>Unique Id</Label>
+            <Label>GUID</Label>
             <Alignment>left</Alignment>
           </TableColumnHeader>
         </TableHeaders>
@@ -1108,7 +1108,7 @@
         </TableRowEntries>
       </TableControl>
     </View>
-   <View>
+    <View>
       <Name>EventReceiverDefinition</Name>
       <ViewSelectedBy>
         <TypeName>Microsoft.SharePoint.Client.EventReceiverDefinition</TypeName>
@@ -1145,13 +1145,13 @@
               <TableColumnItem>
                 <PropertyName>ReceiverId</PropertyName>
               </TableColumnItem>
-            <TableColumnItem>
+              <TableColumnItem>
                 <PropertyName>SequenceNumber</PropertyName>
               </TableColumnItem>
               <TableColumnItem>
                 <PropertyName>EventType</PropertyName>
               </TableColumnItem>
-            <TableColumnItem>
+              <TableColumnItem>
                 <PropertyName>Synchronization</PropertyName>
               </TableColumnItem>
             </TableColumnItems>
@@ -1220,6 +1220,50 @@
             <TableColumnItems>
               <TableColumnItem>
                 <PropertyName>AuditFlags</PropertyName>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+      </TableControl>
+    </View>
+    <View>
+      <Name>User</Name>
+      <ViewSelectedBy>
+        <TypeName>Microsoft.SharePoint.Client.User</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableHeaders>
+          <TableColumnHeader>
+            <Label>Id</Label>
+            <Alignment>right</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Title</Label>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>LoginName</Label>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Email</Label>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+        </TableHeaders>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <PropertyName>Id</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Title</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>LoginName</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Email</PropertyName>
               </TableColumnItem>
             </TableColumnItems>
           </TableRowEntry>

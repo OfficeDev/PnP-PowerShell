@@ -405,7 +405,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base\GetAppAuthAccessToken.cs" />
     <Compile Include="Base\PipeBinds\GenericObjectNameIdPipeBind.cs" />
+    <Compile Include="Base\PipeBinds\WebhookSubscriptionPipeBind.cs" />
     <Compile Include="Base\PipeBinds\WebPartPipeBind.cs" />
     <Compile Include="Base\PipeBinds\UserPipeBind.cs" />
     <Compile Include="Base\PnPWebCmdlet.cs" />
@@ -463,7 +465,6 @@
     <Compile Include="Base\PnPAzureADConnection.cs" />
     <Compile Include="Base\PnPGraphCmdlet.cs" />
     <Compile Include="Base\SetContext.cs" />
-    <Compile Include="Base\deprecated\SPOAdminCmdlet.deprecated.cs" />
     <Compile Include="Base\SPOnlineConnection.cs" />
     <Compile Include="Base\SPOnlineConnectionHelper.cs" />
     <Compile Include="Base\ConnectOnline.cs" />
@@ -474,8 +475,14 @@
     <Compile Include="Enums\TargetScope.cs" />
     <Compile Include="Files\GetFolder.cs" />
     <Compile Include="Graph\SetUnifiedGroup.cs" />
+    <Compile Include="RecordsManagement\SetInPlaceRecordsManagement.cs" />
+    <Compile Include="RecordsManagement\TestListItemIsRecord.cs" />
+    <Compile Include="RecordsManagement\ClearListItemAsRecord.cs" />
+    <Compile Include="RecordsManagement\SetListItemAsRecord.cs" />
     <Compile Include="Lists\MoveListItemToRecycleBin.cs" />
     <Compile Include="Lists\SetListItemPermission.cs" />
+    <Compile Include="Lists\SetView.cs" />
+    <Compile Include="Principals\RemoveUser.cs" />
     <Compile Include="Provider\SPOProxy\SPOProxyCmdletBase.cs" />
     <Compile Include="Lists\GetDefaultColumnValues.cs" />
     <Compile Include="Provider\Parameters\SPOChildItemsParameters.cs" />
@@ -587,8 +594,11 @@
     <Compile Include="Search\GetSearchConfiguration.cs" />
     <Compile Include="RecycleBin\MoveRecycleBinItem.cs" />
     <Compile Include="Search\SubmitSearchQuery.cs" />
+    <Compile Include="Site\AddSiteCollectionAdmin.cs" />
     <Compile Include="Site\GetAuditing.cs" />
     <Compile Include="RecycleBin\GetRecycleBinItem.cs" />
+    <Compile Include="Site\GetSiteCollectionAdmin.cs" />
+    <Compile Include="Site\RemoveSiteCollectionAdmin.cs" />
     <Compile Include="Site\SetAuditing.cs" />
     <Compile Include="Taxonomy\GetSiteCollectionTermStore.cs" />
     <Compile Include="Taxonomy\GetTerm.cs" />
@@ -605,6 +615,10 @@
     <Compile Include="UserProfiles\SetUserProfileProperty.cs" />
     <Compile Include="Utilities\DynamicLinq.cs" />
     <Compile Include="Utilities\HttpHelper.cs" />
+    <Compile Include="Webhooks\RemoveWebhookSubscription.cs" />
+    <Compile Include="Webhooks\SetWebhookSubscription.cs" />
+    <Compile Include="Webhooks\GetWebhookSubscriptions.cs" />
+    <Compile Include="Webhooks\AddWebhookSubscription.cs" />
     <Compile Include="WebParts\GetWebPartProperty.cs" />
     <Compile Include="Branding\RemoveJavaScriptLink.cs" />
     <Compile Include="Branding\AddJavaScriptLink.cs" />
@@ -677,7 +691,6 @@
     <Compile Include="WebParts\SetWebPartProperty.cs" />
     <Compile Include="WebParts\RemoveWebPart.cs" />
     <Compile Include="WebParts\GetWebPart.cs" />
-    <Compile Include="Base\deprecated\SPOCmdlet.deprecated.cs" />
     <Compile Include="Apps\ImportAppPackage.cs" />
     <Compile Include="Apps\GetAppInstance.cs" />
     <Compile Include="Files\GetFile.cs" />
@@ -708,7 +721,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Branding\SetMasterPage.cs" />
     <Compile Include="Branding\SetTheme.cs" />
-    <Compile Include="Base\deprecated\SPOWebCmdlet.deprecated.cs" />
     <Compile Include="Web\SetWeb.cs" />
     <Compile Include="Publishing\RemoveWikiPage.cs" />
     <Compile Include="Publishing\AddWikiPage.cs" />
@@ -743,7 +755,9 @@
   <ItemGroup>
     <Resource Include="Resources\pnp.ico" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Base\deprecated\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>"$(SolutionDir)\ModuleFilesGenerator\bin\$(ConfigurationName)\SharePointPnP.PowerShell.ModuleFilesGenerator.exe"  "$(TargetPath)" "$(ConfigurationName)" "$(SolutionDir)

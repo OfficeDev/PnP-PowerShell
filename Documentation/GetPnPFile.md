@@ -10,6 +10,7 @@ Get-PnPFile -Url <String>
 ```powershell
 Get-PnPFile -Url <String>
             [-AsListItem [<SwitchParameter>]]
+            [-ThrowExceptionIfFileNotFound [<SwitchParameter>]]
             [-Web <WebPipeBind>]
 ```
 
@@ -38,10 +39,11 @@ Parameter|Type|Required|Description
 ---------|----|--------|-----------
 |AsFile|SwitchParameter|True||
 |Url|String|True|The URL (server or site relative) to the file|
-|AsListItem|SwitchParameter|False||
+|AsListItem|SwitchParameter|False|Returns the file as a listitem showing all its properties|
 |AsString|SwitchParameter|False|Retrieve the file contents as a string|
 |Filename|String|False|Name for the local file|
 |Path|String|False|Local path where the file should be saved|
+|ThrowExceptionIfFileNotFound|SwitchParameter|False|If provided in combination with -AsListItem, a Sytem.ArgumentException will be thrown if the file specified in the -Url argument does not exist. Otherwise it will return nothing instead.|
 |Web|WebPipeBind|False|The web to apply the command to. Omit this parameter to use the current web.|
 ## Examples
 

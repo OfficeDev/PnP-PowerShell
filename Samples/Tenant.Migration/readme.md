@@ -1,5 +1,5 @@
 # Introduction 
-This project contains a base version of the Provisioning scripts. By updating a config.xml with the details of a number of SharePoint sites within a tenant, a PnP template can be exported form an existing set of sites and applied to a set of new sites. 
+This project contains a base version of the Provisioning scripts. By updating a config.xml with the details of a number of SharePoint sites within a tenant, a PnP template can be exported from an existing set of sites and applied to a set of new sites. 
 
 # Getting Started
 This section describes:
@@ -37,5 +37,9 @@ This is the first release.
 # Build and Test
 No build is needed. Simply copy the full folder of this project to a new project to get started on a new project. Changes to scripts in this project should be made initially in the development branch only.
 
+# Credits
 
+[![Triad Group Plc](https://pietersveenstra.files.wordpress.com/2017/06/triad-small.png)](http://triad.co.uk)
+
+This sample was initially developed by [Triad Group Plc](http://triad.co.uk)
 
