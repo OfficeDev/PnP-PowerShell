@@ -69,7 +69,11 @@ namespace SharePointPnP.PowerShell.Commands.Lists
 		[Parameter(Mandatory = false, HelpMessage = "The script block to run after every page request.", ParameterSetName = "ByQuery")]
 		public ScriptBlock ScriptBlock;
 
-		protected override void ExecuteCmdlet()
+        [Parameter(Mandatory = false, HelpMessage = "Limit the number of items to the set PageSize, otherwise it will return all results paged.", ParameterSetName = "AllItems")]
+        [Parameter(Mandatory = false, HelpMessage = "Limit the number of items to the set PageSize, otherwise it will return all results paged.", ParameterSetName = "ByQuery")]
+        public SwitchParameter LimitResults = false;
+
+        protected override void ExecuteCmdlet()
         {
             var list = List.GetList(SelectedWeb);
 
@@ -112,7 +116,7 @@ namespace SharePointPnP.PowerShell.Commands.Lists
             else
             {
 				CamlQuery query = HasCamlQuery() ? new CamlQuery { ViewXml = Query } : CamlQuery.CreateAllItemsQuery();
-
+                
 				if (Fields != null)
                 {
                     var queryElement = XElement.Parse(query.ViewXml);
@@ -172,7 +176,7 @@ namespace SharePointPnP.PowerShell.Commands.Lists
 					}
 
 					query.ListItemCollectionPosition = listItems.ListItemCollectionPosition;
-                } while (query.ListItemCollectionPosition != null);
+                } while (query.ListItemCollectionPosition != null && !LimitResults);
             }
         }
 
