@@ -360,7 +360,7 @@ namespace SharePointPnP.PowerShell.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Remove custom action?.
+        ///   Looks up a localized string similar to Remove CustomAction named &apos;{0}&apos; with id &apos;{1}&apos; on scope &apos;{2}&apos;?.
         /// </summary>
         internal static string RemoveCustomAction {
             get {
@@ -396,7 +396,7 @@ namespace SharePointPnP.PowerShell.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Remove JavaScript (&apos;{0}&apos;)?.
+        ///   Looks up a localized string similar to Remove JavaScriptLink named &apos;{0}&apos; with id &apos;{1}&apos; on scope &apos;{2}&apos;?.
         /// </summary>
         internal static string RemoveJavaScript0 {
             get {

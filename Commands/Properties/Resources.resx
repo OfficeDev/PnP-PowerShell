@@ -166,13 +166,13 @@
     <value>Remove content type?</value>
   </data>
   <data name="RemoveCustomAction" xml:space="preserve">
-    <value>Remove custom action?</value>
+    <value>Remove CustomAction named '{0}' with id '{1}' on scope '{2}'?</value>
   </data>
   <data name="RemoveEventReceiver" xml:space="preserve">
     <value>Remove event receiver?</value>
   </data>
   <data name="RemoveJavaScript0" xml:space="preserve">
-    <value>Remove JavaScript ('{0}')?</value>
+    <value>Remove JavaScriptLink named '{0}' with id '{1}' on scope '{2}'?</value>
   </data>
   <data name="RemoveKeyAndValueFromPropertyBag" xml:space="preserve">
     <value>Remove key and value from property bag?</value>
