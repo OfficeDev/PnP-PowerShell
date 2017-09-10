@@ -66,7 +66,7 @@ namespace SharePointPnP.PowerShell.Commands.Branding
                 actions = actions.Where(action => action.Name == Name).ToList();
             }
 
-            foreach (var action in actions.Where(action => Force || ShouldContinue(string.Format(Resources.RemoveJavaScript0, action.Name), Resources.Confirm)))
+            foreach (var action in actions.Where(action => Force || (MyInvocation.BoundParameters.ContainsKey("Confirm") && !bool.Parse(MyInvocation.BoundParameters["Confirm"].ToString())) || ShouldContinue(string.Format(Resources.RemoveJavaScript0, action.Name), Resources.Confirm)))
             {
                 switch (action.Scope)
                 {
