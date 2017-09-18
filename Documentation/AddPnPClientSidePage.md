@@ -27,6 +27,6 @@ Parameter|Type|Required|Description
 
 ### Example 1
 ```powershell
-PS:> Add-PnPClientSidePage -PageName "OurNewPage"
+PS:> Add-PnPClientSidePage -Name "OurNewPage"
 ```
 Creates a new Client-Side page called 'OurNewPage'
