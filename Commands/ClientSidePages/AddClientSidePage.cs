@@ -11,7 +11,7 @@ namespace SharePointPnP.PowerShell.Commands.ClientSidePages
     [CmdletHelp("Adds a Client-Side Page",
       Category = CmdletHelpCategory.ClientSidePages, SupportedPlatform = CmdletSupportedPlatform.Online)]
     [CmdletExample(
-        Code = @"PS:> Add-PnPClientSidePage -PageName ""OurNewPage""",
+        Code = @"PS:> Add-PnPClientSidePage -Name ""OurNewPage""",
         Remarks = "Creates a new Client-Side page called 'OurNewPage'",
         SortOrder = 1)]
     public class AddClientSidePage : PnPWebCmdlet
