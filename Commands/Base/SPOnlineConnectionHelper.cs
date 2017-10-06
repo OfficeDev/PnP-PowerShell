@@ -393,7 +393,7 @@ namespace SharePointPnP.PowerShell.Commands.Base
         private static readonly Lazy<string> PnPPSVersionTagLazy = new Lazy<string>(
             () => {
                 var coreAssembly = Assembly.GetExecutingAssembly();
-                var result = $"PnPPS:{((AssemblyFileVersionAttribute) coreAssembly.GetCustomAttribute(typeof(AssemblyFileVersionAttribute))).Version.Split('.')[2]}";
+                var result = $"PnPPS:{((AssemblyFileVersionAttribute)coreAssembly.GetCustomAttribute(typeof(AssemblyFileVersionAttribute))).Version.Split('.')[2]}";
                 return (result);
             },
             true);

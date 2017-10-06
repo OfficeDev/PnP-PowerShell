@@ -11,12 +11,16 @@ namespace SharePointPnP.PowerShell.Commands.ClientSidePages
     [CmdletHelp("Adds a Client-Side Page",
       Category = CmdletHelpCategory.ClientSidePages, SupportedPlatform = CmdletSupportedPlatform.Online)]
     [CmdletExample(
-        Code = @"PS:> Add-PnPClientSidePage -PageName ""OurNewPage""",
-        Remarks = "Creates a new Client-Side page called 'OurNewPage'",
+        Code = @"PS:> Add-PnPClientSidePage -Name ""NewPage""",
+        Remarks = "Creates a new Client-Side page named 'NewPage'",
         SortOrder = 1)]
+    [CmdletExample(
+        Code = @"PS:> Add-PnPClientSidePage ""NewPage""",
+        Remarks = "Creates a new Client-Side page named 'NewPage'",
+        SortOrder = 2)]
     public class AddClientSidePage : PnPWebCmdlet
     {
-        [Parameter(Mandatory = true, HelpMessage = "Specifies the name of the page.")]
+        [Parameter(Mandatory = true, Position = 0, HelpMessage = "Specifies the name of the page.")]
         public string Name = null;
 
         [Parameter(Mandatory = false, HelpMessage = "Specifies the layout type of the page.")]
@@ -26,7 +30,7 @@ namespace SharePointPnP.PowerShell.Commands.ClientSidePages
         public ClientSidePagePromoteType PromoteAs = ClientSidePagePromoteType.None;
 
         [Parameter(Mandatory = false, HelpMessage = "Enables or Disables the comments on the page")]
-        public bool? CommentsEnabled = null;
+        public SwitchParameter CommentsEnabled = false;
 
         [Parameter(Mandatory = false, HelpMessage = "Publishes the page once it is saved. Applicable to libraries set to create major and minor versions.")]
         public SwitchParameter Publish;
@@ -75,9 +79,10 @@ namespace SharePointPnP.PowerShell.Commands.ClientSidePages
                     break;
             }
 
-            if (CommentsEnabled.HasValue)
+
+            if (MyInvocation.BoundParameters.ContainsKey("CommentsEnabled"))
             {
-                if (CommentsEnabled.Value)
+                if (CommentsEnabled)
                 {
                     clientSidePage.EnableComments();
                 }

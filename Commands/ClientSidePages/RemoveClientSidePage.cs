@@ -12,7 +12,7 @@ namespace SharePointPnP.PowerShell.Commands.ClientSidePages
       Category = CmdletHelpCategory.ClientSidePages, SupportedPlatform = CmdletSupportedPlatform.Online)]
     [CmdletExample(
         Code = @"PS:> Remove-PnPClientSidePage -Identity ""MyPage""",
-        Remarks = "Removes the Client-Side page called 'MyPage.aspx'",
+        Remarks = "Removes the Client-Side page named 'MyPage.aspx'",
         SortOrder = 1)]
     [CmdletExample(
         Code = @"PS:> Remove-PnPClientSidePage $page",

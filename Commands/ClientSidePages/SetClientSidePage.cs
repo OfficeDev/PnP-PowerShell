@@ -12,8 +12,16 @@ namespace SharePointPnP.PowerShell.Commands.ClientSidePages
       Category = CmdletHelpCategory.ClientSidePages, SupportedPlatform = CmdletSupportedPlatform.Online)]
     [CmdletExample(
         Code = @"PS:> Set-PnPClientSidePage -Identity ""MyPage"" -LayoutType Home",
-        Remarks = "Updates the properties of the Client-Side page called 'MyPage'",
+        Remarks = "Updates the properties of the Client-Side page named 'MyPage'",
         SortOrder = 1)]
+    [CmdletExample(
+        Code = @"PS:> Set-PnPClientSidePage -Identity ""MyPage"" -CommentsEnabled",
+        Remarks = "Enables the comments on the Client-Side page named 'MyPage'",
+        SortOrder = 2)]
+    [CmdletExample(
+        Code = @"PS:> Set-PnPClientSidePage -Identity ""MyPage"" -CommentsEnabled $false",
+        Remarks = "Disables the comments on the Client-Side page named 'MyPage'",
+        SortOrder = 3)]
     public class SetClientSidePage : PnPWebCmdlet
     {
         [Parameter(Mandatory = true, ValueFromPipeline = true, Position = 0, HelpMessage = "The name/identity of the page")]
@@ -29,7 +37,7 @@ namespace SharePointPnP.PowerShell.Commands.ClientSidePages
         public ClientSidePagePromoteType PromoteAs = ClientSidePagePromoteType.None;
 
         [Parameter(Mandatory = false, HelpMessage = "Enables or Disables the comments on the page")]
-        public bool? CommentsEnabled = null;
+        public SwitchParameter CommentsEnabled = false;
 
         [Parameter(Mandatory = false, HelpMessage = "Publishes the page once it is saved.")]
         public SwitchParameter Publish;
@@ -49,7 +57,7 @@ namespace SharePointPnP.PowerShell.Commands.ClientSidePages
             // We need to have the page name, if not found, raise an error
             string name = ClientSidePageUtilities.EnsureCorrectPageName(Name ?? Identity?.Name);
             if (name == null)
-                throw new Exception("Insufficient arguments to add a client side page");
+                throw new Exception("Insufficient arguments to update a client side page");
 
             clientSidePage.LayoutType = LayoutType;
             clientSidePage.Save(name);
@@ -68,9 +76,9 @@ namespace SharePointPnP.PowerShell.Commands.ClientSidePages
                     break;
             }
 
-            if (CommentsEnabled.HasValue)
+            if (MyInvocation.BoundParameters.ContainsKey("CommentsEnabled"))
             {
-                if (CommentsEnabled.Value)
+                if (CommentsEnabled)
                 {
                     clientSidePage.EnableComments();
                 }

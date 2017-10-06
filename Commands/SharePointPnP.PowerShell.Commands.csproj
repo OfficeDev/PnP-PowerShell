@@ -408,6 +408,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Admin\NewSite.cs" />
     <Compile Include="Base\GetAppAuthAccessToken.cs" />
     <Compile Include="Base\PipeBinds\ClientSideComponentPipeBind.cs" />
     <Compile Include="Base\PipeBinds\GenericPropertiesPipeBind.cs" />
@@ -424,6 +425,7 @@
     <Compile Include="Base\PnPCmdlet.cs" />
     <Compile Include="Base\PnPAdminCmdlet.cs" />
     <Compile Include="ContentTypes\GetContentTypePublishingHubUrl.cs" />
+    <Compile Include="Enums\SiteType.cs" />
     <Compile Include="Fields\SetField.cs" />
     <Compile Include="Files\CopyFile.cs" />
     <Compile Include="Files\MoveFile.cs" />

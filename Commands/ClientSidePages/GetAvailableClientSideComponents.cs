@@ -10,7 +10,7 @@ namespace SharePointPnP.PowerShell.Commands.ClientSidePages
     [CmdletHelp("Gets the available client side components on a particular page",
       Category = CmdletHelpCategory.ClientSidePages, SupportedPlatform = CmdletSupportedPlatform.Online)]
     [CmdletExample(
-        Code = @"PS:> Get-PnPAvailableClientSideComponents -Identity ""MyPage.aspx""",
+        Code = @"PS:> Get-PnPAvailableClientSideComponents -Page ""MyPage.aspx""",
         Remarks = "Gets the list of available client side components on the page 'MyPage.aspx'",
         SortOrder = 1)]
     [CmdletExample(
@@ -18,7 +18,7 @@ namespace SharePointPnP.PowerShell.Commands.ClientSidePages
         Remarks = "Gets the list of available client side components on the page contained in the $page variable",
         SortOrder = 2)]
     [CmdletExample(
-        Code = @"PS:> Get-PnPAvailableClientSideComponents -Identity ""MyPage.aspx"" -ComponentName ""HelloWorld""",
+        Code = @"PS:> Get-PnPAvailableClientSideComponents -Page ""MyPage.aspx"" -ComponentName ""HelloWorld""",
         Remarks = "Gets the client side component 'HelloWorld' if available on the page 'MyPage.aspx'",
         SortOrder = 3)]
     public class GetAvailableClientSideComponents : PnPWebCmdlet

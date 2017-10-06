@@ -11,8 +11,8 @@ namespace SharePointPnP.PowerShell.Commands.ClientSidePages
     [CmdletHelp("Adds a Client-Side Page",
       Category = CmdletHelpCategory.ClientSidePages, SupportedPlatform = CmdletSupportedPlatform.Online)]
     [CmdletExample(
-        Code = @"PS:> Add-PnPClientSideText -Page ""OurNewPage"" -Text ""Hello World!""",
-        Remarks = "Adds the text 'Hello World!' to the Client-Side Page 'OurNewPage'",
+        Code = @"PS:> Add-PnPClientSideText -Page ""MyPage"" -Text ""Hello World!""",
+        Remarks = "Adds the text 'Hello World!' to the Client-Side Page 'MyPage'",
         SortOrder = 1)]
     public class AddClientSideText : PnPWebCmdlet
     {

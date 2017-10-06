@@ -33,6 +33,6 @@ Parameter|Type|Required|Description
 
 ### Example 1
 ```powershell
-PS:> Add-PnPClientSideText -Page "OurNewPage" -Text "Hello World!"
+PS:> Add-PnPClientSideText -Page "MyPage" -Text "Hello World!"
 ```
-Adds the text 'Hello World!' to the Client-Side Page 'OurNewPage'
+Adds the text 'Hello World!' to the Client-Side Page 'MyPage'

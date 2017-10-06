@@ -19,7 +19,7 @@ Parameter|Type|Required|Description
 
 ### Example 1
 ```powershell
-PS:> Get-PnPAvailableClientSideComponents -Identity "MyPage.aspx"
+PS:> Get-PnPAvailableClientSideComponents -Page "MyPage.aspx"
 ```
 Gets the list of available client side components on the page 'MyPage.aspx'
 
@@ -31,6 +31,6 @@ Gets the list of available client side components on the page contained in the $
 
 ### Example 3
 ```powershell
-PS:> Get-PnPAvailableClientSideComponents -Identity "MyPage.aspx" -ComponentName "HelloWorld"
+PS:> Get-PnPAvailableClientSideComponents -Page "MyPage.aspx" -ComponentName "HelloWorld"
 ```
 Gets the client side component 'HelloWorld' if available on the page 'MyPage.aspx'

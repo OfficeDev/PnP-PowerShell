@@ -7,25 +7,24 @@ using SharePointPnP.PowerShell.Commands.Base.PipeBinds;
 
 namespace SharePointPnP.PowerShell.Commands.Lists
 {
-    //TODO: Create Test
     [Cmdlet(VerbsCommon.Set, "PnPListItemPermission", DefaultParameterSetName = "User")]
     [CmdletHelp("Sets list item permissions",
         Category = CmdletHelpCategory.Lists)]
     [CmdletExample(
-        Code = "PS:> Set-PnPListPermission -List 'Documents' -Identity 1 -User 'user@contoso.com' -AddRole 'Contribute'",
-        Remarks = "Adds the 'Contribute' permission to the user 'user@contoso.com' for item with id 1 in the list 'Documents'",
+        Code = "PS:> Set-PnPListItemPermission -List 'Documents' -Identity 1 -User 'user@contoso.com' -AddRole 'Contribute'",
+        Remarks = "Adds the 'Contribute' permission to the user 'user@contoso.com' for listitem with id 1 in the list 'Documents'",
         SortOrder = 1)]
     [CmdletExample(
-        Code = "PS:> Set-PnPListPermission -List 'Documents' -Identity 1 -User 'user@contoso.com' -RemoveRole 'Contribute'",
-        Remarks = "Removes the 'Contribute' permission to the user 'user@contoso.com' for item with id 1 in the list 'Documents'",
+        Code = "PS:> Set-PnPListItemPermission -List 'Documents' -Identity 1 -User 'user@contoso.com' -RemoveRole 'Contribute'",
+        Remarks = "Removes the 'Contribute' permission to the user 'user@contoso.com' for listitem with id 1 in the list 'Documents'",
         SortOrder = 2)]
     [CmdletExample(
-        Code = "PS:> Set-PnPListPermission -List 'Documents' -Identity 1 -User 'user@contoso.com' -AddRole 'Contribute' -ClearExisting",
-        Remarks = "Adds the 'Contribute' permission to the user 'user@contoso.com' for item with id 1 in the list 'Documents' and removes all other permissions",
+        Code = "PS:> Set-PnPListItemPermission -List 'Documents' -Identity 1 -User 'user@contoso.com' -AddRole 'Contribute' -ClearExisting",
+        Remarks = "Adds the 'Contribute' permission to the user 'user@contoso.com' for listitem with id 1 in the list 'Documents' and removes all other permissions",
         SortOrder = 3)]
     [CmdletExample(
-        Code = "PS:> Set-PnPListPermission -List 'Documents' -Identity 1 -InheritPermissions",
-        Remarks = "Resets permissions for item with id 1 to inherit permissions from the list 'Documents'",
+        Code = "PS:> Set-PnPListItemPermission -List 'Documents' -Identity 1 -InheritPermissions",
+        Remarks = "Resets permissions for listitem with id 1 to inherit permissions from the list 'Documents'",
         SortOrder = 4)]
     public class SetListItemPermission : PnPWebCmdlet
     {

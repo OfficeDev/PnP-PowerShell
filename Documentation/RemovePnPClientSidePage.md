@@ -21,7 +21,7 @@ Parameter|Type|Required|Description
 ```powershell
 PS:> Remove-PnPClientSidePage -Identity "MyPage"
 ```
-Removes the Client-Side page called 'MyPage.aspx'
+Removes the Client-Side page named 'MyPage.aspx'
 
 ### Example 2
 ```powershell

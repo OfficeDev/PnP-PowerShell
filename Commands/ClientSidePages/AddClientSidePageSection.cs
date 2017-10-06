@@ -22,7 +22,7 @@ namespace SharePointPnP.PowerShell.Commands.ClientSidePages
         Code = @"PS:> $page = Add-PnPClientSidePage -Name ""MyPage""
 PS> Add-PnPClientSidePageSection -Page $page -SectionTemplate OneColumn",
         Remarks = "Adds a new one column section to the Client-Side page 'MyPage'",
-        SortOrder = 2)]
+        SortOrder = 3)]
     public class AddClientSidePageSection : PnPWebCmdlet
     {
         [Parameter(Mandatory = true, ValueFromPipeline = true, Position = 0, HelpMessage = "The name of the page")]

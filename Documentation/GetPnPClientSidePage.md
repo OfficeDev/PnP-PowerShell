@@ -19,10 +19,10 @@ Parameter|Type|Required|Description
 ```powershell
 PS:> Get-PnPClientSidePage -Identity "MyPage.aspx"
 ```
-Gets the Modern Page (Client-Side) called 'MyPage.aspx' in the current SharePoint site
+Gets the Modern Page (Client-Side) named 'MyPage.aspx' in the current SharePoint site
 
 ### Example 2
 ```powershell
 PS:> Get-PnPClientSidePage "MyPage"
 ```
-Gets the Modern Page (Client-Side) called 'MyPage.aspx' in the current SharePoint site
+Gets the Modern Page (Client-Side) named 'MyPage.aspx' in the current SharePoint site

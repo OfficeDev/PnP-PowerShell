@@ -4,11 +4,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Management.Automation;
+using System.Reflection;
 
 namespace SharePointPnP.PowerShell.Commands.Base
 {
     public class SPOnlineConnection
     {
+        internal Assembly coreAssembly;
+        internal string userAgent;
         internal string PnPVersionTag { get; set; }
         internal static List<ClientContext> ContextCache { get; set; }
         public static SPOnlineConnection CurrentConnection { get; internal set; }
@@ -26,18 +29,26 @@ namespace SharePointPnP.PowerShell.Commands.Base
 
         public SPOnlineConnection(ClientContext context, ConnectionType connectionType, int minimalHealthScore, int retryCount, int retryWait, PSCredential credential, string url, string tenantAdminUrl, string pnpVersionTag)
         {
+            var coreAssembly = Assembly.GetExecutingAssembly();
+            userAgent = $"NONISV|SharePointPnP|PnPPS/{((AssemblyFileVersionAttribute)coreAssembly.GetCustomAttribute(typeof(AssemblyFileVersionAttribute))).Version}";
             if (context == null)
                 throw new ArgumentNullException(nameof(context));
             Context = context;
+            Context.ExecutingWebRequest += Context_ExecutingWebRequest;
             ConnectionType = connectionType;
             MinimalHealthScore = minimalHealthScore;
             RetryCount = retryCount;
             RetryWait = retryWait;
             PSCredential = credential;
             TenantAdminUrl = tenantAdminUrl;
-            ContextCache = new List<ClientContext> {context};
+            ContextCache = new List<ClientContext> { context };
             PnPVersionTag = pnpVersionTag;
             Url = (new Uri(url)).AbsoluteUri;
+        }
+
+        private void Context_ExecutingWebRequest(object sender, WebRequestEventArgs e)
+        {
+            e.WebRequestExecutor.WebRequest.UserAgent = userAgent;
         }
 
         public void RestoreCachedContext(string url)

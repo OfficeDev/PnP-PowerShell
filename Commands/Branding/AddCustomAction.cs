@@ -61,12 +61,18 @@ Add-PnPCustomAction -Name 'GetItemsCount' -Title 'Invoke GetItemsCount Action' -
         public string CommandUIExtension = string.Empty;
 
         [Parameter(Mandatory = false, HelpMessage = "The identifier of the object associated with the custom action.", ParameterSetName = "Default")]
+#if !ONPREMISES
+        [Parameter(Mandatory = false, HelpMessage = "The identifier of the object associated with the custom action.", ParameterSetName = "ClientSideComponentId")]
+#endif
         public string RegistrationId = string.Empty;
 
         [Parameter(Mandatory = false, HelpMessage = "A string array that contain the permissions needed for the custom action", ParameterSetName = "Default")]
         public PermissionKind[] Rights;
 
         [Parameter(Mandatory = false, HelpMessage = "Specifies the type of object associated with the custom action", ParameterSetName = "Default")]
+#if !ONPREMISES
+        [Parameter(Mandatory = false, HelpMessage = "Specifies the type of object associated with the custom action", ParameterSetName = "ClientSideComponentId")]
+#endif
         public UserCustomActionRegistrationType RegistrationType;
 
         [Parameter(Mandatory = false, HelpMessage = "The scope of the CustomAction to add to. Either Web or Site; defaults to Web. 'All' is not valid for this command.", ParameterSetName = "Default")]
@@ -75,7 +81,7 @@ Add-PnPCustomAction -Name 'GetItemsCount' -Title 'Invoke GetItemsCount Action' -
         [Parameter(Mandatory = true, HelpMessage = "The Client Side Component Id of the custom action", ParameterSetName = "ClientSideComponentId")]
         public GuidPipeBind ClientSideComponentId;
 
-        [Parameter(Mandatory = true, HelpMessage = "The Client Side Component Properties of the custom action. Specify values as a json string : \"{Property1 : 'Value1', Property2: 'Value2'}\"", ParameterSetName = "ClientSideComponentId")]
+        [Parameter(Mandatory = false, HelpMessage = "The Client Side Component Properties of the custom action. Specify values as a json string : \"{Property1 : 'Value1', Property2: 'Value2'}\"", ParameterSetName = "ClientSideComponentId")]
         public string ClientSideComponentProperties;
 #endif
         protected override void ExecuteCmdlet()
@@ -119,6 +125,16 @@ Add-PnPCustomAction -Name 'GetItemsCount' -Title 'Invoke GetItemsCount Action' -
                     ClientSideComponentId = ClientSideComponentId.Id,
                     ClientSideComponentProperties = ClientSideComponentProperties
                 };
+
+                if (MyInvocation.BoundParameters.ContainsKey("RegistrationId"))
+                {
+                    ca.RegistrationId = RegistrationId;
+                }
+
+                if (MyInvocation.BoundParameters.ContainsKey("RegistrationType"))
+                {
+                    ca.RegistrationType = RegistrationType;
+                }
 #endif
             }
 

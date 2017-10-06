@@ -18,7 +18,15 @@ namespace SharePointPnP.PowerShell.Commands.Base.PipeBinds
         public ClientSidePagePipeBind(ClientSidePage page)
         {
             _page = page;
-            _name = page.PageTitle;
+            if (page.PageListItem != null)
+            {
+                File file = page.PageListItem.EnsureProperty(li => li.File);
+                _name = file.EnsureProperty(f => f.Name);
+            }
+            else
+            {
+                _name = page.PageTitle;
+            }
         }
 
         public ClientSidePagePipeBind(string name)

@@ -11,17 +11,17 @@ namespace SharePointPnP.PowerShell.Commands.ClientSidePages
     [CmdletHelp("Adds a Client-Side Component to a page",
       Category = CmdletHelpCategory.ClientSidePages, SupportedPlatform = CmdletSupportedPlatform.Online)]
     [CmdletExample(
-        Code = @"PS:> Add-PnPClientSideWebPart -Page ""OurNewPage"" -DefaultWebPartType BingMap",
-        Remarks = "Adds a built-in Client-Side component 'BingMap' to the page called 'OurNewPage'",
+        Code = @"PS:> Add-PnPClientSideWebPart -Page ""MyPage"" -DefaultWebPartType BingMap",
+        Remarks = "Adds a built-in Client-Side component 'BingMap' to the page called 'MyPage'",
         SortOrder = 2)]
     [CmdletExample(
-        Code = @"PS:> Add-PnPClientSideWebPart -Page ""OurNewPage"" -Component ""HelloWorld""",
-        Remarks = "Adds a Client-Side component 'HelloWorld' to the page called 'OurNewPage'",
-        SortOrder = 2)]
-    [CmdletExample(
-        Code = @"PS:> Add-PnPClientSideWebPart  -Page ""OurNewPage"" -Component ""HelloWorld"" -Section 1 -Column 2",
-        Remarks = "Adds a Client-Side component 'HelloWorld' to the page called 'OurNewPage' in section 1 and column 2",
+        Code = @"PS:> Add-PnPClientSideWebPart -Page ""MyPage"" -Component ""HelloWorld""",
+        Remarks = "Adds a Client-Side component 'HelloWorld' to the page called 'MyPage'",
         SortOrder = 3)]
+    [CmdletExample(
+        Code = @"PS:> Add-PnPClientSideWebPart  -Page ""MyPage"" -Component ""HelloWorld"" -Section 1 -Column 2",
+        Remarks = "Adds a Client-Side component 'HelloWorld' to the page called 'MyPage' in section 1 and column 2",
+        SortOrder = 4)]
     public class AddClientSideWebPart : PnPWebCmdlet
     {
         [Parameter(Mandatory = true, ValueFromPipeline = true, Position = 0, HelpMessage = "The name of the page.", ParameterSetName = "DefaultBuiltIn")]

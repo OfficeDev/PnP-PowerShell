@@ -1,0 +1,8 @@
+RootUrl,SiteUrl,Type,Title,Owner,TimeZone,Template,Locale
+https://<'your_site'>.sharepoint.com/sites,SiteCol1,SiteCollection,SiteCol1,velin.georgiev@<'your_site'>.onmicrosoft.com,2,STS#0,1033
+https://<'your_site'>.sharepoint.com/sites,SiteCol2,SiteCollection,SiteCol2,velin.georgiev@<'your_site'>.onmicrosoft.com,2,STS#0,1033
+https://<'your_site'>.sharepoint.com/sites,SiteCol3,SiteCollection,SiteCol3,velin.georgiev@<'your_site'>.onmicrosoft.com,2,STS#0,1033
+https://<'your_site'>.sharepoint.com/sites/SiteCol3,SubSite1,SubWeb,SubSite1,velin.georgiev@<'your_site'>.onmicrosoft.com,2,STS#0,1033
+https://<'your_site'>.sharepoint.com/sites/SiteCol3,SubSite2,SubWeb,SubSite2,velin.georgiev@<'your_site'>.onmicrosoft.com,2,STS#0,1033
+https://<'your_site'>.sharepoint.com/sites/SiteCol3/SubSite1,SubSite1,SubWeb,SubSite1 SubSite1,velin.georgiev@<'your_site'>.onmicrosoft.com,2,STS#0,1033
+https://<'your_site'>.sharepoint.com/sites/SiteCol3/SubSite2,SubSite1,SubWeb,SubSite2 SubSite1,velin.georgiev@<'your_site'>.onmicrosoft.com,2,STS#0,1033

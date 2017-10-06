@@ -57,18 +57,18 @@ Parameter|Type|Required|Description
 
 ### Example 1
 ```powershell
-PS:> Add-PnPClientSideWebPart -Page "OurNewPage" -DefaultWebPartType BingMap
+PS:> Add-PnPClientSideWebPart -Page "MyPage" -DefaultWebPartType BingMap
 ```
-Adds a built-in Client-Side component 'BingMap' to the page called 'OurNewPage'
+Adds a built-in Client-Side component 'BingMap' to the page called 'MyPage'
 
 ### Example 2
 ```powershell
-PS:> Add-PnPClientSideWebPart -Page "OurNewPage" -Component "HelloWorld"
+PS:> Add-PnPClientSideWebPart -Page "MyPage" -Component "HelloWorld"
 ```
-Adds a Client-Side component 'HelloWorld' to the page called 'OurNewPage'
+Adds a Client-Side component 'HelloWorld' to the page called 'MyPage'
 
 ### Example 3
 ```powershell
-PS:> Add-PnPClientSideWebPart  -Page "OurNewPage" -Component "HelloWorld" -Section 1 -Column 2
+PS:> Add-PnPClientSideWebPart  -Page "MyPage" -Component "HelloWorld" -Section 1 -Column 2
 ```
-Adds a Client-Side component 'HelloWorld' to the page called 'OurNewPage' in section 1 and column 2
+Adds a Client-Side component 'HelloWorld' to the page called 'MyPage' in section 1 and column 2

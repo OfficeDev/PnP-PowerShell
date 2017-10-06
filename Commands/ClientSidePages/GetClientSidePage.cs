@@ -11,11 +11,11 @@ namespace SharePointPnP.PowerShell.Commands.ClientSidePages
       Category = CmdletHelpCategory.ClientSidePages, SupportedPlatform = CmdletSupportedPlatform.Online)]
      [CmdletExample(
         Code = @"PS:> Get-PnPClientSidePage -Identity ""MyPage.aspx""",
-        Remarks = "Gets the Modern Page (Client-Side) called 'MyPage.aspx' in the current SharePoint site",
+        Remarks = "Gets the Modern Page (Client-Side) named 'MyPage.aspx' in the current SharePoint site",
         SortOrder = 2)]
     [CmdletExample(
         Code = @"PS:> Get-PnPClientSidePage ""MyPage""",
-        Remarks = "Gets the Modern Page (Client-Side) called 'MyPage.aspx' in the current SharePoint site",
+        Remarks = "Gets the Modern Page (Client-Side) named 'MyPage.aspx' in the current SharePoint site",
         SortOrder = 2)]
     public class GetClientSidePage : PnPWebCmdlet
     {

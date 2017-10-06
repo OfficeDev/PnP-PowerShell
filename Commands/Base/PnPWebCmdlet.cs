@@ -11,8 +11,7 @@ namespace SharePointPnP.PowerShell.Commands
     {
         private Web _selectedWeb;
 
-
-        [Parameter(Mandatory = false, HelpMessage = "The web to apply the command to. Omit this parameter to use the current web.")]
+        [Parameter(Mandatory = false, HelpMessage = "The GUID, server relative url (i.e. /sites/team1) or web instance of the web to apply the command to. Omit this parameter to use the current web.")]
         public WebPipeBind Web = new WebPipeBind();
 
         protected Web SelectedWeb
@@ -81,6 +80,5 @@ namespace SharePointPnP.PowerShell.Commands
             base.BeginProcessing();
             SPOnlineConnection.CurrentConnection.CacheContext();
         }
-
     }
 }
