@@ -412,6 +412,7 @@
     <Compile Include="Base\PipeBinds\GenericPropertiesPipeBind.cs" />
     <Compile Include="Base\PipeBinds\ClientSidePagePipeBind.cs" />
     <Compile Include="Base\PipeBinds\GenericObjectNameIdPipeBind.cs" />
+    <Compile Include="Base\PipeBinds\EventReceiverPipeBind.cs" />
     <Compile Include="Base\PipeBinds\WebhookSubscriptionPipeBind.cs" />
     <Compile Include="Base\PipeBinds\WebPartPipeBind.cs" />
     <Compile Include="Base\PipeBinds\UserPipeBind.cs" />
@@ -482,6 +483,7 @@
     <Compile Include="Enums\TargetScope.cs" />
     <Compile Include="Files\GetFolder.cs" />
     <Compile Include="Graph\SetUnifiedGroup.cs" />
+    <Compile Include="Principals\GetUsersInGroup.cs" />
     <Compile Include="RecordsManagement\DisableInPlaceRecordsManagementForSite.cs" />
     <Compile Include="RecordsManagement\EnableInPlaceRecordsManagementForSite.cs" />
     <Compile Include="RecordsManagement\SetInPlaceRecordsManagement.cs" />

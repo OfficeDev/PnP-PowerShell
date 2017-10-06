@@ -34,6 +34,8 @@ namespace SharePointPnP.PowerShell.Commands.Base.PipeBinds
 
         internal Group GetGroup(Web web)
         {
+            var clientContext = web.Context;
+
             Group group = null;
             if (Id != -1)
             {
@@ -46,11 +48,12 @@ namespace SharePointPnP.PowerShell.Commands.Base.PipeBinds
             else if (Group != null)
             {
                 group = Group;
+                clientContext = group.Context;
             }
 
-            web.Context.Load(group);
-            web.Context.Load(group.Users);
-            web.Context.ExecuteQueryRetry();
+            clientContext.Load(group);
+            clientContext.Load(group.Users);
+            clientContext.ExecuteQueryRetry();
             return group;
         }
     }

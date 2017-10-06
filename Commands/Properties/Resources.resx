@@ -169,7 +169,7 @@
     <value>Remove custom action?</value>
   </data>
   <data name="RemoveEventReceiver" xml:space="preserve">
-    <value>Remove event receiver?</value>
+    <value>Remove event receiver named '{0}' with id '{1}'?</value>
   </data>
   <data name="RemoveJavaScript0" xml:space="preserve">
     <value>Remove JavaScript ('{0}')?</value>

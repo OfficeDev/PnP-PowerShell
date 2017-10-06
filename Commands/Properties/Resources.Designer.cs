@@ -369,7 +369,7 @@ namespace SharePointPnP.PowerShell.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Remove event receiver?.
+        ///   Looks up a localized string similar to Remove event receiver named &apos;{0}&apos; with id &apos;{1}&apos;?.
         /// </summary>
         internal static string RemoveEventReceiver {
             get {
