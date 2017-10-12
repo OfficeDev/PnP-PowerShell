@@ -35,3 +35,12 @@ Create a new announcements list
 PS:> New-PnPList -Title "Demo List" -Url "DemoList" -Template Announcements
 ```
 Create a list with a title that is different from the url
+
+## ListTemplateType options
+Common options
+- Announcements
+- DocumentLibrary
+- GenericList
+
+Full list available from 
+https://msdn.microsoft.com/en-us/library/microsoft.sharepoint.client.listtemplatetype.aspx
