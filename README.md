@@ -92,7 +92,7 @@ See this [wiki page](https://github.com/OfficeDev/PnP-PowerShell/wiki/How-to-use
 
 # Contributing #
 
-If you want to contribute to this SharePoint Patterns and Practices PowerShel library, please [proceed here](CONTRIBUTING.md)
+If you want to contribute to this SharePoint Patterns and Practices PowerShell library, please [proceed here](CONTRIBUTING.md)
 
 ## Building the source code ##
 
