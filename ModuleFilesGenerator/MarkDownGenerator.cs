@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
@@ -22,6 +23,7 @@ namespace SharePointPnP.PowerShell.ModuleFilesGenerator
         internal void Generate()
         {
             GenerateCmdletDocs();
+            GenerateMappingJson();
             GenerateTOC();
             GenerateMSDNTOC();
 
@@ -33,7 +35,7 @@ namespace SharePointPnP.PowerShell.ModuleFilesGenerator
             {
                 if (mdFile.Name.ToLowerInvariant() != $"readme.{extension}")
                 {
-                    var index = _cmdlets.FindIndex(t => $"{t.Verb}{t.Noun}.{extension}" == mdFile.Name);
+                    var index = _cmdlets.FindIndex(t => $"{t.Verb}-{t.Noun}.{extension}" == mdFile.Name);
                     if (index == -1)
                     {
                         mdFile.Delete();
@@ -53,7 +55,7 @@ namespace SharePointPnP.PowerShell.ModuleFilesGenerator
 
                 if (!string.IsNullOrEmpty(cmdletInfo.Verb) && !string.IsNullOrEmpty(cmdletInfo.Noun))
                 {
-                    string mdFilePath = $"{_solutionDir}\\Documentation\\{cmdletInfo.Verb}{cmdletInfo.Noun}.{extension}";
+                    string mdFilePath = $"{_solutionDir}\\Documentation\\{cmdletInfo.Verb}-{cmdletInfo.Noun}.{extension}";
 
                     if (System.IO.File.Exists(mdFilePath))
                     {
@@ -63,21 +65,25 @@ namespace SharePointPnP.PowerShell.ModuleFilesGenerator
                     var docBuilder = new StringBuilder();
 
                     // Header
+                    var platform = "SharePoint Server 2013, SharePoint Server 2016, SharePoint Online";
+                    if (cmdletInfo.Platform != "All")
+                    {
+                        platform = cmdletInfo.Platform;
+                    }
+                    docBuilder.Append($@"---{Environment.NewLine}external help file:{Environment.NewLine}applicable: {platform}{Environment.NewLine}schema: 2.0.0{Environment.NewLine}---{Environment.NewLine}");
 
                     docBuilder.Append($"# {cmdletInfo.FullCommand}{Environment.NewLine}{Environment.NewLine}");
 
                     // Body 
 
-
-
-                    if (cmdletInfo.Platform != "All")
-                    {
-                        docBuilder.Append($"## SYNOPSIS{Environment.NewLine}{cmdletInfo.Description}{Environment.NewLine}{Environment.NewLine}>Only available for {cmdletInfo.Platform}{Environment.NewLine}{Environment.NewLine}");
-                    }
-                    else
-                    {
-                        docBuilder.Append($"## SYNOPSIS{Environment.NewLine}{cmdletInfo.Description}{Environment.NewLine}{Environment.NewLine}");
-                    }
+                    //if (cmdletInfo.Platform != "All")
+                    //{
+                    //    docBuilder.Append($"## SYNOPSIS{Environment.NewLine}{cmdletInfo.Description}{Environment.NewLine}{Environment.NewLine}>Only available for {cmdletInfo.Platform}{Environment.NewLine}{Environment.NewLine}");
+                    //}
+                    //else
+                    //{
+                    docBuilder.Append($"## SYNOPSIS{Environment.NewLine}{cmdletInfo.Description}{Environment.NewLine}{Environment.NewLine}");
+                    //}
 
                     if (cmdletInfo.Syntaxes.Any())
                     {
@@ -255,6 +261,26 @@ namespace SharePointPnP.PowerShell.ModuleFilesGenerator
             }
         }
 
+        private void GenerateMappingJson()
+        {
+            var groups = new Dictionary<string, string>();
+            foreach (var cmdletInfo in _cmdlets)
+            {
+                groups.Add($"{cmdletInfo.FullCommand}", cmdletInfo.Category);
+            }
+
+            var json = JsonConvert.SerializeObject(groups);
+
+            var mappingFolder = $"{_solutionDir}\\Documentation\\Mapping";
+            if (!System.IO.Directory.Exists(mappingFolder))
+            {
+                System.IO.Directory.CreateDirectory(mappingFolder);
+            }
+
+            var mappingPath = $"{_solutionDir}\\Documentation\\Mapping\\groupMapping.json";
+            System.IO.File.WriteAllText(mappingPath, json);
+        }
+
         private void GenerateTOC()
         {
             var originalMd = string.Empty;
@@ -285,7 +311,7 @@ namespace SharePointPnP.PowerShell.ModuleFilesGenerator
                 foreach (var cmdletInfo in _cmdlets.Where(c => c.Category == category).OrderBy(c => c.Noun))
                 {
                     var description = cmdletInfo.Description != null ? cmdletInfo.Description.Replace("\r\n", " ") : "";
-                    docBuilder.AppendFormat("**[{0}]({1}{2}.md)** |{3}|{4}{5}", cmdletInfo.FullCommand.Replace("-", "&#8209;"), cmdletInfo.Verb, cmdletInfo.Noun, description, cmdletInfo.Platform, Environment.NewLine);
+                    docBuilder.AppendFormat("**[{0}]({1}-{2}.md)** |{3}|{4}{5}", cmdletInfo.FullCommand.Replace("-", "&#8209;"), cmdletInfo.Verb, cmdletInfo.Noun, description, cmdletInfo.Platform, Environment.NewLine);
                 }
             }
 
@@ -349,7 +375,7 @@ namespace SharePointPnP.PowerShell.ModuleFilesGenerator
                 foreach (var cmdletInfo in categoryCmdlets)
                 {
                     var description = cmdletInfo.Description != null ? cmdletInfo.Description.Replace("\r\n", " ") : "";
-                    docBuilder.AppendFormat("### [{0}]({1}{2}.md){3}", cmdletInfo.FullCommand, cmdletInfo.Verb, cmdletInfo.Noun, Environment.NewLine);
+                    docBuilder.AppendFormat("### [{0}]({1}-{2}.md){3}", cmdletInfo.FullCommand, cmdletInfo.Verb, cmdletInfo.Noun, Environment.NewLine);
                 }
             }
 

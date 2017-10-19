@@ -10,7 +10,7 @@ using System.Management.Automation;
 namespace SharePointPnP.PowerShell.Commands.Webhooks
 {
     [Cmdlet(VerbsCommon.Set, "PnPWebhookSubscription")]
-    [CmdletHelp("Removes a Webhook subscription from the resource",
+    [CmdletHelp("Updates a Webhook subscription",
         Category = CmdletHelpCategory.Webhooks,
         SupportedPlatform = CmdletSupportedPlatform.Online,
         OutputType = typeof(WebhookSubscription))]

@@ -80,6 +80,9 @@ Add-PnPCustomAction -Name 'GetItemsCount' -Title 'Invoke GetItemsCount Action' -
         public UserCustomActionRegistrationType RegistrationType;
 
         [Parameter(Mandatory = false, HelpMessage = "The scope of the CustomAction to add to. Either Web or Site; defaults to Web. 'All' is not valid for this command.", ParameterSetName = ParameterSet_DEFAULT)]
+#if !ONPREMISES
+        [Parameter(Mandatory = false, HelpMessage = "The scope of the CustomAction to add to. Either Web or Site; defaults to Web. 'All' is not valid for this command.", ParameterSetName = ParameterSet_CLIENTSIDECOMPONENTID)]
+#endif
         public CustomActionScope Scope = CustomActionScope.Web;
 #if !ONPREMISES
         [Parameter(Mandatory = true, HelpMessage = "The Client Side Component Id of the custom action", ParameterSetName = ParameterSet_CLIENTSIDECOMPONENTID)]
