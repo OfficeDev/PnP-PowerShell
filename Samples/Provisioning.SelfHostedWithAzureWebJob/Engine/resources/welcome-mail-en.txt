@@ -2,5 +2,5 @@ Site {0} Created|<p>Dear requestor,
 </p><p>
 Your request for the SharePoint Site {0} has been processed and the site has already been created.
 </p><p>
-The Site is available at the following URL: <a href="{1}">{1}</a>
+The Site is available at the following URL: <a href="{0}">{0}</a>
 </p>
