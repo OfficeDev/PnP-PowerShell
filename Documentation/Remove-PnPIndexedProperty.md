@@ -13,6 +13,7 @@ Removes a key from propertybag to be indexed by search. The key and it's value r
 ```powershell
 Remove-PnPIndexedProperty -Key <String>
                           [-Web <WebPipeBind>]
+                          [-Connection <SPOnlineConnection>]
 ```
 
 ## EXAMPLES
@@ -35,6 +36,18 @@ Parameter Sets: (All)
 
 Required: True
 Position: 0
+Accept pipeline input: False
+```
+
+### -Connection
+Optional connection to be used by cmdlet. Retrieve the value for this parameter by eiter specifying -ReturnConnection on Connect-PnPOnline or by executing Get-PnPConnection.
+
+```yaml
+Type: SPOnlineConnection
+Parameter Sets: (All)
+
+Required: False
+Position: Named
 Accept pipeline input: False
 ```
 

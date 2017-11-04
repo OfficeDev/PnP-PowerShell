@@ -15,6 +15,7 @@ Remove-PnPWebhookSubscription -Identity <WebhookSubscriptionPipeBind>
                               [-List <ListPipeBind>]
                               [-Force [<SwitchParameter>]]
                               [-Web <WebPipeBind>]
+                              [-Connection <SPOnlineConnection>]
 ```
 
 ## EXAMPLES
@@ -73,6 +74,18 @@ The list object or name which the Webhook subscription will be removed from
 
 ```yaml
 Type: ListPipeBind
+Parameter Sets: (All)
+
+Required: False
+Position: Named
+Accept pipeline input: False
+```
+
+### -Connection
+Optional connection to be used by cmdlet. Retrieve the value for this parameter by eiter specifying -ReturnConnection on Connect-PnPOnline or by executing Get-PnPConnection.
+
+```yaml
+Type: SPOnlineConnection
 Parameter Sets: (All)
 
 Required: False

@@ -15,6 +15,7 @@ Returns the search configuration
 Get-PnPSearchConfiguration [-Path <String>]
                            [-Scope <SearchConfigurationScope>]
                            [-Web <WebPipeBind>]
+                           [-Connection <SPOnlineConnection>]
 ```
 
 ### OutputFormat
@@ -22,6 +23,7 @@ Get-PnPSearchConfiguration [-Path <String>]
 Get-PnPSearchConfiguration [-OutputFormat <OutputFormat>]
                            [-Scope <SearchConfigurationScope>]
                            [-Web <WebPipeBind>]
+                           [-Connection <SPOnlineConnection>]
 ```
 
 ## EXAMPLES
@@ -92,6 +94,18 @@ Scope to use. Either Web, Site, or Subscription. Defaults to Web
 
 ```yaml
 Type: SearchConfigurationScope
+Parameter Sets: (All)
+
+Required: False
+Position: Named
+Accept pipeline input: False
+```
+
+### -Connection
+Optional connection to be used by cmdlet. Retrieve the value for this parameter by eiter specifying -ReturnConnection on Connect-PnPOnline or by executing Get-PnPConnection.
+
+```yaml
+Type: SPOnlineConnection
 Parameter Sets: (All)
 
 Required: False

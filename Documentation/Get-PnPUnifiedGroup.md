@@ -1,6 +1,6 @@
 ---
 external help file:
-applicable: SharePoint Server 2013, SharePoint Server 2016, SharePoint Online
+applicable: SharePoint Online
 schema: 2.0.0
 ---
 # Get-PnPUnifiedGroup
@@ -36,14 +36,14 @@ Retrieves a specific Office 365 Group based on its ID
 PS:> Get-PnPUnifiedGroup -Identity $groupDisplayName
 ```
 
-Retrieves a specific Office 365 Group based on its DisplayName
+Retrieves a specific or list of Office 365 Groups that start with the given DisplayName
 
 ### ------------------EXAMPLE 4------------------
 ```powershell
 PS:> Get-PnPUnifiedGroup -Identity $groupSiteMailNickName
 ```
 
-Retrieves a specific Office 365 Group based on the mail nickname
+Retrieves a specific or list of Office 365 Groups for which the email starts with the provided mail nickName
 
 ### ------------------EXAMPLE 5------------------
 ```powershell

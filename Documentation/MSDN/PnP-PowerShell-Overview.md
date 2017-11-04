@@ -101,6 +101,7 @@ Cmdlet|Description|Platform
 **[Get&#8209;PnPAppAuthAccessToken](Get-PnPAppAuthAccessToken.md)** |Returns the access token|All
 **[Get&#8209;PnPAuthenticationRealm](Get-PnPAuthenticationRealm.md)** |Returns the authentication realm|All
 **[Get&#8209;PnPAzureADManifestKeyCredentials](Get-PnPAzureADManifestKeyCredentials.md)** |Return the JSON Manifest snippet for Azure Apps|All
+**[Get&#8209;PnPConnection](Get-PnPConnection.md)** |Returns the current context|All
 **[Get&#8209;PnPContext](Get-PnPContext.md)** |Returns the current context|All
 **[Set&#8209;PnPContext](Set-PnPContext.md)** |Set the ClientContext|All
 **[Get&#8209;PnPHealthScore](Get-PnPHealthScore.md)** |Retrieves the healthscore|All
@@ -175,7 +176,7 @@ Cmdlet|Description|Platform
 ### Event Receivers 
 Cmdlet|Description|Platform
 :-----|:----------|:-------
-**[Add&#8209;PnPEventReceiver](Add-PnPEventReceiver.md)** |Adds a new event receiver|All
+**[Add&#8209;PnPEventReceiver](Add-PnPEventReceiver.md)** |Adds a new remote event receiver|All
 **[Get&#8209;PnPEventReceiver](Get-PnPEventReceiver.md)** |Return registered eventreceivers|All
 **[Remove&#8209;PnPEventReceiver](Remove-PnPEventReceiver.md)** |Remove an eventreceiver|All
 
@@ -260,10 +261,16 @@ Cmdlet|Description|Platform
 Cmdlet|Description|Platform
 :-----|:----------|:-------
 **[Connect&#8209;PnPMicrosoftGraph](Connect-PnPMicrosoftGraph.md)** |Connect to the Microsoft Graph|All
-**[Get&#8209;PnPUnifiedGroup](Get-PnPUnifiedGroup.md)** |Gets one Office 365 Group (aka Unified Group) or a list of Office 365 Groups|All
-**[New&#8209;PnPUnifiedGroup](New-PnPUnifiedGroup.md)** |Creates a new Office 365 Group (aka Unified Group)|All
-**[Remove&#8209;PnPUnifiedGroup](Remove-PnPUnifiedGroup.md)** |Removes one Office 365 Group (aka Unified Group) or a list of Office 365 Groups|All
-**[Set&#8209;PnPUnifiedGroup](Set-PnPUnifiedGroup.md)** |Sets Office 365 Group (aka Unified Group) properties|All
+**[Add&#8209;PnPSiteClassification](Add-PnPSiteClassification.md)** |Adds one ore more site classification values to the list of possible values. Requires a connection to the Microsoft Graph.|SharePoint Online
+**[Disable&#8209;PnPSiteClassification](Disable-PnPSiteClassification.md)** |Disables Site Classifications for the tenant. Requires a connection to the Microsoft Graph.|SharePoint Online
+**[Enable&#8209;PnPSiteClassification](Enable-PnPSiteClassification.md)** |Enables Site Classifications for the tenant. Requires a connection to the Microsoft Graph.|SharePoint Online
+**[Get&#8209;PnPSiteClassification](Get-PnPSiteClassification.md)** |Returns the defined Site Classifications for the tenant. Requires a connection to the Microsoft Graph.|SharePoint Online
+**[Remove&#8209;PnPSiteClassification](Remove-PnPSiteClassification.md)** |Removes one or more existing site classification values from the list of available values. Requires a connection to the Microsoft Graph|SharePoint Online
+**[Update&#8209;PnPSiteClassification](Update-PnPSiteClassification.md)** |Updates Site Classifications for the tenant. Requires a connection to the Microsoft Graph.|SharePoint Online
+**[Get&#8209;PnPUnifiedGroup](Get-PnPUnifiedGroup.md)** |Gets one Office 365 Group (aka Unified Group) or a list of Office 365 Groups|SharePoint Online
+**[New&#8209;PnPUnifiedGroup](New-PnPUnifiedGroup.md)** |Creates a new Office 365 Group (aka Unified Group)|SharePoint Online
+**[Remove&#8209;PnPUnifiedGroup](Remove-PnPUnifiedGroup.md)** |Removes one Office 365 Group (aka Unified Group) or a list of Office 365 Groups|SharePoint Online
+**[Set&#8209;PnPUnifiedGroup](Set-PnPUnifiedGroup.md)** |Sets Office 365 Group (aka Unified Group) properties|SharePoint Online
 
 
 ### Provisioning 

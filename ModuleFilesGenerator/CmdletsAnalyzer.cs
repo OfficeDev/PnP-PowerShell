@@ -48,7 +48,9 @@ namespace SharePointPnP.PowerShell.ModuleFilesGenerator
                         cmdletInfo.Noun = a.NounName;
 
                     }
+#pragma warning disable CS0612 // Type or member is obsolete
                     var aliasAttribute = attribute as CmdletAliasAttribute;
+#pragma warning restore CS0612 // Type or member is obsolete
                     if (aliasAttribute != null)
                     {
                         cmdletInfo.Aliases.Add(aliasAttribute.Alias);
@@ -134,6 +136,7 @@ namespace SharePointPnP.PowerShell.ModuleFilesGenerator
                 if (!obsolete)
                 {
                     var parameterAttributes = fieldInfo.GetCustomAttributes<ParameterAttribute>(true).Where(a => a.ParameterSetName != ParameterAttribute.AllParameterSets);
+                    var pnpAttributes = field.GetCustomAttributes<PnPParameterAttribute>(true);
                     foreach (var parameterAttribute in parameterAttributes)
                     {
                         var cmdletSyntax = syntaxes.FirstOrDefault(c => c.ParameterSetName == parameterAttribute.ParameterSetName);
@@ -156,14 +159,19 @@ namespace SharePointPnP.PowerShell.ModuleFilesGenerator
                                 typeString = fieldAttribute.Description;
                             }
                         }
-
+                        var order = 0;
+                        if (pnpAttributes != null && pnpAttributes.Any())
+                        {
+                            order = pnpAttributes.First().Order;
+                        }
                         cmdletSyntax.Parameters.Add(new CmdletParameterInfo()
                         {
                             Name = field.Name,
                             Description = parameterAttribute.HelpMessage,
                             Position = parameterAttribute.Position,
                             Required = parameterAttribute.Mandatory,
-                            Type = typeString
+                            Type = typeString,
+                            Order = order
                         });
                     }
                 }
@@ -197,7 +205,8 @@ namespace SharePointPnP.PowerShell.ModuleFilesGenerator
                     Description = additionalParameter.HelpMessage,
                     Position = additionalParameter.Position,
                     Required = additionalParameter.Mandatory,
-                    Type = typeString
+                    Type = typeString,
+                    Order = additionalParameter.Order
                 });
             }
 
@@ -209,6 +218,7 @@ namespace SharePointPnP.PowerShell.ModuleFilesGenerator
                 if (!obsolete)
                 {
                     var parameterAttributes = field.GetCustomAttributes<ParameterAttribute>(true).Where(a => a.ParameterSetName == ParameterAttribute.AllParameterSets);
+                    var pnpAttributes = field.GetCustomAttributes<PnPParameterAttribute>(true);
                     foreach (var parameterAttribute in parameterAttributes)
                     {
                         if (!syntaxes.Any())
@@ -231,13 +241,19 @@ namespace SharePointPnP.PowerShell.ModuleFilesGenerator
                                     typeString = fieldAttribute.Description;
                                 }
                             }
+                            var order = 0;
+                            if (pnpAttributes != null && pnpAttributes.Any())
+                            {
+                                order = pnpAttributes.First().Order;
+                            }
                             syntax.Parameters.Add(new CmdletParameterInfo()
                             {
                                 Name = field.Name,
                                 Description = parameterAttribute.HelpMessage,
                                 Position = parameterAttribute.Position,
                                 Required = parameterAttribute.Mandatory,
-                                Type = typeString
+                                Type = typeString,
+                                Order = order
                             });
                         }
                     }
@@ -259,7 +275,7 @@ namespace SharePointPnP.PowerShell.ModuleFilesGenerator
                 {
                     var aliases = fieldInfo.GetCustomAttributes<AliasAttribute>(true);
                     var parameterAttributes = fieldInfo.GetCustomAttributes<ParameterAttribute>(true);
-
+                    var pnpParameterAttributes = fieldInfo.GetCustomAttributes<PnPParameterAttribute>(true);
                     foreach (var parameterAttribute in parameterAttributes)
                     {
                         var description = parameterAttribute.HelpMessage;
@@ -285,7 +301,11 @@ namespace SharePointPnP.PowerShell.ModuleFilesGenerator
                                 typeString = fieldAttribute.Description;
                             }
                         }
-
+                        var order = 0;
+                        if (pnpParameterAttributes != null && pnpParameterAttributes.Any())
+                        {
+                            order = pnpParameterAttributes.First().Order;
+                        }
                         var cmdletParameterInfo = new CmdletParameterInfo()
                         {
                             Description = description,
@@ -295,6 +315,7 @@ namespace SharePointPnP.PowerShell.ModuleFilesGenerator
                             Position = parameterAttribute.Position,
                             ValueFromPipeline = parameterAttribute.ValueFromPipeline,
                             ParameterSetName = parameterAttribute.ParameterSetName,
+                            Order = order
                         };
 
                         if (aliases != null && aliases.Any())

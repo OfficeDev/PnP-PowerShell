@@ -98,7 +98,7 @@ namespace SharePointPnP.PowerShell.ModuleFilesGenerator
                             syntaxText.AppendFormat("```powershell\r\n{0} ", cmdletInfo.FullCommand);
                             var cmdletLength = cmdletInfo.FullCommand.Length;
                             var first = true;
-                            foreach (var par in cmdletSyntax.Parameters.Distinct(new ParameterComparer()).OrderBy(p => !p.Required).ThenBy(p => p.Position))
+                            foreach (var par in cmdletSyntax.Parameters.Distinct(new ParameterComparer()).OrderBy(p => p.Order).ThenBy(p => !p.Required).ThenBy(p => p.Position))
                             {
                                 if (first)
                                 {
@@ -163,7 +163,7 @@ namespace SharePointPnP.PowerShell.ModuleFilesGenerator
                     {
                         docBuilder.Append($"## PARAMETERS{Environment.NewLine}{Environment.NewLine}");
 
-                        foreach (var parameter in cmdletInfo.Parameters.OrderBy(x => x.Name).Distinct(new ParameterComparer()))
+                        foreach (var parameter in cmdletInfo.Parameters.OrderBy(x => x.Order).ThenBy(x => x.Name).Distinct(new ParameterComparer()))
                         {
                             if (parameter.Type.StartsWith("Int"))
                             {

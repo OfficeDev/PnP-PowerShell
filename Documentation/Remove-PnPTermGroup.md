@@ -14,6 +14,7 @@ Removes a taxonomy term group and all its containing termsets
 Remove-PnPTermGroup -GroupName <String>
                     [-TermStoreName <String>]
                     [-Force [<SwitchParameter>]]
+                    [-Connection <SPOnlineConnection>]
 ```
 
 ## PARAMETERS
@@ -47,6 +48,18 @@ Term store to use; if not specified the default term store is used.
 
 ```yaml
 Type: String
+Parameter Sets: (All)
+
+Required: False
+Position: Named
+Accept pipeline input: False
+```
+
+### -Connection
+Optional connection to be used by cmdlet. Retrieve the value for this parameter by eiter specifying -ReturnConnection on Connect-PnPOnline or by executing Get-PnPConnection.
+
+```yaml
+Type: SPOnlineConnection
 Parameter Sets: (All)
 
 Required: False

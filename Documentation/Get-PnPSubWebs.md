@@ -12,8 +12,9 @@ Returns the subwebs of the current web
 
 ```powershell
 Get-PnPSubWebs [-Recurse [<SwitchParameter>]]
-               [-Web <WebPipeBind>]
                [-Identity <WebPipeBind>]
+               [-Web <WebPipeBind>]
+               [-Connection <SPOnlineConnection>]
 ```
 
 ## EXAMPLES
@@ -51,6 +52,18 @@ include subweb of the subwebs
 
 ```yaml
 Type: SwitchParameter
+Parameter Sets: (All)
+
+Required: False
+Position: Named
+Accept pipeline input: False
+```
+
+### -Connection
+Optional connection to be used by cmdlet. Retrieve the value for this parameter by eiter specifying -ReturnConnection on Connect-PnPOnline or by executing Get-PnPConnection.
+
+```yaml
+Type: SPOnlineConnection
 Parameter Sets: (All)
 
 Required: False

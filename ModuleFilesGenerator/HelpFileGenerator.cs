@@ -89,7 +89,7 @@ namespace SharePointPnP.PowerShell.ModuleFilesGenerator
             {
                 var syntaxItemElement = new XElement(command + "syntaxItem");
                 syntaxItemElement.Add(new XElement(maml + "name", $"{cmdletInfo.Verb}-{cmdletInfo.Noun}"));
-                foreach (var parameter in syntaxItem.Parameters.Distinct(new ParameterComparer()).OrderBy(p => !p.Required).ThenBy(p => p.Position))
+                foreach (var parameter in syntaxItem.Parameters.Distinct(new ParameterComparer()).OrderBy(p => p.Order).ThenBy(p => !p.Required).ThenBy(p => p.Position))
                 {
                     var parameterElement = new XElement(command + "parameter", new XAttribute("required", parameter.Required), new XAttribute("position", parameter.Position > 0 ? parameter.Position.ToString() : "named"));
                     parameterElement.Add(new XElement(maml + "name", parameter.Name));
@@ -108,7 +108,7 @@ namespace SharePointPnP.PowerShell.ModuleFilesGenerator
         {
             var parametersElement = new XElement(command + "parameters");
 
-            foreach (var parameter in cmdletInfo.Parameters.Distinct(new ParameterComparer()).OrderBy(p => p.Name))
+            foreach (var parameter in cmdletInfo.Parameters.Distinct(new ParameterComparer()).OrderBy(p => p.Order).ThenBy(p => p.Name))
             {
                 var parameterElement = new XElement(command + "parameter", new XAttribute("required", parameter.Required), new XAttribute("position", parameter.Position > 0 ? parameter.Position.ToString() : "named"));
                 parameterElement.Add(new XElement(maml + "name", parameter.Name));

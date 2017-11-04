@@ -17,6 +17,7 @@ Set-PnPListPermission -Group <GroupPipeBind>
                       [-AddRole <String>]
                       [-RemoveRole <String>]
                       [-Web <WebPipeBind>]
+                      [-Connection <SPOnlineConnection>]
 ```
 
 ### User
@@ -26,6 +27,7 @@ Set-PnPListPermission -User <String>
                       [-AddRole <String>]
                       [-RemoveRole <String>]
                       [-Web <WebPipeBind>]
+                      [-Connection <SPOnlineConnection>]
 ```
 
 ## EXAMPLES
@@ -102,6 +104,18 @@ Type: String
 Parameter Sets: User
 
 Required: True
+Position: Named
+Accept pipeline input: False
+```
+
+### -Connection
+Optional connection to be used by cmdlet. Retrieve the value for this parameter by eiter specifying -ReturnConnection on Connect-PnPOnline or by executing Get-PnPConnection.
+
+```yaml
+Type: SPOnlineConnection
+Parameter Sets: (All)
+
+Required: False
 Position: Named
 Accept pipeline input: False
 ```

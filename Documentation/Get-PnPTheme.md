@@ -13,6 +13,7 @@ Returns the current theme/composed look of the current web.
 ```powershell
 Get-PnPTheme [-DetectCurrentComposedLook [<SwitchParameter>]]
              [-Web <WebPipeBind>]
+             [-Connection <SPOnlineConnection>]
 ```
 
 ## EXAMPLES
@@ -38,6 +39,18 @@ Specify this switch to not use the PnP Provisioning engine based composed look i
 
 ```yaml
 Type: SwitchParameter
+Parameter Sets: (All)
+
+Required: False
+Position: Named
+Accept pipeline input: False
+```
+
+### -Connection
+Optional connection to be used by cmdlet. Retrieve the value for this parameter by eiter specifying -ReturnConnection on Connect-PnPOnline or by executing Get-PnPConnection.
+
+```yaml
+Type: SPOnlineConnection
 Parameter Sets: (All)
 
 Required: False

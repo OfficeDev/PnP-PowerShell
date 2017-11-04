@@ -13,6 +13,7 @@ Returns the available web templates.
 ```powershell
 Get-PnPWebTemplates [-Lcid <UInt32>]
                     [-CompatibilityLevel <Int>]
+                    [-Connection <SPOnlineConnection>]
 ```
 
 ## DESCRIPTION
@@ -60,6 +61,18 @@ The language ID. For instance: 1033 for English
 
 ```yaml
 Type: UInt32
+Parameter Sets: (All)
+
+Required: False
+Position: Named
+Accept pipeline input: False
+```
+
+### -Connection
+Optional connection to be used by cmdlet. Retrieve the value for this parameter by eiter specifying -ReturnConnection on Connect-PnPOnline or by executing Get-PnPConnection.
+
+```yaml
+Type: SPOnlineConnection
 Parameter Sets: (All)
 
 Required: False

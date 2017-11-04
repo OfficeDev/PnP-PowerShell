@@ -17,6 +17,7 @@ Set-PnPTheme [-ColorPaletteUrl <String>]
              [-ResetSubwebsToInherit [<SwitchParameter>]]
              [-UpdateRootWebOnly [<SwitchParameter>]]
              [-Web <WebPipeBind>]
+             [-Connection <SPOnlineConnection>]
 ```
 
 ## DESCRIPTION
@@ -107,6 +108,18 @@ Updates only the rootweb, even if subwebs are set to inherit the theme.
 
 ```yaml
 Type: SwitchParameter
+Parameter Sets: (All)
+
+Required: False
+Position: Named
+Accept pipeline input: False
+```
+
+### -Connection
+Optional connection to be used by cmdlet. Retrieve the value for this parameter by eiter specifying -ReturnConnection on Connect-PnPOnline or by executing Get-PnPConnection.
+
+```yaml
+Type: SPOnlineConnection
 Parameter Sets: (All)
 
 Required: False

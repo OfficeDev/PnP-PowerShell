@@ -16,6 +16,7 @@ Get-PnPListItem -List <ListPipeBind>
                 [-Id <Int>]
                 [-Fields <String[]>]
                 [-Web <WebPipeBind>]
+                [-Connection <SPOnlineConnection>]
 ```
 
 ### By Unique Id
@@ -24,6 +25,7 @@ Get-PnPListItem -List <ListPipeBind>
                 [-UniqueId <GuidPipeBind>]
                 [-Fields <String[]>]
                 [-Web <WebPipeBind>]
+                [-Connection <SPOnlineConnection>]
 ```
 
 ### By Query
@@ -33,6 +35,7 @@ Get-PnPListItem -List <ListPipeBind>
                 [-PageSize <Int>]
                 [-ScriptBlock <ScriptBlock>]
                 [-Web <WebPipeBind>]
+                [-Connection <SPOnlineConnection>]
 ```
 
 ### All Items
@@ -42,6 +45,7 @@ Get-PnPListItem -List <ListPipeBind>
                 [-PageSize <Int>]
                 [-ScriptBlock <ScriptBlock>]
                 [-Web <WebPipeBind>]
+                [-Connection <SPOnlineConnection>]
 ```
 
 ## EXAMPLES
@@ -175,6 +179,18 @@ The unique id (GUID) of the item to retrieve
 ```yaml
 Type: GuidPipeBind
 Parameter Sets: By Unique Id
+
+Required: False
+Position: Named
+Accept pipeline input: False
+```
+
+### -Connection
+Optional connection to be used by cmdlet. Retrieve the value for this parameter by eiter specifying -ReturnConnection on Connect-PnPOnline or by executing Get-PnPConnection.
+
+```yaml
+Type: SPOnlineConnection
+Parameter Sets: (All)
 
 Required: False
 Position: Named

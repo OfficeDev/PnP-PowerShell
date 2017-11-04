@@ -17,6 +17,7 @@ Get-PnPField [-List <ListPipeBind>]
              [-Web <WebPipeBind>]
              [-Includes <String[]>]
              [-Identity <FieldPipeBind>]
+             [-Connection <SPOnlineConnection>]
 ```
 
 ## EXAMPLES
@@ -90,6 +91,18 @@ The web to apply the command to. Omit this parameter to use the current web.
 
 ```yaml
 Type: WebPipeBind
+Parameter Sets: (All)
+
+Required: False
+Position: Named
+Accept pipeline input: False
+```
+
+### -Connection
+Optional connection to be used by cmdlet. Retrieve the value for this parameter by eiter specifying -ReturnConnection on Connect-PnPOnline or by executing Get-PnPConnection.
+
+```yaml
+Type: SPOnlineConnection
 Parameter Sets: (All)
 
 Required: False

@@ -16,6 +16,7 @@ Add-PnPJavaScriptBlock -Name <String>
                        [-Sequence <Int>]
                        [-Scope <CustomActionScope>]
                        [-Web <WebPipeBind>]
+                       [-Connection <SPOnlineConnection>]
 ```
 
 ## DESCRIPTION
@@ -81,6 +82,18 @@ A sequence number that defines the order on the page
 
 ```yaml
 Type: Int
+Parameter Sets: (All)
+
+Required: False
+Position: Named
+Accept pipeline input: False
+```
+
+### -Connection
+Optional connection to be used by cmdlet. Retrieve the value for this parameter by eiter specifying -ReturnConnection on Connect-PnPOnline or by executing Get-PnPConnection.
+
+```yaml
+Type: SPOnlineConnection
 Parameter Sets: (All)
 
 Required: False

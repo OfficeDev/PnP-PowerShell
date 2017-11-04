@@ -23,6 +23,7 @@ Set-PnPTenantSite -Url <String>
                   [-LockState <SiteLockState>]
                   [-NoScriptSite [<SwitchParameter>]]
                   [-Wait [<SwitchParameter>]]
+                  [-Connection <SPOnlineConnection>]
 ```
 
 ## DESCRIPTION
@@ -204,6 +205,18 @@ Wait for the operation to complete
 
 ```yaml
 Type: SwitchParameter
+Parameter Sets: (All)
+
+Required: False
+Position: Named
+Accept pipeline input: False
+```
+
+### -Connection
+Optional connection to be used by cmdlet. Retrieve the value for this parameter by eiter specifying -ReturnConnection on Connect-PnPOnline or by executing Get-PnPConnection.
+
+```yaml
+Type: SPOnlineConnection
 Parameter Sets: (All)
 
 Required: False

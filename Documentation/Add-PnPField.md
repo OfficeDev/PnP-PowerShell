@@ -16,6 +16,7 @@ Add-PnPField [-AddToDefaultView [<SwitchParameter>]]
              [-Required [<SwitchParameter>]]
              [-Group <String>]
              [-Web <WebPipeBind>]
+             [-Connection <SPOnlineConnection>]
 ```
 
 ### Add field reference to list
@@ -23,6 +24,7 @@ Add-PnPField [-AddToDefaultView [<SwitchParameter>]]
 Add-PnPField -List <ListPipeBind>
              -Field <FieldPipeBind>
              [-Web <WebPipeBind>]
+             [-Connection <SPOnlineConnection>]
 ```
 
 ### Add field to list
@@ -37,8 +39,9 @@ Add-PnPField -DisplayName <String>
              [-Group <String>]
              [-ClientSideComponentId <GuidPipeBind>]
              [-ClientSideComponentProperties <String>]
-             [-Web <WebPipeBind>]
              [-Choices <String[]>]
+             [-Web <WebPipeBind>]
+             [-Connection <SPOnlineConnection>]
 ```
 
 ### Add field to Web
@@ -49,8 +52,9 @@ Add-PnPField -DisplayName <String>
              [-Id <GuidPipeBind>]
              [-ClientSideComponentId <GuidPipeBind>]
              [-ClientSideComponentProperties <String>]
-             [-Web <WebPipeBind>]
              [-Choices <String[]>]
+             [-Web <WebPipeBind>]
+             [-Connection <SPOnlineConnection>]
 ```
 
 ## DESCRIPTION
@@ -214,6 +218,18 @@ Type: FieldType
 Parameter Sets: Add field to list
 
 Required: True
+Position: Named
+Accept pipeline input: False
+```
+
+### -Connection
+Optional connection to be used by cmdlet. Retrieve the value for this parameter by eiter specifying -ReturnConnection on Connect-PnPOnline or by executing Get-PnPConnection.
+
+```yaml
+Type: SPOnlineConnection
+Parameter Sets: (All)
+
+Required: False
 Position: Named
 Accept pipeline input: False
 ```

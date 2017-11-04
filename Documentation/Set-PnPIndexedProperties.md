@@ -13,6 +13,7 @@ Marks values of the propertybag to be indexed by search. Notice that this will o
 ```powershell
 Set-PnPIndexedProperties -Keys <List`1>
                          [-Web <WebPipeBind>]
+                         [-Connection <SPOnlineConnection>]
 ```
 
 ## PARAMETERS
@@ -25,6 +26,18 @@ Type: List`1
 Parameter Sets: (All)
 
 Required: True
+Position: Named
+Accept pipeline input: False
+```
+
+### -Connection
+Optional connection to be used by cmdlet. Retrieve the value for this parameter by eiter specifying -ReturnConnection on Connect-PnPOnline or by executing Get-PnPConnection.
+
+```yaml
+Type: SPOnlineConnection
+Parameter Sets: (All)
+
+Required: False
 Position: Named
 Accept pipeline input: False
 ```

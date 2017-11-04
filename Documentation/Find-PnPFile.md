@@ -14,6 +14,7 @@ Finds a file in the virtual file system of the web.
 ```powershell
 Find-PnPFile -Match <String>
              [-Web <WebPipeBind>]
+             [-Connection <SPOnlineConnection>]
 ```
 
 ### List
@@ -21,6 +22,7 @@ Find-PnPFile -Match <String>
 Find-PnPFile -List <ListPipeBind>
              -Match <String>
              [-Web <WebPipeBind>]
+             [-Connection <SPOnlineConnection>]
 ```
 
 ### Folder
@@ -28,6 +30,7 @@ Find-PnPFile -List <ListPipeBind>
 Find-PnPFile -Folder <FolderPipeBind>
              -Match <String>
              [-Web <WebPipeBind>]
+             [-Connection <SPOnlineConnection>]
 ```
 
 ## EXAMPLES
@@ -89,6 +92,18 @@ Parameter Sets: Web
 Required: True
 Position: 0
 Accept pipeline input: True
+```
+
+### -Connection
+Optional connection to be used by cmdlet. Retrieve the value for this parameter by eiter specifying -ReturnConnection on Connect-PnPOnline or by executing Get-PnPConnection.
+
+```yaml
+Type: SPOnlineConnection
+Parameter Sets: (All)
+
+Required: False
+Position: Named
+Accept pipeline input: False
 ```
 
 ### -Web

@@ -15,6 +15,7 @@ Returns a taxonomy term group
 Get-PnPTermGroup [-TermStore <Id, Name or Object>]
                  [-Includes <String[]>]
                  [-Identity <Id, Title or TaxonomyItem>]
+                 [-Connection <SPOnlineConnection>]
 ```
 
 ## EXAMPLES
@@ -74,6 +75,18 @@ Term store to check; if not specified the default term store is used.
 Type: Id, Name or Object
 Parameter Sets: (All)
 Aliases: TermStoreName
+
+Required: False
+Position: Named
+Accept pipeline input: False
+```
+
+### -Connection
+Optional connection to be used by cmdlet. Retrieve the value for this parameter by eiter specifying -ReturnConnection on Connect-PnPOnline or by executing Get-PnPConnection.
+
+```yaml
+Type: SPOnlineConnection
+Parameter Sets: (All)
 
 Required: False
 Position: Named

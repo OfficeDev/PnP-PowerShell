@@ -6,7 +6,7 @@ schema: 2.0.0
 # Add-PnPEventReceiver
 
 ## SYNOPSIS
-Adds a new event receiver
+Adds a new remote event receiver
 
 ## SYNTAX 
 
@@ -19,6 +19,7 @@ Add-PnPEventReceiver -Name <String>
                      [-SequenceNumber <Int>]
                      [-Force [<SwitchParameter>]]
                      [-Web <WebPipeBind>]
+                     [-Connection <SPOnlineConnection>]
 ```
 
 ## EXAMPLES
@@ -28,12 +29,19 @@ Add-PnPEventReceiver -Name <String>
 PS:> Add-PnPEventReceiver -List "ProjectList" -Name "TestEventReceiver" -Url https://yourserver.azurewebsites.net/eventreceiver.svc -EventReceiverType ItemAdded -Synchronization Asynchronous
 ```
 
-This will add a new event receiver that is executed after an item has been added to the ProjectList list
+This will add a new remote event receiver that is executed after an item has been added to the ProjectList list
+
+### ------------------EXAMPLE 2------------------
+```powershell
+PS:> Add-PnPEventReceiver -Name "TestEventReceiver" -Url https://yourserver.azurewebsites.net/eventreceiver.svc -EventReceiverType WebAdding -Synchronization Synchronous
+```
+
+This will add a new remote event receiver that is executed while a new subsite is being created
 
 ## PARAMETERS
 
 ### -EventReceiverType
-The type of the event receiver like ItemAdded, ItemAdding
+The type of the event receiver like ItemAdded, ItemAdding. See https://msdn.microsoft.com/en-us/library/microsoft.sharepoint.client.eventreceivertype.aspx for the full list of available types.
 
 ```yaml
 Type: EventReceiverType
@@ -58,7 +66,7 @@ Accept pipeline input: False
 ```
 
 ### -List
-The list object or name where the event receiver needs to be added
+The list object or name where the remote event receiver needs to be added. If omitted, the remote event receiver will be added to the web.
 
 ```yaml
 Type: ListPipeBind
@@ -70,7 +78,7 @@ Accept pipeline input: False
 ```
 
 ### -Name
-The name of the event receiver
+The name of the remote event receiver
 
 ```yaml
 Type: String
@@ -82,7 +90,7 @@ Accept pipeline input: False
 ```
 
 ### -SequenceNumber
-The sequence number where this event receiver should be placed
+The sequence number where this remote event receiver should be placed
 
 ```yaml
 Type: Int
@@ -94,7 +102,7 @@ Accept pipeline input: False
 ```
 
 ### -Synchronization
-The Synchronization type, Asynchronous or Synchronous
+The synchronization type: Asynchronous or Synchronous
 
 ```yaml
 Type: EventReceiverSynchronization
@@ -107,13 +115,25 @@ Accept pipeline input: False
 ```
 
 ### -Url
-The URL of the event receiver web service
+The URL of the remote event receiver web service
 
 ```yaml
 Type: String
 Parameter Sets: (All)
 
 Required: True
+Position: Named
+Accept pipeline input: False
+```
+
+### -Connection
+Optional connection to be used by cmdlet. Retrieve the value for this parameter by eiter specifying -ReturnConnection on Connect-PnPOnline or by executing Get-PnPConnection.
+
+```yaml
+Type: SPOnlineConnection
+Parameter Sets: (All)
+
+Required: False
 Position: Named
 Accept pipeline input: False
 ```

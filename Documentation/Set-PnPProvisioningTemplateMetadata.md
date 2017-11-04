@@ -17,6 +17,7 @@ Set-PnPProvisioningTemplateMetadata -Path <String>
                                     [-TemplateProperties <Hashtable>]
                                     [-TemplateProviderExtensions <ITemplateProviderExtension[]>]
                                     [-Web <WebPipeBind>]
+                                    [-Connection <SPOnlineConnection>]
 ```
 
 ## EXAMPLES
@@ -118,6 +119,18 @@ Allows you to specify ITemplateProviderExtension to execute while extracting a t
 
 ```yaml
 Type: ITemplateProviderExtension[]
+Parameter Sets: (All)
+
+Required: False
+Position: Named
+Accept pipeline input: False
+```
+
+### -Connection
+Optional connection to be used by cmdlet. Retrieve the value for this parameter by eiter specifying -ReturnConnection on Connect-PnPOnline or by executing Get-PnPConnection.
+
+```yaml
+Type: SPOnlineConnection
 Parameter Sets: (All)
 
 Required: False

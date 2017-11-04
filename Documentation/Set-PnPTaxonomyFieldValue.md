@@ -15,6 +15,7 @@ Sets a taxonomy term value in a listitem field
 Set-PnPTaxonomyFieldValue -ListItem <ListItem>
                           -InternalFieldName <String>
                           [-Terms <Hashtable>]
+                          [-Connection <SPOnlineConnection>]
 ```
 
 ### ITEM
@@ -23,6 +24,7 @@ Set-PnPTaxonomyFieldValue -TermId <GuidPipeBind>
                           -ListItem <ListItem>
                           -InternalFieldName <String>
                           [-Label <String>]
+                          [-Connection <SPOnlineConnection>]
 ```
 
 ### PATH
@@ -30,6 +32,7 @@ Set-PnPTaxonomyFieldValue -TermId <GuidPipeBind>
 Set-PnPTaxonomyFieldValue -TermPath <String>
                           -ListItem <ListItem>
                           -InternalFieldName <String>
+                          [-Connection <SPOnlineConnection>]
 ```
 
 ## EXAMPLES
@@ -123,6 +126,18 @@ Allows you to specify terms with key value pairs that can be referred to in the 
 ```yaml
 Type: Hashtable
 Parameter Sets: ITEMS
+
+Required: False
+Position: Named
+Accept pipeline input: False
+```
+
+### -Connection
+Optional connection to be used by cmdlet. Retrieve the value for this parameter by eiter specifying -ReturnConnection on Connect-PnPOnline or by executing Get-PnPConnection.
+
+```yaml
+Type: SPOnlineConnection
+Parameter Sets: (All)
 
 Required: False
 Position: Named

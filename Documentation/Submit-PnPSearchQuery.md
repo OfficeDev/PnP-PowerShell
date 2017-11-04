@@ -35,6 +35,7 @@ Submit-PnPSearchQuery -Query <String>
                       [-ProcessPersonalFavorites <Boolean>]
                       [-RelevantResults [<SwitchParameter>]]
                       [-Web <WebPipeBind>]
+                      [-Connection <SPOnlineConnection>]
 ```
 
 ### All
@@ -61,6 +62,7 @@ Submit-PnPSearchQuery -Query <String>
                       [-ProcessPersonalFavorites <Boolean>]
                       [-RelevantResults [<SwitchParameter>]]
                       [-Web <WebPipeBind>]
+                      [-Connection <SPOnlineConnection>]
 ```
 
 ## EXAMPLES
@@ -364,6 +366,18 @@ Specifies whether near duplicate items should be removed from the search results
 
 ```yaml
 Type: Boolean
+Parameter Sets: (All)
+
+Required: False
+Position: Named
+Accept pipeline input: False
+```
+
+### -Connection
+Optional connection to be used by cmdlet. Retrieve the value for this parameter by eiter specifying -ReturnConnection on Connect-PnPOnline or by executing Get-PnPConnection.
+
+```yaml
+Type: SPOnlineConnection
 Parameter Sets: (All)
 
 Required: False

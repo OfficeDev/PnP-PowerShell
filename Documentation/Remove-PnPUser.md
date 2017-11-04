@@ -15,6 +15,7 @@ Remove-PnPUser -Identity <UserPipeBind>
                [-Force [<SwitchParameter>]]
                [-Confirm [<SwitchParameter>]]
                [-Web <WebPipeBind>]
+               [-Connection <SPOnlineConnection>]
 ```
 
 ## DESCRIPTION
@@ -86,6 +87,18 @@ Parameter Sets: (All)
 Required: True
 Position: 0
 Accept pipeline input: True
+```
+
+### -Connection
+Optional connection to be used by cmdlet. Retrieve the value for this parameter by eiter specifying -ReturnConnection on Connect-PnPOnline or by executing Get-PnPConnection.
+
+```yaml
+Type: SPOnlineConnection
+Parameter Sets: (All)
+
+Required: False
+Position: Named
+Accept pipeline input: False
 ```
 
 ### -Web

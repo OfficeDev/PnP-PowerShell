@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace SharePointPnP.PowerShell.CmdletHelpAttributes
 {
+    /// <summary>
+    /// The list of supported platforms by these cmdlets.
+    /// </summary>
     public enum CmdletSupportedPlatform
     {
         All = 0,

@@ -8,6 +8,12 @@ schema: 2.0.0
 ## SYNOPSIS
 Disables in place records management for a site.
 
+## SYNTAX 
+
+```powershell
+Disable-PnPInPlaceRecordsManagementForSite [-Connection <SPOnlineConnection>]
+```
+
 ## EXAMPLES
 
 ### ------------------EXAMPLE 1------------------
@@ -16,6 +22,20 @@ PS:> Disable-PnPInPlaceRecordsManagementForSite
 ```
 
 The in place records management feature will be disabled
+
+## PARAMETERS
+
+### -Connection
+Optional connection to be used by cmdlet. Retrieve the value for this parameter by eiter specifying -ReturnConnection on Connect-PnPOnline or by executing Get-PnPConnection.
+
+```yaml
+Type: SPOnlineConnection
+Parameter Sets: (All)
+
+Required: False
+Position: Named
+Accept pipeline input: False
+```
 
 # RELATED LINKS
 

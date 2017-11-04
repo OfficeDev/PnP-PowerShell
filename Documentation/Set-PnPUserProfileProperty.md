@@ -18,6 +18,7 @@ You must connect to the tenant admin website (https://:<tenant>-admin.sharepoint
 Set-PnPUserProfileProperty -Value <String>
                            -Account <String>
                            -PropertyName <String>
+                           [-Connection <SPOnlineConnection>]
 ```
 
 ### Multi
@@ -25,6 +26,7 @@ Set-PnPUserProfileProperty -Value <String>
 Set-PnPUserProfileProperty -Values <String[]>
                            -Account <String>
                            -PropertyName <String>
+                           [-Connection <SPOnlineConnection>]
 ```
 
 ## DESCRIPTION
@@ -92,6 +94,18 @@ Type: String[]
 Parameter Sets: Multi
 
 Required: True
+Position: Named
+Accept pipeline input: False
+```
+
+### -Connection
+Optional connection to be used by cmdlet. Retrieve the value for this parameter by eiter specifying -ReturnConnection on Connect-PnPOnline or by executing Get-PnPConnection.
+
+```yaml
+Type: SPOnlineConnection
+Parameter Sets: (All)
+
+Required: False
 Position: Named
 Accept pipeline input: False
 ```

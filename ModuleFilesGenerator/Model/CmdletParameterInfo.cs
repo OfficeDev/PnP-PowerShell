@@ -17,6 +17,8 @@ namespace SharePointPnP.PowerShell.ModuleFilesGenerator.Model
         public List<string> Aliases { get; set; }
         public bool ValueFromPipeline { get; internal set; }
 
+        public int Order { get; set; }
+        
         public CmdletParameterInfo()
         {
             this.Aliases = new List<string>();

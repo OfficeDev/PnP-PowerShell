@@ -18,17 +18,17 @@ namespace SharePointPnP.PowerShell.Commands.Base
         {
             get
             {
-                if (PnPAzureADConnection.AuthenticationResult != null)
+                if (SPOnlineConnection.AuthenticationResult != null)
                 {
-                    if (PnPAzureADConnection.AuthenticationResult.ExpiresOn < DateTimeOffset.Now)
+                    if (SPOnlineConnection.AuthenticationResult.ExpiresOn < DateTimeOffset.Now)
                     {
                         WriteWarning(Resources.MicrosoftGraphOAuthAccessTokenExpired);
-                        PnPAzureADConnection.AuthenticationResult = null;
+                        SPOnlineConnection.AuthenticationResult = null;
                         return (null);
                     }
                     else
                     {
-                        return (PnPAzureADConnection.AuthenticationResult.Token);
+                        return (SPOnlineConnection.AuthenticationResult.Token);
                     }
                 }
                 else
@@ -43,8 +43,8 @@ namespace SharePointPnP.PowerShell.Commands.Base
         {
             base.BeginProcessing();
 
-            if (PnPAzureADConnection.AuthenticationResult == null || 
-                String.IsNullOrEmpty(PnPAzureADConnection.AuthenticationResult.Token))
+            if (SPOnlineConnection.AuthenticationResult == null || 
+                String.IsNullOrEmpty(SPOnlineConnection.AuthenticationResult.Token))
             {
                 throw new InvalidOperationException(Resources.NoAzureADAccessToken);
             }

@@ -15,6 +15,7 @@ Disable-PnPFeature -Identity <GuidPipeBind>
                    [-Force [<SwitchParameter>]]
                    [-Scope <FeatureScope>]
                    [-Web <WebPipeBind>]
+                   [-Connection <SPOnlineConnection>]
 ```
 
 ## DESCRIPTION
@@ -74,6 +75,18 @@ Specify the scope of the feature to deactivate, either Web or Site. Defaults to 
 
 ```yaml
 Type: FeatureScope
+Parameter Sets: (All)
+
+Required: False
+Position: Named
+Accept pipeline input: False
+```
+
+### -Connection
+Optional connection to be used by cmdlet. Retrieve the value for this parameter by eiter specifying -ReturnConnection on Connect-PnPOnline or by executing Get-PnPConnection.
+
+```yaml
+Type: SPOnlineConnection
 Parameter Sets: (All)
 
 Required: False

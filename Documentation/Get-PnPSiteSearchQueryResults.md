@@ -14,15 +14,17 @@ Executes a search query to retrieve indexed site collections
 ```powershell
 Get-PnPSiteSearchQueryResults [-StartRow <Int>]
                               [-MaxResults <Int>]
-                              [-Web <WebPipeBind>]
                               [-Query <String>]
+                              [-Web <WebPipeBind>]
+                              [-Connection <SPOnlineConnection>]
 ```
 
 ### All
 ```powershell
 Get-PnPSiteSearchQueryResults [-All [<SwitchParameter>]]
-                              [-Web <WebPipeBind>]
                               [-Query <String>]
+                              [-Web <WebPipeBind>]
+                              [-Connection <SPOnlineConnection>]
 ```
 
 ## EXAMPLES
@@ -113,6 +115,18 @@ Search result item to start returning the results from. Useful for paging. Leave
 ```yaml
 Type: Int
 Parameter Sets: Limit
+
+Required: False
+Position: Named
+Accept pipeline input: False
+```
+
+### -Connection
+Optional connection to be used by cmdlet. Retrieve the value for this parameter by eiter specifying -ReturnConnection on Connect-PnPOnline or by executing Get-PnPConnection.
+
+```yaml
+Type: SPOnlineConnection
+Parameter Sets: (All)
 
 Required: False
 Position: Named

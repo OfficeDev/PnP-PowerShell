@@ -18,6 +18,7 @@ Get-PnPTenantSite [-Template <String>]
                   [-WebTemplate <String>]
                   [-Filter <String>]
                   [-Url <String>]
+                  [-Connection <SPOnlineConnection>]
 ```
 
 ## DESCRIPTION
@@ -154,6 +155,18 @@ Limit results to a specific web template name
 
 ```yaml
 Type: String
+Parameter Sets: (All)
+
+Required: False
+Position: Named
+Accept pipeline input: False
+```
+
+### -Connection
+Optional connection to be used by cmdlet. Retrieve the value for this parameter by eiter specifying -ReturnConnection on Connect-PnPOnline or by executing Get-PnPConnection.
+
+```yaml
+Type: SPOnlineConnection
 Parameter Sets: (All)
 
 Required: False

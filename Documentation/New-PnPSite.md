@@ -20,6 +20,7 @@ New-PnPSite -Type <SiteType>
             [-AllowFileSharingForGuestUsers [<SwitchParameter>]]
             [-SiteDesign <CommunicationSiteDesign>]
             [-Lcid <UInt32>]
+            [-Connection <SPOnlineConnection>]
 ```
 
 ### Team Site
@@ -30,6 +31,7 @@ New-PnPSite -Type <SiteType>
             [-Description <String>]
             [-Classification <String>]
             [-IsPublic <String>]
+            [-Connection <SPOnlineConnection>]
 ```
 
 ### CommunicationCustomInDesign
@@ -42,6 +44,7 @@ New-PnPSite -Type <SiteType>
             [-Classification <String>]
             [-AllowFileSharingForGuestUsers [<SwitchParameter>]]
             [-Lcid <UInt32>]
+            [-Connection <SPOnlineConnection>]
 ```
 
 ## DESCRIPTION
@@ -229,6 +232,18 @@ Parameter Sets: Communication Site With Built-in Design
 
 Required: True
 Position: 0
+Accept pipeline input: False
+```
+
+### -Connection
+Optional connection to be used by cmdlet. Retrieve the value for this parameter by eiter specifying -ReturnConnection on Connect-PnPOnline or by executing Get-PnPConnection.
+
+```yaml
+Type: SPOnlineConnection
+Parameter Sets: (All)
+
+Required: False
+Position: Named
 Accept pipeline input: False
 ```
 

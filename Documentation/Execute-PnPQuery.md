@@ -13,6 +13,7 @@ Execute the current queued actions
 ```powershell
 Execute-PnPQuery [-RetryCount <Int>]
                  [-RetryWait <Int>]
+                 [-Connection <SPOnlineConnection>]
 ```
 
 ## DESCRIPTION
@@ -53,6 +54,18 @@ Delay in seconds. Defaults to 1.
 
 ```yaml
 Type: Int
+Parameter Sets: (All)
+
+Required: False
+Position: Named
+Accept pipeline input: False
+```
+
+### -Connection
+Optional connection to be used by cmdlet. Retrieve the value for this parameter by eiter specifying -ReturnConnection on Connect-PnPOnline or by executing Get-PnPConnection.
+
+```yaml
+Type: SPOnlineConnection
 Parameter Sets: (All)
 
 Required: False

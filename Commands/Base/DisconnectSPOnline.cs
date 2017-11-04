@@ -17,9 +17,12 @@ namespace SharePointPnP.PowerShell.Commands.Base
         SortOrder = 1)]
     public class DisconnectSPOnline : PSCmdlet
     {
+        [Parameter(Mandatory = false, HelpMessage = "Connection to be used by cmdlet")]
+        public SPOnlineConnection Connection = null;
+
         protected override void ProcessRecord()
         {
-            if (!DisconnectCurrentService())
+            if (!DisconnectCurrentService(Connection ?? SPOnlineConnection.CurrentConnection))
                 throw new InvalidOperationException(Properties.Resources.NoConnectionToDisconnect);
 
             var provider = SessionState.Provider.GetAll().FirstOrDefault(p => p.Name.Equals(SPOProvider.PSProviderName, StringComparison.InvariantCultureIgnoreCase));
@@ -34,11 +37,11 @@ namespace SharePointPnP.PowerShell.Commands.Base
             }
         }
 
-        internal static bool DisconnectCurrentService()
+        internal static bool DisconnectCurrentService(SPOnlineConnection connection)
         {
-            if (SPOnlineConnection.CurrentConnection == null)
+            if (connection == null)
                 return false;
-            SPOnlineConnection.CurrentConnection = null;
+            connection = null;
             return true;
         }
     }

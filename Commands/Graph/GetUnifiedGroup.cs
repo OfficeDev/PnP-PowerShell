@@ -15,7 +15,8 @@ namespace SharePointPnP.PowerShell.Commands.Graph
 {
     [Cmdlet("Get", "PnPUnifiedGroup")]
     [CmdletHelp("Gets one Office 365 Group (aka Unified Group) or a list of Office 365 Groups",
-        Category = CmdletHelpCategory.Graph)]
+        Category = CmdletHelpCategory.Graph, 
+        SupportedPlatform = CmdletSupportedPlatform.Online)]
     [CmdletExample(
        Code = "PS:> Get-PnPUnifiedGroup",
        Remarks = "Retrieves all the Office 365 Groups",
@@ -26,11 +27,11 @@ namespace SharePointPnP.PowerShell.Commands.Graph
        SortOrder = 2)]
     [CmdletExample(
        Code = "PS:> Get-PnPUnifiedGroup -Identity $groupDisplayName",
-       Remarks = "Retrieves a specific Office 365 Group based on its DisplayName",
+       Remarks = "Retrieves a specific or list of Office 365 Groups that start with the given DisplayName",
        SortOrder = 3)]
     [CmdletExample(
        Code = "PS:> Get-PnPUnifiedGroup -Identity $groupSiteMailNickName",
-       Remarks = "Retrieves a specific Office 365 Group based on the mail nickname",
+       Remarks = "Retrieves a specific or list of Office 365 Groups for which the email starts with the provided mail nickName",
        SortOrder = 4)]
     [CmdletExample(
        Code = "PS:> Get-PnPUnifiedGroup -Identity $group",

@@ -13,21 +13,25 @@ Returns the items in the recycle bin from the context
 ### Identity
 ```powershell
 Get-PnPRecycleBinItem [-Identity <GuidPipeBind>]
+                      [-Connection <SPOnlineConnection>]
 ```
 
 ### FirstStage
 ```powershell
 Get-PnPRecycleBinItem [-FirstStage [<SwitchParameter>]]
+                      [-Connection <SPOnlineConnection>]
 ```
 
 ### SecondStage
 ```powershell
 Get-PnPRecycleBinItem [-SecondStage [<SwitchParameter>]]
+                      [-Connection <SPOnlineConnection>]
 ```
 
 ### 
 ```powershell
 Get-PnPRecycleBinItem [-Includes <String[]>]
+                      [-Connection <SPOnlineConnection>]
 ```
 
 ## EXAMPLES
@@ -104,6 +108,18 @@ Return all items in the second stage recycle bin
 ```yaml
 Type: SwitchParameter
 Parameter Sets: SecondStage
+
+Required: False
+Position: Named
+Accept pipeline input: False
+```
+
+### -Connection
+Optional connection to be used by cmdlet. Retrieve the value for this parameter by eiter specifying -ReturnConnection on Connect-PnPOnline or by executing Get-PnPConnection.
+
+```yaml
+Type: SPOnlineConnection
+Parameter Sets: (All)
 
 Required: False
 Position: Named

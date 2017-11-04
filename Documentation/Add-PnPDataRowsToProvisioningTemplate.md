@@ -15,9 +15,10 @@ Add-PnPDataRowsToProvisioningTemplate -List <ListPipeBind>
                                       -Query <String>
                                       -Path <String>
                                       [-Fields <String[]>]
-                                      [-Web <WebPipeBind>]
                                       [-TemplateProviderExtensions <ITemplateProviderExtension[]>]
                                       [-IncludeSecurity [<SwitchParameter>]]
+                                      [-Web <WebPipeBind>]
+                                      [-Connection <SPOnlineConnection>]
 ```
 
 ## EXAMPLES
@@ -107,6 +108,18 @@ Parameter Sets: (All)
 
 Required: False
 Position: 4
+Accept pipeline input: False
+```
+
+### -Connection
+Optional connection to be used by cmdlet. Retrieve the value for this parameter by eiter specifying -ReturnConnection on Connect-PnPOnline or by executing Get-PnPConnection.
+
+```yaml
+Type: SPOnlineConnection
+Parameter Sets: (All)
+
+Required: False
+Position: Named
 Accept pipeline input: False
 ```
 

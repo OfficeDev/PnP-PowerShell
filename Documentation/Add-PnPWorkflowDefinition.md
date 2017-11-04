@@ -14,6 +14,7 @@ Adds a workflow definition
 Add-PnPWorkflowDefinition -Definition <WorkflowDefinition>
                           [-DoNotPublish [<SwitchParameter>]]
                           [-Web <WebPipeBind>]
+                          [-Connection <SPOnlineConnection>]
 ```
 
 ## EXAMPLES
@@ -44,6 +45,18 @@ Overrides the default behaviour, which is to publish workflow definitions.
 
 ```yaml
 Type: SwitchParameter
+Parameter Sets: (All)
+
+Required: False
+Position: Named
+Accept pipeline input: False
+```
+
+### -Connection
+Optional connection to be used by cmdlet. Retrieve the value for this parameter by eiter specifying -ReturnConnection on Connect-PnPOnline or by executing Get-PnPConnection.
+
+```yaml
+Type: SPOnlineConnection
 Parameter Sets: (All)
 
 Required: False

@@ -13,6 +13,7 @@ Publishes/Deploys/Trusts an available app in the app catalog
 ```powershell
 Publish-PnPApp -Identity <AppMetadataPipeBind>
                [-SkipFeatureDeployment [<SwitchParameter>]]
+               [-Connection <SPOnlineConnection>]
 ```
 
 ## EXAMPLES
@@ -43,6 +44,18 @@ Accept pipeline input: True
 
 ```yaml
 Type: SwitchParameter
+Parameter Sets: (All)
+
+Required: False
+Position: Named
+Accept pipeline input: False
+```
+
+### -Connection
+Optional connection to be used by cmdlet. Retrieve the value for this parameter by eiter specifying -ReturnConnection on Connect-PnPOnline or by executing Get-PnPConnection.
+
+```yaml
+Type: SPOnlineConnection
 Parameter Sets: (All)
 
 Required: False

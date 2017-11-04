@@ -18,6 +18,7 @@ Add-PnPNavigationNode -Location <NavigationType>
                       [-First [<SwitchParameter>]]
                       [-External [<SwitchParameter>]]
                       [-Web <WebPipeBind>]
+                      [-Connection <SPOnlineConnection>]
 ```
 
 ## DESCRIPTION
@@ -120,6 +121,18 @@ The url to navigate to when clicking the new menu item.
 
 ```yaml
 Type: String
+Parameter Sets: (All)
+
+Required: False
+Position: Named
+Accept pipeline input: False
+```
+
+### -Connection
+Optional connection to be used by cmdlet. Retrieve the value for this parameter by eiter specifying -ReturnConnection on Connect-PnPOnline or by executing Get-PnPConnection.
+
+```yaml
+Type: SPOnlineConnection
 Parameter Sets: (All)
 
 Required: False

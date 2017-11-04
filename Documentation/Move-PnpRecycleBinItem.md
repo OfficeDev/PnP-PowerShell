@@ -13,6 +13,7 @@ Moves all items or a specific item in the first stage recycle bin of the current
 ```powershell
 Move-PnpRecycleBinItem [-Identity <RecycleBinItemPipeBind>]
                        [-Force [<SwitchParameter>]]
+                       [-Connection <SPOnlineConnection>]
 ```
 
 ## EXAMPLES
@@ -62,6 +63,18 @@ Parameter Sets: (All)
 Required: False
 Position: Named
 Accept pipeline input: True
+```
+
+### -Connection
+Optional connection to be used by cmdlet. Retrieve the value for this parameter by eiter specifying -ReturnConnection on Connect-PnPOnline or by executing Get-PnPConnection.
+
+```yaml
+Type: SPOnlineConnection
+Parameter Sets: (All)
+
+Required: False
+Position: Named
+Accept pipeline input: False
 ```
 
 # RELATED LINKS

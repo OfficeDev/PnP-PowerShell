@@ -287,7 +287,7 @@ namespace SharePointPnP.PowerShell.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No Azure AD connection, please connect first with Connect-PnPMicrosoftGraph.
+        ///   Looks up a localized string similar to No Azure AD connection, please connect first with Connect-PnPOnline -Scopes or Connect-PnPOnline -AppId -AppSecret -AADDomain.
         /// </summary>
         internal static string NoAzureADAccessToken {
             get {
@@ -365,6 +365,15 @@ namespace SharePointPnP.PowerShell.Commands.Properties {
         internal static string RemoveCustomAction {
             get {
                 return ResourceManager.GetString("RemoveCustomAction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The classification &apos;{0}&apos; you are trying remove is currently set as the default classification. Do you want to remove this classification? It will also remove this as  the default classification.
+        /// </summary>
+        internal static string RemoveDefaultClassification0 {
+            get {
+                return ResourceManager.GetString("RemoveDefaultClassification0", resourceCulture);
             }
         }
         

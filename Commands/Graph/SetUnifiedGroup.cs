@@ -11,7 +11,8 @@ namespace SharePointPnP.PowerShell.Commands.Graph
 {
     [Cmdlet(VerbsCommon.Set, "PnPUnifiedGroup")]
     [CmdletHelp("Sets Office 365 Group (aka Unified Group) properties",
-        Category = CmdletHelpCategory.Graph)]
+        Category = CmdletHelpCategory.Graph,
+        SupportedPlatform = CmdletSupportedPlatform.Online)]
     [CmdletExample(
        Code = @"PS:> Set-PnPUnifiedGroup -Identity $group -DisplayName ""My Displayname""",
        Remarks = "Sets the display name of the group where $group is a Group entity",

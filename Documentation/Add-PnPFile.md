@@ -24,6 +24,7 @@ Add-PnPFile -Path <String>
             [-Values <Hashtable>]
             [-ContentType <ContentTypePipeBind>]
             [-Web <WebPipeBind>]
+            [-Connection <SPOnlineConnection>]
 ```
 
 ### Upload file from stream
@@ -41,6 +42,7 @@ Add-PnPFile -FileName <String>
             [-Values <Hashtable>]
             [-ContentType <ContentTypePipeBind>]
             [-Web <WebPipeBind>]
+            [-Connection <SPOnlineConnection>]
 ```
 
 ## EXAMPLES
@@ -238,6 +240,18 @@ Use the internal names of the fields when specifying field names
 
 ```yaml
 Type: Hashtable
+Parameter Sets: (All)
+
+Required: False
+Position: Named
+Accept pipeline input: False
+```
+
+### -Connection
+Optional connection to be used by cmdlet. Retrieve the value for this parameter by eiter specifying -ReturnConnection on Connect-PnPOnline or by executing Get-PnPConnection.
+
+```yaml
+Type: SPOnlineConnection
 Parameter Sets: (All)
 
 Required: False

@@ -11,9 +11,10 @@ Return a workflow subscription
 ## SYNTAX 
 
 ```powershell
-Get-PnPWorkflowSubscription [-Web <WebPipeBind>]
-                            [-Name <String>]
+Get-PnPWorkflowSubscription [-Name <String>]
                             [-List <ListPipeBind>]
+                            [-Web <WebPipeBind>]
+                            [-Connection <SPOnlineConnection>]
 ```
 
 ## DESCRIPTION
@@ -65,6 +66,18 @@ Parameter Sets: (All)
 
 Required: False
 Position: 0
+Accept pipeline input: False
+```
+
+### -Connection
+Optional connection to be used by cmdlet. Retrieve the value for this parameter by eiter specifying -ReturnConnection on Connect-PnPOnline or by executing Get-PnPConnection.
+
+```yaml
+Type: SPOnlineConnection
+Parameter Sets: (All)
+
+Required: False
+Position: Named
 Accept pipeline input: False
 ```
 

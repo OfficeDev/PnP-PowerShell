@@ -21,6 +21,7 @@ Add-PnPView -Title <String>
             [-SetAsDefault [<SwitchParameter>]]
             [-Paged [<SwitchParameter>]]
             [-Web <WebPipeBind>]
+            [-Connection <SPOnlineConnection>]
 ```
 
 ## EXAMPLES
@@ -142,6 +143,18 @@ The type of view to add.
 
 ```yaml
 Type: ViewType
+Parameter Sets: (All)
+
+Required: False
+Position: Named
+Accept pipeline input: False
+```
+
+### -Connection
+Optional connection to be used by cmdlet. Retrieve the value for this parameter by eiter specifying -ReturnConnection on Connect-PnPOnline or by executing Get-PnPConnection.
+
+```yaml
+Type: SPOnlineConnection
 Parameter Sets: (All)
 
 Required: False

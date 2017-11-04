@@ -15,12 +15,14 @@ Permanently deletes all or a specific recycle bin item
 Clear-PnpRecycleBinItem [-All [<SwitchParameter>]]
                         [-SecondStageOnly [<SwitchParameter>]]
                         [-Force [<SwitchParameter>]]
+                        [-Connection <SPOnlineConnection>]
 ```
 
 ### Identity
 ```powershell
 Clear-PnpRecycleBinItem -Identity <RecycleBinItemPipeBind>
                         [-Force [<SwitchParameter>]]
+                        [-Connection <SPOnlineConnection>]
 ```
 
 ## EXAMPLES
@@ -90,6 +92,18 @@ If provided, only all the items in the second stage recycle bin will be cleared
 ```yaml
 Type: SwitchParameter
 Parameter Sets: All
+
+Required: False
+Position: Named
+Accept pipeline input: False
+```
+
+### -Connection
+Optional connection to be used by cmdlet. Retrieve the value for this parameter by eiter specifying -ReturnConnection on Connect-PnPOnline or by executing Get-PnPConnection.
+
+```yaml
+Type: SPOnlineConnection
+Parameter Sets: (All)
 
 Required: False
 Position: Named

@@ -16,6 +16,7 @@ Remove-PnPListItem -Identity <ListItemPipeBind>
                    [-Recycle [<SwitchParameter>]]
                    [-Force [<SwitchParameter>]]
                    [-Web <WebPipeBind>]
+                   [-Connection <SPOnlineConnection>]
 ```
 
 ## EXAMPLES
@@ -77,6 +78,18 @@ Accept pipeline input: True
 
 ```yaml
 Type: SwitchParameter
+Parameter Sets: (All)
+
+Required: False
+Position: Named
+Accept pipeline input: False
+```
+
+### -Connection
+Optional connection to be used by cmdlet. Retrieve the value for this parameter by eiter specifying -ReturnConnection on Connect-PnPOnline or by executing Get-PnPConnection.
+
+```yaml
+Type: SPOnlineConnection
 Parameter Sets: (All)
 
 Required: False

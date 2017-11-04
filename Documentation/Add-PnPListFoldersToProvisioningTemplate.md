@@ -13,10 +13,11 @@ Adds folders to a list in a PnP Provisioning Template
 ```powershell
 Add-PnPListFoldersToProvisioningTemplate -Path <String>
                                          -List <ListPipeBind>
-                                         [-Web <WebPipeBind>]
                                          [-Recursive [<SwitchParameter>]]
                                          [-IncludeSecurity [<SwitchParameter>]]
                                          [-TemplateProviderExtensions <ITemplateProviderExtension[]>]
+                                         [-Web <WebPipeBind>]
+                                         [-Connection <SPOnlineConnection>]
 ```
 
 ## EXAMPLES
@@ -101,6 +102,18 @@ Parameter Sets: (All)
 
 Required: False
 Position: 6
+Accept pipeline input: False
+```
+
+### -Connection
+Optional connection to be used by cmdlet. Retrieve the value for this parameter by eiter specifying -ReturnConnection on Connect-PnPOnline or by executing Get-PnPConnection.
+
+```yaml
+Type: SPOnlineConnection
+Parameter Sets: (All)
+
+Required: False
+Position: Named
 Accept pipeline input: False
 ```
 

@@ -4,6 +4,7 @@ using SharePointPnP.PowerShell.Commands.Base.PipeBinds;
 using System.Management.Automation;
 using Microsoft.SharePoint.Client;
 using SharePointPnP.PowerShell.Commands.Extensions;
+using SharePointPnP.PowerShell.CmdletHelpAttributes;
 
 namespace SharePointPnP.PowerShell.Commands
 {
@@ -12,6 +13,7 @@ namespace SharePointPnP.PowerShell.Commands
         private Web _selectedWeb;
 
         [Parameter(Mandatory = false, HelpMessage = "The GUID, server relative url (i.e. /sites/team1) or web instance of the web to apply the command to. Omit this parameter to use the current web.")]
+        [PnPParameter(Order = 99)]
         public WebPipeBind Web = new WebPipeBind();
 
         protected Web SelectedWeb

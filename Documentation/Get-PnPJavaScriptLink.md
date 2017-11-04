@@ -13,8 +13,9 @@ Returns all or a specific custom action(s) with location type ScriptLink
 ```powershell
 Get-PnPJavaScriptLink [-Scope <CustomActionScope>]
                       [-ThrowExceptionIfJavaScriptLinkNotFound [<SwitchParameter>]]
-                      [-Web <WebPipeBind>]
                       [-Name <String>]
+                      [-Web <WebPipeBind>]
+                      [-Connection <SPOnlineConnection>]
 ```
 
 ## EXAMPLES
@@ -86,6 +87,18 @@ Switch parameter if an exception should be thrown if the requested JavaScriptLin
 
 ```yaml
 Type: SwitchParameter
+Parameter Sets: (All)
+
+Required: False
+Position: Named
+Accept pipeline input: False
+```
+
+### -Connection
+Optional connection to be used by cmdlet. Retrieve the value for this parameter by eiter specifying -ReturnConnection on Connect-PnPOnline or by executing Get-PnPConnection.
+
+```yaml
+Type: SPOnlineConnection
 Parameter Sets: (All)
 
 Required: False

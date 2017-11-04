@@ -121,10 +121,6 @@
           <SpecificVersion>False</SpecificVersion>
           <HintPath>..\..\PnP-Sites-Core\Assemblies\16.1\Microsoft.SharePoint.Client.WorkflowServices.dll</HintPath>
         </Reference>
-        <Reference Include="Microsoft.Office.Client.Education, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
-          <SpecificVersion>False</SpecificVersion>
-          <HintPath>..\ReferenceAssemblies\16.1\Microsoft.Office.Client.Education.dll</HintPath>
-        </Reference>
       </ItemGroup>
     </When>
     <When Condition=" '$(Configuration)' == 'debug16' Or '$(Configuration)' == 'release16' ">

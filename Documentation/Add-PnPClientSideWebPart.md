@@ -17,6 +17,7 @@ Add-PnPClientSideWebPart -DefaultWebPartType <DefaultClientSideWebParts>
                          [-WebPartProperties <PropertyBagPipeBind>]
                          [-Order <Int>]
                          [-Web <WebPipeBind>]
+                         [-Connection <SPOnlineConnection>]
 ```
 
 ### Default with 3rd party webpart
@@ -26,6 +27,7 @@ Add-PnPClientSideWebPart -Component <ClientSideComponentPipeBind>
                          [-WebPartProperties <PropertyBagPipeBind>]
                          [-Order <Int>]
                          [-Web <WebPipeBind>]
+                         [-Connection <SPOnlineConnection>]
 ```
 
 ### Positioned with built-in webpart
@@ -37,6 +39,7 @@ Add-PnPClientSideWebPart -DefaultWebPartType <DefaultClientSideWebParts>
                          [-WebPartProperties <PropertyBagPipeBind>]
                          [-Order <Int>]
                          [-Web <WebPipeBind>]
+                         [-Connection <SPOnlineConnection>]
 ```
 
 ### Positioned with 3rd party webpart
@@ -48,6 +51,7 @@ Add-PnPClientSideWebPart -Component <ClientSideComponentPipeBind>
                          [-WebPartProperties <PropertyBagPipeBind>]
                          [-Order <Int>]
                          [-Web <WebPipeBind>]
+                         [-Connection <SPOnlineConnection>]
 ```
 
 ## DESCRIPTION
@@ -150,11 +154,23 @@ Position: Named
 Accept pipeline input: False
 ```
 
-### -Web
-The GUID, server relative url (i.e. /sites/team1) or web instance of the web to apply the command to. Omit this parameter to use the current web.
+### -WebPartProperties
+The properties of the WebPart
 
 ```yaml
-Type: WebPipeBind
+Type: PropertyBagPipeBind
+Parameter Sets: Default with built-in webpart
+
+Required: False
+Position: Named
+Accept pipeline input: False
+```
+
+### -Connection
+Optional connection to be used by cmdlet. Retrieve the value for this parameter by eiter specifying -ReturnConnection on Connect-PnPOnline or by executing Get-PnPConnection.
+
+```yaml
+Type: SPOnlineConnection
 Parameter Sets: (All)
 
 Required: False
@@ -162,12 +178,12 @@ Position: Named
 Accept pipeline input: False
 ```
 
-### -WebPartProperties
-The properties of the WebPart
+### -Web
+The GUID, server relative url (i.e. /sites/team1) or web instance of the web to apply the command to. Omit this parameter to use the current web.
 
 ```yaml
-Type: PropertyBagPipeBind
-Parameter Sets: Default with built-in webpart
+Type: WebPipeBind
+Parameter Sets: (All)
 
 Required: False
 Position: Named

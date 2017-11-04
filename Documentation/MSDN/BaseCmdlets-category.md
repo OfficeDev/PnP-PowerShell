@@ -4,6 +4,7 @@ Cmdlet|Description|Platform
 **[Get&#8209;PnPAppAuthAccessToken](Get-PnPAppAuthAccessToken.md)** |Returns the access token|All
 **[Get&#8209;PnPAuthenticationRealm](Get-PnPAuthenticationRealm.md)** |Returns the authentication realm|All
 **[Get&#8209;PnPAzureADManifestKeyCredentials](Get-PnPAzureADManifestKeyCredentials.md)** |Return the JSON Manifest snippet for Azure Apps|All
+**[Get&#8209;PnPConnection](Get-PnPConnection.md)** |Returns the current context|All
 **[Get&#8209;PnPContext](Get-PnPContext.md)** |Returns the current context|All
 **[Set&#8209;PnPContext](Set-PnPContext.md)** |Set the ClientContext|All
 **[Get&#8209;PnPHealthScore](Get-PnPHealthScore.md)** |Retrieves the healthscore|All

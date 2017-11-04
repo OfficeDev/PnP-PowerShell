@@ -15,7 +15,8 @@ namespace SharePointPnP.PowerShell.Commands.Graph
 {
     [Cmdlet("Remove", "PnPUnifiedGroup")]
     [CmdletHelp("Removes one Office 365 Group (aka Unified Group) or a list of Office 365 Groups",
-        Category = CmdletHelpCategory.Graph)]
+        Category = CmdletHelpCategory.Graph,
+        SupportedPlatform = CmdletSupportedPlatform.Online)]
     [CmdletExample(
        Code = "PS:> Remove-PnPUnifiedGroup -Identity $groupId",
        Remarks = "Removes an Office 365 Groups based on its ID",

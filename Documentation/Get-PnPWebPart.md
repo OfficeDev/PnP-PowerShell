@@ -14,6 +14,7 @@ Returns a webpart definition object
 Get-PnPWebPart -ServerRelativePageUrl <String>
                [-Identity <WebPartPipeBind>]
                [-Web <WebPipeBind>]
+               [-Connection <SPOnlineConnection>]
 ```
 
 ## EXAMPLES
@@ -55,6 +56,18 @@ Parameter Sets: (All)
 Aliases: PageUrl
 
 Required: True
+Position: Named
+Accept pipeline input: False
+```
+
+### -Connection
+Optional connection to be used by cmdlet. Retrieve the value for this parameter by eiter specifying -ReturnConnection on Connect-PnPOnline or by executing Get-PnPConnection.
+
+```yaml
+Type: SPOnlineConnection
+Parameter Sets: (All)
+
+Required: False
 Position: Named
 Accept pipeline input: False
 ```

@@ -1,4 +1,5 @@
-﻿using Microsoft.SharePoint.Client;
+﻿using Microsoft.Identity.Client;
+using Microsoft.SharePoint.Client;
 using SharePointPnP.PowerShell.Commands.Enums;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,9 @@ namespace SharePointPnP.PowerShell.Commands.Base
         internal string userAgent;
         internal string PnPVersionTag { get; set; }
         internal static List<ClientContext> ContextCache { get; set; }
+
+        public static AuthenticationResult AuthenticationResult { get; set; }
+
         public static SPOnlineConnection CurrentConnection { get; internal set; }
         public ConnectionType ConnectionType { get; protected set; }
         public int MinimalHealthScore { get; protected set; }

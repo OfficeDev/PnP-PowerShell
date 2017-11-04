@@ -17,20 +17,26 @@ namespace SharePointPnP.PowerShell.Commands.Events
       Remarks = @"This will return all registered event receivers on the current web", SortOrder = 1)]
     [CmdletExample(
       Code = @"PS:> Get-PnPEventReceiver -Identity fb689d0e-eb99-4f13-beb3-86692fd39f22",
-      Remarks = @"This will return a specific registered event receiver from the current web", SortOrder = 2)]
+      Remarks = @"This will return the event receiver with the provided ReceiverId ""fb689d0e-eb99-4f13-beb3-86692fd39f22"" from the current web", SortOrder = 2)]
+    [CmdletExample(
+      Code = @"PS:> Get-PnPEventReceiver -Identity MyReceiver",
+      Remarks = @"This will return the event receiver with the provided ReceiverName ""MyReceiver"" from the current web", SortOrder = 3)]
     [CmdletExample(
       Code = @"PS:> Get-PnPEventReceiver -List ""ProjectList""",
-      Remarks = @"This will return all registered event receivers in the list with the name ProjectList", SortOrder = 3)]
+      Remarks = @"This will return all registered event receivers in the provided ""ProjectList"" list", SortOrder = 4)]
     [CmdletExample(
       Code = @"PS:> Get-PnPEventReceiver -List ""ProjectList"" -Identity fb689d0e-eb99-4f13-beb3-86692fd39f22",
-      Remarks = @"This will return a specific registered event receiver in the list with the name ProjectList", SortOrder = 4)]
+      Remarks = @"This will return the event receiver in the provided ""ProjectList"" list with with the provided ReceiverId ""fb689d0e-eb99-4f13-beb3-86692fd39f22""", SortOrder = 5)]
+    [CmdletExample(
+      Code = @"PS:> Get-PnPEventReceiver -List ""ProjectList"" -Identity MyReceiver",
+      Remarks = @"This will return the event receiver in the ""ProjectList"" list with the provided ReceiverName ""MyReceiver""", SortOrder = 5)]
     public class GetEventReceiver : PnPWebRetrievalsCmdlet<EventReceiverDefinition>
     {
         [Parameter(Mandatory = false, ParameterSetName = "List", HelpMessage = "The list object from which to get the event receiver object")]
         public ListPipeBind List;
 
-        [Parameter(Mandatory = false, HelpMessage = "The Guid of the event receiver on the list")]
-        public GuidPipeBind Identity;
+        [Parameter(Mandatory = false, ValueFromPipeline = true, HelpMessage = "The Guid of the event receiver")]
+        public EventReceiverPipeBind Identity;
 
         protected override void ExecuteCmdlet()
         {
@@ -40,7 +46,7 @@ namespace SharePointPnP.PowerShell.Commands.Events
 
                 if (list != null)
                 {
-                    if (Identity == null)
+                    if (!MyInvocation.BoundParameters.ContainsKey("Identity"))
                     {
                         var query = ClientContext.LoadQuery(list.EventReceivers);
                         ClientContext.ExecuteQueryRetry();
@@ -48,13 +54,13 @@ namespace SharePointPnP.PowerShell.Commands.Events
                     }
                     else
                     {
-                        WriteObject(list.GetEventReceiverById(Identity.Id));
+                        WriteObject(Identity.GetEventReceiverOnList(list));
                     }
                 }
             }
             else
             {
-                if (Identity == null)
+                if (!MyInvocation.BoundParameters.ContainsKey("Identity"))
                 {
                     var query = ClientContext.LoadQuery(SelectedWeb.EventReceivers);
                     ClientContext.ExecuteQueryRetry();
@@ -62,12 +68,9 @@ namespace SharePointPnP.PowerShell.Commands.Events
                 }
                 else
                 {
-                    WriteObject(SelectedWeb.GetEventReceiverById(Identity.Id));
+                    WriteObject(Identity.GetEventReceiverOnWeb(SelectedWeb));
                 }
             }
-
         }
     }
 }
-
-
