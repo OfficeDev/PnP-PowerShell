@@ -70,6 +70,12 @@ namespace SharePointPnP.PowerShell.Commands.Lists
         [Parameter(Mandatory = false, HelpMessage = "Maximum minor versions to keep")]
         public uint MinorVersions = 10;
 
+        [Parameter(Mandatory = false, HelpMessage = "Enable or disable content approval (moderation). Set to $true to enable, $false to disable.")]
+        public bool EnableModeration;
+
+        [Parameter(Mandatory = false, HelpMessage = "Set to $true to prevent this list from being crawled, or $false to allow the crawler.")]
+        public bool NoCrawl;
+
         protected override void ExecuteCmdlet()
         {
             var list = Identity.GetList(SelectedWeb);
@@ -116,6 +122,18 @@ namespace SharePointPnP.PowerShell.Commands.Lists
                 if (MyInvocation.BoundParameters.ContainsKey("EnableMinorVersions") && EnableMinorVersions != enableMinorVersions)
                 {
                     list.EnableMinorVersions = EnableMinorVersions;
+                    isDirty = true;
+                }
+
+                if (MyInvocation.BoundParameters.ContainsKey("EnableModeration"))
+                {
+                    list.EnableModeration = EnableModeration;
+                    isDirty = true;
+                }
+
+                if (MyInvocation.BoundParameters.ContainsKey("NoCrawl"))
+                {
+                    list.NoCrawl = NoCrawl;
                     isDirty = true;
                 }
 
