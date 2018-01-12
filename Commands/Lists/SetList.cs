@@ -65,10 +65,12 @@ namespace SharePointPnP.PowerShell.Commands.Lists
         public bool EnableMinorVersions;
 
         [Parameter(Mandatory = false, HelpMessage = "Maximum major versions to keep")]
-        public uint MajorVersions = 10;
+        [ValidateRange(0, int.MaxValue)]
+        public uint MajorVersions = 0;
 
         [Parameter(Mandatory = false, HelpMessage = "Maximum minor versions to keep")]
-        public uint MinorVersions = 10;
+        [ValidateRange(0, int.MaxValue)]
+        public uint MinorVersions = 0;
 
         [Parameter(Mandatory = false, HelpMessage = "Enable or disable content approval (moderation). Set to $true to enable, $false to disable.")]
         public bool EnableModeration;
@@ -79,7 +81,7 @@ namespace SharePointPnP.PowerShell.Commands.Lists
         protected override void ExecuteCmdlet()
         {
             var list = Identity.GetList(SelectedWeb);
-
+            
             if (list != null)
             {
                 var isDirty = false;
@@ -95,13 +97,13 @@ namespace SharePointPnP.PowerShell.Commands.Lists
                     isDirty = true;
                 }
 
-                if (MyInvocation.BoundParameters.ContainsKey("Hidden") && Hidden != list.Hidden)
+                if (MyInvocation.BoundParameters.ContainsKey(nameof(Hidden)) && Hidden != list.Hidden)
                 {
                     list.Hidden = Hidden;
                     isDirty = true;
                 }
 
-                if (MyInvocation.BoundParameters.ContainsKey("EnableContentTypes") && list.ContentTypesEnabled != EnableContentTypes)
+                if (MyInvocation.BoundParameters.ContainsKey(nameof(EnableContentTypes)) && list.ContentTypesEnabled != EnableContentTypes)
                 {
                     list.ContentTypesEnabled = EnableContentTypes;
                     isDirty = true;
@@ -113,25 +115,25 @@ namespace SharePointPnP.PowerShell.Commands.Lists
                 var enableMinorVersions = list.EnableMinorVersions;
                 var hidden = list.Hidden;
 
-                if (MyInvocation.BoundParameters.ContainsKey("EnableVersioning") && EnableVersioning != enableVersioning)
+                if (MyInvocation.BoundParameters.ContainsKey(nameof(EnableVersioning)) && EnableVersioning != enableVersioning)
                 {
                     list.EnableVersioning = EnableVersioning;
                     isDirty = true;
                 }
 
-                if (MyInvocation.BoundParameters.ContainsKey("EnableMinorVersions") && EnableMinorVersions != enableMinorVersions)
+                if (MyInvocation.BoundParameters.ContainsKey(nameof(EnableMinorVersions)) && EnableMinorVersions != enableMinorVersions)
                 {
                     list.EnableMinorVersions = EnableMinorVersions;
                     isDirty = true;
                 }
 
-                if (MyInvocation.BoundParameters.ContainsKey("EnableModeration"))
+                if (MyInvocation.BoundParameters.ContainsKey(nameof(EnableModeration)))
                 {
                     list.EnableModeration = EnableModeration;
                     isDirty = true;
                 }
 
-                if (MyInvocation.BoundParameters.ContainsKey("NoCrawl"))
+                if (MyInvocation.BoundParameters.ContainsKey(nameof(NoCrawl)))
                 {
                     list.NoCrawl = NoCrawl;
                     isDirty = true;
@@ -146,28 +148,22 @@ namespace SharePointPnP.PowerShell.Commands.Lists
 
                 if (list.EnableVersioning)
                 {
-                    // list or doclib?
-
-                    if (list.BaseType == BaseType.DocumentLibrary)
+                    if (MyInvocation.BoundParameters.ContainsKey(nameof(MajorVersions)))
                     {
-                        if (MyInvocation.BoundParameters.ContainsKey("MajorVersions"))
-                        {
-                            list.MajorVersionLimit = (int)MajorVersions;
-                            isDirty = true;
-                        }
+                        list.MajorVersionLimit = (int)MajorVersions;
+                        isDirty = true;
+                    }
 
-                        if (MyInvocation.BoundParameters.ContainsKey("MinorVersions") && list.EnableMinorVersions)
+                    if (MyInvocation.BoundParameters.ContainsKey(nameof(MinorVersions)) && list.EnableMinorVersions)
+                    {
+                        if (list.BaseType == BaseType.DocumentLibrary)
                         {
                             list.MajorWithMinorVersionsLimit = (int)MinorVersions;
                             isDirty = true;
                         }
-                    }
-                    else
-                    {
-                        if (MyInvocation.BoundParameters.ContainsKey("MajorVersions"))
+                        else
                         {
-                            list.MajorVersionLimit = (int)MajorVersions;
-                            isDirty = true;
+                            WriteWarning("Cannot set minor version retention because list is not a document library. Value will be ignored.");
                         }
                     }
                 }
