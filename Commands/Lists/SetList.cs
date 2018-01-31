@@ -76,6 +76,12 @@ namespace SharePointPnP.PowerShell.Commands.Lists
 
             if (list != null)
             {
+                list.EnsureProperties(l => l.EnableVersioning, l => l.EnableMinorVersions, l => l.Hidden);
+                
+                var enableVersioning = list.EnableVersioning;
+                var enableMinorVersions = list.EnableMinorVersions;
+                var hidden = list.Hidden;
+
                 var isDirty = false;
                 if (BreakRoleInheritance)
                 {
@@ -100,12 +106,6 @@ namespace SharePointPnP.PowerShell.Commands.Lists
                     list.ContentTypesEnabled = EnableContentTypes;
                     isDirty = true;
                 }
-
-                list.EnsureProperties(l => l.EnableVersioning, l => l.EnableMinorVersions, l => l.Hidden);
-
-                var enableVersioning = list.EnableVersioning;
-                var enableMinorVersions = list.EnableMinorVersions;
-                var hidden = list.Hidden;
 
                 if (MyInvocation.BoundParameters.ContainsKey("EnableVersioning") && EnableVersioning != enableVersioning)
                 {
