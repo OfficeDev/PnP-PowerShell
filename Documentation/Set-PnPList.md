@@ -22,6 +22,8 @@ Set-PnPList -Identity <ListPipeBind>
             [-EnableMinorVersions <Boolean>]
             [-MajorVersions <UInt32>]
             [-MinorVersions <UInt32>]
+            [-EnableModeration <Boolean>]
+            [-NoCrawl <Boolean>]
             [-Web <WebPipeBind>]
             [-Connection <SPOnlineConnection>]
 ```
@@ -125,6 +127,18 @@ Position: Named
 Accept pipeline input: False
 ```
 
+### -EnableModeration
+Enable or disable content approval (moderation). Set to $true to enable, $false to disable.
+
+```yaml
+Type: Boolean
+Parameter Sets: (All)
+
+Required: False
+Position: Named
+Accept pipeline input: False
+```
+
 ### -EnableVersioning
 Enable or disable versioning. Set to $true to enable, $false to disable.
 
@@ -178,6 +192,18 @@ Maximum minor versions to keep
 
 ```yaml
 Type: UInt32
+Parameter Sets: (All)
+
+Required: False
+Position: Named
+Accept pipeline input: False
+```
+
+### -NoCrawl
+Set to $true to prevent this list from being crawled, or $false to allow the crawler.
+
+```yaml
+Type: Boolean
 Parameter Sets: (All)
 
 Required: False
