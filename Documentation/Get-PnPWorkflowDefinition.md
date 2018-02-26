@@ -6,7 +6,7 @@ schema: 2.0.0
 # Get-PnPWorkflowDefinition
 
 ## SYNOPSIS
-Return a workflow definition
+Returns a workflow definition
 
 ## SYNTAX 
 
@@ -27,14 +27,14 @@ Returns a workflow definition
 PS:> Get-PnPWorkflowDefinition -Name MyWorkflow
 ```
 
-Gets an Workflow with the name "MyWorkflow".
+Gets a Workflow with the name "MyWorkflow".
 
 ### ------------------EXAMPLE 2------------------
 ```powershell
 PS:> Get-PnPWorkflowDefinition -Name MyWorkflow -PublishedOnly $false
 ```
 
-Gets an Workflow with the name "MyWorkflow" that is published.
+Gets a Workflow with the name "MyWorkflow" that is published.
 
 ## PARAMETERS
 
@@ -63,7 +63,7 @@ Accept pipeline input: False
 ```
 
 ### -Connection
-Optional connection to be used by cmdlet. Retrieve the value for this parameter by eiter specifying -ReturnConnection on Connect-PnPOnline or by executing Get-PnPConnection.
+Optional connection to be used by the cmdlet. Retrieve the value for this parameter by either specifying -ReturnConnection on Connect-PnPOnline or by executing Get-PnPConnection.
 
 ```yaml
 Type: SPOnlineConnection
