@@ -258,7 +258,11 @@ namespace SharePointPnP.PowerShell.Commands.Utilities
         private ClassFactory()
         {
             AssemblyName name = new AssemblyName("DynamicClasses");
+#if !NETSTANDARD2_0
             AssemblyBuilder assembly = AppDomain.CurrentDomain.DefineDynamicAssembly(name, AssemblyBuilderAccess.Run);
+#else
+            AssemblyBuilder assembly = AssemblyBuilder.DefineDynamicAssembly(name, AssemblyBuilderAccess.Run);
+#endif
 #if ENABLE_LINQ_PARTIAL_TRUST
             new ReflectionPermission(PermissionState.Unrestricted).Assert();
 #endif
@@ -312,7 +316,11 @@ namespace SharePointPnP.PowerShell.Commands.Utilities
                     FieldInfo[] fields = GenerateProperties(tb, properties);
                     GenerateEquals(tb, fields);
                     GenerateGetHashCode(tb, fields);
+#if !NETSTANDARD2_0
                     Type result = tb.CreateType();
+#else
+                    Type result = tb.CreateTypeInfo().AsType();
+#endif
                     classCount++;
                     return result;
                 }

@@ -5,18 +5,19 @@ using OfficeDevPnP.Core.Framework.Provisioning.Providers;
 using OfficeDevPnP.Core.Framework.Provisioning.Providers.Xml;
 using SharePointPnP.PowerShell.CmdletHelpAttributes;
 using SharePointPnP.PowerShell.Commands.Base.PipeBinds;
+using SharePointPnP.PowerShell.Commands.Utilities;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Management.Automation;
 using System.Text;
-using System.Threading.Tasks;
+using System.Text.RegularExpressions;
+using SPSite = Microsoft.SharePoint.Client.Site;
 
 namespace SharePointPnP.PowerShell.Commands.Provisioning
 {
-    [Cmdlet("Add", "PnPDataRowsToProvisioningTemplate")]
-    
+    [Cmdlet(VerbsCommon.Add, "PnPDataRowsToProvisioningTemplate")]
     [CmdletHelp("Adds datarows to a list inside a PnP Provisioning Template",
         Category = CmdletHelpCategory.Provisioning)]
     [CmdletExample(
@@ -44,21 +45,26 @@ namespace SharePointPnP.PowerShell.Commands.Provisioning
         [Parameter(Mandatory = false, Position = 5, HelpMessage = "A switch to include ObjectSecurity information.")]
         public SwitchParameter IncludeSecurity;
 
-        [Parameter(Mandatory = false, Position = 4, HelpMessage = "Allows you to specify ITemplateProviderExtension to execute while loading the template." )]
+        [Parameter(Mandatory = false, Position = 4, HelpMessage = "Allows you to specify ITemplateProviderExtension to execute while loading the template.")]
         public ITemplateProviderExtension[] TemplateProviderExtensions;
 
+        [Parameter(Mandatory = false, HelpMessage = "If set, this switch will try to tokenize the values with web and site related tokens")]
+        public SwitchParameter TokenizeUrls;
 
+        private readonly static FieldType[] _unsupportedFieldTypes =
+        {
+            FieldType.Attachments,
+            FieldType.Computed
+        };
 
         protected override void ExecuteCmdlet()
         {
-
-
             if (!System.IO.Path.IsPathRooted(Path))
             {
                 Path = System.IO.Path.Combine(SessionState.Path.CurrentFileSystemLocation.Path, Path);
             }
 
-            var template = LoadProvisioningTemplate
+            var template = ReadProvisioningTemplate
                     .LoadProvisioningTemplateFromFile(Path,
                     TemplateProviderExtensions);
 
@@ -77,6 +83,13 @@ namespace SharePointPnP.PowerShell.Commands.Provisioning
             List spList = List.GetList(SelectedWeb);
             ClientContext.Load(spList, l => l.RootFolder, l => l.HasUniqueRoleAssignments);
             ClientContext.ExecuteQueryRetry();
+
+            if (TokenizeUrls.IsPresent)
+            {
+                ClientContext.Load(ClientContext.Web, w => w.Url, w => w.ServerRelativeUrl, w => w.Id);
+                ClientContext.Load(ClientContext.Site, s => s.Url, s => s.ServerRelativeUrl, s => s.Id);
+                ClientContext.Load(ClientContext.Web.Lists, lists => lists.Include(l=>l.Title, l => l.RootFolder.ServerRelativeUrl));
+            }
 
             CamlQuery query = new CamlQuery();
 
@@ -98,7 +111,7 @@ namespace SharePointPnP.PowerShell.Commands.Provisioning
             ClientContext.ExecuteQueryRetry();
 
             Microsoft.SharePoint.Client.FieldCollection fieldCollection = spList.Fields;
-            ClientContext.Load(fieldCollection, fs => fs.Include(f => f.InternalName, f => f.FieldTypeKind));
+            ClientContext.Load(fieldCollection, fs => fs.Include(f => f.InternalName, f => f.FieldTypeKind, f => f.ReadOnlyField));
             ClientContext.ExecuteQueryRetry();
 
             var rows = new DataRowCollection(template);
@@ -107,7 +120,6 @@ namespace SharePointPnP.PowerShell.Commands.Provisioning
                 //Make sure we don't pull Folders.. Of course this won't work
                 if (listItem.ServerObjectIsNull == false)
                 {
-
                     ClientContext.Load(listItem);
                     ClientContext.ExecuteQueryRetry();
                     if (!(listItem.FileSystemObjectType == FileSystemObjectType.Folder))
@@ -137,29 +149,37 @@ namespace SharePointPnP.PowerShell.Commands.Provisioning
                         }
                         if (Fields != null)
                         {
-                            foreach (var field in Fields)
+                            foreach (var fieldName in Fields)
                             {
-                                Microsoft.SharePoint.Client.Field dataField = fieldCollection.FirstOrDefault(f => f.InternalName == field);
+                                Microsoft.SharePoint.Client.Field dataField = fieldCollection.FirstOrDefault(f => f.InternalName == fieldName);
 
                                 if (dataField != null)
                                 {
-                                    var defaultFieldValue = listItem[field] as string;
-                                    row.Values.Add(field, defaultFieldValue);
+                                    var defaultFieldValue = GetFieldValueAsText(ClientContext.Web, listItem, dataField);
+                                    if (TokenizeUrls.IsPresent)
+                                    {
+                                        defaultFieldValue = Tokenize(defaultFieldValue, ClientContext.Web, ClientContext.Site);
+                                    }
 
+                                    row.Values.Add(fieldName, defaultFieldValue);
                                 }
-
-
                             }
                         }
                         else
                         {
-                            //All fields are added
-                            foreach (var field in fieldCollection)
+                            //All fields are added except readonly fields and unsupported field type
+                            var fieldsToExport = fieldCollection.AsEnumerable()
+                                .Where(f => !f.ReadOnlyField && !_unsupportedFieldTypes.Contains(f.FieldTypeKind));
+                            foreach (var field in fieldsToExport)
                             {
                                 var fldKey = (from f in listItem.FieldValues.Keys where f == field.InternalName select f).FirstOrDefault();
                                 if (!string.IsNullOrEmpty(fldKey))
                                 {
-                                    var fieldValue = listItem[field.InternalName] as string;
+                                    var fieldValue = GetFieldValueAsText(ClientContext.Web, listItem, field);
+                                    if (TokenizeUrls.IsPresent)
+                                    {
+                                        fieldValue = Tokenize(fieldValue, ClientContext.Web, ClientContext.Site);
+                                    }
                                     row.Values.Add(field.InternalName, fieldValue);
                                 }
                             }
@@ -191,6 +211,85 @@ namespace SharePointPnP.PowerShell.Commands.Provisioning
                 XMLTemplateProvider provider = new XMLFileSystemTemplateProvider(Path, "");
                 provider.SaveAs(template, Path, formatter, TemplateProviderExtensions);
             }
+        }
+
+        private string GetFieldValueAsText(Web web, ListItem listItem, Microsoft.SharePoint.Client.Field field)
+        {
+            var rawValue = listItem[field.InternalName];
+            if (rawValue == null) return null;
+
+            switch (field.FieldTypeKind)
+            {
+                case FieldType.Geolocation:
+                    var geoValue = (FieldGeolocationValue)rawValue;
+                    return $"{geoValue.Altitude},{geoValue.Latitude},{geoValue.Longitude},{geoValue.Measure}";
+                case FieldType.URL:
+                    var urlValue = (FieldUrlValue)rawValue;
+                    return $"{urlValue.Url},{urlValue.Description}";
+                case FieldType.Lookup:
+                    var strVal = rawValue as string;
+                    if(strVal != null)
+                    {
+                        return strVal;
+                    }
+                    var singleLookupValue = rawValue as FieldLookupValue;
+                    if (singleLookupValue != null)
+                    {
+                        return singleLookupValue.LookupId.ToString();
+                    }
+                    var multipleLookupValue = rawValue as FieldLookupValue[];
+                    if (multipleLookupValue != null)
+                    {
+                        return string.Join(",", multipleLookupValue.Select(lv => lv.LookupId));
+                    }
+                    throw new Exception("Invalid data in field");
+                case FieldType.User:
+                    var singleUserValue = rawValue as FieldUserValue;
+                    if (singleUserValue != null)
+                    {
+                        return GetLoginName(web, singleUserValue.LookupId);
+                    }
+                    var multipleUserValue = rawValue as FieldUserValue[];
+                    if (multipleUserValue != null)
+                    {
+                        return string.Join(",", multipleUserValue.Select(lv => GetLoginName(web,lv.LookupId)));
+                    }
+                    throw new Exception("Invalid data in field");
+                default:
+                    return Convert.ToString(rawValue);
+            }
+        }
+
+        private Dictionary<Guid, Dictionary<int, string>> _webUserCache = new Dictionary<Guid, Dictionary<int, string>>();
+        private string GetLoginName(Web web, int userId)
+        {
+            if (!_webUserCache.ContainsKey(web.Id)) _webUserCache.Add(web.Id, new Dictionary<int, string>());
+            if (!_webUserCache[web.Id].ContainsKey(userId))
+            {
+                var user = web.GetUserById(userId);
+                web.Context.Load(user, u => u.LoginName);
+                web.Context.ExecuteQueryRetry();
+                _webUserCache[web.Id].Add(userId, user.LoginName);
+            }
+            return _webUserCache[web.Id][userId];
+        }
+
+        private static string Tokenize(string input, Web web, SPSite site)
+        {
+            if (string.IsNullOrEmpty(input)) return input;
+            //foreach (var list in lists)
+            //{
+            //    input = input.ReplaceCaseInsensitive(web.Url.TrimEnd('/') + "/" + list.GetWebRelativeUrl(), "{listurl:" + Regex.Escape(list.Title) + "}");
+            //    input = input.ReplaceCaseInsensitive(list.RootFolder.ServerRelativeUrl, "{listurl:" + Regex.Escape(list.Title)+ "}");
+            //}
+            input = input.ReplaceCaseInsensitive(web.Url, "{site}");
+            input = input.ReplaceCaseInsensitive(web.ServerRelativeUrl, "{site}");
+            input = input.ReplaceCaseInsensitive(web.Id.ToString(), "{siteid}");
+            input = input.ReplaceCaseInsensitive(site.ServerRelativeUrl, "{sitecollection}");
+            input = input.ReplaceCaseInsensitive(site.Id.ToString(), "{sitecollectionid}");
+            input = input.ReplaceCaseInsensitive(site.Url, "{sitecollection}");
+
+            return input;
         }
     }
 }

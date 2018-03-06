@@ -29,7 +29,7 @@ namespace SharePointPnP.PowerShell.ModuleFilesGenerator
         private List<CmdletInfo> GetCmdlets()
         {
             List<CmdletInfo> cmdlets = new List<CmdletInfo>();
-            var types = _assembly.GetTypes().Where(t => t.BaseType != null && (t.BaseType.Name.StartsWith("SPO") || t.BaseType.Name.StartsWith("PnP") || t.BaseType.Name == "PSCmdlet")).OrderBy(t => t.Name).ToArray();
+            var types = _assembly.GetTypes().Where(t => t.BaseType != null && (t.BaseType.Name.StartsWith("SPO") || t.BaseType.Name.StartsWith("PnP") || t.BaseType.Name == "PSCmdlet" || (t.BaseType.BaseType != null && (t.BaseType.BaseType.Name.StartsWith("PnP") || t.BaseType.BaseType.Name == "PSCmdlet")))).OrderBy(t => t.Name).ToArray();
 
             foreach (var type in types)
             {
@@ -43,17 +43,38 @@ namespace SharePointPnP.PowerShell.ModuleFilesGenerator
                     var cmdletAttribute = attribute as CmdletAttribute;
                     if (cmdletAttribute != null)
                     {
+#if !NETCOREAPP2_0
                         var a = cmdletAttribute;
                         cmdletInfo.Verb = a.VerbName;
                         cmdletInfo.Noun = a.NounName;
-
+#else
+                        var customAttributesData = type.GetCustomAttributesData();
+                        var customAttributeData = customAttributesData.FirstOrDefault(c => c.AttributeType == typeof(CmdletAttribute));
+                        if (customAttributeData != null)
+                        {
+                            cmdletInfo.Verb = customAttributeData.ConstructorArguments[0].Value.ToString();
+                            cmdletInfo.Noun = customAttributeData.ConstructorArguments[1].Value.ToString();
+                        }
+#endif
                     }
-#pragma warning disable CS0612 // Type or member is obsolete
-                    var aliasAttribute = attribute as CmdletAliasAttribute;
-#pragma warning restore CS0612 // Type or member is obsolete
+                    var aliasAttribute = attribute as AliasAttribute;
                     if (aliasAttribute != null)
                     {
-                        cmdletInfo.Aliases.Add(aliasAttribute.Alias);
+#if !NETCOREAPP2_0
+                        foreach (var name in aliasAttribute.AliasNames)
+                        {
+                            cmdletInfo.Aliases.Add(name);
+                        }
+#else
+                        var customAttributeData = type.GetCustomAttributesData().FirstOrDefault(c => c.AttributeType == typeof(AliasAttribute));
+                        if (customAttributeData != null)
+                        {
+                            foreach (var name in customAttributeData.ConstructorArguments)
+                            {
+                                cmdletInfo.Aliases.Add(name.Value as string);
+                            }
+                        }
+#endif
                     }
 
                     var helpAttribute = attribute as CmdletHelpAttribute;
@@ -68,21 +89,22 @@ namespace SharePointPnP.PowerShell.ModuleFilesGenerator
                         cmdletInfo.OutputType = a.OutputType;
                         cmdletInfo.OutputTypeLink = a.OutputTypeLink;
                         cmdletInfo.OutputTypeDescription = a.OutputTypeDescription;
-                        if(a.SupportedPlatform.HasFlag(CmdletSupportedPlatform.All))
+                        if (a.SupportedPlatform.HasFlag(CmdletSupportedPlatform.All))
                         {
                             cmdletInfo.Platform = "All";
-                        } else
+                        }
+                        else
                         {
                             List<string> platforms = new List<string>();
-                            if(a.SupportedPlatform.HasFlag(CmdletSupportedPlatform.OnPremises))
+                            if (a.SupportedPlatform.HasFlag(CmdletSupportedPlatform.OnPremises))
                             {
                                 platforms.Add("SharePoint On-Premises");
                             }
-                            if(a.SupportedPlatform.HasFlag(CmdletSupportedPlatform.Online))
+                            if (a.SupportedPlatform.HasFlag(CmdletSupportedPlatform.Online))
                             {
                                 platforms.Add("SharePoint Online");
                             }
-                            if(a.SupportedPlatform.HasFlag(CmdletSupportedPlatform.SP2013))
+                            if (a.SupportedPlatform.HasFlag(CmdletSupportedPlatform.SP2013))
                             {
                                 platforms.Add("SharePoint 2013");
                             }
@@ -92,7 +114,7 @@ namespace SharePointPnP.PowerShell.ModuleFilesGenerator
                             }
                             cmdletInfo.Platform = string.Join(", ", platforms);
                         }
-                       
+
                     }
                     var exampleAttribute = attribute as CmdletExampleAttribute;
                     if (exampleAttribute != null)
@@ -144,6 +166,10 @@ namespace SharePointPnP.PowerShell.ModuleFilesGenerator
                             syntaxes.Add(cmdletSyntax);
                         }
                         var typeString = field.FieldType.Name;
+                        if (field.FieldType.IsGenericType)
+                        {
+                            typeString = field.FieldType.GenericTypeArguments[0].Name;
+                        }
                         var fieldAttribute = field.FieldType.GetCustomAttributes<CmdletPipelineAttribute>(false).FirstOrDefault();
                         if (fieldAttribute != null)
                         {
@@ -184,6 +210,10 @@ namespace SharePointPnP.PowerShell.ModuleFilesGenerator
                     syntaxes.Add(cmdletSyntax);
                 }
                 var typeString = additionalParameter.ParameterType.Name;
+                if (additionalParameter.ParameterType.IsGenericType)
+                {
+                    typeString = additionalParameter.ParameterType.GenericTypeArguments[0].Name;
+                }
                 var fieldAttribute = additionalParameter.ParameterType.GetCustomAttributes<CmdletPipelineAttribute>(false).FirstOrDefault();
                 if (fieldAttribute != null)
                 {
@@ -226,6 +256,10 @@ namespace SharePointPnP.PowerShell.ModuleFilesGenerator
                         foreach (var syntax in syntaxes)
                         {
                             var typeString = field.FieldType.Name;
+                            if (field.FieldType.IsGenericType)
+                            {
+                                typeString = field.FieldType.GenericTypeArguments[0].Name;
+                            }
                             var fieldAttribute = field.FieldType.GetCustomAttributes<CmdletPipelineAttribute>(false).FirstOrDefault();
                             if (fieldAttribute != null)
                             {
@@ -270,9 +304,9 @@ namespace SharePointPnP.PowerShell.ModuleFilesGenerator
 
                 if (!obsolete)
                 {
-                    var aliases = fieldInfo.GetCustomAttributes<AliasAttribute>(true);
-                    var parameterAttributes = fieldInfo.GetCustomAttributes<ParameterAttribute>(true);
-                    var pnpParameterAttributes = fieldInfo.GetCustomAttributes<PnPParameterAttribute>(true);
+                    var aliases = field.GetCustomAttributes<AliasAttribute>(true);
+                    var parameterAttributes = field.GetCustomAttributes<ParameterAttribute>(true);
+                    var pnpParameterAttributes = field.GetCustomAttributes<PnPParameterAttribute>(true);
                     foreach (var parameterAttribute in parameterAttributes)
                     {
                         var description = parameterAttribute.HelpMessage;
@@ -285,12 +319,18 @@ namespace SharePointPnP.PowerShell.ModuleFilesGenerator
                                 description = helpParameterAttribute.HelpMessage;
                             }
                         }
+                        
                         var typeString = field.FieldType.Name;
+                        if(field.FieldType.IsGenericType)
+                        {
+                            typeString = field.FieldType.GenericTypeArguments[0].Name;
+                        }
                         var fieldAttribute = field.FieldType.GetCustomAttributes<CmdletPipelineAttribute>(false).FirstOrDefault();
                         if (fieldAttribute != null)
                         {
                             if (fieldAttribute.Type != null)
                             {
+                               
                                 typeString = string.Format(fieldAttribute.Description, fieldAttribute.Type.Name);
                             }
                             else
@@ -317,10 +357,18 @@ namespace SharePointPnP.PowerShell.ModuleFilesGenerator
 
                         if (aliases != null && aliases.Any())
                         {
+#if !NETCOREAPP2_0
                             foreach (var aliasAttribute in aliases)
                             {
                                 cmdletParameterInfo.Aliases.AddRange(aliasAttribute.AliasNames);
                             }
+#else
+                            var customAttributesData = fieldInfo.GetCustomAttributesData();
+                            foreach (var aliasAttribute in customAttributesData.Where(c => c.AttributeType == typeof(AliasAttribute)))
+                            {
+                                cmdletParameterInfo.Aliases.AddRange(aliasAttribute.ConstructorArguments.Select(a => a.ToString()));
+                            }
+#endif
                         }
                         parameters.Add(cmdletParameterInfo);
 
@@ -353,11 +401,8 @@ namespace SharePointPnP.PowerShell.ModuleFilesGenerator
                     ParameterSetName = additionalParameter.ParameterSetName
                 });
             }
-
             return parameters;
         }
-
-
 
         #region Helpers
         private static List<FieldInfo> GetFields(Type t)

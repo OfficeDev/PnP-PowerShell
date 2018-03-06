@@ -287,7 +287,7 @@ namespace SharePointPnP.PowerShell.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No Azure AD connection, please connect first with Connect-PnPOnline -Scopes or Connect-PnPOnline -AppId -AppSecret -AADDomain.
+        ///   Looks up a localized string similar to No Azure AD connection, please connect first with Connect-PnPOnline -Graph, Connect-PnPOnline -Scopes or Connect-PnPOnline -AppId -AppSecret -AADDomain.
         /// </summary>
         internal static string NoAzureADAccessToken {
             get {
@@ -328,16 +328,6 @@ namespace SharePointPnP.PowerShell.Commands.Properties {
         internal static string OfficeDevPnPPowerShellLibrary0 {
             get {
                 return ResourceManager.GetString("OfficeDevPnPPowerShellLibrary0", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
-        /// </summary>
-        internal static System.Drawing.Icon pnp {
-            get {
-                object obj = ResourceManager.GetObject("pnp", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
             }
         }
         
@@ -455,6 +445,15 @@ namespace SharePointPnP.PowerShell.Commands.Properties {
         internal static string RemoveNavigationNode0 {
             get {
                 return ResourceManager.GetString("RemoveNavigationNode0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove all Navigation Nodes in {0}?.
+        /// </summary>
+        internal static string RemoveNavigationNodeInLocation {
+            get {
+                return ResourceManager.GetString("RemoveNavigationNodeInLocation", resourceCulture);
             }
         }
         

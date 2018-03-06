@@ -1,4 +1,5 @@
 ﻿using OfficeDevPnP.Core.Entities;
+using OfficeDevPnP.Core.Framework.Graph;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,5 +41,31 @@ namespace SharePointPnP.PowerShell.Commands.Base.PipeBinds
         public String DisplayName => (_displayName);
 
         public String GroupId => (_groupId);
+
+        public UnifiedGroupEntity GetGroup(string accessToken)
+        {
+            UnifiedGroupEntity group = null;
+            if (Group != null)
+            {
+                group = UnifiedGroupsUtility.GetUnifiedGroup(Group.GroupId, accessToken);
+            }
+            else if (!String.IsNullOrEmpty(GroupId))
+            {
+                group = UnifiedGroupsUtility.GetUnifiedGroup(GroupId, accessToken);
+            }
+            else if (!string.IsNullOrEmpty(DisplayName))
+            {
+                var groups = UnifiedGroupsUtility.ListUnifiedGroups(accessToken, DisplayName, includeSite: true);
+                if (groups == null || groups.Count == 0)
+                {
+                    groups = UnifiedGroupsUtility.ListUnifiedGroups(accessToken, mailNickname: DisplayName, includeSite: true);
+                }
+                if (groups != null && groups.Any())
+                {
+                    group = groups.FirstOrDefault();
+                }
+            }
+            return group;
+        }
     }
 }

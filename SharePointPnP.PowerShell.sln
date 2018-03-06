@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2026
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharePointPnP.PowerShell.Commands", "Commands\SharePointPnP.PowerShell.Commands.csproj", "{1DDE6F0A-CA49-419A-9CE8-A6CA02F43CE0}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -18,7 +18,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharePointPnP.PowerShell.Cm
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{AB70588E-5972-4D9B-9342-C8CA3275F80A}"
 	ProjectSection(SolutionItems) = preProject
-		changelog.md = changelog.md
+		CHANGELOG.md = CHANGELOG.md
 		CONTRIBUTING.md = CONTRIBUTING.md
 		readme.md = readme.md
 	EndProjectSection
@@ -188,5 +188,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D11AA7CC-F036-413F-BFD0-0184165B99D6}
 	EndGlobalSection
 EndGlobal

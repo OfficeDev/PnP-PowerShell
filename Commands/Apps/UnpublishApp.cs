@@ -18,7 +18,7 @@ namespace SharePointPnP.PowerShell.Commands.Apps
         {
             var manager = new OfficeDevPnP.Core.ALM.AppManager(ClientContext);
 
-            manager.Retract(Identity.GetId());
+            manager.Retract(Identity.Id);
         }
     }
 }

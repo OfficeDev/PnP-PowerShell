@@ -115,6 +115,10 @@ PS:> Apply-PnPProvisioningTemplate -Path NewTemplate.xml -ExtensibilityHandlers 
                     {
                         Path = System.IO.Path.Combine(SessionState.Path.CurrentFileSystemLocation.Path, Path);
                     }
+                    if(!System.IO.File.Exists(Path))
+                    {
+                        throw new FileNotFoundException($"File not found");
+                    }
                     if (!string.IsNullOrEmpty(ResourceFolder))
                     {
                         if (!System.IO.Path.IsPathRooted(ResourceFolder))

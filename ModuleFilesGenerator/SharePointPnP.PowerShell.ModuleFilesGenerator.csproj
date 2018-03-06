@@ -100,7 +100,6 @@
     <Compile Include="DiffMatchPatch.cs" />
     <Compile Include="GenerateModuleFiles.cs" />
     <Compile Include="CmdletsAnalyzer.cs" />
-    <Compile Include="MarkDownGenerator.cs" />
     <Compile Include="HelpFileGenerator.cs" />
     <Compile Include="Model\CmdletInfo.cs" />
     <Compile Include="Model\CmdletParameterInfo.cs" />
@@ -111,9 +110,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="landingpage.md">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -123,6 +119,10 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>del $(ProjectDir)\obj\SharePointPnP.PowerShell.Core.*
+del $(ProjectDir)\obj\*.json</PreBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

@@ -28,17 +28,15 @@ namespace SharePointPnP.PowerShell.Commands
 
         protected override void ExecuteCmdlet()
         {
-
-            var designs = Tenant.GetSiteDesigns();
-            ClientContext.Load(designs);
-            ClientContext.ExecuteQueryRetry();
             if (MyInvocation.BoundParameters.ContainsKey("Identity"))
             {
-                var design = designs.FirstOrDefault(t => t.Id == Identity.Id);
-                WriteObject(design);
+                WriteObject(Identity.GetTenantSiteDesign(Tenant));
             }
             else
             {
+                var designs = Tenant.GetSiteDesigns();
+                ClientContext.Load(designs);
+                ClientContext.ExecuteQueryRetry();
                 WriteObject(designs.ToList(), true);
             }
         }

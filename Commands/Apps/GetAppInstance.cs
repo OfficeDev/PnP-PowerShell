@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Management.Automation;
 using Microsoft.SharePoint.Client;
@@ -7,6 +8,9 @@ using SharePointPnP.PowerShell.Commands.Base.PipeBinds;
 
 namespace SharePointPnP.PowerShell.Commands.Apps
 {
+#if !ONPREMISES
+    [Obsolete("Use Get-PnPApp instead")]
+#endif
     [Cmdlet(VerbsCommon.Get, "PnPAppInstance")]
     [CmdletHelp("Returns a SharePoint AddIn Instance",
         "Returns a SharePoint App/Addin that has been installed in the current site",

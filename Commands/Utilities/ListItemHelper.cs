@@ -11,12 +11,33 @@ namespace SharePointPnP.PowerShell.Commands.Utilities
 {
     public static class ListItemHelper
     {
-        public static ListItem UpdateListItem(ListItem item, Hashtable valuesToSet, bool systemUpdate, Action<string> warningCallback, Action<string,string> terminatingError)
+        private class FieldUpdateValue
         {
+            public string Key { get; set; }
+            public object Value { get; set; }
+            public string FieldTypeString { get; set; }
+
+            public FieldUpdateValue(string key, object value)
+            {
+                Key = key;
+                Value = value;
+            }
+            public FieldUpdateValue(string key, object value, string fieldTypeString)
+            {
+                Key = key;
+                Value = value;
+                FieldTypeString = fieldTypeString;
+            }
+        }
+
+        public static ListItem UpdateListItem(ListItem item, Hashtable valuesToSet, bool systemUpdate, Action<string> warningCallback, Action<string, string> terminatingError)
+        {
+            var itemValues = new List<FieldUpdateValue>();
+
             var context = item.Context as ClientContext;
             var list = item.ParentList;
             context.Web.EnsureProperty(w => w.Url);
-            
+
             var clonedContext = context.Clone(context.Web.Url);
             var web = clonedContext.Web;
 
@@ -26,7 +47,7 @@ namespace SharePointPnP.PowerShell.Commands.Utilities
             context.ExecuteQueryRetry();
 
             Hashtable values = valuesToSet ?? new Hashtable();
-            
+
             foreach (var key in values.Keys)
             {
                 var field = fields.FirstOrDefault(f => f.InternalName == key as string || f.Title == key as string);
@@ -58,7 +79,7 @@ namespace SharePointPnP.PowerShell.Commands.Utilities
                                             userValues.Add(new FieldUserValue() { LookupId = userId });
                                         }
                                     }
-                                    item[key as string] = userValues.ToArray();
+                                    itemValues.Add(new FieldUpdateValue(key as string, userValues.ToArray(), null));
                                 }
                                 else
                                 {
@@ -68,11 +89,11 @@ namespace SharePointPnP.PowerShell.Commands.Utilities
                                         var user = web.EnsureUser(value as string);
                                         clonedContext.Load(user);
                                         clonedContext.ExecuteQueryRetry();
-                                        item[key as string] = new FieldUserValue() { LookupId = user.Id };
+                                        itemValues.Add(new FieldUpdateValue(key as string, new FieldUserValue() { LookupId = user.Id }));
                                     }
                                     else
                                     {
-                                        item[key as string] = new FieldUserValue() { LookupId = userId };
+                                        itemValues.Add(new FieldUpdateValue(key as string, new FieldUserValue() { LookupId = userId }));
                                     }
                                 }
                                 break;
@@ -104,7 +125,6 @@ namespace SharePointPnP.PowerShell.Commands.Utilities
                                     }
 
                                     TaxonomyField taxField = context.CastTo<TaxonomyField>(field);
-
                                     taxField.EnsureProperty(tf => tf.AllowMultipleValues);
                                     if (taxField.AllowMultipleValues)
                                     {
@@ -117,8 +137,7 @@ namespace SharePointPnP.PowerShell.Commands.Utilities
                                         termValuesString = termValuesString.Substring(0, termValuesString.Length - 2);
 
                                         var newTaxFieldValue = new TaxonomyFieldValueCollection(context, termValuesString, taxField);
-                                        taxField.SetFieldValueByValueCollection(item, newTaxFieldValue);
-                                       
+                                        itemValues.Add(new FieldUpdateValue(key as string, newTaxFieldValue, field.TypeAsString));
                                     }
                                     else
                                     {
@@ -152,7 +171,7 @@ namespace SharePointPnP.PowerShell.Commands.Utilities
                                     {
                                         taxValue.TermGuid = taxonomyItem.Id.ToString();
                                         taxValue.Label = taxonomyItem.Name;
-                                        taxField.SetFieldValueByValue(item, taxValue);
+                                        itemValues.Add(new FieldUpdateValue(key as string, taxValue, field.TypeAsString));
                                     }
                                     else
                                     {
@@ -190,15 +209,12 @@ namespace SharePointPnP.PowerShell.Commands.Utilities
                                 {
                                     throw new Exception("Field " + field.InternalName + " does not support multiple values");
                                 }
-
-                                item[key as string] = newVals;
-
+                                itemValues.Add(new FieldUpdateValue(key as string, newVals));
                                 break;
                             }
                         default:
                             {
-                                item[key as string] = values[key];
-
+                                itemValues.Add(new FieldUpdateValue(key as string, values[key]));
                                 break;
                             }
                     }
@@ -208,11 +224,39 @@ namespace SharePointPnP.PowerShell.Commands.Utilities
                     terminatingError?.Invoke($"Field {key} not present in list.", "FIELDNOTINLIST");
                 }
             }
+            foreach (var itemValue in itemValues)
+            {
+                if (string.IsNullOrEmpty(itemValue.FieldTypeString))
+                {
+                    item[itemValue.Key] = itemValue.Value;
+                }
+                else
+                {
+                    switch (itemValue.FieldTypeString)
+                    {
+                        case "TaxonomyFieldTypeMulti":
+                            {
+                                var field = fields.FirstOrDefault(f => f.InternalName == itemValue.Key as string || f.Title == itemValue.Key as string);
+                                var taxField = context.CastTo<TaxonomyField>(field);
+                                taxField.SetFieldValueByValueCollection(item, itemValue.Value as TaxonomyFieldValueCollection);
+                                break;
+                            }
+                        case "TaxonomyFieldType":
+                            {
+                                var field = fields.FirstOrDefault(f => f.InternalName == itemValue.Key as string || f.Title == itemValue.Key as string);
+                                var taxField = context.CastTo<TaxonomyField>(field);
+                                taxField.SetFieldValueByValue(item, itemValue.Value as TaxonomyFieldValue);
+                                break;
+                            }
+                    }
+                }
+            }
 #if !ONPREMISES
-            if(systemUpdate)
+            if (systemUpdate)
             {
                 item.SystemUpdate();
-            } else
+            }
+            else
             {
                 item.Update();
             }

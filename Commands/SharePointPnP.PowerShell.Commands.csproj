@@ -117,7 +117,8 @@
     <RootNamespace>SharePointPnP.PowerShell.Commands</RootNamespace>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Resources\pnp.ico</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
   </PropertyGroup>
   <Choose>
     <When Condition=" '$(Configuration)' == 'debug' Or '$(Configuration)' == 'release' ">
@@ -409,18 +410,63 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Admin\AddOffice365GroupToSite.cs" />
+    <Compile Include="Admin\AddSiteCollectionAppCatalog.cs" />
+    <Compile Include="Admin\AddTenantTheme.cs" />
+    <Compile Include="Admin\DisconnectHubSite.cs" />
+    <Compile Include="Admin\ConnectHubSite.cs" />
+    <Compile Include="Admin\GetHubSite.cs" />
+    <Compile Include="Admin\SetTenant.cs" />
+    <Compile Include="Admin\GetTenantCdnEnabled.cs" />
+    <Compile Include="Admin\GrantHubSiteRights.cs" />
+    <Compile Include="Admin\SetHubSite.cs" />
+    <Compile Include="Admin\GetTenantCdnPolicies.cs" />
+    <Compile Include="Admin\SetTenantCdnEnabled.cs" />
+    <Compile Include="Admin\GetTenantTheme.cs" />
+    <Compile Include="Admin\GetTenant.cs" />
+    <Compile Include="Admin\SetTenantCdnPolicy.cs" />
+    <Compile Include="Admin\UnregisterHubSite.cs" />
+    <Compile Include="Admin\RegisterHubSite.cs" />
+    <Compile Include="Admin\RemoveTenantCdnOrigin.cs" />
+    <Compile Include="Admin\AddTenantCdnOrigin.cs" />
     <Compile Include="Admin\GetTenantAppCatalogUrl.cs" />
+    <Compile Include="Admin\GetTenantCdnOrigin.cs" />
+    <Compile Include="Admin\RemoveSiteCollectionAppCatalog.cs" />
     <Compile Include="Admin\RemoveStorageEntity.cs" />
+    <Compile Include="Admin\RemoveTenantTheme.cs" />
+    <Compile Include="Base\AddStoredCredential.cs" />
+    <Compile Include="Base\GetAccessToken.cs" />
+    <Compile Include="Base\GetAzureCertificate.cs" />
+    <Compile Include="Base\NewAzureCertificate.cs" />
+    <Compile Include="Base\RemoveStoredCredential.cs" />
     <Compile Include="Base\PipeBinds\ClientSideWebPartPipeBind.cs" />
+    <Compile Include="Base\PipeBinds\HubSitePipeBind.cs" />
+    <Compile Include="Base\PipeBinds\NavigationNodePipeBind.cs" />
+    <Compile Include="Base\PipeBinds\RoleDefinitionPipeBind.cs" />
+    <Compile Include="Base\PipeBinds\ThemePalettePipeBind.cs" />
+    <Compile Include="Base\PipeBinds\ThemePipeBind.cs" />
+    <Compile Include="Base\PipeBinds\SitePipeBind.cs" />
     <Compile Include="Base\PipeBinds\TenantSiteScriptPipeBind.cs" />
     <Compile Include="Base\PipeBinds\TenantSiteDesignPipeBind.cs" />
+    <Compile Include="Branding\GetNavigationNode.cs" />
+    <Compile Include="Branding\SetWebTheme.cs" />
     <Compile Include="ClientSidePages\GetClientSideComponent.cs" />
     <Compile Include="ClientSidePages\RemoveClientSideComponent.cs" />
     <Compile Include="ClientSidePages\MoveClientSideComponent.cs" />
     <Compile Include="ClientSidePages\SetClientSideText.cs" />
     <Compile Include="ClientSidePages\SetClientSideWebPart.cs" />
+    <Compile Include="Enums\CdnType.cs" />
     <Compile Include="Enums\SiteWebTemplate.cs" />
+    <Compile Include="Model\ConnectionMethod.cs" />
+    <Compile Include="Model\GraphObject.cs" />
+    <Compile Include="Model\ResponseCollection.cs" />
+    <Compile Include="Model\SPOPublicCdnOrigin.cs" />
+    <Compile Include="Model\SPOTenant.cs" />
+    <Compile Include="Model\SPOTheme.cs" />
+    <Compile Include="Model\TokenResult.cs" />
+    <Compile Include="SiteDesigns\InvokeSiteDesign.cs" />
     <Compile Include="SiteDesigns\SetSiteDesign.cs" />
+    <Compile Include="Diagnostic\MeasureResponseTimeMode.cs" />
     <Compile Include="SiteDesigns\AddSiteScript.cs" />
     <Compile Include="SiteDesigns\AddSiteDesign.cs" />
     <Compile Include="SiteDesigns\RevokeSiteDesignRights.cs" />
@@ -494,12 +540,11 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Apps\UninstallAppInstance.cs" />
-    <Compile Include="Base\GetPnPAccessToken.cs" />
     <Compile Include="Base\GetProperty.cs" />
     <Compile Include="Base\GetAuthenticationRealm.cs" />
     <Compile Include="Base\Constants.cs" />
-    <Compile Include="Base\GetAzureADManifestKeyCredentials.cs" />
-    <Compile Include="Base\deprecated\ConnectPnPMicrosoftGraph.cs" />
+    <Compile Include="Base\deprecated\GetAzureADManifestKeyCredentials.deprecated.cs" />
+    <Compile Include="Base\deprecated\ConnectPnPMicrosoftGraph.deprecated.cs" />
     <Compile Include="Base\PipeBinds\DocumentSetPipeBind.cs" />
     <Compile Include="Base\PipeBinds\FeaturePipeBind.cs" />
     <Compile Include="Base\PipeBinds\ListItemPipeBind.cs" />
@@ -512,7 +557,7 @@
     <Compile Include="Base\GetContext.cs" />
     <Compile Include="Base\GetStoredCredential.cs" />
     <Compile Include="Base\GetHealthScore.cs" />
-    <Compile Include="Base\ExecuteQuery.cs" />
+    <Compile Include="Base\InvokeQuery.cs" />
     <Compile Include="Base\DisconnectSPOnline.cs" />
     <Compile Include="Base\PipeBinds\FieldPipeBind.cs" />
     <Compile Include="Base\PipeBinds\ListPipeBind.cs" />
@@ -550,7 +595,19 @@
     <Compile Include="ClientSidePages\ClientSidePageUtilities.cs" />
     <Compile Include="ClientSidePages\SetClientSidePage.cs" />
     <Compile Include="ClientSidePages\AddClientSideText.cs" />
+    <Compile Include="Site\AddRoleDefinition.cs" />
+    <Compile Include="Site\GetRoleDefinition.cs" />
+    <Compile Include="Site\RemoveRoleDefinition.cs" />
+    <Compile Include="Site\TestOffice365GroupAliasIsUsed.cs" />
+    <Compile Include="Utilities\BrowserHelper.cs" />
+    <Compile Include="Utilities\CertificateCrypto.cs" />
+    <Compile Include="Utilities\CertificateHelper.cs" />
+    <Compile Include="Utilities\Clipboard.cs" />
+    <Compile Include="Utilities\OperatingSystem.cs" />
+    <Compile Include="Utilities\Shell.cs" />
+    <Compile Include="Utilities\StringExtensions.cs" />
     <Compile Include="SiteDesigns\SetSiteScript.cs" />
+    <Compile Include="Utilities\UrlUtilities.cs" />
     <Compile Include="WebParts\AddClientSideWebPart.cs" />
     <Compile Include="ClientSidePages\GetAvailableClientSideComponents.cs" />
     <Compile Include="ClientSidePages\RemoveClientSidePage.cs" />
@@ -572,7 +629,7 @@
     <Compile Include="InformationManagement\GetSiteClosure.cs" />
     <Compile Include="InformationManagement\SetSiteClosure.cs" />
     <Compile Include="Provisioning\AddFileToProvisioningTemplate.cs" />
-    <Compile Include="Provisioning\LoadProvisioningTemplate.cs" />
+    <Compile Include="Provisioning\ReadProvisioningTemplate.cs" />
     <Compile Include="Provisioning\NewProvisioningTemplate.cs" />
     <Compile Include="Components\PnPTemplatesGalleryResultItem.cs" />
     <Compile Include="Components\ProvisioningTemplateInformation.cs" />
@@ -669,7 +726,6 @@
     <Compile Include="Search\GetSearchConfiguration.cs" />
     <Compile Include="RecycleBin\MoveRecycleBinItem.cs" />
     <Compile Include="Search\SubmitSearchQuery.cs" />
-    <Compile Include="Site\AddOffice365GroupToSite.cs" />
     <Compile Include="Site\AddSiteCollectionAdmin.cs" />
     <Compile Include="Site\GetAuditing.cs" />
     <Compile Include="RecycleBin\GetRecycleBinItem.cs" />
@@ -706,7 +762,7 @@
     <Compile Include="Web\GetRequestAccessEmails.cs" />
     <Compile Include="Principals\GetUser.cs" />
     <Compile Include="Web\InvokeWebAction.cs" />
-    <Compile Include="Files\EnsureFolder.cs" />
+    <Compile Include="Files\ResolveFolder.cs" />
     <Compile Include="Files\AddFolder.cs" />
     <Compile Include="Web\RemovedIndexedProperty.cs" />
     <Compile Include="Files\RemoveFile.cs" />
@@ -834,21 +890,24 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\pnp.ico" />
+    <Content Include="Resources\pnp.ico" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>"$(SolutionDir)\ModuleFilesGenerator\bin\$(ConfigurationName)\SharePointPnP.PowerShell.ModuleFilesGenerator.exe"  "$(TargetPath)" "$(ConfigurationName)" "$(SolutionDir)
-C:\windows\system32\windowspowershell\v1.0\powershell.exe -ExecutionPolicy bypass -NoLogo -NonInteractive -Command .'$(SolutionDir)PostBuild.ps1' -ProjectDir:'$(ProjectDir)' -ConfigurationName:'$(ConfigurationName)' -TargetDir:'$(TargetDir)' -TargetFileName:'$(TargetFileName)' -TargetName:'$(TargetName)' -SolutionDir:'$(SolutionDir)'
-</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
     <ProjectGuid>{1DDE6F0A-CA49-419A-9CE8-A6CA02F43CE0}</ProjectGuid>
   </PropertyGroup>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
   <Target Name="BeforeBuild">
+    <Exec Command="del $(ProjectDir)\obj\SharePointPnP.PowerShell.Core.*" />
+    <Exec Command="del $(ProjectDir)\obj\*.json" />
   </Target>
   <Target Name="AfterBuild">
+    <Exec Command="&quot;$(SolutionDir)ModuleFilesGenerator\bin\$(ConfigurationName)\SharePointPnP.PowerShell.ModuleFilesGenerator.exe&quot; &quot;$(TargetPath)&quot; &quot;$(ConfigurationName)&quot; &quot;$(SolutionDir)" />
+    <Exec Command="powershell.exe -ExecutionPolicy bypass -NoLogo -NonInteractive -Command .'$(SolutionDir)PostBuild.ps1' -ProjectDir:'$(ProjectDir)' -ConfigurationName:'$(ConfigurationName)' -TargetDir:'$(TargetDir)' -TargetFileName:'$(TargetFileName)' -TargetName:'$(TargetName)' -SolutionDir:'$(SolutionDir)'" />
   </Target>
-  -->
 </Project>

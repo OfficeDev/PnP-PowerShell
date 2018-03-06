@@ -18,7 +18,7 @@ namespace SharePointPnP.PowerShell.Commands.Apps
         protected override void ExecuteCmdlet()
         {
             var manager = new AppManager(ClientContext);
-            manager.Upgrade(Identity.GetId());
+            manager.Upgrade(Identity.Id);
         }
     }
 }

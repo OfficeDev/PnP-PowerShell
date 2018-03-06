@@ -147,8 +147,9 @@ namespace SharePointPnP.PowerShell.Commands.Files
                 {
                     try
                     {
+                        var targetFile = UrlUtility.Combine(TargetUrl, file.Name);
                         // If src/dst are on the same Web, then try using CopyTo - backwards compability
-                        file.CopyTo(TargetUrl, OverwriteIfAlreadyExists);
+                        file.CopyTo(targetFile, OverwriteIfAlreadyExists);
                         _sourceContext.ExecuteQueryRetry();
                         return;
                     }

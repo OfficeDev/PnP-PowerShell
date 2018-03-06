@@ -22,7 +22,7 @@ namespace SharePointPnP.PowerShell.Commands.Apps
         {
             var manager = new OfficeDevPnP.Core.ALM.AppManager(ClientContext);
 
-            manager.Deploy(Identity.GetId(),SkipFeatureDeployment);
+            manager.Deploy(Identity.Id,SkipFeatureDeployment);
         }
     }
 }

@@ -86,7 +86,6 @@
   <ItemGroup>
     <Compile Include="CmdletPipeLineAttribute.cs" />
     <Compile Include="CmdletAdditionalParameterAttribute.cs" />
-    <Compile Include="CmdletAliasAttribute.cs" />
     <Compile Include="CmdletExampleAttribute.cs" />
     <Compile Include="CmdletHelpCategory.cs" />
     <Compile Include="CmdletRelatedLinkAttribute.cs" />
@@ -96,6 +95,10 @@
     <Compile Include="CmdletHelpAttribute.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>del $(ProjectDir)\obj\SharePointPnP.PowerShell.Core.*
+del $(ProjectDir)\obj\*.json</PreBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

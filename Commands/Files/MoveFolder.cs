@@ -8,7 +8,10 @@ namespace SharePointPnP.PowerShell.Commands.Files
 {
     [Cmdlet(VerbsCommon.Move, "PnPFolder")]
     [CmdletHelp("Move a folder to another location in the current web",
-        Category = CmdletHelpCategory.Files)]
+        Category = CmdletHelpCategory.Files,
+        OutputType = typeof(Folder),
+        OutputTypeLink = "https://msdn.microsoft.com/en-us/library/microsoft.sharepoint.client.folder.aspx"
+    )]
     [CmdletExample(
         Code = @"PS:> Move-PnPFolder -Folder Documents/Reports -TargetFolder 'Archived Reports'",
         Remarks = "This will move the folder Reports in the Documents library to the 'Archived Reports' library",
@@ -34,9 +37,14 @@ namespace SharePointPnP.PowerShell.Commands.Files
             ClientContext.Load(sourceFolder, f => f.Name, f => f.ServerRelativeUrl);
             ClientContext.ExecuteQueryRetry();
 
-            var targetPath = string.Concat(TargetFolder,"/",sourceFolder.Name);
+            var targetPath = string.Concat(TargetFolder, "/", sourceFolder.Name);
             sourceFolder.MoveTo(targetPath);
             ClientContext.ExecuteQueryRetry();
+
+            var folder = SelectedWeb.GetFolderByServerRelativeUrl(targetPath);
+            ClientContext.Load(folder, f => f.Name, f => f.ItemCount, f => f.TimeLastModified, f => f.ListItemAllFields);
+            ClientContext.ExecuteQueryRetry();
+            WriteObject(folder);
         }
     }
 }

@@ -187,7 +187,7 @@ namespace SharePointPnP.PowerShell.Commands.Files
             {
                 var item = file.ListItemAllFields;
 
-                ListItemHelper.UpdateListItem(item, Values, false,
+                ListItemHelper.UpdateListItem(item, Values, true,
                     (warning) =>
                     {
                         WriteWarning(warning);

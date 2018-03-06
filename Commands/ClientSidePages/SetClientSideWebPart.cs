@@ -11,7 +11,7 @@ namespace SharePointPnP.PowerShell.Commands.ClientSidePages
     [Cmdlet(VerbsCommon.Set, "PnPClientSideWebPart")]
     [CmdletHelp("Set Client-Side Web Part properties",
         SupportedPlatform = CmdletSupportedPlatform.Online,
-        DetailedDescription = "Sets specific client side webpart properties. Notice that the title parameter will only set the -internal- title of webpart. The title which is shown in the UI will, if possible, have to be set using the PropertiesJson parameter. Use Get-PnPClientSideWebPart to retrieve the instance id and properties of a webpart.",
+        DetailedDescription = "Sets specific client side webpart properties. Notice that the title parameter will only set the -internal- title of webpart. The title which is shown in the UI will, if possible, have to be set using the PropertiesJson parameter. Use Get-PnPClientSideComponent to retrieve the instance id and properties of a webpart.",
         Category = CmdletHelpCategory.WebParts)]
     [CmdletExample(
         Code = @"PS:> Set-PnPClientSideWebPart -Page Home -InstanceId a2875399-d6ff-43a0-96da-be6ae5875f82 -PropertiesJson $myproperties",

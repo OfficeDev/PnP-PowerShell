@@ -12,8 +12,17 @@ namespace SharePointPnP.PowerShell.Commands.Diagnostic
 {
     [Cmdlet(VerbsDiagnostic.Measure, "PnPWeb")]
     [CmdletHelp("Returns statistics on the web object",
-        Category = CmdletHelpCategory.Diagnostic,
-         SupportedPlatform = CmdletSupportedPlatform.Online|CmdletSupportedPlatform.SP2016)]
+        SupportedPlatform = CmdletSupportedPlatform.Online | CmdletSupportedPlatform.SP2016,
+        Category = CmdletHelpCategory.Diagnostic)]
+    [CmdletExample(
+        Code = @"PS:> Measure-PnPWeb",
+        Remarks = @"Gets statistics on the current web",
+        SortOrder = 1)]
+    [CmdletExample(
+        Code = @"PS:> Measure-PnPList $web -Recursive",
+        Remarks = @"Gets statistics on the chosen including all sub webs",
+        SortOrder = 2)]
+
     public class MeasurePnPWeb : PnPCmdlet
     {
         private Expression<Func<Web, object>>[] _retrievalExpressions;
@@ -21,10 +30,10 @@ namespace SharePointPnP.PowerShell.Commands.Diagnostic
         [Parameter(Mandatory = false, ValueFromPipeline = true, Position = 0)]
         public WebPipeBind Identity;
 
-        [Parameter(Mandatory = false)]
+        [Parameter(Mandatory = false, HelpMessage = "Iterate all sub webs recursively")]
         public SwitchParameter Recursive;
 
-        [Parameter(Mandatory = false)]
+        [Parameter(Mandatory = false, HelpMessage = "Include hidden lists in statistics calculation")]
         public SwitchParameter IncludeHiddenList;
 
         public MeasurePnPWeb()
@@ -102,13 +111,13 @@ namespace SharePointPnP.PowerShell.Commands.Diagnostic
             };
 
             var i = 0;
-            foreach(var folder in web.Folders)
+            foreach (var folder in web.Folders)
             {
                 stat += GetFolderStatistics(folder);
                 WriteProgress(progress, $"Retrieving folder data {folder.Name}", i++, web.Folders.Count);
             }
 
-            foreach(var list in uniqueLists)
+            foreach (var list in uniqueLists)
             {
                 WriteVerbose($"List {list.Title} has unique permissions");
             }

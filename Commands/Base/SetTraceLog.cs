@@ -89,10 +89,14 @@ namespace SharePointPnP.PowerShell.Commands.Base
                 }
                 else
                 {
+#if !NETSTANDARD2_0
                     ConsoleTraceListener consoleListener = new ConsoleTraceListener(false);
                     consoleListener.Name = Listenername;
                     Trace.Listeners.Add(consoleListener);
                     OfficeDevPnP.Core.Diagnostics.Log.LogLevel = Level;
+#else   
+                    WriteWarning("Console logging not supported");
+#endif
                 }
                 Trace.AutoFlush = AutoFlush;
                 Trace.IndentSize = IndentSize;

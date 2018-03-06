@@ -1,0 +1,66 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <AssemblyName>SharePointPnP.PowerShell.Core</AssemblyName>
+    <RootNamespace>SharePointPnP.PowerShell.Commands</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="ModuleFiles\SharePointPnP.PowerShell.2013.Commands.Format.ps1xml" />
+    <None Remove="ModuleFiles\SharePointPnP.PowerShell.2016.Commands.Format.ps1xml" />
+    <None Remove="ModuleFiles\SharePointPnP.PowerShell.Online.Commands.Format.ps1xml" />
+    <None Remove="SharePointPnP.PowerShell.Commands.csproj.DotSettings" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Identity.Client" Version="1.1.2-preview0008" />
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+    <PackageReference Include="PowerShellStandard.Library" Version="3.0.0-preview-01" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.2.1" />
+    <PackageReference Include="System.Reflection.Emit" Version="4.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <CustomToolNamespace></CustomToolNamespace>
+    </EmbeddedResource>
+  </ItemGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\HelpAttributes\SharePointPnP.PowerShell.Core.Attributes.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="OfficeDevPnP.Core">
+      <HintPath>..\..\PnP-Sites-Core\Core\OfficeDevPnP.Core\bin\Debug\netstandard2.0\OfficeDevPnP.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="SharePointPnP.Client">
+      <HintPath>..\..\PnP-Sites-Core\Assemblies\16.1\SharePointPnP.Client.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="ModuleFiles\SharePointPnP.PowerShell.Core.Format.ps1xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="dotnet &quot;$(ProjectDir)..\ModuleFilesGenerator\bin\$(ConfigurationName)\netcoreapp2.0\SharePointPnP.PowerShell.ModuleFilesGenerator.dll&quot; &quot;$(TargetPath)&quot; &quot;$(ConfigurationName)&quot; &quot;$(SolutionDir)" />
+    <Exec Command="pwsh.exe -ExecutionPolicy bypass -NoLogo -NonInteractive -Command .'$(SolutionDir)postbuild.ps1' -ProjectDir:'$(ProjectDir)' -ConfigurationName:'$(ConfigurationName)' -TargetDir:'$(TargetDir)' -TargetFileName:'$(TargetFileName)' -TargetName:'$(TargetName)' -SolutionDir:'$(SolutionDir)'" />
+  </Target>
+
+</Project>

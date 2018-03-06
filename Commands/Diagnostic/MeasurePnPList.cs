@@ -14,16 +14,25 @@ namespace SharePointPnP.PowerShell.Commands.Diagnostic
     [Cmdlet(VerbsDiagnostic.Measure, "PnPList")]
     [CmdletHelp("Returns statistics on the list object",
         Category = CmdletHelpCategory.Diagnostic,
-        SupportedPlatform = CmdletSupportedPlatform.Online|CmdletSupportedPlatform.SP2016)]
+        SupportedPlatform = CmdletSupportedPlatform.Online | CmdletSupportedPlatform.SP2016)]
+    [CmdletExample(
+        Code = @"PS:> Measure-PnPList ""Documents""",
+        Remarks = @"Gets statistics on Documents document library",
+        SortOrder = 1)]
+    [CmdletExample(
+        Code = @"PS:> Measure-PnPList ""Documents"" -BrokenPermissions -ItemLevel",
+        Remarks = @"Displays items and folders with broken permissions inside Documents library",
+        SortOrder = 2)]
+    
     public class MeasurePnPList : PnPWebRetrievalsCmdlet<List>
     {
         [Parameter(Mandatory = true, ValueFromPipeline = true, Position = 0)]
         public ListPipeBind Identity;
 
-        [Parameter(Mandatory = false)]
+        [Parameter(Mandatory = false, HelpMessage = "Show item level statistics")]
         public SwitchParameter ItemLevel;
 
-        [Parameter(Mandatory = false)]
+        [Parameter(Mandatory = false, HelpMessage = "Show items with broken permissions")]
         public SwitchParameter BrokenPermissions;
 
         protected override void ExecuteCmdlet()

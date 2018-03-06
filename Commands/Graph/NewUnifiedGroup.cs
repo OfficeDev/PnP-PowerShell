@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace SharePointPnP.PowerShell.Commands.Graph
 {
-    [Cmdlet("New", "PnPUnifiedGroup")]
+    [Cmdlet(VerbsCommon.New, "PnPUnifiedGroup")]
     [CmdletHelp("Creates a new Office 365 Group (aka Unified Group)",
         Category = CmdletHelpCategory.Graph,
         SupportedPlatform = CmdletSupportedPlatform.Online)]
@@ -41,7 +41,7 @@ namespace SharePointPnP.PowerShell.Commands.Graph
         [Parameter(Mandatory = true, HelpMessage = "The Description of the Office 365 Group.")]
         public String Description;
 
-        [Parameter(Mandatory = true, HelpMessage = "The Mail Nickname of the Office 365 Group.")]
+        [Parameter(Mandatory = true, HelpMessage = "The Mail Nickname of the Office 365 Group. Cannot contain spaces.")]
         public String MailNickname;
 
         [Parameter(Mandatory = false, HelpMessage = "The array UPN values of the group's owners.")]
@@ -61,6 +61,10 @@ namespace SharePointPnP.PowerShell.Commands.Graph
 
         protected override void ExecuteCmdlet()
         {
+            if(MailNickname.Contains(" "))
+            {
+                throw new ArgumentException("MailNickname cannot contain spaces.");
+            }
             bool forceCreation;
 
             if (!Force)

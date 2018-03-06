@@ -216,10 +216,6 @@
   <data name="RemoveListItemWithId0" xml:space="preserve">
     <value>Remove list item with ID {0}?</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="pnp" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\pnp.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="RemoveTermGroup0AndAllUnderlyingTermSetsAndTerms" xml:space="preserve">
     <value>Remove Termgroup '{0}' and all underlying Termsets and Terms? </value>
   </data>
@@ -230,7 +226,7 @@
     <value>Remove Term '{0}' and all underlying Terms?</value>
   </data>
   <data name="NoAzureADAccessToken" xml:space="preserve">
-    <value>No Azure AD connection, please connect first with Connect-PnPOnline -Scopes or Connect-PnPOnline -AppId -AppSecret -AADDomain</value>
+    <value>No Azure AD connection, please connect first with Connect-PnPOnline -Graph, Connect-PnPOnline -Scopes or Connect-PnPOnline -AppId -AppSecret -AADDomain</value>
   </data>
   <data name="MicrosoftGraphOAuthAccessTokenExpired" xml:space="preserve">
     <value>The Azure AD OAuth 2.0 Access Token has expired. Authenticate again using the Connect-PnPMicrosoftGraph cmdlet.</value>
@@ -309,5 +305,8 @@
   </data>
   <data name="RemoveComponentWithInstanceId0" xml:space="preserve">
     <value>Remove component with instance id '{0}'?</value>
+  </data>
+  <data name="RemoveNavigationNodeInLocation" xml:space="preserve">
+    <value>Remove all Navigation Nodes in {0}?</value>
   </data>
 </root>

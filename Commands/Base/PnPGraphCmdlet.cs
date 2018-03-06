@@ -1,4 +1,6 @@
-﻿using Microsoft.Graph;
+﻿#if !NETSTANDARD2_0
+using Microsoft.Graph;
+#endif
 using SharePointPnP.PowerShell.Commands.Properties;
 using System;
 using System.Collections.Generic;
@@ -28,8 +30,16 @@ namespace SharePointPnP.PowerShell.Commands.Base
                     }
                     else
                     {
+#if !NETSTANDARD2_0
                         return (SPOnlineConnection.AuthenticationResult.Token);
+#else
+                        return SPOnlineConnection.AuthenticationResult.AccessToken;
+#endif
                     }
+                }
+                else if (SPOnlineConnection.CurrentConnection.AccessToken != null)
+                {
+                    return SPOnlineConnection.CurrentConnection.AccessToken;
                 }
                 else
                 {
@@ -41,13 +51,45 @@ namespace SharePointPnP.PowerShell.Commands.Base
 
         protected override void BeginProcessing()
         {
+
             base.BeginProcessing();
 
-            if (SPOnlineConnection.AuthenticationResult == null || 
-                String.IsNullOrEmpty(SPOnlineConnection.AuthenticationResult.Token))
+#if !NETSTANDARD2_0
+
+            if (SPOnlineConnection.CurrentConnection != null && SPOnlineConnection.CurrentConnection.ConnectionMethod == Model.ConnectionMethod.GraphDeviceLogin)
             {
-                throw new InvalidOperationException(Resources.NoAzureADAccessToken);
+                if (string.IsNullOrEmpty(SPOnlineConnection.CurrentConnection.AccessToken))
+                {
+                    throw new InvalidOperationException(Resources.NoAzureADAccessToken);
+                }
             }
+            else
+            {
+                if (SPOnlineConnection.AuthenticationResult == null ||
+                String.IsNullOrEmpty(SPOnlineConnection.AuthenticationResult.Token))
+                {
+                    throw new InvalidOperationException(Resources.NoAzureADAccessToken);
+                }
+            }
+#else
+            if (SPOnlineConnection.CurrentConnection != null && (SPOnlineConnection.CurrentConnection.ConnectionMethod == Model.ConnectionMethod.GraphDeviceLogin || SPOnlineConnection.CurrentConnection.ConnectionMethod == Model.ConnectionMethod.AccessToken))
+            {
+                // Graph Connection
+                if (string.IsNullOrEmpty(SPOnlineConnection.CurrentConnection.AccessToken))
+                {
+                    throw new InvalidOperationException(Resources.NoAzureADAccessToken);
+                }
+            }
+            else
+            {
+                //Normal connection
+                if (SPOnlineConnection.AuthenticationResult == null ||
+                string.IsNullOrEmpty(SPOnlineConnection.AuthenticationResult.AccessToken))
+                {
+                    throw new InvalidOperationException(Resources.NoAzureADAccessToken);
+                }
+            }
+#endif
         }
 
         protected virtual void ExecuteCmdlet()

@@ -4,7 +4,7 @@ using SharePointPnP.PowerShell.CmdletHelpAttributes;
 
 namespace SharePointPnP.PowerShell.Commands.Principals
 {
-    [Cmdlet("New", "PnPUser")]
+    [Cmdlet(VerbsCommon.New, "PnPUser")]
     [CmdletHelp("Adds a user to the built-in Site User Info List and returns a user object",
         Category = CmdletHelpCategory.Principals,
         OutputType = typeof(User),

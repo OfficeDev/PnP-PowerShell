@@ -44,7 +44,7 @@ namespace SharePointPnP.PowerShell.Commands.Workflows
                 {
                     Identity.Instance.CancelWorkFlow();
                 }
-                ClientContext.ExecuteQuery();
+                ClientContext.ExecuteQueryRetry();
             }
             else if (Identity.Id != Guid.Empty)
             {
@@ -61,7 +61,7 @@ namespace SharePointPnP.PowerShell.Commands.Workflows
                     {
                         instance.CancelWorkFlow();
                     }
-                    ClientContext.ExecuteQuery();
+                    ClientContext.ExecuteQueryRetry();
                     break;
                 }
             }

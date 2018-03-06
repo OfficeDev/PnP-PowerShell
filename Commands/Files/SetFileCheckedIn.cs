@@ -26,9 +26,14 @@ namespace SharePointPnP.PowerShell.Commands.Files
         [Parameter(Mandatory = false, HelpMessage = @"The check in comment")]
         public string Comment = "";
 
+        [Parameter(Mandatory = false, HelpMessage = "Approve file")]
+        public SwitchParameter Approve;
+
         protected override void ExecuteCmdlet()
         {
             SelectedWeb.CheckInFile(Url, CheckinType, Comment);
+            if (Approve)
+                SelectedWeb.ApproveFile(Url, Comment);
         }
     }
 }

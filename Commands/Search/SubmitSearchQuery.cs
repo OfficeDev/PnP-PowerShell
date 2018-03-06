@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace SharePointPnP.PowerShell.Commands.Search
 {
-    [Cmdlet("Submit", "PnPSearchQuery", DefaultParameterSetName = "Limit")]
+    [Cmdlet(VerbsLifecycle.Submit, "PnPSearchQuery", DefaultParameterSetName = "Limit")]
     [CmdletHelp("Executes an arbitrary search query against the SharePoint search index",
         Category = CmdletHelpCategory.Search,
         OutputType = typeof(List<dynamic>))]

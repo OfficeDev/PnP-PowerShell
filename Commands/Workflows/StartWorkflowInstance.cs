@@ -58,7 +58,7 @@ namespace SharePointPnP.PowerShell.Commands.Workflows
             {
                 var inputParameters = new Dictionary<string, object>();
                 instanceService.StartWorkflowOnListItem(Subscription.Subscription, ListItemID, inputParameters);
-                ClientContext.ExecuteQuery();
+                ClientContext.ExecuteQueryRetry();
             }
         }
     }

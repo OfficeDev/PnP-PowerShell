@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace SharePointPnP.PowerShell.Commands.Graph
 {
-    [Cmdlet("Remove", "PnPUnifiedGroup")]
+    [Cmdlet(VerbsCommon.Remove, "PnPUnifiedGroup")]
     [CmdletHelp("Removes one Office 365 Group (aka Unified Group) or a list of Office 365 Groups",
         Category = CmdletHelpCategory.Graph,
         SupportedPlatform = CmdletSupportedPlatform.Online)]
@@ -34,18 +34,8 @@ namespace SharePointPnP.PowerShell.Commands.Graph
         {
             if (Identity != null)
             {
-                UnifiedGroupEntity group = null;
-
-                // We have to retrieve a specific group
-                if (Identity.Group != null)
-                {
-                    group = UnifiedGroupsUtility.GetUnifiedGroup(Identity.Group.GroupId, AccessToken, includeSite: false);
-                }
-                else if (!String.IsNullOrEmpty(Identity.GroupId))
-                {
-                    group = UnifiedGroupsUtility.GetUnifiedGroup(Identity.GroupId, AccessToken, includeSite: false);
-                }
-
+                UnifiedGroupEntity group = Identity.GetGroup(AccessToken);
+                
                 if (group != null)
                 {
                     UnifiedGroupsUtility.DeleteUnifiedGroup(group.GroupId, AccessToken);

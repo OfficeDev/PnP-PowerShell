@@ -16,7 +16,7 @@ using Microsoft.SharePoint.Client;
 
 namespace SharePointPnP.PowerShell.Commands.Provisioning
 {
-    [Cmdlet("Add", "PnPListFoldersToProvisioningTemplate")]
+    [Cmdlet(VerbsCommon.Add, "PnPListFoldersToProvisioningTemplate")]
 
     [CmdletHelp("Adds folders to a list in a PnP Provisioning Template",
         Category = CmdletHelpCategory.Provisioning)]
@@ -60,7 +60,7 @@ namespace SharePointPnP.PowerShell.Commands.Provisioning
                 Path = System.IO.Path.Combine(SessionState.Path.CurrentFileSystemLocation.Path, Path);
             }
             // Load the template
-            var template = LoadProvisioningTemplate
+            var template = ReadProvisioningTemplate
                 .LoadProvisioningTemplateFromFile(Path,
                 TemplateProviderExtensions);
 

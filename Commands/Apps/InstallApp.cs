@@ -20,7 +20,7 @@ namespace SharePointPnP.PowerShell.Commands.Apps
         {
             var manager = new AppManager(ClientContext);
 
-            manager.Install(Identity.GetId());
+            manager.Install(Identity.Id);
         }
     }
 }

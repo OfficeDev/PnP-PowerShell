@@ -21,52 +21,62 @@ namespace SharePointPnP.PowerShell.Commands.Fields
     [CmdletExample(
      Code = @"PS:>Add-PnPField -List ""Demo list"" -DisplayName ""Speakers"" -InternalName ""SPSSpeakers"" -Type MultiChoice -Group ""Demo Group"" -AddToDefaultView -Choices ""Obiwan Kenobi"",""Darth Vader"", ""Anakin Skywalker""",
 Remarks = @"This will add a field of type Multiple Choice to the list ""Demo List"". (you can pick several choices for the same item)", SortOrder = 2)]
-    [CmdletAdditionalParameter(ParameterType = typeof(string[]),ParameterName = "Choices", HelpMessage = "Specify choices, only valid if the field type is Choice", ParameterSetName = "Add field to list")]
-    [CmdletAdditionalParameter(ParameterType = typeof(string[]), ParameterName = "Choices", HelpMessage = "Specify choices, only valid if the field type is Choice", ParameterSetName = "Add field to Web")]
+    [CmdletExample(
+        Code = @"PS:> Add-PnPField -Type Calculated -InternalName ""C1"" -DisplayName ""C1"" -Formula =""[Title]""",
+        Remarks = @"Adds a new calculated site column with the formula specified")]
+    [CmdletAdditionalParameter(ParameterType = typeof(string[]), ParameterName = "Choices", HelpMessage = "Specify choices, only valid if the field type is Choice", ParameterSetName = ParameterSet_ADDFIELDTOLIST)]
+    [CmdletAdditionalParameter(ParameterType = typeof(string[]), ParameterName = "Choices", HelpMessage = "Specify choices, only valid if the field type is Choice", ParameterSetName = ParameterSet_ADDFIELDTOWEB)]
+    [CmdletAdditionalParameter(ParameterType = typeof(string), ParameterName = "Formula", HelpMessage = "Specify the formula. Only available if the field type is Calculated", ParameterSetName = ParameterSet_ADDFIELDTOLIST)]
+    [CmdletAdditionalParameter(ParameterType = typeof(string), ParameterName = "Formula", HelpMessage = "Specify the formula. Only avialable if the field type is Calculated", ParameterSetName = ParameterSet_ADDFIELDTOWEB)]
     public class AddField : PnPWebCmdlet, IDynamicParameters
     {
-        [Parameter(Mandatory = false, ValueFromPipeline = true, ParameterSetName = "Add field to list", HelpMessage = "The name of the list, its ID or an actual list object where this field needs to be added")]
-        [Parameter(Mandatory = true, ValueFromPipeline = true, ParameterSetName = "Add field reference to list", HelpMessage = "The name of the list, its ID or an actual list object where this field needs to be added")]
+        const string ParameterSet_ADDFIELDTOLIST = "Add field to list";
+        const string ParameterSet_ADDFIELDREFERENCETOLIST = "Add field reference to list";
+        const string ParameterSet_ADDFIELDTOWEB = "Add field to web";
+        const string ParameterSet_ADDFIELDBYXMLTOLIST = "Add field by XML to list";
+
+        [Parameter(Mandatory = false, ValueFromPipeline = true, ParameterSetName = ParameterSet_ADDFIELDTOLIST, HelpMessage = "The name of the list, its ID or an actual list object where this field needs to be added")]
+        [Parameter(Mandatory = true, ValueFromPipeline = true, ParameterSetName = ParameterSet_ADDFIELDREFERENCETOLIST, HelpMessage = "The name of the list, its ID or an actual list object where this field needs to be added")]
         public ListPipeBind List;
 
-        [Parameter(Mandatory = true, ParameterSetName = "Add field reference to list", HelpMessage = "The name of the field, its ID or an actual field object that needs to be added")]
+        [Parameter(Mandatory = true, ParameterSetName = ParameterSet_ADDFIELDREFERENCETOLIST, HelpMessage = "The name of the field, its ID or an actual field object that needs to be added")]
         public FieldPipeBind Field;
 
-        [Parameter(Mandatory = true, ParameterSetName = "Add field to list", HelpMessage = "The display name of the field")]
-        [Parameter(Mandatory = true, ParameterSetName = "Add field to Web", HelpMessage = "The display name of the field")]
+        [Parameter(Mandatory = true, ParameterSetName = ParameterSet_ADDFIELDTOLIST, HelpMessage = "The display name of the field")]
+        [Parameter(Mandatory = true, ParameterSetName = ParameterSet_ADDFIELDTOWEB, HelpMessage = "The display name of the field")]
         public string DisplayName;
 
-        [Parameter(Mandatory = true, ParameterSetName = "Add field to list", HelpMessage = "The internal name of the field")]
-        [Parameter(Mandatory = true, ParameterSetName = "Add field to Web", HelpMessage = "The internal name of the field")]
+        [Parameter(Mandatory = true, ParameterSetName = ParameterSet_ADDFIELDTOLIST, HelpMessage = "The internal name of the field")]
+        [Parameter(Mandatory = true, ParameterSetName = ParameterSet_ADDFIELDTOWEB, HelpMessage = "The internal name of the field")]
         public string InternalName;
 
-        [Parameter(Mandatory = true, ParameterSetName = "Add field to list", HelpMessage = "The type of the field like Choice, Note, MultiChoice")]
-        [Parameter(Mandatory = true, ParameterSetName = "Add field to Web", HelpMessage = "The type of the field like Choice, Note, MultiChoice")]
+        [Parameter(Mandatory = true, ParameterSetName = ParameterSet_ADDFIELDTOLIST, HelpMessage = "The type of the field like Choice, Note, MultiChoice")]
+        [Parameter(Mandatory = true, ParameterSetName = ParameterSet_ADDFIELDTOWEB, HelpMessage = "The type of the field like Choice, Note, MultiChoice")]
         public FieldType Type;
 
-        [Parameter(Mandatory = false, ParameterSetName = "Add field to list", HelpMessage = "The ID of the field, must be unique")]
-        [Parameter(Mandatory = false, ParameterSetName = "Add field to Web", HelpMessage = "The ID of the field, must be unique")]
+        [Parameter(Mandatory = false, ParameterSetName = ParameterSet_ADDFIELDTOLIST, HelpMessage = "The ID of the field, must be unique")]
+        [Parameter(Mandatory = false, ParameterSetName = ParameterSet_ADDFIELDTOWEB, HelpMessage = "The ID of the field, must be unique")]
         public GuidPipeBind Id = new GuidPipeBind();
 
-        [Parameter(Mandatory = false, ParameterSetName = "Add field to list", HelpMessage = "Switch Parameter if this field must be added to the default view")]
-        [Parameter(Mandatory = false, ParameterSetName = "Add field by XML to list", HelpMessage = "Switch Parameter if this field must be added to the default view")]
+        [Parameter(Mandatory = false, ParameterSetName = ParameterSet_ADDFIELDTOLIST, HelpMessage = "Switch Parameter if this field must be added to the default view")]
+        [Parameter(Mandatory = false, ParameterSetName = ParameterSet_ADDFIELDBYXMLTOLIST, HelpMessage = "Switch Parameter if this field must be added to the default view")]
         public SwitchParameter AddToDefaultView;
 
-        [Parameter(Mandatory = false, ParameterSetName = "Add field to list", HelpMessage = "Switch Parameter if the field is a required field")]
-        [Parameter(Mandatory = false, ParameterSetName = "Add field by XML to list", HelpMessage = "Switch Parameter if the field is a required field")]
+        [Parameter(Mandatory = false, ParameterSetName = ParameterSet_ADDFIELDTOLIST, HelpMessage = "Switch Parameter if the field is a required field")]
+        [Parameter(Mandatory = false, ParameterSetName = ParameterSet_ADDFIELDBYXMLTOLIST, HelpMessage = "Switch Parameter if the field is a required field")]
         public SwitchParameter Required;
 
-        [Parameter(Mandatory = false, ParameterSetName = "Add field to list", HelpMessage = "The group name to where this field belongs to")]
-        [Parameter(Mandatory = false, ParameterSetName = "Add field by XML to list", HelpMessage = "The group name to where this field belongs to")]
+        [Parameter(Mandatory = false, ParameterSetName = ParameterSet_ADDFIELDTOLIST, HelpMessage = "The group name to where this field belongs to")]
+        [Parameter(Mandatory = false, ParameterSetName = ParameterSet_ADDFIELDBYXMLTOLIST, HelpMessage = "The group name to where this field belongs to")]
         public string Group;
 
 #if !ONPREMISES
-        [Parameter(Mandatory = false, ParameterSetName = "Add field to list", HelpMessage = "The Client Side Component Id to set to the field")]
-        [Parameter(Mandatory = false, ParameterSetName = "Add field to Web", HelpMessage = "The Client Side Component Id to set to the field")]
+        [Parameter(Mandatory = false, ParameterSetName = ParameterSet_ADDFIELDTOLIST, HelpMessage = "The Client Side Component Id to set to the field")]
+        [Parameter(Mandatory = false, ParameterSetName = ParameterSet_ADDFIELDTOWEB, HelpMessage = "The Client Side Component Id to set to the field")]
         public GuidPipeBind ClientSideComponentId;
 
-        [Parameter(Mandatory = false, ParameterSetName = "Add field to list", HelpMessage = "The Client Side Component Properties to set to the field")]
-        [Parameter(Mandatory = false, ParameterSetName = "Add field to Web", HelpMessage = "The Client Side Component Properties to set to the field")]
+        [Parameter(Mandatory = false, ParameterSetName = ParameterSet_ADDFIELDTOLIST, HelpMessage = "The Client Side Component Properties to set to the field")]
+        [Parameter(Mandatory = false, ParameterSetName = ParameterSet_ADDFIELDTOWEB, HelpMessage = "The Client Side Component Properties to set to the field")]
         public string ClientSideComponentProperties;
 #endif
 
@@ -78,13 +88,19 @@ Remarks = @"This will add a field of type Multiple Choice to the list ""Demo Lis
         {
             if (Type == FieldType.Choice || Type == FieldType.MultiChoice)
             {
-                _context = new ChoiceFieldDynamicParameters();
-                return _context;
+                choiceFieldParameters = new ChoiceFieldDynamicParameters();
+                return choiceFieldParameters;
+            }
+            if (Type == FieldType.Calculated)
+            {
+                calculatedFieldParameters = new CalculatedFieldDynamicParameters();
+                return calculatedFieldParameters;
             }
             return null;
         }
 
-        private ChoiceFieldDynamicParameters _context;
+        private ChoiceFieldDynamicParameters choiceFieldParameters;
+        private CalculatedFieldDynamicParameters calculatedFieldParameters;
 
         protected override void ExecuteCmdlet()
         {
@@ -98,7 +114,7 @@ Remarks = @"This will add a field of type Multiple Choice to the list ""Demo Lis
             {
                 var list = List.GetList(SelectedWeb);
                 Field f;
-                if (ParameterSetName != "Add field reference to list")
+                if (ParameterSetName != ParameterSet_ADDFIELDREFERENCETOLIST)
                 {
                     var fieldCI = new FieldCreationInformation(Type)
                     {
@@ -109,11 +125,11 @@ Remarks = @"This will add a field of type Multiple Choice to the list ""Demo Lis
                         AddToDefaultView = AddToDefaultView
                     };
 #if !ONPREMISES
-                    if(ClientSideComponentId != null)
+                    if (ClientSideComponentId != null)
                     {
                         fieldCI.ClientSideComponentId = ClientSideComponentId.Id;
                     }
-                    if(!string.IsNullOrEmpty(ClientSideComponentProperties))
+                    if (!string.IsNullOrEmpty(ClientSideComponentProperties))
                     {
                         fieldCI.ClientSideComponentProperties = ClientSideComponentProperties;
                     }
@@ -121,7 +137,14 @@ Remarks = @"This will add a field of type Multiple Choice to the list ""Demo Lis
                     if (Type == FieldType.Choice || Type == FieldType.MultiChoice)
                     {
                         f = list.CreateField<FieldChoice>(fieldCI);
-                        ((FieldChoice)f).Choices = _context.Choices;
+                        ((FieldChoice)f).Choices = choiceFieldParameters.Choices;
+                        f.Update();
+                        ClientContext.ExecuteQueryRetry();
+                    }
+                    else if (Type == FieldType.Calculated)
+                    {
+                        f = list.CreateField<FieldCalculated>(fieldCI);
+                        ((FieldCalculated)f).Formula = calculatedFieldParameters.Formula;
                         f.Update();
                         ClientContext.ExecuteQueryRetry();
                     }
@@ -206,7 +229,14 @@ Remarks = @"This will add a field of type Multiple Choice to the list ""Demo Lis
                 if (Type == FieldType.Choice || Type == FieldType.MultiChoice)
                 {
                     f = SelectedWeb.CreateField<FieldChoice>(fieldCI);
-                    ((FieldChoice)f).Choices = _context.Choices;
+                    ((FieldChoice)f).Choices = choiceFieldParameters.Choices;
+                    f.Update();
+                    ClientContext.ExecuteQueryRetry();
+                }
+                else if (Type == FieldType.Calculated)
+                {
+                    f = SelectedWeb.CreateField<FieldCalculated>(fieldCI);
+                    ((FieldCalculated)f).Formula = calculatedFieldParameters.Formula;
                     f.Update();
                     ClientContext.ExecuteQueryRetry();
                 }
@@ -236,7 +266,9 @@ Remarks = @"This will add a field of type Multiple Choice to the list ""Demo Lis
                         }
                     case FieldType.Calculated:
                         {
-                            WriteObject(ClientContext.CastTo<FieldCalculated>(f));
+                            var calculatedField = ClientContext.CastTo<FieldCalculated>(f);
+                            calculatedField.EnsureProperty(fc => fc.Formula);
+                            WriteObject(calculatedField);
                             break;
                         }
                     case FieldType.Computed:
@@ -303,6 +335,12 @@ Remarks = @"This will add a field of type Multiple Choice to the list ""Demo Lis
                 set { _choices = value; }
             }
             private string[] _choices;
+        }
+
+        public class CalculatedFieldDynamicParameters
+        {
+            [Parameter(Mandatory = true)]
+            public string Formula;
         }
 
     }

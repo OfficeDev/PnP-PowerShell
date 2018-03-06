@@ -17,7 +17,7 @@ namespace SharePointPnP.PowerShell.Commands
         Category = CmdletHelpCategory.TenantAdmin,
         SupportedPlatform = CmdletSupportedPlatform.Online)]
     [CmdletExample(Code = @"PS:> Get-PnPStorageEntity", Remarks = "Returns all site storage entities/farm properties", SortOrder = 1)]
-    [CmdletExample(Code = @"PS:> Get-PnPTenantSite -Key MyKey", Remarks = "Returns the storage entity/farm property with the given key.", SortOrder = 2)]
+    [CmdletExample(Code = @"PS:> Get-PnPStorageEntity -Key MyKey", Remarks = "Returns the storage entity/farm property with the given key.", SortOrder = 2)]
     public class GetPnPStorageEntity : PnPCmdlet
     {
         [Parameter(Mandatory = false, HelpMessage = "The key of the value to retrieve.")]

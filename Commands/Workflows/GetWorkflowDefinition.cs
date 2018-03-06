@@ -6,18 +6,18 @@ using SharePointPnP.PowerShell.CmdletHelpAttributes;
 namespace SharePointPnP.PowerShell.Commands.Workflows
 {
     [Cmdlet(VerbsCommon.Get, "PnPWorkflowDefinition")]
-    [CmdletHelp("Return a workflow definition",
+    [CmdletHelp("Returns a workflow definition",
         "Returns a workflow definition",
         Category = CmdletHelpCategory.Workflows,
         OutputType = typeof(WorkflowDefinition),
         OutputTypeLink = "https://msdn.microsoft.com/en-us/library/microsoft.sharepoint.client.workflowservices.workflowdefinition.aspx")]
     [CmdletExample(
         Code = @"PS:> Get-PnPWorkflowDefinition -Name MyWorkflow", 
-        Remarks = @"Gets an Workflow with the name ""MyWorkflow"".",
+        Remarks = @"Gets a Workflow with the name ""MyWorkflow"".",
         SortOrder = 1)]
     [CmdletExample(
         Code = @"PS:> Get-PnPWorkflowDefinition -Name MyWorkflow -PublishedOnly $false", 
-        Remarks = @"Gets an Workflow with the name ""MyWorkflow"" that is published.",
+        Remarks = @"Gets a Workflow with the name ""MyWorkflow"" that is published.",
         SortOrder = 2)]
     public class GetWorkflowDefinition : PnPWebCmdlet
     {

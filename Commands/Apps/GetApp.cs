@@ -5,6 +5,7 @@ using System.Management.Automation;
 using SharePointPnP.PowerShell.CmdletHelpAttributes;
 using SharePointPnP.PowerShell.Commands.Base.PipeBinds;
 using OfficeDevPnP.Core.ALM;
+using System;
 
 namespace SharePointPnP.PowerShell.Commands.Apps
 {
@@ -17,17 +18,22 @@ namespace SharePointPnP.PowerShell.Commands.Apps
     public class GetApp : PnPCmdlet
     {
         [Parameter(Mandatory = false, Position = 0, ValueFromPipeline = true, HelpMessage = "Specifies the Id of an app which is available in the app catalog")]
-        public GuidPipeBind Identity;
+        public AppMetadataPipeBind Identity;
 
         protected override void ExecuteCmdlet()
         {
             var manager = new AppManager(ClientContext);
 
-            var apps = manager.GetAvailable();
             if (MyInvocation.BoundParameters.ContainsKey("Identity"))
             {
-                var app = apps.FirstOrDefault(a => a.Id == Identity.Id);
-                
+                AppMetadata app = null;
+                if (Identity.Id != Guid.Empty)
+                {
+                    app = manager.GetAvailable(Identity.Id);
+                } else if(!string.IsNullOrEmpty(Identity.Title))
+                {
+                    app = manager.GetAvailable(Identity.Title);
+                }
                 if (app != null)
                 {
                     WriteObject(app);
@@ -39,6 +45,7 @@ namespace SharePointPnP.PowerShell.Commands.Apps
             }
             else
             {
+                var apps = manager.GetAvailable();
                 WriteObject(apps,true);
             }
         }

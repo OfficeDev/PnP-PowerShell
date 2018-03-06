@@ -25,7 +25,7 @@ namespace SharePointPnP.PowerShell.Commands.Features
         [Parameter(Mandatory = true, Position=0, ValueFromPipeline=true, HelpMessage = "The id of the feature to enable.")]
         public GuidPipeBind Identity;
 
-        [Parameter(Mandatory = false, HelpMessage = "Forcibly enable the feature.")]
+        [Parameter(Mandatory = false, HelpMessage = "Specifies whether to overwrite an existing feature with the same feature identifier. This parameter is ignored if there are no errors.")]
         public SwitchParameter Force;
 
         [Parameter(Mandatory = false, HelpMessage = "Specify the scope of the feature to activate, either Web or Site. Defaults to Web.")]

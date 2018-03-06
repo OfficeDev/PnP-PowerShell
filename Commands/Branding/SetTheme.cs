@@ -11,20 +11,20 @@ namespace SharePointPnP.PowerShell.Commands.Branding
     [Cmdlet(VerbsCommon.Set, "PnPTheme")]
     [CmdletHelp("Sets the theme of the current web.", DetailedDescription = " Sets the theme of the current web, if any of the attributes is not set, that value will be set to null", Category = CmdletHelpCategory.Branding)]
     [CmdletExample(Code = @"PS:> Set-PnPTheme", Remarks = "Removes the current theme and resets it to the default.", SortOrder = 1)]
-    [CmdletExample(Code = @"PS:> Set-PnPTheme -ColorPaletteUrl /_catalogs/theme/15/company.spcolor", SortOrder = 2)]
-    [CmdletExample(Code = @"PS:> Set-PnPTheme -ColorPaletteUrl /_catalogs/theme/15/company.spcolor -BackgroundImageUrl '/sites/Team Site/style library/background.png'", SortOrder = 3)]
-    [CmdletExample(Code = @"PS:> Set-PnPTheme -ColorPaletteUrl /_catalogs/theme/15/company.spcolor -BackgroundImageUrl '/sites/Team Site/style library/background.png' -ResetSubwebsToInherit", SortOrder = 4, Remarks = @"Sets the theme to the web, and updates all subwebs to inherit the theme from this web.")]
+    [CmdletExample(Code = @"PS:> Set-PnPTheme -ColorPaletteUrl _catalogs/theme/15/company.spcolor", SortOrder = 2)]
+    [CmdletExample(Code = @"PS:> Set-PnPTheme -ColorPaletteUrl _catalogs/theme/15/company.spcolor -BackgroundImageUrl 'style library/background.png'", SortOrder = 3)]
+    [CmdletExample(Code = @"PS:> Set-PnPTheme -ColorPaletteUrl _catalogs/theme/15/company.spcolor -BackgroundImageUrl 'style library/background.png' -ResetSubwebsToInherit", SortOrder = 4, Remarks = @"Sets the theme to the web, and updates all subwebs to inherit the theme from this web.")]
     public class SetTheme : PnPWebCmdlet
     {
         private const string PROPBAGKEY = "_PnP_ProvisioningTemplateComposedLookInfo";
 
-        [Parameter(Mandatory = false, HelpMessage = "Specifies the Color Palette Url based on the site relative url")]
+        [Parameter(Mandatory = false, HelpMessage = "Specifies the Color Palette Url based on the site or server relative url")]
         public string ColorPaletteUrl;
 
-        [Parameter(Mandatory = false, HelpMessage = "Specifies the Font Scheme Url based on the server relative url")]
+        [Parameter(Mandatory = false, HelpMessage = "Specifies the Font Scheme Url based on the site or server relative url")]
         public string FontSchemeUrl = null;
 
-        [Parameter(Mandatory = false, HelpMessage = "Specifies the Background Image Url based on the server relative url")]
+        [Parameter(Mandatory = false, HelpMessage = "Specifies the Background Image Url based on the site or server relative url")]
         public string BackgroundImageUrl = null;
 
         [Parameter(Mandatory = false, HelpMessage = "true if the generated theme files should be placed in the root web, false to store them in this web. Default is false")]
@@ -40,15 +40,28 @@ namespace SharePointPnP.PowerShell.Commands.Branding
 
         protected override void ExecuteCmdlet()
         {
+            var rootWebServerRelativeUrl = (SelectedWeb.Context as ClientContext).Site.RootWeb.EnsureProperty(r => r.ServerRelativeUrl);
             var serverRelativeUrl = SelectedWeb.EnsureProperty(w => w.ServerRelativeUrl);
             if (ColorPaletteUrl == null)
             {
                 ColorPaletteUrl = "/_catalogs/theme/15/palette001.spcolor";
             }
-            if (!ColorPaletteUrl.ToLower().StartsWith(serverRelativeUrl.ToLower()))
+
+            if (!ColorPaletteUrl.ToLower().StartsWith(rootWebServerRelativeUrl.ToLower()))
             {
-                ColorPaletteUrl = ColorPaletteUrl = UrlUtility.Combine(serverRelativeUrl, "/_catalogs/theme/15/palette001.spcolor");
+                ColorPaletteUrl = UrlUtility.Combine(rootWebServerRelativeUrl, ColorPaletteUrl);
             }
+
+            if(!string.IsNullOrEmpty(FontSchemeUrl) && !FontSchemeUrl.ToLower().StartsWith(rootWebServerRelativeUrl.ToLower()))
+            {
+                FontSchemeUrl = UrlUtility.Combine(rootWebServerRelativeUrl, FontSchemeUrl);
+            }
+
+            if (!string.IsNullOrEmpty(BackgroundImageUrl) && BackgroundImageUrl.ToLower().StartsWith(rootWebServerRelativeUrl.ToLower()))
+            {
+                BackgroundImageUrl = UrlUtility.Combine(rootWebServerRelativeUrl, BackgroundImageUrl);
+            }
+
             SelectedWeb.SetThemeByUrl(ColorPaletteUrl, FontSchemeUrl, BackgroundImageUrl, ResetSubwebsToInherit, UpdateRootWebOnly);
 
             ClientContext.ExecuteQueryRetry();
@@ -65,7 +78,7 @@ namespace SharePointPnP.PowerShell.Commands.Branding
                 }
                 else
                 {
-                    composedLook = new ComposedLook {BackgroundFile = ""};
+                    composedLook = new ComposedLook { BackgroundFile = "" };
                     SelectedWeb.EnsureProperty(w => w.AlternateCssUrl);
                     composedLook.ColorFile = "";
                     SelectedWeb.EnsureProperty(w => w.MasterUrl);

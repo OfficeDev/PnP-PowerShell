@@ -13,7 +13,7 @@ namespace SharePointPnP.PowerShell.Commands
     {
         public ClientContext ClientContext => Connection?.Context ?? SPOnlineConnection.CurrentConnection.Context;
 
-        [Parameter(Mandatory = false, HelpMessage = "Optional connection to be used by cmdlet. Retrieve the value for this parameter by eiter specifying -ReturnConnection on Connect-PnPOnline or by executing Get-PnPConnection.")] // do not remove '#!#99'
+        [Parameter(Mandatory = false, HelpMessage = "Optional connection to be used by the cmdlet. Retrieve the value for this parameter by either specifying -ReturnConnection on Connect-PnPOnline or by executing Get-PnPConnection.")] // do not remove '#!#99'
         [PnPParameter(Order = 99)]
         public SPOnlineConnection Connection = null;
 
@@ -33,7 +33,10 @@ namespace SharePointPnP.PowerShell.Commands
             {
                 throw new InvalidOperationException(Resources.NoConnection);
             }
-
+            if (SPOnlineConnection.CurrentConnection.ConnectionMethod == Model.ConnectionMethod.GraphDeviceLogin)
+            {
+                throw new InvalidOperationException(Resources.NoConnection);
+            }
         }
 
         protected virtual void ExecuteCmdlet()

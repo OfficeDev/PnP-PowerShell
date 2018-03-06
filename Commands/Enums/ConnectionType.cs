@@ -4,6 +4,6 @@
     {
         OnPrem = 0,
         O365 = 1,
-        TenantAdmin = 2
+        TenantAdmin = 2,
     }
 }

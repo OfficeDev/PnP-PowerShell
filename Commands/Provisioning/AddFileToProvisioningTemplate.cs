@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace SharePointPnP.PowerShell.Commands.Provisioning
 {
-    [Cmdlet("Add", "PnPFileToProvisioningTemplate")]
+    [Cmdlet(VerbsCommon.Add, "PnPFileToProvisioningTemplate")]
     [CmdletHelp("Adds a file to a PnP Provisioning Template",
         Category = CmdletHelpCategory.Provisioning)]
     [CmdletExample(
@@ -67,7 +67,7 @@ namespace SharePointPnP.PowerShell.Commands.Provisioning
                 Source = System.IO.Path.Combine(SessionState.Path.CurrentFileSystemLocation.Path, Source);
             }
             // Load the template
-            var template = LoadProvisioningTemplate
+            var template = ReadProvisioningTemplate
                 .LoadProvisioningTemplateFromFile(Path,
                 TemplateProviderExtensions);
 

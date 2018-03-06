@@ -1,10 +1,14 @@
-﻿using System.Management.Automation;
+﻿using System;
+using System.Management.Automation;
 using Microsoft.SharePoint.Client;
 using SharePointPnP.PowerShell.CmdletHelpAttributes;
 using SharePointPnP.PowerShell.Commands.Base.PipeBinds;
 
 namespace SharePointPnP.PowerShell.Commands.Apps
 {
+#if !ONPREMISES
+    [Obsolete("Use Uninstall-PnPApp instead")]
+#endif
     [Cmdlet(VerbsLifecycle.Uninstall, "PnPAppInstance", SupportsShouldProcess = true)]
     [CmdletHelp("Removes an app from a site",
         "Removes an add-in/app that has been installed to a site.",
