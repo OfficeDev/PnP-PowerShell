@@ -19,7 +19,7 @@ namespace SharePointPnP.PowerShell.Commands.Site
     {
         protected override void ExecuteCmdlet()
         {
-            DefaultRetrievalExpressions = new Expression<Func<Microsoft.SharePoint.Client.Site, object>>[] { s => s.Url, s => s.CompatibilityLevel};
+            DefaultRetrievalExpressions = new Expression<Func<Microsoft.SharePoint.Client.Site, object>>[] { s => s.Url, s => s.CompatibilityLevel, s => s.Classification };
             var site = ClientContext.Site;
             ClientContext.Load(site, RetrievalExpressions);
             ClientContext.ExecuteQueryRetry();
