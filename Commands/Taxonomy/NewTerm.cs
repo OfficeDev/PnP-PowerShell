@@ -122,7 +122,7 @@ namespace SharePointPnP.PowerShell.Commands.Taxonomy
             var localCustomProperties = LocalCustomProperties ?? new Hashtable();
             foreach (var key in localCustomProperties.Keys)
             {
-                term.SetCustomProperty(key as string, localCustomProperties[key] as string);
+                term.SetLocalCustomProperty(key as string, localCustomProperties[key] as string);
             }
             termStore.CommitAll();
             ClientContext.Load(term);
