@@ -16,7 +16,7 @@ namespace SharePointPnP.PowerShell.Commands.Branding
         Remarks = @"Sets the theme named ""MyTheme"" to the current web", 
         SortOrder = 1)]
     [CmdletExample(
-        Code = @"PS:> Get-PnPTenantTheme -Name ""MyTheme"" | Set-PnPTheme",
+        Code = @"PS:> Get-PnPTenantTheme -Name ""MyTheme"" | Set-PnPWebTheme",
         Remarks = @"Sets the theme named ""MyTheme"" to the current web",
         SortOrder = 2)]
     public class SetWebTheme : PnPWebCmdlet
