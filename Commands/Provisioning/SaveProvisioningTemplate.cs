@@ -4,17 +4,13 @@ using OfficeDevPnP.Core.Framework.Provisioning.Providers;
 using OfficeDevPnP.Core.Framework.Provisioning.Providers.Xml;
 using SharePointPnP.PowerShell.CmdletHelpAttributes;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Management.Automation;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SharePointPnP.PowerShell.Commands.Provisioning
 {
     [Cmdlet(VerbsData.Save, "PnPProvisioningTemplate")]
-    [CmdletHelp("Saves a PnP provisioning tempalte to the file system",
+    [CmdletHelp("Saves a PnP provisioning template to the file system",
         Category = CmdletHelpCategory.Provisioning)]
     [CmdletExample(
        Code = @"PS:> Save-PnPProvisioningTemplate -InputInstance $template -Out .\template.pnp",
