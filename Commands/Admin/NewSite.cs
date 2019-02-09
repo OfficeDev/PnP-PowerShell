@@ -50,6 +50,10 @@ namespace SharePointPnP.PowerShell.Commands
         Code = @"PS:> New-PnPSite -Type TeamSite -Title 'Team Contoso' -Alias contoso -Lcid 1040",
         Remarks = @"This will create a new Modern Team Site collection with the title 'Team Contoso' and the url 'https://tenant.sharepoint.com/sites/contoso' or 'https://tenant.sharepoint.com/teams/contoso' based on the managed path configuration in the SharePoint Online Admin portal and sets the default language of the site to Italian.",
         SortOrder = 9)]
+    [CmdletExample(
+        Code = @"PS:> New-PnPSite -Type TeamSite -Title 'Team Contoso' -Alias contoso -HubSiteId cf45f589-9b3e-494a-9fd0-bcad79a56fe3",
+        Remarks = @"This will create a new Modern Team Site collection with the title 'Team Contoso' and the url 'https://tenant.sharepoint.com/sites/contoso' or 'https://tenant.sharepoint.com/teams/contoso' based on the managed path configuration in the SharePoint Online Admin portal and will associate the new site collection with the Hub with Id cf45f589-9b3e-494a-9fd0-bcad79a56fe3.",
+        SortOrder = 10)]
     [CmdletAdditionalParameter(ParameterType = typeof(string), ParameterName = "Title", Mandatory = true, HelpMessage = @"Specifies the title of the new site collection", ParameterSetName = ParameterSet_COMMUNICATIONBUILTINDESIGN)]
     [CmdletAdditionalParameter(ParameterType = typeof(string), ParameterName = "Title", Mandatory = true, HelpMessage = @"Specifies the title of the new site collection", ParameterSetName = ParameterSet_COMMUNICATIONCUSTOMDESIGN)]
     [CmdletAdditionalParameter(ParameterType = typeof(string), ParameterName = "Url", Mandatory = true, HelpMessage = @"Specifies the full url of the new site collection", ParameterSetName = ParameterSet_COMMUNICATIONBUILTINDESIGN)]
@@ -147,7 +151,13 @@ namespace SharePointPnP.PowerShell.Commands
                 creationInformation.Description = _teamSiteParameters.Description;
                 creationInformation.IsPublic = _teamSiteParameters.IsPublic;
                 creationInformation.Lcid = _teamSiteParameters.Lcid;
-                creationInformation.HubSiteId = HubSiteId.Id;
+
+                // Only if a Hubsite has been provided, associate this new site with that Hub
+                if (HubSiteId != null)
+                {
+                    creationInformation.HubSiteId = HubSiteId.Id;
+                }
+
                 creationInformation.Owners = _teamSiteParameters.Owners;
 
                 var returnedContext = OfficeDevPnP.Core.Sites.SiteCollection.Create(ClientContext, creationInformation);
