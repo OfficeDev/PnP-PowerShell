@@ -128,7 +128,13 @@ namespace SharePointPnP.PowerShell.Commands
                 creationInformation.ShareByEmailEnabled = _communicationSiteParameters.AllowFileSharingForGuestUsers || _communicationSiteParameters.ShareByEmailEnabled;
 #pragma warning restore CS0618 // Type or member is obsolete
                 creationInformation.Lcid = _communicationSiteParameters.Lcid;
-                creationInformation.HubSiteId = HubSiteId.Id;
+
+                // Only if a Hubsite has been provided, associate this new site with that Hub
+                if (HubSiteId != null)
+                {
+                    creationInformation.HubSiteId = HubSiteId.Id;
+                }
+
                 if (ParameterSetName == "CommunicationCustomInDesign")
                 {
                     creationInformation.SiteDesignId = _communicationSiteParameters.SiteDesignId.Id;
