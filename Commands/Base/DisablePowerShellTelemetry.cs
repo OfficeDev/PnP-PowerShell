@@ -1,15 +1,11 @@
 ﻿using SharePointPnP.PowerShell.CmdletHelpAttributes;
 using System;
-using System.Collections.Generic;
 #if NETSTANDARD2_0
 using System.IdentityModel.Tokens.Jwt;
 #else
 using System.IdentityModel.Tokens;
 #endif
-using System.Linq;
 using System.Management.Automation;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SharePointPnP.PowerShell.Commands.Base
 {
@@ -21,6 +17,10 @@ namespace SharePointPnP.PowerShell.Commands.Base
        Code = "PS:> Disable-PnPPowerShellTelemetry",
        Remarks = "Will prompt you to confirm to disable telemetry tracking.",
        SortOrder = 1)]
+    [CmdletExample(
+       Code = "PS:> Disable-PnPPowerShellTelemetry -Force",
+       Remarks = "Will disable telemetry tracking without prompting.",
+       SortOrder = 2)]
     public class DisablePowerShellTelemetry : PSCmdlet
     {
         [Parameter(Mandatory = false, HelpMessage = "Specifying the Force parameter will skip the confirmation question.")]
@@ -33,7 +33,10 @@ namespace SharePointPnP.PowerShell.Commands.Base
             if (Force || ShouldContinue("Do you want to disable telemetry for PnP PowerShell?", "Confirm"))
             {
                 System.IO.File.WriteAllText(telemetryFile, "disallow");
-                SPOnlineConnection.CurrentConnection.TelemetryClient = null;
+                if (SPOnlineConnection.CurrentConnection != null)
+                {
+                    SPOnlineConnection.CurrentConnection.TelemetryClient = null;
+                }
                 WriteObject("Telemetry disabled");
             }
             else

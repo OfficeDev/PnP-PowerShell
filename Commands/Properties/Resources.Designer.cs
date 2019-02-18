@@ -485,6 +485,15 @@ namespace SharePointPnP.PowerShell.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Remove site design task?.
+        /// </summary>
+        internal static string RemoveSiteDesignTask {
+            get {
+                return ResourceManager.GetString("RemoveSiteDesignTask", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Remove site script?.
         /// </summary>
         internal static string RemoveSiteScript {

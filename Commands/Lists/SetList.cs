@@ -69,7 +69,7 @@ namespace SharePointPnP.PowerShell.Commands.Lists
         public bool ForceCheckout;
 
 #if !ONPREMISES
-        [Parameter(Mandatory = false, HelpMessage = "Set the list experience: Auto, NewExperience or ClassExperience")]
+        [Parameter(Mandatory = false, HelpMessage = "Set the list experience: Auto, NewExperience or ClassicExperience")]
         public ListExperience ListExperience;
 #endif
 

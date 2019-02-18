@@ -89,18 +89,18 @@ function Add-PnPModernListWebPart() {
    $webPartProperties.Add("selectedViewId", $viewId)
     
 
-   #If a WebPart Title was provided in function call then add it to the web part properties hashtable
+   #If a web part Title was provided in function call then add it to the web part properties hashtable
    If ($WebPartTitle) {
       $webPartProperties.Add("listTitle", $WebPartTitle)
    }
 
-   #If no WebPart Title was provided in function call, then combine list title and view name and add them to the web part properties hashtable
+   #If no web part Title was provided in function call, then combine list title and view name and add them to the web part properties hashtable
    Else {
       $WebPartTitle = $list.Title + ' - ' + $ViewName
       $webPartProperties.Add("listTitle", $WebPartTitle)
    }
 
-   #If WebPart Height was provided in function call then add it to the web part properties hashtable
+   #If web part Height was provided in function call then add it to the web part properties hashtable
    If ($WebPartHeight -ne 0) {
       $webPartProperties.Add("webpartHeightKey", $WebPartHeight)
    }

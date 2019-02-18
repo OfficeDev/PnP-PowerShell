@@ -1,4 +1,5 @@
-﻿using OfficeDevPnP.Core.Framework.Provisioning.Model;
+﻿#if !ONPREMISES
+using OfficeDevPnP.Core.Framework.Provisioning.Model;
 using System;
 using System.Linq;
 
@@ -31,5 +32,4 @@ namespace SharePointPnP.PowerShell.Commands.Base.PipeBinds
         }
     }
 }
-
-
+#endif

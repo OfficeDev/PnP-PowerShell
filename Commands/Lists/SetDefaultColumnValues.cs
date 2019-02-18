@@ -25,9 +25,9 @@ namespace SharePointPnP.PowerShell.Commands.Lists
         SortOrder = 2,
         Remarks = "Sets a default value for the enterprise keywords field on a library to a term with the id \"15c4c4e4-4b67-4894-a1d8-de5ff811c791\". You need to ensure the term is valid for the field.")]
     [CmdletExample(
-        Code = "PS:> Set-PnPDefaultColumnValues -List Documents -Field MyTextField -Value \"DefaultValue\"",
+        Code = "PS:> Set-PnPDefaultColumnValues -List Documents -Field MyTextField -Value \"DefaultValue\" -Folder \"My folder\"",
         SortOrder = 3,
-        Remarks = "Sets a default value for the MyTextField text field on a library to a value of \"DefaultValue\"")]
+        Remarks = "Sets a default value for the MyTextField text field on the folder \"My folder\" in a library to a value of \"DefaultValue\"")]
     [CmdletExample(
         Code = "PS:> Set-PnPDefaultColumnValues -List Documents -Field MyPeopleField -Value \"1;#Foo Bar\"",
         SortOrder = 4,
@@ -90,67 +90,7 @@ namespace SharePointPnP.PowerShell.Commands.Lists
                     }
                     if (field != null)
                     {
-                        IDefaultColumnValue defaultColumnValue = null;
-                        if (field.TypeAsString == "Text" ||
-                            field.TypeAsString == "Choice" ||
-                            field.TypeAsString == "MultiChoice" ||
-                            field.TypeAsString == "User" ||
-                            field.TypeAsString == "Boolean" ||
-                            field.TypeAsString == "DateTime" ||
-                            field.TypeAsString == "Number" ||
-                            field.TypeAsString == "Currency"
-                            )
-                        {
-                            var values = string.Join(";", Value);
-                            defaultColumnValue = new DefaultColumnTextValue()
-                            {
-                                FieldInternalName = field.InternalName,
-                                FolderRelativePath = Folder,
-                                Text = values
-                            };
-                        }
-                        else if (field.TypeAsString == "UserMulti")
-                        {
-                            var values = string.Join(";#", Value);
-                            defaultColumnValue = new DefaultColumnTextValue()
-                            {
-                                FieldInternalName = field.InternalName,
-                                FolderRelativePath = Folder,
-                                Text = values
-                            };
-                        }
-                        else
-                        {
-                            List<Term> terms = new List<Term>();
-                            foreach (var termString in Value)
-                            {
-                                Guid termGuid;
-                                Term term;
-                                if (Guid.TryParse(termString, out termGuid))
-                                {
-                                    var taxSession = ClientContext.Site.GetTaxonomySession();
-                                    term = taxSession.GetTerm(termGuid);
-                                    ClientContext.ExecuteQueryRetry();
-                                }
-                                else
-                                {
-                                    term = ClientContext.Site.GetTaxonomyItemByPath(termString) as Term;
-                                }
-                                if (term != null)
-                                {
-                                    terms.Add(term);
-                                }
-                            }
-                            if (terms.Any())
-                            {
-                                defaultColumnValue = new DefaultColumnTermValue()
-                                {
-                                    FieldInternalName = field.InternalName,
-                                    FolderRelativePath = Folder,
-                                };
-                                terms.ForEach(t => ((DefaultColumnTermValue)defaultColumnValue).Terms.Add(t));
-                            }
-                        }
+                        IDefaultColumnValue defaultColumnValue = field.GetDefaultColumnValueFromField(ClientContext, Folder, Value);
                         list.SetDefaultColumnValues(new List<IDefaultColumnValue>() { defaultColumnValue });
                     }
                 }

@@ -68,7 +68,7 @@ namespace SharePointPnP.PowerShell.Commands.Search
                             throw new InvalidOperationException(Resources.CurrentSiteIsNoTenantAdminSite);
                         }
 
-                        ClientContext.ImportSearchSettings(Path, SearchObjectLevel.SPSiteSubscription);
+                        ClientContext.ImportSearchSettingsConfiguration(Configuration, SearchObjectLevel.SPSiteSubscription);
                         break;
                     }
             }

@@ -16,7 +16,7 @@ namespace SharePointPnP.PowerShell.Commands.Branding
         Remarks = @"Returns all navigation nodes in the quicklaunch navigation",
         SortOrder = 1)]
     [CmdletExample(
-        Code = @"PS:> Get-PnPNavigationNode -QuickLaunch",
+        Code = @"PS:> Get-PnPNavigationNode -Location QuickLaunch",
         Remarks = @"Returns all navigation nodes in the quicklaunch navigation",
         SortOrder = 2)]
     [CmdletExample(

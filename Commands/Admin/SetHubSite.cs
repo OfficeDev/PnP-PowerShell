@@ -30,6 +30,9 @@ namespace SharePointPnP.PowerShell.Commands.Admin
         [Parameter(Mandatory = false)]
         public string Description { get; set; }
 
+        [Parameter(Mandatory = false)]
+        public GuidPipeBind SiteDesignId;
+
         protected override void ExecuteCmdlet()
         {
             var hubSiteProperties = base.Tenant.GetHubSitePropertiesByUrl(this.Identity.Url);
@@ -45,6 +48,10 @@ namespace SharePointPnP.PowerShell.Commands.Admin
             if (MyInvocation.BoundParameters.ContainsKey("Description"))
             {
                 hubSiteProperties.Description = this.Description;
+            }
+            if (MyInvocation.BoundParameters.ContainsKey("SiteDesignId"))
+            {
+                hubSiteProperties.SiteDesignId = this.SiteDesignId.Id;
             }
             hubSiteProperties.Update();
             ClientContext.ExecuteQueryRetry();

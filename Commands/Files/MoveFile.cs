@@ -49,7 +49,7 @@ namespace SharePointPnP.PowerShell.Commands.Files
                 var webUrl = SelectedWeb.EnsureProperty(w => w.ServerRelativeUrl);
                 ServerRelativeUrl = UrlUtility.Combine(webUrl, SiteRelativeUrl);
             }
-
+#if ONPREMISES
             var file = SelectedWeb.GetFileByServerRelativeUrl(ServerRelativeUrl);
 
             ClientContext.Load(file, f => f.Name);
@@ -61,6 +61,19 @@ namespace SharePointPnP.PowerShell.Commands.Files
 
                 ClientContext.ExecuteQueryRetry();
             }
+#else
+            var file = SelectedWeb.GetFileByServerRelativePath(ResourcePath.FromDecodedUrl(ServerRelativeUrl));
+
+            ClientContext.Load(file, f => f.Name);
+            ClientContext.ExecuteQueryRetry();
+
+            if (Force || ShouldContinue(string.Format(Resources.MoveFile0To1, ServerRelativeUrl, TargetUrl), Resources.Confirm))
+            {
+                file.MoveToUsingPath(ResourcePath.FromDecodedUrl(TargetUrl), OverwriteIfAlreadyExists ? MoveOperations.Overwrite : MoveOperations.None);
+
+                ClientContext.ExecuteQueryRetry();
+            }
+#endif
         }
     }
 }

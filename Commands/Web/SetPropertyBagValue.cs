@@ -69,7 +69,11 @@ namespace SharePointPnP.PowerShell.Commands
                 SelectedWeb.EnsureProperty(w => w.ServerRelativeUrl);
 
                 var folderUrl = UrlUtility.Combine(SelectedWeb.ServerRelativeUrl, Folder);
+#if ONPREMISES
                 var folder = SelectedWeb.GetFolderByServerRelativeUrl(folderUrl);
+#else
+                var folder = SelectedWeb.GetFolderByServerRelativePath(ResourcePath.FromDecodedUrl(folderUrl));
+#endif
 
                 folder.EnsureProperty(f => f.Properties);
 

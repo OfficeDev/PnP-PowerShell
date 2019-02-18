@@ -47,8 +47,11 @@ namespace SharePointPnP.PowerShell.Commands.Files
             {
                 Url = UrlUtility.Combine(webServerRelativeUrl, Url);
             }
+#if ONPREMISES
             var folder = SelectedWeb.GetFolderByServerRelativeUrl(Url);
-
+#else
+            var folder = SelectedWeb.GetFolderByServerRelativePath(ResourcePath.FromDecodedUrl(Url));
+#endif
             folder.EnsureProperties(RetrievalExpressions);
 
             WriteObject(folder);

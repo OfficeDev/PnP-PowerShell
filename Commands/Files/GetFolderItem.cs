@@ -52,7 +52,11 @@ namespace SharePointPnP.PowerShell.Commands.Files
                 serverRelativeUrl = UrlUtility.Combine(webUrl, FolderSiteRelativeUrl);
             }
 
+#if ONPREMISES
             var targetFolder = (string.IsNullOrEmpty(FolderSiteRelativeUrl)) ? SelectedWeb.RootFolder : SelectedWeb.GetFolderByServerRelativeUrl(serverRelativeUrl);
+#else
+            var targetFolder = (string.IsNullOrEmpty(FolderSiteRelativeUrl)) ? SelectedWeb.RootFolder : SelectedWeb.GetFolderByServerRelativePath(ResourcePath.FromDecodedUrl(serverRelativeUrl));
+#endif
             IEnumerable<File> files = null;
             IEnumerable<Folder> folders = null;
 

@@ -34,10 +34,17 @@ namespace SharePointPnP.PowerShell.Commands
             if (Scope == StorageEntityScope.Tenant)
             {
                 var appCatalogUri = ClientContext.Web.GetAppCatalog();
-                using (var clonedContext = ClientContext.Clone(appCatalogUri))
+                if(appCatalogUri != null)
                 {
-                    storageEntitiesIndex = clonedContext.Web.GetPropertyBagValueString("storageentitiesindex", "");
+                    using (var clonedContext = ClientContext.Clone(appCatalogUri))
+                    {
+                        storageEntitiesIndex = clonedContext.Web.GetPropertyBagValueString("storageentitiesindex", "");
+                    }
                 }
+                else
+                {
+                    WriteWarning("Tenant app catalog is not available on this tenant.");
+                }                
             }
             else
             {

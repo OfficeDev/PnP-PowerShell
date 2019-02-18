@@ -13,19 +13,19 @@ using SharePointPnP.PowerShell.Commands.Base.PipeBinds;
 namespace SharePointPnP.PowerShell.Commands.WebParts
 {
     [Cmdlet(VerbsCommon.Get, "PnPWebPartXml")]
-    [CmdletHelp("Returns the webpart XML of a webpart registered on a site",
+    [CmdletHelp("Returns the web part XML of a web part registered on a site",
         Category = CmdletHelpCategory.WebParts,
         OutputType = typeof(string))]
     [CmdletExample(
         Code = @"PS:> Get-PnPWebPartXml -ServerRelativePageUrl ""/sites/demo/sitepages/home.aspx"" -Identity a2875399-d6ff-43a0-96da-be6ae5875f82",
-        Remarks = @"Returns the webpart XML for a given webpart on a page.", SortOrder = 1)]
+        Remarks = @"Returns the web part XML for a given web part on a page.", SortOrder = 1)]
     public class GetWebPartXml : PnPWebCmdlet
     {
-        [Parameter(Mandatory = true, HelpMessage = "Full server relative url of the webpart page, e.g. /sites/mysite/sitepages/home.aspx")]
+        [Parameter(Mandatory = true, HelpMessage = "Full server relative url of the web part page, e.g. /sites/mysite/sitepages/home.aspx")]
         [Alias("PageUrl")]
         public string ServerRelativePageUrl = string.Empty;
 
-        [Parameter(Mandatory = true, HelpMessage = "Id or title of the webpart. Use Get-PnPWebPart to retrieve all webpart Ids")]
+        [Parameter(Mandatory = true, HelpMessage = "Id or title of the web part. Use Get-PnPWebPart to retrieve all web part Ids")]
         public WebPartPipeBind Identity;
 
         protected override void ExecuteCmdlet()

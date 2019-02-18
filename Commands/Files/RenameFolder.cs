@@ -26,6 +26,7 @@ namespace SharePointPnP.PowerShell.Commands.Files
         {
             SelectedWeb.EnsureProperty(w => w.ServerRelativeUrl);
 
+#if ONPREMISES
             Folder sourceFolder = SelectedWeb.GetFolderByServerRelativeUrl(UrlUtility.Combine(SelectedWeb.ServerRelativeUrl, Folder));
             ClientContext.Load(sourceFolder, f => f.Name, f => f.ServerRelativeUrl);
             ClientContext.ExecuteQueryRetry();
@@ -33,6 +34,16 @@ namespace SharePointPnP.PowerShell.Commands.Files
             var targetPath = string.Concat(sourceFolder.ServerRelativeUrl.Remove(sourceFolder.ServerRelativeUrl.Length - sourceFolder.Name.Length), TargetFolderName);
             sourceFolder.MoveTo(targetPath);
             ClientContext.ExecuteQueryRetry();
+#else
+            var sourceFolderUrl = UrlUtility.Combine(SelectedWeb.ServerRelativeUrl, Folder);
+            Folder sourceFolder = SelectedWeb.GetFolderByServerRelativePath(ResourcePath.FromDecodedUrl(sourceFolderUrl));
+            ClientContext.Load(sourceFolder, f => f.Name, f => f.ServerRelativePath);
+            ClientContext.ExecuteQueryRetry();
+
+            var targetPath = string.Concat(sourceFolder.ServerRelativePath.DecodedUrl.Remove(sourceFolder.ServerRelativePath.DecodedUrl.Length - sourceFolder.Name.Length), TargetFolderName);
+            sourceFolder.MoveToUsingPath(ResourcePath.FromDecodedUrl(targetPath));
+            ClientContext.ExecuteQueryRetry();
+#endif
         }
     }
 }

@@ -33,6 +33,7 @@ namespace SharePointPnP.PowerShell.Commands.Files
         {
             SelectedWeb.EnsureProperty(w => w.ServerRelativeUrl);
 
+#if ONPREMISES
             Folder sourceFolder = SelectedWeb.GetFolderByServerRelativeUrl(UrlUtility.Combine(SelectedWeb.ServerRelativeUrl, Folder));
             ClientContext.Load(sourceFolder, f => f.Name, f => f.ServerRelativeUrl);
             ClientContext.ExecuteQueryRetry();
@@ -45,6 +46,21 @@ namespace SharePointPnP.PowerShell.Commands.Files
             ClientContext.Load(folder, f => f.Name, f => f.ItemCount, f => f.TimeLastModified, f => f.ListItemAllFields);
             ClientContext.ExecuteQueryRetry();
             WriteObject(folder);
+#else
+            var sourceFolderUrl = UrlUtility.Combine(SelectedWeb.ServerRelativeUrl, Folder);
+            Folder sourceFolder = SelectedWeb.GetFolderByServerRelativePath(ResourcePath.FromDecodedUrl(sourceFolderUrl));
+            ClientContext.Load(sourceFolder, f => f.Name, f => f.ServerRelativeUrl);
+            ClientContext.ExecuteQueryRetry();
+
+            var targetPath = string.Concat(TargetFolder, "/", sourceFolder.Name);
+            sourceFolder.MoveToUsingPath(ResourcePath.FromDecodedUrl(targetPath));
+            ClientContext.ExecuteQueryRetry();
+
+            var folder = SelectedWeb.GetFolderByServerRelativePath(ResourcePath.FromDecodedUrl(targetPath));
+            ClientContext.Load(folder, f => f.Name, f => f.ItemCount, f => f.TimeLastModified, f => f.ListItemAllFields);
+            ClientContext.ExecuteQueryRetry();
+            WriteObject(folder);
+#endif
         }
     }
 }

@@ -11,20 +11,20 @@ namespace SharePointPnP.PowerShell.Commands.ClientSidePages
     [Cmdlet(VerbsCommon.Set, "PnPClientSideWebPart")]
     [CmdletHelp("Set Client-Side Web Part properties",
         SupportedPlatform = CmdletSupportedPlatform.Online,
-        DetailedDescription = "Sets specific client side webpart properties. Notice that the title parameter will only set the -internal- title of webpart. The title which is shown in the UI will, if possible, have to be set using the PropertiesJson parameter. Use Get-PnPClientSideComponent to retrieve the instance id and properties of a webpart.",
+        DetailedDescription = "Sets specific client side web part properties. Notice that the title parameter will only set the -internal- title of web part. The title which is shown in the UI will, if possible, have to be set using the PropertiesJson parameter. Use Get-PnPClientSideComponent to retrieve the instance id and properties of a web part.",
         Category = CmdletHelpCategory.WebParts)]
     [CmdletExample(
         Code = @"PS:> Set-PnPClientSideWebPart -Page Home -Identity a2875399-d6ff-43a0-96da-be6ae5875f82 -PropertiesJson $myproperties",
-        Remarks = @"Sets the properties of the client side webpart given in the $myproperties variable.", SortOrder = 1)]
+        Remarks = @"Sets the properties of the client side web part given in the $myproperties variable.", SortOrder = 1)]
     public class SetClientSideWebPart : PnPWebCmdlet
     {
         [Parameter(Mandatory = true, ValueFromPipeline = true, Position = 0, HelpMessage = "The name of the page")]
         public ClientSidePagePipeBind Page;
 
-        [Parameter(Mandatory = true, ValueFromPipeline = true, HelpMessage = "The identity of the webpart. This can be the webpart instance id or the title of a webpart")]
+        [Parameter(Mandatory = true, ValueFromPipeline = true, HelpMessage = "The identity of the web part. This can be the web part instance id or the title of a web part")]
         public ClientSideWebPartPipeBind Identity;
 
-        [Parameter(Mandatory = false, ValueFromPipeline = true, HelpMessage = "Sets the internal title of the webpart. Notice that this will NOT set a visible title.")]
+        [Parameter(Mandatory = false, ValueFromPipeline = true, HelpMessage = "Sets the internal title of the web part. Notice that this will NOT set a visible title.")]
         public string Title;
 
         [Parameter(Mandatory = false, ValueFromPipeline = true, HelpMessage = "Sets the properties as a JSON string.")]
@@ -66,7 +66,7 @@ namespace SharePointPnP.PowerShell.Commands.ClientSidePages
             }
             else
             {
-                throw new Exception($"WebPart does not exist");
+                throw new Exception($"Web part does not exist");
             }
         }
     }

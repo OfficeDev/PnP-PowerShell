@@ -9,6 +9,8 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("SharePointPnP.PowerShell.SP2013.Commands")]
 #elif SP2016
 [assembly: AssemblyTitle("SharePointPnP.PowerShell.SP2016.Commands")]
+#elif SP2019
+[assembly: AssemblyTitle("SharePointPnP.PowerShell.SP2019.Commands")]
 #else
 [assembly: AssemblyTitle("SharePointPnP.PowerShell.Online.Commands")]
 #endif
@@ -19,6 +21,8 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyProduct("SharePointPnP.PowerShell.SP2013.Commands")]
 #elif SP2016
 [assembly: AssemblyProduct("SharePointPnP.PowerShell.SP2016.Commands")]
+#elif SP2019
+[assembly: AssemblyProduct("SharePointPnP.PowerShell.SP2019.Commands")]
 #else
 [assembly: AssemblyProduct("SharePointPnP.PowerShell.Online.Commands")]
 #endif
@@ -44,6 +48,6 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("3.4.1811.0")]
-[assembly: AssemblyFileVersion("3.4.1811.0")]
+[assembly: AssemblyVersion("3.6.1902.2")]
+[assembly: AssemblyFileVersion("3.6.1902.2")]
 [assembly: InternalsVisibleTo("SharePointPnP.PowerShell.Tests")]

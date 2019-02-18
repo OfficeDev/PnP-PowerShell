@@ -31,12 +31,20 @@ namespace SharePointPnP.PowerShell.Commands
             if (Scope == StorageEntityScope.Tenant)
             {
                 var appCatalogUri = ClientContext.Web.GetAppCatalog();
-                using (var clonedContext = ClientContext.Clone(appCatalogUri))
+                if(appCatalogUri != null)
                 {
-                    clonedContext.Web.RemoveStorageEntity(Key);
-                    clonedContext.ExecuteQueryRetry();
+                    using (var clonedContext = ClientContext.Clone(appCatalogUri))
+                    {
+                        clonedContext.Web.RemoveStorageEntity(Key);
+                        clonedContext.ExecuteQueryRetry();
+                    }
                 }
-            } else
+                else
+                {
+                    WriteWarning("Tenant app catalog is not available on this tenant.");
+                }                
+            }
+            else
             {
                 var appcatalog = ClientContext.Site.RootWeb.SiteCollectionAppCatalog;
                 ClientContext.Load(appcatalog);

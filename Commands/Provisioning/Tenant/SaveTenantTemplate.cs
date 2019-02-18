@@ -8,6 +8,8 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Management.Automation;
+using System.Reflection;
+using System.Security.Policy;
 
 namespace SharePointPnP.PowerShell.Commands.Provisioning.Tenant
 {
@@ -83,7 +85,26 @@ namespace SharePointPnP.PowerShell.Commands.Provisioning.Tenant
 
             if (extension == ".pnp")
             {
-                // var connector = new OpenXMLConnector(Out, fileSystemConnector);
+                var useNewEvidence = false;
+                try
+                {
+                    var usfdAttempt1 = System.IO.IsolatedStorage.IsolatedStorageFile.GetUserStoreForDomain(); // this will fail when the current AppDomain Evidence is instantiated via COM or in PowerShell
+                }
+                catch (Exception e)
+                {
+                    useNewEvidence = true;
+                }
+
+                if (useNewEvidence)
+                {
+                    var replacementEvidence = new System.Security.Policy.Evidence();
+                    replacementEvidence.AddHostEvidence(new System.Security.Policy.Zone(System.Security.SecurityZone.MyComputer));
+
+                    var currentAppDomain = System.Threading.Thread.GetDomain();
+                    var securityIdentityField = currentAppDomain.GetType().GetField("_SecurityIdentity", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+                    securityIdentityField.SetValue(currentAppDomain, replacementEvidence);
+                }
+
                 var templateFileName = outFileName.Substring(0, outFileName.LastIndexOf(".", StringComparison.Ordinal)) + ".xml";
 
                 XMLTemplateProvider provider = new XMLOpenXMLTemplateProvider(
@@ -91,9 +112,6 @@ namespace SharePointPnP.PowerShell.Commands.Provisioning.Tenant
                 WriteObject("Processing template");
                 provider.SaveAs(Template, templateFileName);
                 ProcessFiles(Out, fileSystemConnector, provider.Connector);
-
-                //provider.SaveAs(Hierarchy, templateFileName);
-                //connector.Commit();
             }
             else
             {
@@ -104,13 +122,13 @@ namespace SharePointPnP.PowerShell.Commands.Provisioning.Tenant
 
         private void ProcessFiles(string templateFileName, FileConnectorBase fileSystemConnector, FileConnectorBase connector)
         {
-            var hierarchy = ReadTenantTemplate.LoadProvisioningHierarchyFromFile(templateFileName, null);
+            var templateFile = ReadTenantTemplate.LoadProvisioningHierarchyFromFile(templateFileName, null);
             if (Template.Tenant?.AppCatalog != null)
             {
                 foreach (var app in Template.Tenant.AppCatalog.Packages)
                 {
                     WriteObject($"Processing {app.Src}");
-                    AddFile(app.Src, hierarchy, fileSystemConnector, connector);
+                    AddFile(app.Src, templateFile, fileSystemConnector, connector);
                 }
             }
             if (Template.Tenant?.SiteScripts != null)
@@ -118,7 +136,7 @@ namespace SharePointPnP.PowerShell.Commands.Provisioning.Tenant
                 foreach (var siteScript in Template.Tenant.SiteScripts)
                 {
                     WriteObject($"Processing {siteScript.JsonFilePath}");
-                    AddFile(siteScript.JsonFilePath, hierarchy, fileSystemConnector, connector);
+                    AddFile(siteScript.JsonFilePath, templateFile, fileSystemConnector, connector);
                 }
             }
             if (Template.Localizations != null && Template.Localizations.Any())
@@ -126,7 +144,7 @@ namespace SharePointPnP.PowerShell.Commands.Provisioning.Tenant
                 foreach (var location in Template.Localizations)
                 {
                     WriteObject($"Processing {location.ResourceFile}");
-                    AddFile(location.ResourceFile, hierarchy, fileSystemConnector, connector);
+                    AddFile(location.ResourceFile, templateFile, fileSystemConnector, connector);
                 }
             }
             foreach (var template in Template.Templates)
@@ -142,18 +160,22 @@ namespace SharePointPnP.PowerShell.Commands.Provisioning.Tenant
                     if (isFile)
                     {
                         WriteObject($"Processing {template.WebSettings.SiteLogo}");
-                        AddFile(template.WebSettings.SiteLogo, hierarchy, fileSystemConnector, connector);
+                        AddFile(template.WebSettings.SiteLogo, templateFile, fileSystemConnector, connector);
                     }
                 }
                 if (template.Files.Any())
                 {
                     foreach (var file in template.Files)
                     {
-                        AddFile(file.Src, hierarchy, fileSystemConnector, connector);
+                        WriteObject($"Processing {file.Src}");
+                        AddFile(file.Src, templateFile, fileSystemConnector, connector);
                     }
                 }
             }
-
+            if (templateFile.Connector is ICommitableFileConnector)
+            {
+                ((ICommitableFileConnector)templateFile.Connector).Commit();
+            }
         }
 
         private void AddFile(string sourceName, ProvisioningHierarchy hierarchy, FileConnectorBase fileSystemConnector, FileConnectorBase connector)
@@ -163,11 +185,6 @@ namespace SharePointPnP.PowerShell.Commands.Provisioning.Tenant
                 var fileName = sourceName.IndexOf("\\") > 0 ? sourceName.Substring(sourceName.LastIndexOf("\\") + 1) : sourceName;
                 var folderName = sourceName.IndexOf("\\") > 0 ? sourceName.Substring(0, sourceName.LastIndexOf("\\")) : "";
                 hierarchy.Connector.SaveFileStream(fileName, folderName, fs);
-
-                if (hierarchy.Connector is ICommitableFileConnector)
-                {
-                    ((ICommitableFileConnector)hierarchy.Connector).Commit();
-                }
             }
         }
     }

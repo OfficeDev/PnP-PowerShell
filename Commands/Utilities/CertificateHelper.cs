@@ -83,12 +83,13 @@ namespace SharePointPnP.PowerShell.Commands.Utilities
             return sb.ToString();
         }
 
-        internal static X509Certificate2 GetCertificateFromPEMstring(string publicCert, string privateKey)
+        internal static X509Certificate2 GetCertificateFromPEMstring(string publicCert, string privateKey, string password)
         {
+            if (string.IsNullOrWhiteSpace(password)) password = "";
             var certBuffer = GetBytesFromPEM(publicCert, PemStringType.Certificate);
             var keyBuffer = GetBytesFromPEM(privateKey, PemStringType.RsaPrivateKey);
 
-            var certificate = new X509Certificate2(certBuffer);
+            var certificate = new X509Certificate2(certBuffer, password, X509KeyStorageFlags.MachineKeySet);
 
             var prov = CertificateCrypto.DecodeRsaPrivateKey(keyBuffer);
             certificate.PrivateKey = prov;

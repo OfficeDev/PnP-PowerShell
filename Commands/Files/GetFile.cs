@@ -111,8 +111,11 @@ namespace SharePointPnP.PowerShell.Commands.Files
                     });
                     break;
                 case URLASFILEOBJECT:
+#if ONPREMISES
                     file = SelectedWeb.GetFileByServerRelativeUrl(serverRelativeUrl);
-
+#else
+                    file = SelectedWeb.GetFileByServerRelativePath(ResourcePath.FromDecodedUrl(serverRelativeUrl));
+#endif
                     ClientContext.Load(file, f => f.Author, f => f.Length,
                         f => f.ModifiedBy, f => f.Name, f => f.TimeCreated,
                         f => f.TimeLastModified, f => f.Title);
@@ -122,7 +125,11 @@ namespace SharePointPnP.PowerShell.Commands.Files
                     WriteObject(file);
                     break;
                 case URLASLISTITEM:
+#if ONPREMISES
                     file = SelectedWeb.GetFileByServerRelativeUrl(serverRelativeUrl);
+#else
+                    file = SelectedWeb.GetFileByServerRelativePath(ResourcePath.FromDecodedUrl(serverRelativeUrl));
+#endif
 
                     ClientContext.Load(file, f => f.Exists, f => f.ListItemAllFields);
 

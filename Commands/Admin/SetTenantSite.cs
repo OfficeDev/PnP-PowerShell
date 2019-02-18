@@ -34,7 +34,7 @@ namespace SharePointPnP.PowerShell.Commands
     public class SetTenantSite : PnPAdminCmdlet
     {
         private const string ParameterSet_LOCKSTATE = "Set Lock State";
-        private const string ParameterSet_PROPERTIES= "Set Properties";
+        private const string ParameterSet_PROPERTIES = "Set Properties";
 
         [Parameter(Mandatory = true, HelpMessage = "Specifies the URL of the site", Position = 0, ValueFromPipeline = true)]
         public string Url;
@@ -67,7 +67,13 @@ namespace SharePointPnP.PowerShell.Commands
         public SiteLockState? LockState;
 
         [Parameter(Mandatory = false, HelpMessage = "Specifies if a site allows custom script or not. See https://support.office.com/en-us/article/Turn-scripting-capabilities-on-or-off-1f2c515f-5d7e-448a-9fd7-835da935584f for more information.", ParameterSetName = ParameterSet_PROPERTIES)]
-        public SwitchParameter NoScriptSite;
+        public SwitchParameter? NoScriptSite;
+
+        [Parameter(Mandatory = false, HelpMessage = @"Specifies the default link permission for the site collection. None - Respect the organization default link permission. View - Sets the default link permission for the site to ""view"" permissions. Edit - Sets the default link permission for the site to ""edit"" permissions", ParameterSetName = ParameterSet_PROPERTIES)]
+        public SharingPermissionType? DefaultLinkPermission;
+
+        [Parameter(Mandatory = false, HelpMessage = @"Specifies the default link type for the site collection. None - Respect the organization default sharing link type. AnonymousAccess - Sets the default sharing link for this site to an Anonymous Access or Anyone link. Internal - Sets the default sharing link for this site to the ""organization"" link or company shareable link. Direct - Sets the default sharing link for this site to the ""Specific people"" link", ParameterSetName = ParameterSet_PROPERTIES)]
+        public SharingLinkType? DefaultSharingLinkType;
 
         [Parameter(Mandatory = false, HelpMessage = "Wait for the operation to complete")]
         public SwitchParameter Wait;
@@ -75,7 +81,7 @@ namespace SharePointPnP.PowerShell.Commands
         {
             Func<TenantOperationMessage, bool> timeoutFunction = TimeoutFunction;
 
-            if(LockState.HasValue)
+            if (LockState.HasValue)
             {
                 Tenant.SetSiteLockState(Url, LockState.Value, Wait, Wait ? timeoutFunction : null);
                 WriteWarning("You changed the lockstate of a site. This change is not guaranteed to be effective immediately. Please wait a few minutes for this to take effect.");
@@ -91,6 +97,8 @@ namespace SharePointPnP.PowerShell.Commands
                     userCodeMaximumLevel: UserCodeMaximumLevel,
                     userCodeWarningLevel: UserCodeWarningLevel,
                     noScriptSite: NoScriptSite,
+                    defaultLinkPermission: DefaultLinkPermission,
+                    defaultSharingLinkType: DefaultSharingLinkType,
                     wait: Wait, timeoutFunction: Wait ? timeoutFunction : null
                     );
 

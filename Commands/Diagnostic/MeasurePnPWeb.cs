@@ -12,7 +12,7 @@ namespace SharePointPnP.PowerShell.Commands.Diagnostic
 {
     [Cmdlet(VerbsDiagnostic.Measure, "PnPWeb")]
     [CmdletHelp("Returns statistics on the web object",
-        SupportedPlatform = CmdletSupportedPlatform.Online | CmdletSupportedPlatform.SP2016,
+        SupportedPlatform = CmdletSupportedPlatform.Online | CmdletSupportedPlatform.SP2016 | CmdletSupportedPlatform.SP2019,
         Category = CmdletHelpCategory.Diagnostic)]
     [CmdletExample(
         Code = @"PS:> Measure-PnPWeb",

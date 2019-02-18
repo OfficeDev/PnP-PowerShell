@@ -28,9 +28,11 @@ namespace SharePointPnP.PowerShell.Commands.Publishing
                 var serverUrl = SelectedWeb.EnsureProperty(w => w.ServerRelativeUrl);
                 ServerRelativePageUrl = UrlUtility.Combine(serverUrl, SiteRelativePageUrl);
             }
-
+#if ONPREMISES
             var file = SelectedWeb.GetFileByServerRelativeUrl(ServerRelativePageUrl);
-
+#else
+            var file = SelectedWeb.GetFileByServerRelativePath(ResourcePath.FromDecodedUrl(ServerRelativePageUrl));
+#endif            
             file.DeleteObject();
 
             ClientContext.ExecuteQueryRetry();

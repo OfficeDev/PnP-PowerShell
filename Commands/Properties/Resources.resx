@@ -309,4 +309,7 @@
   <data name="RemoveNavigationNodeInLocation" xml:space="preserve">
     <value>Remove all Navigation Nodes in {0}?</value>
   </data>
+  <data name="RemoveSiteDesignTask" xml:space="preserve">
+    <value>Remove site design task?</value>
+  </data>
 </root>

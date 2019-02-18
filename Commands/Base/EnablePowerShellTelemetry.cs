@@ -12,6 +12,10 @@ namespace SharePointPnP.PowerShell.Commands.Base
        Code = "PS:> Enable-PnPPowerShellTelemetry",
        Remarks = "Will prompt you to confirm to enable telemetry tracking.",
        SortOrder = 1)]
+    [CmdletExample(
+       Code = "PS:> Enable-PnPPowerShellTelemetry -Force",
+       Remarks = "Will enable telemetry tracking without prompting.",
+       SortOrder = 2)]
     public class EnablePowerShellTelemetry : PSCmdlet
     {
         [Parameter(Mandatory = false, HelpMessage = "Specifying the Force parameter will skip the confirmation question.")]
@@ -23,7 +27,7 @@ namespace SharePointPnP.PowerShell.Commands.Base
             var telemetryFile = System.IO.Path.Combine(userFolder, ".pnppowershelltelemetry");
             if (Force || ShouldContinue("Do you want to enable telemetry for PnP PowerShell?", "Confirm"))
             {
-                SPOnlineConnection.CurrentConnection.InitializeTelemetry(SPOnlineConnection.CurrentConnection.Context, Host);
+                SPOnlineConnection.CurrentConnection?.InitializeTelemetry(SPOnlineConnection.CurrentConnection.Context, Host);
                 System.IO.File.WriteAllText(telemetryFile, "allow");
                 WriteObject("Telemetry enabled");
             }

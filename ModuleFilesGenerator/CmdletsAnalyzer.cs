@@ -112,6 +112,10 @@ namespace SharePointPnP.PowerShell.ModuleFilesGenerator
                             {
                                 platforms.Add("SharePoint 2016");
                             }
+                            if (a.SupportedPlatform.HasFlag(CmdletSupportedPlatform.SP2019))
+                            {
+                                platforms.Add("SharePoint 2019");
+                            }
                             cmdletInfo.Platform = string.Join(", ", platforms);
                         }
 

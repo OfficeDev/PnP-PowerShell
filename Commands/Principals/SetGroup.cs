@@ -60,14 +60,14 @@ namespace SharePointPnP.PowerShell.Commands.Principals
         {
             var group = Identity.GetGroup(SelectedWeb);
 
-            ClientContext.Load(group, 
-                g => g.AllowMembersEditMembership, 
-                g => g.AllowRequestToJoinLeave, 
+            ClientContext.Load(group,
+                g => g.AllowMembersEditMembership,
+                g => g.AllowRequestToJoinLeave,
                 g => g.AutoAcceptRequestToJoinLeave,
                 g => g.OnlyAllowMembersViewMembership,
                 g => g.RequestToJoinLeaveEmailSetting);
             ClientContext.ExecuteQueryRetry();
-            
+
             if (SetAssociatedGroup != AssociatedGroupType.None)
             {
                 switch (SetAssociatedGroup)
@@ -89,17 +89,17 @@ namespace SharePointPnP.PowerShell.Commands.Principals
                         }
                 }
             }
-            if(!string.IsNullOrEmpty(AddRole))
+            if (!string.IsNullOrEmpty(AddRole))
             {
                 var roleDefinition = SelectedWeb.RoleDefinitions.GetByName(AddRole);
                 var roleDefinitionBindings = new RoleDefinitionBindingCollection(ClientContext);
                 roleDefinitionBindings.Add(roleDefinition);
                 var roleAssignments = SelectedWeb.RoleAssignments;
-                roleAssignments.Add(group,roleDefinitionBindings);
+                roleAssignments.Add(group, roleDefinitionBindings);
                 ClientContext.Load(roleAssignments);
                 ClientContext.ExecuteQueryRetry();
             }
-            if(!string.IsNullOrEmpty(RemoveRole))
+            if (!string.IsNullOrEmpty(RemoveRole))
             {
                 var roleAssignment = SelectedWeb.RoleAssignments.GetByPrincipal(group);
                 var roleDefinitionBindings = roleAssignment.RoleDefinitionBindings;
@@ -122,14 +122,32 @@ namespace SharePointPnP.PowerShell.Commands.Principals
             }
             if (!string.IsNullOrEmpty(Description))
             {
-                group.Description = Description;
-                dirty = true;
+                var groupItem = SelectedWeb.SiteUserInfoList.GetItemById(group.Id);
+                SelectedWeb.Context.Load(groupItem, g => g["Notes"]);
+                SelectedWeb.Context.ExecuteQueryRetry();
+
+                var groupDescription = groupItem["Notes"]?.ToString();
+
+                if (groupDescription != Description)
+                {
+                    groupItem["Notes"] = Description;
+                    groupItem.Update();
+                    dirty = true;
+                }
+
+                var plainTextDescription = OfficeDevPnP.Core.Utilities.PnPHttpUtility.ConvertSimpleHtmlToText(Description, int.MaxValue);
+                if (group.Description != plainTextDescription)
+                {
+                    //If the description is more than 512 characters long a server exception will be thrown.
+                    group.Description = plainTextDescription;
+                    dirty = true;
+                }
             }
             if (MyInvocation.BoundParameters.ContainsKey("AllowRequestToJoinLeave") && AllowRequestToJoinLeave != group.AllowRequestToJoinLeave)
             {
                 group.AllowRequestToJoinLeave = AllowRequestToJoinLeave;
                 dirty = true;
-            } 
+            }
 
             if (MyInvocation.BoundParameters.ContainsKey("AutoAcceptRequestToJoinLeave") && AutoAcceptRequestToJoinLeave != group.AutoAcceptRequestToJoinLeave)
             {
@@ -151,7 +169,7 @@ namespace SharePointPnP.PowerShell.Commands.Principals
                 group.RequestToJoinLeaveEmailSetting = RequestToJoinEmail;
                 dirty = true;
             }
-            if(dirty)
+            if (dirty)
             {
                 group.Update();
                 ClientContext.ExecuteQueryRetry();
@@ -177,7 +195,7 @@ namespace SharePointPnP.PowerShell.Commands.Principals
                     ClientContext.ExecuteQueryRetry();
                 }
             }
-            
+
         }
     }
 }

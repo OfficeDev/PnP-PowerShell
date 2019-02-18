@@ -1,5 +1,4 @@
 ﻿using Microsoft.ApplicationInsights;
-using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.Identity.Client;
 using Microsoft.SharePoint.Client;
 using Newtonsoft.Json;
@@ -258,6 +257,8 @@ namespace SharePointPnP.PowerShell.Commands.Base
             TelemetryClient.Context.Properties.Add("Platform", "SP2013");
 #elif SP2016
             TelemetryClient.Context.Properties.Add("Platform", "SP2016");
+#elif SP2019
+            TelemetryClient.Context.Properties.Add("Platform", "SP2019");
 #else
                 TelemetryClient.Context.Properties.Add("Platform", "SPO");
 #endif

@@ -60,8 +60,16 @@ namespace SharePointPnP.PowerShell.Commands.Provisioning
             XMLTemplateProvider provider;
             if (isOpenOfficeFile)
             {
-                provider = new XMLOpenXMLTemplateProvider(new OpenXMLConnector(templateFileName, fileConnector));
-                templateFileName = templateFileName.Substring(0, templateFileName.LastIndexOf(".", StringComparison.Ordinal)) + ".xml";
+                var openXmlConnector = new OpenXMLConnector(templateFileName, fileConnector);
+                provider = new XMLOpenXMLTemplateProvider(openXmlConnector);
+                if (openXmlConnector.Info?.Properties?.TemplateFileName != null)
+                {
+                    templateFileName = openXmlConnector.Info.Properties.TemplateFileName;
+                }
+                else
+                {
+                    templateFileName = templateFileName.Substring(0, templateFileName.LastIndexOf(".", StringComparison.Ordinal)) + ".xml";
+                }
             }
             else
             {

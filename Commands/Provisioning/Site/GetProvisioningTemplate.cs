@@ -56,12 +56,12 @@ PS:> Get-PnPProvisioningTemplate -Out NewTemplate.xml -ExtensibilityHandlers $ha
 #if !SP2013
     [CmdletExample(
         Code = @"PS:> Get-PnPProvisioningTemplate -Out template.pnp -PersistMultiLanguageResources",
-        Introduction = "Only supported on SP2016 and SP Online",
+        Introduction = "Only supported on SP2016, SP2019 and SP Online",
         Remarks = "Extracts a provisioning template in Office Open XML from the current web, and for supported artifacts it will create a resource file for each supported language (based upon the language settings of the current web). The generated resource files will be named after the value specified in the Out parameter. For instance if the Out parameter is specified as -Out 'template.xml' the generated resource file will be called 'template.en-US.resx'.",
         SortOrder = 9)]
     [CmdletExample(
         Code = @"PS:> Get-PnPProvisioningTemplate -Out template.pnp -PersistMultiLanguageResources -ResourceFilePrefix MyResources",
-        Introduction = "Only supported on SP2016 and SP Online",
+        Introduction = "Only supported on SP2016, SP2019 and SP Online",
         Remarks = "Extracts a provisioning template in Office Open XML from the current web, and for supported artifacts it will create a resource file for each supported language (based upon the language settings of the current web). The generated resource files will be named 'MyResources.en-US.resx' etc.",
         SortOrder = 10)]
 #endif
@@ -118,6 +118,9 @@ PS:> Get-PnPProvisioningTemplate -Out NewTemplate.xml -ExtensibilityHandlers $ha
 
         [Parameter(Mandatory = false, HelpMessage = "If specified, out of the box / native publishing files will be saved.")]
         public SwitchParameter IncludeNativePublishingFiles;
+
+        [Parameter(Mandatory = false, HelpMessage = "If specified hidden lists will be included in the template")]
+        public SwitchParameter IncludeHiddenLists;
 
         [Parameter(Mandatory = false, HelpMessage = "During extraction the version of the server will be checked for certain actions. If you specify this switch, this check will be skipped.")]
         public SwitchParameter SkipVersionCheck;
@@ -254,6 +257,7 @@ PS:> Get-PnPProvisioningTemplate -Out NewTemplate.xml -ExtensibilityHandlers $ha
             creationInformation.IncludeSiteGroups = IncludeSiteGroups;
             creationInformation.IncludeTermGroupsSecurity = IncludeTermGroupsSecurity;
             creationInformation.IncludeSearchConfiguration = IncludeSearchConfiguration;
+            creationInformation.IncludeHiddenLists = IncludeHiddenLists;
             creationInformation.SkipVersionCheck = SkipVersionCheck;
             if (ContentTypeGroups != null)
             {

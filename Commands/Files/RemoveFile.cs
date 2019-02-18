@@ -46,9 +46,11 @@ namespace SharePointPnP.PowerShell.Commands.Files
                 var webUrl = SelectedWeb.EnsureProperty(w => w.ServerRelativeUrl);
                 ServerRelativeUrl = UrlUtility.Combine(webUrl, SiteRelativeUrl);
             }
-
+#if ONPREMISES
             var file = SelectedWeb.GetFileByServerRelativeUrl(ServerRelativeUrl);
-
+#else
+            var file = SelectedWeb.GetFileByServerRelativePath(ResourcePath.FromDecodedUrl(ServerRelativeUrl));
+#endif
             ClientContext.Load(file, f => f.Name);
             ClientContext.ExecuteQueryRetry();
 

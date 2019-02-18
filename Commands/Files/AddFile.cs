@@ -171,7 +171,11 @@ namespace SharePointPnP.PowerShell.Commands.Files
             {
                 try
                 {
+#if ONPREMISES                    
                     var existingFile = SelectedWeb.GetFileByServerRelativeUrl(fileUrl);
+#else               
+                    var existingFile = SelectedWeb.GetFileByServerRelativePath(ResourcePath.FromDecodedUrl(fileUrl));
+#endif                          
                     existingFile.EnsureProperty(f => f.Exists);
                     if (existingFile.Exists)
                     {

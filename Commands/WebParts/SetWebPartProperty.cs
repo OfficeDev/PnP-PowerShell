@@ -12,15 +12,15 @@ namespace SharePointPnP.PowerShell.Commands.WebParts
         Category = CmdletHelpCategory.WebParts)]
     [CmdletExample(
         Code = @"PS:> Set-PnPWebPartProperty -ServerRelativePageUrl /sites/demo/sitepages/home.aspx -Identity ccd2c98a-c9ae-483b-ae72-19992d583914 -Key ""Title"" -Value ""New Title"" ",
-        Remarks = "Sets the title property of the webpart.",
+        Remarks = "Sets the title property of the web part.",
         SortOrder = 1)]
     public class SetWebPartProperty : PnPWebCmdlet
     {
-        [Parameter(Mandatory = true, HelpMessage = "Full server relative url of the webpart page, e.g. /sites/demo/sitepages/home.aspx")]
+        [Parameter(Mandatory = true, HelpMessage = "Full server relative url of the web part page, e.g. /sites/demo/sitepages/home.aspx")]
         [Alias("PageUrl")]
         public string ServerRelativePageUrl = string.Empty;
 
-        [Parameter(Mandatory = true, HelpMessage = "The Guid of the webpart")]
+        [Parameter(Mandatory = true, HelpMessage = "The Guid of the web part")]
         public GuidPipeBind Identity;
 
         [Parameter(Mandatory = true, HelpMessage = "Name of a single property to be set")]

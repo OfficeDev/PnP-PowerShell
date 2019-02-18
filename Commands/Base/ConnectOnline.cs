@@ -1,21 +1,22 @@
-﻿using SharePointPnP.PowerShell.CmdletHelpAttributes;
-using SharePointPnP.PowerShell.Commands.Base.PipeBinds;
-using System;
-using System.IO;
-using System.Management.Automation;
-using System.Security;
-using System.Linq;
+﻿using Microsoft.Identity.Client;
 using Microsoft.SharePoint.Client;
 using OfficeDevPnP.Core;
+using SharePointPnP.PowerShell.CmdletHelpAttributes;
+using SharePointPnP.PowerShell.Commands.Base.PipeBinds;
 using SharePointPnP.PowerShell.Commands.Provider;
-using File = System.IO.File;
+using System;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Management.Automation;
 using System.Net;
-using Microsoft.Identity.Client;
+using System.Reflection;
+using System.Security;
+using File = System.IO.File;
 #if NETSTANDARD2_0
 using System.IdentityModel.Tokens.Jwt;
 #endif
 #if !ONPREMISES
-using Microsoft.SharePoint.Client.CompliancePolicy;
 #endif
 
 namespace SharePointPnP.PowerShell.Commands.Base
@@ -141,6 +142,8 @@ PS:> Connect-PnPOnline -Url https://yourserver -ClientId <id> -HighTrustCertific
         private static readonly Uri GraphAADLogin = new Uri("https://login.microsoftonline.com/");
         private static readonly string[] GraphDefaultScope = { "https://graph.microsoft.com/.default" };
 #endif
+
+
 #if ONPREMISES
         private const string ParameterSet_HIGHTRUST_CERT = "High Trust using a X509Certificate2 object.";
         private const string ParameterSet_HIGHTRUST_PFX = "High Trust using a certificate from a PFX file.";
@@ -469,6 +472,12 @@ PS:> Connect-PnPOnline -Url https://yourserver -ClientId <id> -HighTrustCertific
 
         protected override void ProcessRecord()
         {
+            var latestVersion = SPOnlineConnectionHelper.GetLatestVersion();
+            if (!string.IsNullOrEmpty(latestVersion))
+            {
+                WriteWarning(latestVersion);
+            }
+
             if (IgnoreSslErrors)
             {
                 ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
@@ -535,7 +544,7 @@ Use -PnPO365ManagementShell instead");
             else if (ParameterSetName == ParameterSet_APPONLYAADPEM)
             {
 #if !NETSTANDARD2_0
-                connection = SPOnlineConnectionHelper.InitiateAzureADAppOnlyConnection(new Uri(Url), ClientId, Tenant, PEMCertificate, PEMPrivateKey, MinimalHealthScore, RetryCount, RetryWait, RequestTimeout, TenantAdminUrl, Host, NoTelemetry, SkipTenantAdminCheck, AzureEnvironment);
+                connection = SPOnlineConnectionHelper.InitiateAzureADAppOnlyConnection(new Uri(Url), ClientId, Tenant, PEMCertificate, PEMPrivateKey, CertificatePassword, MinimalHealthScore, RetryCount, RetryWait, RequestTimeout, TenantAdminUrl, Host, NoTelemetry, SkipTenantAdminCheck, AzureEnvironment);
 #else
                 throw new NotImplementedException();
 #endif
@@ -756,6 +765,7 @@ Use -PnPO365ManagementShell instead");
             }
         }
 
+       
         private void ConnectGraphAAD()
         {
             var appCredentials = new ClientCredential(AppSecret);

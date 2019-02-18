@@ -153,7 +153,23 @@ namespace SharePointPnP.PowerShell.Commands.Site
                     if (System.IO.File.Exists(LogoFilePath))
                     {
                         var bytes = System.IO.File.ReadAllBytes(LogoFilePath);
+#if !NETSTANDARD2_0
                         var mimeType = System.Web.MimeMapping.GetMimeMapping(LogoFilePath);
+#else
+                        var mimeType = "";
+                        if(LogoFilePath.EndsWith("gif",StringComparison.InvariantCultureIgnoreCase))
+                        {
+                            mimeType = "image/gif";
+                        }
+                        if(LogoFilePath.EndsWith("jpg", StringComparison.InvariantCultureIgnoreCase))
+                        {
+                            mimeType = "image/jpeg";
+                        }
+                        if(LogoFilePath.EndsWith("png", StringComparison.InvariantCultureIgnoreCase))
+                        {
+                            mimeType = "image/png";
+                        }
+#endif
                         var result = OfficeDevPnP.Core.Sites.SiteCollection.SetGroupImage(context, bytes, mimeType).GetAwaiter().GetResult();
                     }
                     else

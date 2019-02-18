@@ -14,7 +14,7 @@ namespace SharePointPnP.PowerShell.Commands.Diagnostic
     [Cmdlet(VerbsDiagnostic.Measure, "PnPList")]
     [CmdletHelp("Returns statistics on the list object",
         Category = CmdletHelpCategory.Diagnostic,
-        SupportedPlatform = CmdletSupportedPlatform.Online | CmdletSupportedPlatform.SP2016)]
+        SupportedPlatform = CmdletSupportedPlatform.Online | CmdletSupportedPlatform.SP2016 | CmdletSupportedPlatform.SP2019)]
     [CmdletExample(
         Code = @"PS:> Measure-PnPList ""Documents""",
         Remarks = @"Gets statistics on Documents document library",

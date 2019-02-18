@@ -37,18 +37,18 @@ namespace SharePointPnP.PowerShell.Commands.ClientSidePages
         [Parameter(Mandatory = true, ValueFromPipeline = true, HelpMessage = "The instance id of the control. Use Get-PnPClientSideControl retrieve the instance ids.")]
         public GuidPipeBind InstanceId;
 
-        [Parameter(Mandatory = true, ValueFromPipeline = false, ParameterSetName = ParameterSet_SECTION, HelpMessage = "The section to move the webpart to")]
-        [Parameter(Mandatory = true, ValueFromPipeline = false, ParameterSetName = ParameterSet_SECTIONCOLUMN, HelpMessage = "The section to move the webpart to")]
+        [Parameter(Mandatory = true, ValueFromPipeline = false, ParameterSetName = ParameterSet_SECTION, HelpMessage = "The section to move the web part to")]
+        [Parameter(Mandatory = true, ValueFromPipeline = false, ParameterSetName = ParameterSet_SECTIONCOLUMN, HelpMessage = "The section to move the web part to")]
         public int Section;
 
-        [Parameter(Mandatory = true, ValueFromPipeline = false, ParameterSetName = ParameterSet_COLUMN, HelpMessage = "The column to move the webpart to")]
-        [Parameter(Mandatory = true, ValueFromPipeline = false, ParameterSetName = ParameterSet_SECTIONCOLUMN, HelpMessage = "The column to move the webpart to")]
+        [Parameter(Mandatory = true, ValueFromPipeline = false, ParameterSetName = ParameterSet_COLUMN, HelpMessage = "The column to move the web part to")]
+        [Parameter(Mandatory = true, ValueFromPipeline = false, ParameterSetName = ParameterSet_SECTIONCOLUMN, HelpMessage = "The column to move the web part to")]
         public int Column;
 
-        [Parameter(Mandatory = false, ValueFromPipeline = false, ParameterSetName = ParameterSet_COLUMN, HelpMessage = "Change to order of the webpart in the column")]
-        [Parameter(Mandatory = false, ValueFromPipeline = false, ParameterSetName = ParameterSet_SECTION, HelpMessage = "Change to order of the webpart in the column")]
-        [Parameter(Mandatory = false, ValueFromPipeline = false, ParameterSetName = ParameterSet_SECTIONCOLUMN, HelpMessage = "Change to order of the webpart in the column")]
-        [Parameter(Mandatory = true, ValueFromPipeline = false, ParameterSetName = ParameterSet_POSITION, HelpMessage = "Change to order of the webpart in the column")]
+        [Parameter(Mandatory = false, ValueFromPipeline = false, ParameterSetName = ParameterSet_COLUMN, HelpMessage = "Change to order of the web part in the column")]
+        [Parameter(Mandatory = false, ValueFromPipeline = false, ParameterSetName = ParameterSet_SECTION, HelpMessage = "Change to order of the web part in the column")]
+        [Parameter(Mandatory = false, ValueFromPipeline = false, ParameterSetName = ParameterSet_SECTIONCOLUMN, HelpMessage = "Change to order of the web part in the column")]
+        [Parameter(Mandatory = true, ValueFromPipeline = false, ParameterSetName = ParameterSet_POSITION, HelpMessage = "Change to order of the web part in the column")]
         public int Position;
 
         protected override void ExecuteCmdlet()

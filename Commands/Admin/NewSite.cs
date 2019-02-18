@@ -70,17 +70,23 @@ namespace SharePointPnP.PowerShell.Commands
     [CmdletAdditionalParameter(ParameterType = typeof(string), ParameterName = "Description", Mandatory = false, HelpMessage = @"Specifies the description of the new site collection", ParameterSetName = ParameterSet_TEAM)]
     [CmdletAdditionalParameter(ParameterType = typeof(string), ParameterName = "Classification", Mandatory = false, HelpMessage = @"Specifies the classification of the new site collection", ParameterSetName = ParameterSet_TEAM)]
     [CmdletAdditionalParameter(ParameterType = typeof(string), ParameterName = "IsPublic", Mandatory = false, HelpMessage = @"Specifies if new site collection is public. Defaults to false.", ParameterSetName = ParameterSet_TEAM)]
+    [CmdletAdditionalParameter(ParameterType = typeof(string[]), ParameterName = "Owners", Mandatory = false, HelpMessage = @"Specifies the owners of the site. Specify the value as a string array: ""user@domain.com"",""anotheruser@domain.com""", ParameterSetName = ParameterSet_TEAM)]
     public class NewSite : PnPCmdlet, IDynamicParameters
     {
         private const string ParameterSet_COMMUNICATIONBUILTINDESIGN = "Communication Site with Built-In Site Design";
         private const string ParameterSet_COMMUNICATIONCUSTOMDESIGN = "Communication Site with Custom Design";
         private const string ParameterSet_TEAM = "Team Site";
 
-        [Parameter(Mandatory = true, HelpMessage = "@Specifies with type of site to create.")]
+        [Parameter(Mandatory = true, HelpMessage = "Specifies with type of site to create.")]
         public SiteType Type;
+
+        [Parameter(Mandatory = false, HelpMessage = "If specified the site will be associated to the hubsite as identified by this id")]
+        public GuidPipeBind HubSiteId;
 
         private CommunicationSiteParameters _communicationSiteParameters;
         private TeamSiteParameters _teamSiteParameters;
+
+
 
         public object GetDynamicParameters()
         {
@@ -118,6 +124,10 @@ namespace SharePointPnP.PowerShell.Commands
                 creationInformation.ShareByEmailEnabled = _communicationSiteParameters.AllowFileSharingForGuestUsers || _communicationSiteParameters.ShareByEmailEnabled;
 #pragma warning restore CS0618 // Type or member is obsolete
                 creationInformation.Lcid = _communicationSiteParameters.Lcid;
+                if (MyInvocation.BoundParameters.ContainsKey("HubSiteId"))
+                {
+                    creationInformation.HubSiteId = HubSiteId.Id;
+                }
                 if (ParameterSetName == "CommunicationCustomInDesign")
                 {
                     creationInformation.SiteDesignId = _communicationSiteParameters.SiteDesignId.Id;
@@ -126,8 +136,9 @@ namespace SharePointPnP.PowerShell.Commands
                 {
                     creationInformation.SiteDesign = _communicationSiteParameters.SiteDesign;
                 }
-                var results = ClientContext.CreateSiteAsync(creationInformation);
-                var returnedContext = results.GetAwaiter().GetResult();
+                var returnedContext = OfficeDevPnP.Core.Sites.SiteCollection.Create(ClientContext, creationInformation);
+                //var results = ClientContext.CreateSiteAsync(creationInformation);
+                //var returnedContext = results.GetAwaiter().GetResult();
                 WriteObject(returnedContext.Url);
             }
             else
@@ -139,9 +150,15 @@ namespace SharePointPnP.PowerShell.Commands
                 creationInformation.Description = _teamSiteParameters.Description;
                 creationInformation.IsPublic = _teamSiteParameters.IsPublic;
                 creationInformation.Lcid = _teamSiteParameters.Lcid;
+                if (MyInvocation.BoundParameters.ContainsKey("HubSiteId"))
+                {
+                    creationInformation.HubSiteId = HubSiteId.Id;
+                }
+                creationInformation.Owners = _teamSiteParameters.Owners;
 
-                var results = ClientContext.CreateSiteAsync(creationInformation);
-                var returnedContext = results.GetAwaiter().GetResult();
+                var returnedContext = OfficeDevPnP.Core.Sites.SiteCollection.Create(ClientContext, creationInformation);
+                //var results = ClientContext.CreateSiteAsync(creationInformation);
+                //var returnedContext = results.GetAwaiter().GetResult();
                 WriteObject(returnedContext.Url);
             }
         }
@@ -204,6 +221,9 @@ namespace SharePointPnP.PowerShell.Commands
 
             [Parameter(Mandatory = false, ParameterSetName = ParameterSet_TEAM)]
             public uint Lcid;
+
+            [Parameter(Mandatory = false, ParameterSetName = ParameterSet_TEAM)]
+            public string[] Owners;
         }
     }
 }

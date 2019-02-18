@@ -56,7 +56,20 @@ namespace SharePointPnP.PowerShell.Tests
                 CleanupPageIfExists(ctx, PageAddWebPartTestName);
             }
         }
-        
+
+        [TestMethod]
+        public void ConvertPageTest()
+        {
+            using (var scope = new PSTestScope(true))
+            {
+                var results = scope.ExecuteCommand("ConvertTo-PnPClientSidePage",
+                    new CommandParameter("Identity", "table_1.aspx"), new CommandParameter("Overwrite", true));
+
+                var page = results[0].BaseObject as ClientSidePage;
+            }
+        }
+
+
         [TestMethod]
         public void AddClientSidePageWithNameWithoutExtensionTest()
         {

@@ -1,0 +1,2297 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SharePointPnP.Modernization.Framework</name>
+    </assembly>
+    <members>
+        <member name="T:SharePointPnP.Modernization.Framework.Cache.CacheManager">
+            <summary>
+            Caching manager, singleton
+            </summary>
+        </member>
+        <member name="P:SharePointPnP.Modernization.Framework.Cache.CacheManager.Instance">
+            <summary>
+            Get's the single cachemanager instance, singleton pattern
+            </summary>
+        </member>
+        <member name="M:SharePointPnP.Modernization.Framework.Cache.CacheManager.GetClientSideComponents(OfficeDevPnP.Core.Pages.ClientSidePage)">
+            <summary>
+            Get's the clientside components from cache or if needed retrieves and caches them
+            </summary>
+            <param name="page">Page to grab the components for</param>
+            <returns></returns>
+        </member>
+        <member name="T:SharePointPnP.Modernization.Framework.Constants">
+            <summary>
+            Constants used 
+            </summary>
+        </member>
+        <member name="T:SharePointPnP.Modernization.Framework.Entities.AudienceEntity">
+            <summary>
+            Holds information about the defined audiences
+            </summary>
+        </member>
+        <member name="T:SharePointPnP.Modernization.Framework.Entities.WebPartEntity">
+            <summary>
+            Entity to describe a web part on a wiki or webpart page
+            </summary>
+        </member>
+        <member name="M:SharePointPnP.Modernization.Framework.Entities.WebPartEntity.TypeShort">
+            <summary>
+            Shortened web part type name
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SharePointPnP.Modernization.Framework.Entities.WebPartEntity.Json">
+            <summary>
+            Returns this instance as Json
+            </summary>
+            <returns>Json serialized string of this web part instance</returns>
+        </member>
+        <member name="T:SharePointPnP.Modernization.Framework.Functions.BuiltIn">
+            <summary>
+            Set of native, builtin, functions
+            </summary>
+        </member>
+        <member name="M:SharePointPnP.Modernization.Framework.Functions.BuiltIn.#ctor(Microsoft.SharePoint.Client.ClientContext)">
+            <summary>
+            Instantiates the base builtin function library
+            </summary>
+            <param name="clientContext">ClientContext object for the site holding the page being transformed</param>
+        </member>
+        <member name="M:SharePointPnP.Modernization.Framework.Functions.BuiltIn.HtmlEncode(System.String)">
+            <summary>
+            Html encodes a string
+            </summary>
+            <param name="text">Text to html encode</param>
+            <returns>Html encoded string</returns>
+        </member>
+        <member name="M:SharePointPnP.Modernization.Framework.Functions.BuiltIn.HtmlEncodeForJson(System.String)">
+            <summary>
+            Html encodes string for inclusion in JSON
+            </summary>
+            <param name="text">Text to html encode</param>
+            <returns>Html encoded string for inclusion in JSON</returns>
+        </member>
+        <member name="M:SharePointPnP.Modernization.Framework.Functions.BuiltIn.ReturnTrue">
+            <summary>
+            Return true
+            </summary>
+            <returns>True</returns>
+        </member>
+        <member name="M:SharePointPnP.Modernization.Framework.Functions.BuiltIn.ReturnFalse">
+            <summary>
+            Return false
+            </summary>
+            <returns>False</returns>
+        </member>
+        <member name="M:SharePointPnP.Modernization.Framework.Functions.BuiltIn.ReturnServerRelativePath(System.String)">
+            <summary>
+            Transforms the incoming path into a server relative path
+            </summary>
+            <param name="path">Path to transform</param>
+            <returns>Server relative path</returns>
+        </member>
+        <member name="M:SharePointPnP.Modernization.Framework.Functions.BuiltIn.ReturnFileName(System.String)">
+            <summary>
+            Returns the filename of the given path
+            </summary>
+            <param name="path"></param>
+            <returns>File name</returns>
+        </member>
+        <member name="M:SharePointPnP.Modernization.Framework.Functions.BuiltIn.TextSelector(System.String)">
+            <summary>
+            Selector to allow to embed a spacer instead of an empty text
+            </summary>
+            <param name="text">Text to evaluate</param>
+            <returns>Text if text needs to be inserted, Spacer if text was empty and you want a spacer</returns>
+        </member>
+        <member name="M:SharePointPnP.Modernization.Framework.Functions.BuiltIn.TextCleanup(System.String,System.String)">
+            <summary>
+            Wiki html rewrite to work in RTE
+            </summary>
+            <param name="text">Wiki html to rewrite</param>
+            <returns>Html that's compatible with RTE</returns>
+        </member>
+        <member name="M:SharePointPnP.Modernization.Framework.Functions.BuiltIn.ListSelectorListLibrary(System.Guid,System.String)">
+            <summary>
+            Selector that returns the base type of the list as input for selecting the correct mapping
+            </summary>
+            <param name="listId">Id of the list</param>
+            <returns>Mapping to be used for the given list</returns>
+        </member>
+        <member name="M:SharePointPnP.Modernization.Framework.Functions.BuiltIn.ListAddServerRelativeUrl(System.Guid)">
+            <summary>
+            Function that returns the server relative url of the given list
+            </summary>
+            <param name="listId">Id of the list</param>
+            <returns>Server relative url of the list</returns>
+        </member>
+        <member name="M:SharePointPnP.Modernization.Framework.Functions.BuiltIn.ListAddWebRelativeUrl(System.Guid)">
+            <summary>
+            Function that returns the web relative url of the given list
+            </summary>
+            <param name="listId">Id of the list</param>
+            <returns>Web relative url of the list</returns>
+        </member>
+        <member name="M:SharePointPnP.Modernization.Framework.Functions.BuiltIn.ListDetectUsedView(System.Guid,System.String)">
+            <summary>
+            Tries to find the id of the view used to configure the web part
+            </summary>
+            <param name="listId">Id of the list</param>
+            <param name="xmlDefinition">Webpart view definition</param>
+            <returns>Id of the detected view if found or otherwise the id of the default list view</returns>
+        </member>
+        <member name="M:SharePointPnP.Modernization.Framework.Functions.BuiltIn.ImageLookup(System.String)">
+            <summary>
+            Does return image properties based on given server relative image path
+            </summary>
+            <param name="serverRelativeImagePath">Server relative path of the image</param>
+            <returns>A set of image properties</returns>
+        </member>
+        <member name="M:SharePointPnP.Modernization.Framework.Functions.BuiltIn.ExtractWebpartProperties(System.String)">
+            <summary>
+            Extracts the client side web part properties so they can be reused
+            </summary>
+            <param name="clientSideWebPartHtml">Html defining the client side web part hosted on a classic page</param>
+            <returns>Client side web part properties ready for reuse</returns>
+        </member>
+        <member name="M:SharePointPnP.Modernization.Framework.Functions.BuiltIn.ContentByQueryToHighlightedContentProperties(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Int32,System.String)">
+            <summary>
+            Maps content by query web part data into a properties collection for the contentrollup (= Highlighted Content) web part
+            </summary>
+            <param name="webUrl"></param>
+            <param name="listGuid"></param>
+            <param name="listName"></param>
+            <param name="serverTemplate"></param>
+            <param name="contentTypeBeginsWithId"></param>
+            <param name="filterField1"></param>
+            <param name="filter1ChainingOperator"></param>
+            <param name="filterField1Value"></param>
+            <param name="filterOperator1"></param>
+            <param name="filterField2"></param>
+            <param name="filter2ChainingOperator"></param>
+            <param name="filterField2Value"></param>
+            <param name="filterOperator2"></param>
+            <param name="filterField3"></param>
+            <param name="filterField3Value"></param>
+            <param name="filterOperator3"></param>
+            <param name="sortBy"></param>
+            <param name="sortByDirection"></param>
+            <param name="groupBy"></param>
+            <param name="groupByDirection"></param>
+            <param name="itemLimit"></param>
+            <param name="displayColumns"></param>
+            <param name="dataMappings"></param>
+            <returns>Properties collection for the contentrollup (= Highlighted Content) web part</returns>
+        </member>
+        <member name="T:SharePointPnP.Modernization.Framework.Functions.BaseFunctionDocumentationAttribute">
+            <summary>
+            Base attribute to document a function or selector
+            </summary>
+        </member>
+        <member name="T:SharePointPnP.Modernization.Framework.Functions.FunctionProcessor">
+            <summary>
+            Class that executes functions and selectors defined in the mapping 
+            </summary>
+        </member>
+        <member name="T:SharePointPnP.Modernization.Framework.Functions.FunctionProcessor.FunctionType">
+            <summary>
+            Allowed function parameter types
+            </summary>
+        </member>
+        <member name="T:SharePointPnP.Modernization.Framework.Functions.FunctionProcessor.FunctionParameter">
+            <summary>
+            Definition of a function parameter
+            </summary>
+        </member>
+        <member name="P:SharePointPnP.Modernization.Framework.Functions.FunctionProcessor.FunctionParameter.Name">
+            <summary>
+            Name of the parameter
+            </summary>
+        </member>
+        <member name="P:SharePointPnP.Modernization.Framework.Functions.FunctionProcessor.FunctionParameter.Type">
+            <summary>
+            Type if the parameter
+            </summary>
+        </member>
+        <member name="P:SharePointPnP.Modernization.Framework.Functions.FunctionProcessor.FunctionParameter.Value">
+            <summary>
+            Value of the parameter
+            </summary>
+        </member>
+        <member name="T:SharePointPnP.Modernization.Framework.Functions.FunctionProcessor.FunctionDefinition">
+            <summary>
+            Definition of a function or selector
+            </summary>
+        </member>
+        <member name="P:SharePointPnP.Modernization.Framework.Functions.FunctionProcessor.FunctionDefinition.AddOn">
+            <summary>
+            AddOn hosting the function/selector. Empty value means the function is hosted by the internal builtin functions library
+            </summary>
+        </member>
+        <member name="P:SharePointPnP.Modernization.Framework.Functions.FunctionProcessor.FunctionDefinition.Name">
+            <summary>
+            Name of the function/selector
+            </summary>
+        </member>
+        <member name="P:SharePointPnP.Modernization.Framework.Functions.FunctionProcessor.FunctionDefinition.Output">
+            <summary>
+            Parameter specifying the function result
+            </summary>
+        </member>
+        <member name="P:SharePointPnP.Modernization.Framework.Functions.FunctionProcessor.FunctionDefinition.Input">
+            <summary>
+            List of input parameter used to call the function
+            </summary>
+        </member>
+        <member name="T:SharePointPnP.Modernization.Framework.Functions.FunctionProcessor.AddOnType">
+            <summary>
+            Defines a loaded AddOn function/selector class instance
+            </summary>
+        </member>
+        <member name="P:SharePointPnP.Modernization.Framework.Functions.FunctionProcessor.AddOnType.Name">
+            <summary>
+            Name of the addon. The name is used to link the determine which class instance needs to be used to execute a function
+            </summary>
+        </member>
+        <member name="P:SharePointPnP.Modernization.Framework.Functions.FunctionProcessor.AddOnType.Instance">
+            <summary>
+            Instance of the class that holds the functions/selectors
+            </summary>
+        </member>
+        <member name="P:SharePointPnP.Modernization.Framework.Functions.FunctionProcessor.AddOnType.Assembly">
+            <summary>
+            Assembly holding the functions/selector class
+            </summary>
+        </member>
+        <member name="P:SharePointPnP.Modernization.Framework.Functions.FunctionProcessor.AddOnType.Type">
+            <summary>
+            Type of the functions/selector class
+            </summary>
+        </member>
+        <member name="M:SharePointPnP.Modernization.Framework.Functions.FunctionProcessor.#ctor(OfficeDevPnP.Core.Pages.ClientSidePage,SharePointPnP.Modernization.Framework.PageTransformation)">
+            <summary>
+            Instantiates the function processor. Also loads the defined add-ons
+            </summary>
+            <param name="page">Client side page for which we're executing the functions/selectors as part of the mapping</param>
+            <param name="pageTransformation">Webpart mapping information</param>
+        </member>
+        <member name="M:SharePointPnP.Modernization.Framework.Functions.FunctionProcessor.Process(SharePointPnP.Modernization.Framework.WebPart@,SharePointPnP.Modernization.Framework.Entities.WebPartEntity)">
+            <summary>
+            Executes the defined functions and selectors in the provided web part
+            </summary>
+            <param name="webPartData">Web Part mapping data</param>
+            <param name="webPart">Definition of the web part to be transformed</param>
+            <returns>The ouput of the mapping selector if there was one executed, null otherwise</returns>
+        </member>
+        <member name="T:SharePointPnP.Modernization.Framework.Functions.FunctionsBase">
+            <summary>
+            Base class for all function libraries
+            </summary>
+        </member>
+        <member name="M:SharePointPnP.Modernization.Framework.Functions.FunctionsBase.#ctor(Microsoft.SharePoint.Client.ClientContext)">
+            <summary>
+            Instantiates a function library class
+            </summary>
+            <param name="clientContext">ClientContext object for the site holding the page being transformed</param>
+        </member>
+        <member name="T:SharePointPnP.Modernization.Framework.Functions.XmlComparer">
+            <summary>
+            Loosely compares XML documents for equality:
+            <list type="bullet">
+            <item>Order of siblings in an element is ignored.</item>
+            <item>Text nodes are the only node in at the bottom of the tree so sibling text nodes are merged for comparison.</item>
+            <item>The prefix used for a namespace is ignored.</item>
+            <item>Comments are ignored.</item>
+            </list>
+            This type of comparison is useful when comparing the XML documents used as messages, configuration, etc. in various specifications.
+            </summary>
+        </member>
+        <member name="T:SharePointPnP.Modernization.Framework.Functions.XmlEqualityResult">
+            <summary>
+            The result of an equiality comparison with <see cref="T:SharePointPnP.Modernization.Framework.Functions.XmlComparer"/>
+            </summary>
+        </member>
+        <member name="P:SharePointPnP.Modernization.Framework.Functions.XmlEqualityResult.Success">
+            <summary>
+            Gets whether the match was successful
+            </summary>
+        </member>
+        <member name="P:SharePointPnP.Modernization.Framework.Functions.XmlEqualityResult.FailObject">
+            <summary>
+            Gets or sets the object that failed the match
+            </summary>
+        </member>
+        <member name="P:SharePointPnP.Modernization.Framework.Functions.XmlEqualityResult.ErrorMessage">
+            <summary>
+            Gets or sets a descriptive error message if the match failed.
+            </summary>
+            <remarks>
+            If set to null or not set the default Error Message is returned.
+            </remarks>
+        </member>
+        <member name="T:SharePointPnP.Modernization.Framework.Pages.BasePage">
+            <summary>
+            Base class for the page analyzers
+            </summary>
+        </member>
+        <member name="M:SharePointPnP.Modernization.Framework.Pages.BasePage.#ctor(Microsoft.SharePoint.Client.ListItem,SharePointPnP.Modernization.Framework.PageTransformation)">
+            <summary>
+            Constructs the base page class instance
+            </summary>
+            <param name="page">page ListItem</param>
+            <param name="pageTransformation">page transformation model to use for extraction or transformation</param>
+        </member>
+        <member name="M:SharePointPnP.Modernization.Framework.Pages.BasePage.GetType(System.String)">
+            <summary>
+            Get's the type of the web part
+            </summary>
+            <param name="webPartXml">Web part xml to analyze</param>
+            <returns>Type of the web part as fully qualified name</returns>
+        </member>
+        <member name="M:SharePointPnP.Modernization.Framework.Pages.BasePage.GetTypeFromProperties(Microsoft.SharePoint.Client.PropertyValues)">
+            <summary>
+            Get's the type of the web part by detecting if from the available properties
+            </summary>
+            <param name="properties">Web part properties to analyze</param>
+            <returns>Type of the web part as fully qualified name</returns>
+        </member>
+        <member name="M:SharePointPnP.Modernization.Framework.Pages.BasePage.Properties(Microsoft.SharePoint.Client.PropertyValues,System.String,System.String)">
+            <summary>
+            Checks the PageTransformation XML data to know which properties need to be kept for the given web part and collects their values
+            </summary>
+            <param name="properties">Properties collection retrieved when we loaded the web part</param>
+            <param name="webPartType">Type of the web part</param>
+            <param name="webPartXml">Web part XML</param>
+            <returns>Collection of the requested property/value pairs</returns>
+        </member>
+        <member name="T:SharePointPnP.Modernization.Framework.Pages.PageLayout">
+            <summary>
+            Possible layouts used by wiki or webpart pages
+            </summary>
+        </member>
+        <member name="T:SharePointPnP.Modernization.Framework.Pages.PublishingPage">
+            <summary>
+            Analyzes a publishing page
+            </summary>
+        </member>
+        <member name="M:SharePointPnP.Modernization.Framework.Pages.PublishingPage.#ctor(Microsoft.SharePoint.Client.ListItem,SharePointPnP.Modernization.Framework.PageTransformation)">
+            <summary>
+            Instantiates a publishing page object
+            </summary>
+            <param name="page">ListItem holding the page to analyze</param>
+            <param name="pageTransformation">Page transformation information</param>
+        </member>
+        <member name="M:SharePointPnP.Modernization.Framework.Pages.PublishingPage.Analyze">
+            <summary>
+            Analyses a publishing page
+            </summary>
+            <returns>Information about the analyzed publishing page</returns>
+        </member>
+        <member name="T:SharePointPnP.Modernization.Framework.Pages.WebPartPage">
+            <summary>
+            Analyzes a web part page
+            </summary>
+        </member>
+        <member name="M:SharePointPnP.Modernization.Framework.Pages.WebPartPage.#ctor(Microsoft.SharePoint.Client.ListItem,SharePointPnP.Modernization.Framework.PageTransformation)">
+            <summary>
+            Instantiates a web part page object
+            </summary>
+            <param name="page">ListItem holding the page to analyze</param>
+            <param name="pageTransformation">Page transformation information</param>
+        </member>
+        <member name="M:SharePointPnP.Modernization.Framework.Pages.WebPartPage.Analyze(System.Boolean)">
+            <summary>
+            Analyses a webpart page
+            </summary>
+            <param name="includeTitleBarWebPart">Include the TitleBar web part</param>
+            <returns>Information about the analyzed webpart page</returns>
+        </member>
+        <member name="M:SharePointPnP.Modernization.Framework.Pages.WebPartPage.GetColumn(System.String,SharePointPnP.Modernization.Framework.Pages.PageLayout)">
+            <summary>
+            Translates the given zone value and page layout to a column number
+            </summary>
+            <param name="zoneId">Web part zone id</param>
+            <param name="layout">Layout of the web part page</param>
+            <returns>Column value</returns>
+        </member>
+        <member name="M:SharePointPnP.Modernization.Framework.Pages.WebPartPage.GetRow(System.String,SharePointPnP.Modernization.Framework.Pages.PageLayout)">
+            <summary>
+            Translates the given zone value and page layout to a row number
+            </summary>
+            <param name="zoneId">Web part zone id</param>
+            <param name="layout">Layout of the web part page</param>
+            <returns>Row value</returns>
+        </member>
+        <member name="M:SharePointPnP.Modernization.Framework.Pages.WebPartPage.GetLayout(Microsoft.SharePoint.Client.PropertyValues)">
+            <summary>
+            Determines the used web part page layout
+            </summary>
+            <param name="pageProperties">Properties of the web part page file</param>
+            <returns>Used layout</returns>
+        </member>
+        <member name="T:SharePointPnP.Modernization.Framework.Pages.WikiPage">
+            <summary>
+            Analyzes a wiki page
+            </summary>
+        </member>
+        <member name="M:SharePointPnP.Modernization.Framework.Pages.WikiPage.#ctor(Microsoft.SharePoint.Client.ListItem,SharePointPnP.Modernization.Framework.PageTransformation)">
+            <summary>
+            Instantiates a wiki page object
+            </summary>
+            <param name="page">ListItem holding the page to analyze</param>
+            <param name="pageTransformation">Page transformation information</param>
+        </member>
+        <member name="M:SharePointPnP.Modernization.Framework.Pages.WikiPage.Analyze">
+            <summary>
+            Analyses a wiki page
+            </summary>
+            <returns>Information about the analyzed wiki page</returns>
+        </member>
+        <member name="M:SharePointPnP.Modernization.Framework.Pages.WikiPage.ContainsWebPart(AngleSharp.Dom.Html.IHtmlElement)">
+            <summary>
+            Does the tree of nodes somewhere contain a web part?
+            </summary>
+            <param name="element">Html content to analyze</param>
+            <returns>True if it contains a web part</returns>
+        </member>
+        <member name="M:SharePointPnP.Modernization.Framework.Pages.WikiPage.StripWebPart(AngleSharp.Dom.Html.IHtmlElement)">
+            <summary>
+            Strips the div holding the web part from the html
+            </summary>
+            <param name="element">Html element holding one or more web part divs</param>
+            <returns>Cleaned html with a placeholder for the web part div</returns>
+        </member>
+        <member name="M:SharePointPnP.Modernization.Framework.Pages.WikiPage.CreateWikiTextPart(System.String,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Stores text content as a fake web part
+            </summary>
+            <param name="wikiTextPartContent">Text to store</param>
+            <param name="row">Row of the fake web part</param>
+            <param name="col">Column of the fake web part</param>
+            <param name="order">Order inside the row/column</param>
+            <returns>A web part entity to add to the collection</returns>
+        </member>
+        <member name="M:SharePointPnP.Modernization.Framework.Pages.WikiPage.GetLayout(AngleSharp.Dom.Html.IHtmlDocument)">
+            <summary>
+            Analyzes the wiki page to determine which layout was used
+            </summary>
+            <param name="doc">html object</param>
+            <returns>Layout of the wiki page</returns>
+        </member>
+        <member name="M:SharePointPnP.Modernization.Framework.Telemetry.PageTelemetry.#ctor(System.String)">
+            <summary>
+            Instantiates the telemetry client
+            </summary>
+        </member>
+        <member name="M:SharePointPnP.Modernization.Framework.Telemetry.PageTelemetry.Flush">
+            <summary>
+            Ensure telemetry data is send to server
+            </summary>
+        </member>
+        <member name="F:SharePointPnP.Modernization.Framework.Transform.FilterChainingOperator.And">
+            <summary>
+            Filter is chained using an And operator
+            </summary>
+        </member>
+        <member name="F:SharePointPnP.Modernization.Framework.Transform.FilterChainingOperator.Or">
+            <summary>
+            Filter is chained using an Or operator
+            </summary>
+        </member>
+        <member name="F:SharePointPnP.Modernization.Framework.Transform.FilterFieldQueryOperator.Eq">
+            <summary>
+            Equal to
+            </summary>
+        </member>
+        <member name="F:SharePointPnP.Modernization.Framework.Transform.FilterFieldQueryOperator.Neq">
+            <summary>
+            Not equal to
+            </summary>
+        </member>
+        <member name="F:SharePointPnP.Modernization.Framework.Transform.FilterFieldQueryOperator.Gt">
+            <summary>
+            Greater than
+            </summary>
+        </member>
+        <member name="F:SharePointPnP.Modernization.Framework.Transform.FilterFieldQueryOperator.Geq">
+            <summary>
+            Greater than or equal to
+            </summary>
+        </member>
+        <member name="F:SharePointPnP.Modernization.Framework.Transform.FilterFieldQueryOperator.Lt">
+            <summary>
+            Less than
+            </summary>
+        </member>
+        <member name="F:SharePointPnP.Modernization.Framework.Transform.FilterFieldQueryOperator.Leq">
+            <summary>
+            Less than or equal to
+            </summary>
+        </member>
+        <member name="F:SharePointPnP.Modernization.Framework.Transform.FilterFieldQueryOperator.BeginsWith">
+            <summary>
+            Begins with
+            </summary>
+        </member>
+        <member name="F:SharePointPnP.Modernization.Framework.Transform.FilterFieldQueryOperator.Contains">
+            <summary>
+            Contains
+            </summary>
+        </member>
+        <member name="F:SharePointPnP.Modernization.Framework.Transform.FilterFieldQueryOperator.ContainsAny">
+            <summary>
+            Contains any of
+            </summary>
+        </member>
+        <member name="F:SharePointPnP.Modernization.Framework.Transform.FilterFieldQueryOperator.ContainsAll">
+            <summary>
+            Contains all of
+            </summary>
+        </member>
+        <member name="T:SharePointPnP.Modernization.Framework.Transform.ContentByQuerySearchTransformator">
+            <summary>
+            Class used to generate contentrollup (=highlighted content) web part properties coming from either a content by query or content by search web part
+            </summary>
+        </member>
+        <member name="M:SharePointPnP.Modernization.Framework.Transform.ContentByQuerySearchTransformator.#ctor(Microsoft.SharePoint.Client.ClientContext)">
+            <summary>
+            Instantiates the class
+            </summary>
+            <param name="cc">Client context for the web holding the source page</param>
+        </member>
+        <member name="M:SharePointPnP.Modernization.Framework.Transform.ContentByQuerySearchTransformator.TransformContentByQueryWebPartToHighlightedContent(SharePointPnP.Modernization.Framework.Transform.ContentByQuery)">
+            <summary>
+            Generate contentrollup (=highlighted content) web part properties coming from a content by query web part
+            </summary>
+            <param name="cbq">Properties coming from the content by query web part</param>
+            <returns>Properties for highlighted content web part</returns>
+        </member>
+        <member name="T:SharePointPnP.Modernization.Framework.Transform.ContentTransformator">
+            <summary>
+            Transforms content from "classic" page to modern client side page
+            </summary>
+        </member>
+        <member name="M:SharePointPnP.Modernization.Framework.Transform.ContentTransformator.#ctor(OfficeDevPnP.Core.Pages.ClientSidePage,SharePointPnP.Modernization.Framework.PageTransformation)">
+            <summary>
+            Instantiates the content transformator
+            </summary>
+            <param name="page">Client side page that will be updates</param>
+            <param name="pageTransformation">Transformation information</param>
+        </member>
+        <member name="M:SharePointPnP.Modernization.Framework.Transform.ContentTransformator.Transform(System.Collections.Generic.List{SharePointPnP.Modernization.Framework.Entities.WebPartEntity})">
+            <summary>
+            Transforms the passed web parts into the loaded client side page
+            </summary>
+            <param name="webParts">List of web parts that need to be transformed</param>
+        </member>
+        <member name="T:SharePointPnP.Modernization.Framework.Transform.IContentTransformator">
+            <summary>
+            Interface implemented by all content transformators
+            </summary>
+        </member>
+        <member name="M:SharePointPnP.Modernization.Framework.Transform.IContentTransformator.Transform(System.Collections.Generic.List{SharePointPnP.Modernization.Framework.Entities.WebPartEntity})">
+            <summary>
+            Transforms the passed web parts into the loaded client side page
+            </summary>
+            <param name="webParts">List of web parts that need to be transformed</param>
+        </member>
+        <member name="T:SharePointPnP.Modernization.Framework.Transform.ILayoutTransformator">
+            <summary>
+            Interface implemented by all layout transformators
+            </summary>
+        </member>
+        <member name="M:SharePointPnP.Modernization.Framework.Transform.ILayoutTransformator.Transform(SharePointPnP.Modernization.Framework.Pages.PageLayout)">
+            <summary>
+            Transforms a classic wiki/webpart page layout into a modern client side page layout
+            </summary>
+            <param name="layout">Source wiki/webpart page layout</param>
+        </member>
+        <member name="T:SharePointPnP.Modernization.Framework.Transform.IHtmlTransformator">
+            <summary>
+            Interface implemented by all html transformators
+            </summary>
+        </member>
+        <member name="M:SharePointPnP.Modernization.Framework.Transform.IHtmlTransformator.Transform(System.String,System.Boolean)">
+            <summary>
+            Transforms the passed html to be usable by the client side text part
+            </summary>
+            <param name="text">Html to be transformed</param>
+            <param name="usePlaceHolder">Insert placeholders for images and iframe tags</param>
+            <returns>Html that can be used and edited via the client side text part</returns>
+        </member>
+        <member name="T:SharePointPnP.Modernization.Framework.Transform.LayoutTransformator">
+            <summary>
+            Transforms the layout of a classic wiki/webpart page into a modern client side page using sections and columns
+            </summary>
+        </member>
+        <member name="M:SharePointPnP.Modernization.Framework.Transform.LayoutTransformator.#ctor(OfficeDevPnP.Core.Pages.ClientSidePage)">
+            <summary>
+            Creates a layout transformator instance
+            </summary>
+            <param name="page">Client side page that will be receive the created layout</param>
+        </member>
+        <member name="M:SharePointPnP.Modernization.Framework.Transform.LayoutTransformator.Transform(SharePointPnP.Modernization.Framework.Pages.PageLayout)">
+            <summary>
+            Transforms a classic wiki/webpart page layout into a modern client side page layout
+            </summary>
+            <param name="layout">Source wiki/webpart page layout</param>
+        </member>
+        <member name="T:SharePointPnP.Modernization.Framework.Transform.ModernizationCenterInformation">
+            <summary>
+            This class defines the page transformation configuration for when there's a ModernizationCenter hooked up
+            </summary>
+        </member>
+        <member name="P:SharePointPnP.Modernization.Framework.Transform.ModernizationCenterInformation.ModernizationCenterUri">
+            <summary>
+            Url to the customer's modernization center site
+            </summary>
+        </member>
+        <member name="P:SharePointPnP.Modernization.Framework.Transform.ModernizationCenterInformation.AddPageAcceptBanner">
+            <summary>
+            Add a page accept banner solution on the generated pages
+            </summary>
+        </member>
+        <member name="T:SharePointPnP.Modernization.Framework.Transform.PageTransformationInformation">
+            <summary>
+            Information used to configure the page transformation process
+            </summary>
+        </member>
+        <member name="M:SharePointPnP.Modernization.Framework.Transform.PageTransformationInformation.#ctor(Microsoft.SharePoint.Client.ListItem)">
+            <summary>
+            Instantiates the page transformation class
+            </summary>
+            <param name="sourcePage">Page we want to transform</param>
+        </member>
+        <member name="M:SharePointPnP.Modernization.Framework.Transform.PageTransformationInformation.#ctor(Microsoft.SharePoint.Client.ListItem,System.String)">
+            <summary>
+            Instantiates the page transformation class
+            </summary>
+            <param name="sourcePage">Page we want to transform</param>
+            <param name="targetPageName">Name of the target page</param>
+        </member>
+        <member name="M:SharePointPnP.Modernization.Framework.Transform.PageTransformationInformation.#ctor(Microsoft.SharePoint.Client.ListItem,System.String,System.Boolean)">
+            <summary>
+            Instantiates the page transformation class
+            </summary>
+            <param name="sourcePage">Page we want to transform</param>
+            <param name="targetPageName">Name of the target page</param>
+            <param name="overwrite">Do we overwrite the target page if it already exists</param>
+        </member>
+        <member name="P:SharePointPnP.Modernization.Framework.Transform.PageTransformationInformation.SourcePage">
+            <summary>
+            Source wiki/webpart page we want to transform
+            </summary>
+        </member>
+        <member name="P:SharePointPnP.Modernization.Framework.Transform.PageTransformationInformation.TargetPageName">
+            <summary>
+            Name for the transformed page
+            </summary>
+        </member>
+        <member name="P:SharePointPnP.Modernization.Framework.Transform.PageTransformationInformation.TargetPageTakesSourcePageName">
+            <summary>
+            Target page will get the source page name, source page will be renamed. Used in conjunction with SourcePagePrefix
+            </summary>
+        </member>
+        <member name="P:SharePointPnP.Modernization.Framework.Transform.PageTransformationInformation.Overwrite">
+            <summary>
+            Overwrite the target page if it already exists?
+            </summary>
+        </member>
+        <member name="P:SharePointPnP.Modernization.Framework.Transform.PageTransformationInformation.TargetPagePrefix">
+            <summary>
+            Prefix used to name the target page
+            </summary>
+        </member>
+        <member name="P:SharePointPnP.Modernization.Framework.Transform.PageTransformationInformation.SourcePagePrefix">
+            <summary>
+            Prefix used to name the source page. Used in conjunction with TargetPageTakesSourcePageName
+            </summary>
+        </member>
+        <member name="P:SharePointPnP.Modernization.Framework.Transform.PageTransformationInformation.PageHeader">
+            <summary>
+            Configuration of the page header to apply
+            </summary>
+        </member>
+        <member name="P:SharePointPnP.Modernization.Framework.Transform.PageTransformationInformation.KeepPageSpecificPermissions">
+            <summary>
+            Apply the item level page permissions on to the target page, defaults to true
+            </summary>
+        </member>
+        <member name="P:SharePointPnP.Modernization.Framework.Transform.PageTransformationInformation.ModernizationCenterInformation">
+            <summary>
+            Configuration driven by the presence of a modernization center
+            </summary>
+        </member>
+        <member name="P:SharePointPnP.Modernization.Framework.Transform.PageTransformationInformation.HandleWikiImagesAndVideos">
+            <summary>
+            If true images and videos embedded in wiki text will be transformed to actual image/video web parts, 
+            else they'll get a placeholder and will be added as separate web parts at the end of the page
+            </summary>
+        </member>
+        <member name="P:SharePointPnP.Modernization.Framework.Transform.PageTransformationInformation.ReplaceHomePageWithDefaultHomePage">
+            <summary>
+            If the page to be transformed is the web's home page then replace with stock modern home page instead of transforming it
+            </summary>
+        </member>
+        <member name="P:SharePointPnP.Modernization.Framework.Transform.PageTransformationInformation.PageTitleOverride">
+            <summary>
+            Custom function callout that can be triggered to provide a tailored page title
+            </summary>
+        </member>
+        <member name="P:SharePointPnP.Modernization.Framework.Transform.PageTransformationInformation.LayoutTransformatorOverride">
+            <summary>
+            Custom layout transformator to be used for this page
+            </summary>
+        </member>
+        <member name="P:SharePointPnP.Modernization.Framework.Transform.PageTransformationInformation.ContentTransformatorOverride">
+            <summary>
+            Custom content transformator to be used for this page
+            </summary>
+        </member>
+        <member name="P:SharePointPnP.Modernization.Framework.Transform.PageTransformationInformation.SkipTelemetry">
+            <summary>
+            Disable telemetry: we use telemetry to make this tool better by sending anonymous data, but you're free to disable this
+            </summary>
+        </member>
+        <member name="T:SharePointPnP.Modernization.Framework.Transform.PageTransformator">
+            <summary>
+            Transforms a classic wiki/webpart page into a modern client side page
+            </summary>
+        </member>
+        <member name="M:SharePointPnP.Modernization.Framework.Transform.PageTransformator.#ctor(Microsoft.SharePoint.Client.ClientContext)">
+            <summary>
+            Creates a page transformator instance
+            </summary>
+            <param name="clientContext">ClientContext of the site holding the page</param>
+        </member>
+        <member name="M:SharePointPnP.Modernization.Framework.Transform.PageTransformator.#ctor(Microsoft.SharePoint.Client.ClientContext,System.String)">
+            <summary>
+            Creates a page transformator instance
+            </summary>
+            <param name="clientContext">ClientContext of the site holding the page</param>
+            <param name="pageTransformationFile">Used page mapping file</param>
+        </member>
+        <member name="M:SharePointPnP.Modernization.Framework.Transform.PageTransformator.#ctor(Microsoft.SharePoint.Client.ClientContext,SharePointPnP.Modernization.Framework.PageTransformation)">
+            <summary>
+            Creates a page transformator instance
+            </summary>
+            <param name="clientContext">ClientContext of the site holding the page</param>
+            <param name="pageTransformationModel">Page transformation model</param>
+        </member>
+        <member name="M:SharePointPnP.Modernization.Framework.Transform.PageTransformator.Transform(SharePointPnP.Modernization.Framework.Transform.PageTransformationInformation)">
+            <summary>
+            Transform the page
+            </summary>
+            <param name="pageTransformationInformation">Information about the page to transform</param>
+            <returns>The path to created modern page</returns>
+        </member>
+        <member name="M:SharePointPnP.Modernization.Framework.Transform.PageTransformator.SwapPages(SharePointPnP.Modernization.Framework.Transform.PageTransformationInformation)">
+            <summary>
+            Performs the logic needed to swap a genered Migrated_Page.aspx to Page.aspx and then Page.aspx to Old_Page.aspx
+            </summary>
+            <param name="pageTransformationInformation">Information about the page to transform</param>
+        </member>
+        <member name="M:SharePointPnP.Modernization.Framework.Transform.PageTransformator.LoadPageTransformationModel(System.String)">
+            <summary>
+            Loads a page transformation model from file
+            </summary>
+            <param name="pageTransformationFile">File holding the page transformation model</param>
+            <returns>Page transformation model</returns>
+        </member>
+        <member name="T:SharePointPnP.Modernization.Framework.Transform.HtmlTransformator">
+            <summary>
+            Transforms the received Html in html that can be displayed and maintained in the modern client side text part
+            </summary>
+        </member>
+        <member name="M:SharePointPnP.Modernization.Framework.Transform.HtmlTransformator.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:SharePointPnP.Modernization.Framework.Transform.HtmlTransformator.Transform(System.String,System.Boolean)">
+            <summary>
+            Transforms the passed html to be usable by the client side text part
+            </summary>
+            <param name="text">Html to be transformed</param>
+            <param name="usePlaceHolder">Insert placeholders for images and iframe tags</param>
+            <returns>Html that can be used and edited via the client side text part</returns>
+        </member>
+        <member name="M:SharePointPnP.Modernization.Framework.Transform.HtmlTransformator.IsEmptyParagraph(System.String)">
+            <summary>
+            Returns true is the passed html is "empty"
+            </summary>
+            <param name="text">Html to verify</param>
+            <returns>True if considered empty, false otherwise</returns>
+        </member>
+        <member name="M:SharePointPnP.Modernization.Framework.Transform.HtmlTransformator.TableStyleCodeToName(System.Int32)">
+            <summary>
+            Map wiki table style to a RTE compatible style
+            </summary>
+            <param name="tableStyleCode">Code used for the wiki table style</param>
+            <returns>RTE compatible table style</returns>
+        </member>
+        <member name="M:SharePointPnP.Modernization.Framework.Transform.HtmlTransformator.FontCodeToName(System.Int32)">
+            <summary>
+            Translates SharePoint wiki font size (e.g. ms-rtefontsize-3 means font size 3) to RTE font size name
+            </summary>
+            <param name="fontCode">Wiki font size code</param>
+            <returns>RTE font size name</returns>
+        </member>
+        <member name="M:SharePointPnP.Modernization.Framework.Transform.HtmlTransformator.ColorCodeToForegroundColorName(System.Int32)">
+            <summary>
+            Translated SharePoint Wiki foreground color number (ms-rteforecolor-2 means number 2 is used) to RTE compatible color name
+            </summary>
+            <param name="colorCode">Used color number</param>
+            <returns>RTE color string</returns>
+        </member>
+        <member name="M:SharePointPnP.Modernization.Framework.Transform.HtmlTransformator.ThemeCodeToForegroundColorName(System.Int32)">
+            <summary>
+            Translated SharePoint Wiki foreground theme color number (e.g. ms-rteThemeForeColor-6-1) to RTE compatible color name
+            </summary>
+            <param name="themeCode">Theme color code</param>
+            <returns>RTE color string</returns>
+        </member>
+        <member name="M:SharePointPnP.Modernization.Framework.Transform.HtmlTransformator.ColorCodeToBackgroundColorName(System.Int32)">
+            <summary>
+            Translated SharePoint Wiki background color number (ms-rtebackcolor-5 means number 5 is used) to RTE compatible color name
+            </summary>
+            <param name="colorCode">Used color number</param>
+            <returns>RTE color string</returns>
+        </member>
+        <member name="M:SharePointPnP.Modernization.Framework.Transform.HtmlTransformator.DetectBlockQuoteLevelParentContainer(System.Collections.Generic.Dictionary{AngleSharp.Dom.IElement,AngleSharp.Dom.IElement},AngleSharp.Dom.IElement,System.Int32@,AngleSharp.Dom.IElement@,AngleSharp.Dom.IElement@,System.Boolean@,System.Boolean@)">
+            <summary>
+            Recursively loop the blockquote elements until we're at the top level, returns needed information to process:
+            - Level: how many indents where used
+            - TopLevelBlockQuote: what is the top level blockquote that we'll be using as "replacement node"
+            - If there already was a container created to store content at this level then let's return that one
+            - If by walking the blockquote tree we see strike through being used then indicate that
+            - If by walking the blockquote tree we see underline being used then indicate that
+            </summary>
+            <param name="replacementList"></param>
+            <param name="blockQuote"></param>
+            <param name="level"></param>
+            <param name="topLevelBlockQuote"></param>
+            <param name="insertionContainer"></param>
+            <param name="strikeThroughWasUsed"></param>
+            <param name="underLineWasUsed"></param>
+        </member>
+        <member name="T:SharePointPnP.Modernization.Framework.Transform.SummaryLinksHtmlTransformator">
+            <summary>
+            This class is used to rewrite the html coming out of the SummaryLinks web part
+            </summary>
+        </member>
+        <member name="M:SharePointPnP.Modernization.Framework.Transform.SummaryLinksHtmlTransformator.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:SharePointPnP.Modernization.Framework.Transform.SummaryLinksHtmlTransformator.Transform(System.String,System.Boolean)">
+            <summary>
+            Transforms the passed summarylinks html to be usable by the client side text part
+            </summary>
+            <param name="text">Summarylinks html to be transformed</param>
+            <returns>Html that can be used and edited via the client side text part</returns>
+        </member>
+        <member name="T:SharePointPnP.Modernization.Framework.Transform.TokenParser">
+            <summary>
+            Resolves tokens by their actual representation
+            </summary>
+        </member>
+        <member name="M:SharePointPnP.Modernization.Framework.Transform.TokenParser.ReplaceTokens(System.String,SharePointPnP.Modernization.Framework.Entities.WebPartEntity)">
+            <summary>
+            Replaces the tokens in the provided input string with their values
+            </summary>
+            <param name="input">String with tokens</param>
+            <param name="webPartData">Web part information holding all possible tokens for this web part</param>
+            <returns>A string with tokens replaced by actual values</returns>
+        </member>
+        <member name="M:SharePointPnP.Modernization.Framework.Transform.WikiTransformatorSimple.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:SharePointPnP.Modernization.Framework.Transform.WikiTransformatorSimple.TransformPlusSplit(System.Collections.Generic.List{SharePointPnP.Modernization.Framework.Entities.WebPartEntity},System.Boolean)">
+            <summary>
+            Replaces embedded images and iframes with respective "fake" image and video web parts. Depending on the 
+            image/iframe position in the html the wiki text is broken up in multiple wiki text parts intermixed 
+            with image and/or video parts. Later on these web parts will be transformed to client side web parts
+            </summary>
+            <param name="wikiPageWebParts">List of web parts on the page</param>
+            <returns>Updated list of web parts</returns>
+        </member>
+        <member name="T:SharePointPnP.Modernization.Framework.PageTransformation">
+            <remarks/>
+        </member>
+        <member name="P:SharePointPnP.Modernization.Framework.PageTransformation.BaseWebPart">
+            <remarks/>
+        </member>
+        <member name="P:SharePointPnP.Modernization.Framework.PageTransformation.AddOns">
+            <remarks/>
+        </member>
+        <member name="P:SharePointPnP.Modernization.Framework.PageTransformation.WebParts">
+            <remarks/>
+        </member>
+        <member name="T:SharePointPnP.Modernization.Framework.BaseWebPart">
+            <remarks/>
+        </member>
+        <member name="P:SharePointPnP.Modernization.Framework.BaseWebPart.Properties">
+            <remarks/>
+        </member>
+        <member name="P:SharePointPnP.Modernization.Framework.BaseWebPart.Mappings">
+            <remarks/>
+        </member>
+        <member name="T:SharePointPnP.Modernization.Framework.Property">
+            <remarks/>
+        </member>
+        <member name="P:SharePointPnP.Modernization.Framework.Property.Name">
+            <remarks/>
+        </member>
+        <member name="P:SharePointPnP.Modernization.Framework.Property.Type">
+            <remarks/>
+        </member>
+        <member name="P:SharePointPnP.Modernization.Framework.Property.Functions">
+            <remarks/>
+        </member>
+        <member name="T:SharePointPnP.Modernization.Framework.PropertyType">
+            <remarks/>
+        </member>
+        <member name="F:SharePointPnP.Modernization.Framework.PropertyType.string">
+            <remarks/>
+        </member>
+        <member name="F:SharePointPnP.Modernization.Framework.PropertyType.bool">
+            <remarks/>
+        </member>
+        <member name="F:SharePointPnP.Modernization.Framework.PropertyType.guid">
+            <remarks/>
+        </member>
+        <member name="F:SharePointPnP.Modernization.Framework.PropertyType.integer">
+            <remarks/>
+        </member>
+        <member name="F:SharePointPnP.Modernization.Framework.PropertyType.datetime">
+            <remarks/>
+        </member>
+        <member name="T:SharePointPnP.Modernization.Framework.WebPart">
+            <remarks/>
+        </member>
+        <member name="P:SharePointPnP.Modernization.Framework.WebPart.Properties">
+            <remarks/>
+        </member>
+        <member name="P:SharePointPnP.Modernization.Framework.WebPart.Mappings">
+            <remarks/>
+        </member>
+        <member name="P:SharePointPnP.Modernization.Framework.WebPart.Type">
+            <remarks/>
+        </member>
+        <member name="T:SharePointPnP.Modernization.Framework.Mappings">
+            <remarks/>
+        </member>
+        <member name="P:SharePointPnP.Modernization.Framework.Mappings.Mapping">
+            <remarks/>
+        </member>
+        <member name="P:SharePointPnP.Modernization.Framework.Mappings.Selector">
+            <remarks/>
+        </member>
+        <member name="T:SharePointPnP.Modernization.Framework.Mapping">
+            <remarks/>
+        </member>
+        <member name="P:SharePointPnP.Modernization.Framework.Mapping.ClientSideText">
+            <remarks/>
+        </member>
+        <member name="P:SharePointPnP.Modernization.Framework.Mapping.ClientSideWebPart">
+            <remarks/>
+        </member>
+        <member name="P:SharePointPnP.Modernization.Framework.Mapping.Name">
+            <remarks/>
+        </member>
+        <member name="P:SharePointPnP.Modernization.Framework.Mapping.Default">
+            <remarks/>
+        </member>
+        <member name="T:SharePointPnP.Modernization.Framework.ClientSideText">
+            <remarks/>
+        </member>
+        <member name="P:SharePointPnP.Modernization.Framework.ClientSideText.Text">
+            <remarks/>
+        </member>
+        <member name="P:SharePointPnP.Modernization.Framework.ClientSideText.Order">
+            <remarks/>
+        </member>
+        <member name="T:SharePointPnP.Modernization.Framework.ClientSideWebPart">
+            <remarks/>
+        </member>
+        <member name="P:SharePointPnP.Modernization.Framework.ClientSideWebPart.Type">
+            <remarks/>
+        </member>
+        <member name="P:SharePointPnP.Modernization.Framework.ClientSideWebPart.ControlId">
+            <remarks/>
+        </member>
+        <member name="P:SharePointPnP.Modernization.Framework.ClientSideWebPart.JsonControlData">
+            <remarks/>
+        </member>
+        <member name="P:SharePointPnP.Modernization.Framework.ClientSideWebPart.Order">
+            <remarks/>
+        </member>
+        <member name="T:SharePointPnP.Modernization.Framework.ClientSideWebPartType">
+            <remarks/>
+        </member>
+        <member name="F:SharePointPnP.Modernization.Framework.ClientSideWebPartType.Custom">
+            <remarks/>
+        </member>
+        <member name="F:SharePointPnP.Modernization.Framework.ClientSideWebPartType.Text">
+            <remarks/>
+        </member>
+        <member name="F:SharePointPnP.Modernization.Framework.ClientSideWebPartType.ContentRollup">
+            <remarks/>
+        </member>
+        <member name="F:SharePointPnP.Modernization.Framework.ClientSideWebPartType.BingMap">
+            <remarks/>
+        </member>
+        <member name="F:SharePointPnP.Modernization.Framework.ClientSideWebPartType.ContentEmbed">
+            <remarks/>
+        </member>
+        <member name="F:SharePointPnP.Modernization.Framework.ClientSideWebPartType.DocumentEmbed">
+            <remarks/>
+        </member>
+        <member name="F:SharePointPnP.Modernization.Framework.ClientSideWebPartType.Image">
+            <remarks/>
+        </member>
+        <member name="F:SharePointPnP.Modernization.Framework.ClientSideWebPartType.ImageGallery">
+            <remarks/>
+        </member>
+        <member name="F:SharePointPnP.Modernization.Framework.ClientSideWebPartType.LinkPreview">
+            <remarks/>
+        </member>
+        <member name="F:SharePointPnP.Modernization.Framework.ClientSideWebPartType.NewsFeed">
+            <remarks/>
+        </member>
+        <member name="F:SharePointPnP.Modernization.Framework.ClientSideWebPartType.NewsReel">
+            <remarks/>
+        </member>
+        <member name="F:SharePointPnP.Modernization.Framework.ClientSideWebPartType.PowerBIReportEmbed">
+            <remarks/>
+        </member>
+        <member name="F:SharePointPnP.Modernization.Framework.ClientSideWebPartType.QuickChart">
+            <remarks/>
+        </member>
+        <member name="F:SharePointPnP.Modernization.Framework.ClientSideWebPartType.SiteActivity">
+            <remarks/>
+        </member>
+        <member name="F:SharePointPnP.Modernization.Framework.ClientSideWebPartType.VideoEmbed">
+            <remarks/>
+        </member>
+        <member name="F:SharePointPnP.Modernization.Framework.ClientSideWebPartType.YammerEmbed">
+            <remarks/>
+        </member>
+        <member name="F:SharePointPnP.Modernization.Framework.ClientSideWebPartType.Events">
+            <remarks/>
+        </member>
+        <member name="F:SharePointPnP.Modernization.Framework.ClientSideWebPartType.GroupCalendar">
+            <remarks/>
+        </member>
+        <member name="F:SharePointPnP.Modernization.Framework.ClientSideWebPartType.Hero">
+            <remarks/>
+        </member>
+        <member name="F:SharePointPnP.Modernization.Framework.ClientSideWebPartType.List">
+            <remarks/>
+        </member>
+        <member name="F:SharePointPnP.Modernization.Framework.ClientSideWebPartType.PageTitle">
+            <remarks/>
+        </member>
+        <member name="F:SharePointPnP.Modernization.Framework.ClientSideWebPartType.People">
+            <remarks/>
+        </member>
+        <member name="F:SharePointPnP.Modernization.Framework.ClientSideWebPartType.QuickLinks">
+            <remarks/>
+        </member>
+        <member name="F:SharePointPnP.Modernization.Framework.ClientSideWebPartType.Divider">
+            <remarks/>
+        </member>
+        <member name="F:SharePointPnP.Modernization.Framework.ClientSideWebPartType.MicrosoftForms">
+            <remarks/>
+        </member>
+        <member name="F:SharePointPnP.Modernization.Framework.ClientSideWebPartType.Spacer">
+            <remarks/>
+        </member>
+        <member name="F:SharePointPnP.Modernization.Framework.ClientSideWebPartType.ClientWebPart">
+            <remarks/>
+        </member>
+        <member name="F:SharePointPnP.Modernization.Framework.ClientSideWebPartType.PowerApps">
+            <remarks/>
+        </member>
+        <member name="F:SharePointPnP.Modernization.Framework.ClientSideWebPartType.CodeSnippet">
+            <remarks/>
+        </member>
+        <member name="F:SharePointPnP.Modernization.Framework.ClientSideWebPartType.PageFields">
+            <remarks/>
+        </member>
+        <member name="F:SharePointPnP.Modernization.Framework.ClientSideWebPartType.Weather">
+            <remarks/>
+        </member>
+        <member name="F:SharePointPnP.Modernization.Framework.ClientSideWebPartType.YouTube">
+            <remarks/>
+        </member>
+        <member name="F:SharePointPnP.Modernization.Framework.ClientSideWebPartType.MyDocuments">
+            <remarks/>
+        </member>
+        <member name="F:SharePointPnP.Modernization.Framework.ClientSideWebPartType.YammerFullFeed">
+            <remarks/>
+        </member>
+        <member name="F:SharePointPnP.Modernization.Framework.ClientSideWebPartType.CountDown">
+            <remarks/>
+        </member>
+        <member name="F:SharePointPnP.Modernization.Framework.ClientSideWebPartType.ListProperties">
+            <remarks/>
+        </member>
+        <member name="F:SharePointPnP.Modernization.Framework.ClientSideWebPartType.MarkDown">
+            <remarks/>
+        </member>
+        <member name="F:SharePointPnP.Modernization.Framework.ClientSideWebPartType.Planner">
+            <remarks/>
+        </member>
+        <member name="T:SharePointPnP.Modernization.Framework.AddOn">
+            <remarks/>
+        </member>
+        <member name="P:SharePointPnP.Modernization.Framework.AddOn.Name">
+            <remarks/>
+        </member>
+        <member name="P:SharePointPnP.Modernization.Framework.AddOn.Type">
+            <remarks/>
+        </member>
+        <member name="P:SharePointPnP.Modernization.Framework.AddOn.Assembly">
+            <remarks/>
+        </member>
+        <member name="T:SharePointPnP.Modernization.Framework.WebParts">
+            <summary>
+            Web part type constants
+            </summary>
+        </member>
+        <member name="T:CamlBuilder.FieldReference">
+            <summary>
+            Represents a reference to a field within a query.
+            </summary>
+        </member>
+        <member name="P:CamlBuilder.FieldReference.Alias">
+            <summary>
+            Field alias.
+            </summary>
+        </member>
+        <member name="P:CamlBuilder.FieldReference.Ascending">
+            <summary>
+            This specifies the sort order on a FieldRef.
+            </summary>
+            <remarks>
+            Query defaults this to true when no value is specified.
+            </remarks>
+        </member>
+        <member name="P:CamlBuilder.FieldReference.CreateUrl">
+            <summary>
+            Specifies the URL for the .aspx file that is used to create a Meeting Workspace site.
+            </summary>
+        </member>
+        <member name="P:CamlBuilder.FieldReference.DisplayName">
+            <summary>
+            This attribute provides the display name of the field that is referenced.
+            </summary>
+        </member>
+        <member name="P:CamlBuilder.FieldReference.Explicit">
+            <summary>
+            This attribute is only supported within the ViewFields element. True if the field is 
+            explicitly declared in the view definition and is not returned in a Fields enumeration inside a view.
+            </summary>
+        </member>
+        <member name="P:CamlBuilder.FieldReference.Format">
+            <summary>
+            Field format.
+            </summary>
+        </member>
+        <member name="P:CamlBuilder.FieldReference.Id">
+            <summary>
+            Specifies the GUID that identifies the field.
+            </summary>
+        </member>
+        <member name="P:CamlBuilder.FieldReference.Key">
+            <summary>
+            If set to Primary, specifies that the field is the primary key for its table and thus
+            uniquely identifies each record in the table.
+            </summary>
+        </member>
+        <member name="P:CamlBuilder.FieldReference.List">
+            <summary>
+            Specifies the parent foreign list when the FieldRef element is a child of an Eq element
+            in Join element. The value is an alias for the list that is defined by the ListAlias
+            attribute of the Join element
+            </summary>
+        </member>
+        <member name="P:CamlBuilder.FieldReference.LookupId">
+            <summary>
+            When the field is a Lookup type, specifies that queries should look for the item by its
+            unique item ID rather than the field value. This can be useful, for example, when multiple
+            items have identical values in the field and you want to query for a specific item.
+            </summary>
+            <remarks>
+            Query default this to false when no value is specified
+            </remarks>
+        </member>
+        <member name="P:CamlBuilder.FieldReference.Name">
+            <summary>
+            This attribute provides the internal name of the field that is referenced.
+            </summary>
+        </member>
+        <member name="P:CamlBuilder.FieldReference.RefType">
+            <summary>
+            Specifies the type of reference for a field in an events list.
+            </summary>
+        </member>
+        <member name="P:CamlBuilder.FieldReference.ShowField">
+            <summary>
+            The ShowField attribute can be set to the field name to display. By default, a hyperlinked text
+            from the Title field of the record in the external list is displayed. But the ShowField attribute
+            can be used to override that and display another field from the external list.
+            </summary>
+            <remarks>
+            The following data types are allowed as targets of a ShowField attribute: Text, Choice, and Counter.
+            </remarks>
+        </member>
+        <member name="P:CamlBuilder.FieldReference.TextOnly">
+            <summary>
+            Specifies that the field contains only text values.
+            </summary>
+        </member>
+        <member name="P:CamlBuilder.FieldReference.Type">
+            <summary>
+            Specifies the function that is applied to a totals column or a calculated column.
+            </summary>
+        </member>
+        <member name="M:CamlBuilder.FieldReference.#ctor">
+            <summary>
+            Creates an instance of FieldReference with all it's properties set to default.
+            </summary>
+        </member>
+        <member name="M:CamlBuilder.FieldReference.#ctor(System.String)">
+            <summary>
+            Creates an instance of FieldReference with the initial specified <param name="name"></param>. 
+            </summary>
+            <param name="name">Internal name of the field.</param>
+        </member>
+        <member name="M:CamlBuilder.FieldReference.op_Implicit(System.String)~CamlBuilder.FieldReference">
+            <summary>
+            Uses <paramref name="fieldName"/> as a field reference internal name and returns
+            a new <see cref="T:CamlBuilder.FieldReference"/>.
+            </summary>
+            <param name="fieldName">String to be used as FieldReference internal name.</param>
+        </member>
+        <member name="T:CamlBuilder.FieldReferenceFunctionType">
+            <summary>
+            Specifies the function that is applied to a totals column or a calculated column.
+            </summary>
+        </member>
+        <member name="T:CamlBuilder.ListPropertyValueItem">
+            <summary>
+            Represents an item to be used by ListProperty value.
+            </summary>
+        </member>
+        <member name="P:CamlBuilder.ListPropertyValueItem.AutoHyperLink">
+            <summary>
+            True to surround text with anchor tags if the text appears like a
+            hyperlink, for example, www.microsoft.com.
+            </summary>
+        </member>
+        <member name="P:CamlBuilder.ListPropertyValueItem.AutoHyperLinkNoEncoding">
+            <summary>
+            True to surround text with anchor tags if the text appears like a
+            hyperlink (for example, www.microsoft.com) but without HTML encoding.
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:CamlBuilder.ListPropertyValueItem.AutoNewLine" -->
+        <member name="P:CamlBuilder.ListPropertyValueItem.Default">
+            <summary>
+            Sets the default ProgID for the application that created the list.
+            </summary>
+        </member>
+        <member name="P:CamlBuilder.ListPropertyValueItem.ExpandXml">
+            <summary>
+            True to re-pass the rendered content through the Collaborative Application
+            Markup Language (CAML) interpreter, which allows CAML to render CAML.
+            </summary>
+        </member>
+        <member name="P:CamlBuilder.ListPropertyValueItem.HtmlEncode">
+            <summary>
+            True to convert embedded characters so that they are displayed as text in the
+            browser. In other words, characters that could be confused with HTML tags are 
+            converted to entities.
+            </summary>
+        </member>
+        <member name="P:CamlBuilder.ListPropertyValueItem.Select">
+            <summary>
+            Specifies a field in the List of Lists table.
+            </summary>
+        </member>
+        <member name="P:CamlBuilder.ListPropertyValueItem.StripWs">
+            <summary>
+            True to remove white space from the beginning and end of the value returned by the element.
+            </summary>
+        </member>
+        <member name="P:CamlBuilder.ListPropertyValueItem.UrlEncode">
+            <summary>
+            True to convert special characters, such as spaces, to quoted UTF-8 format,
+            for example, %c3%ab for character ë.
+            </summary>
+        </member>
+        <member name="P:CamlBuilder.ListPropertyValueItem.UrlEncodeAsUrl">
+            <summary>
+            Like URLEncode, but true to specify that the string to encode is a path component of a
+            URL and not to encode the forward slash (/).
+            </summary>
+        </member>
+        <member name="M:CamlBuilder.ListPropertyValueItem.#ctor(System.String)">
+            <summary>
+            Creates an instance of ListPropertyValueItem with initial specified <paramref name="select"/>
+            </summary>
+            <param name="select">Specifies a field in the List of Lists table.</param>
+        </member>
+        <member name="T:CamlBuilder.LogicalJoin">
+            <summary>
+            Defines a CAML logical join. This class has no constructors available. To instanciate a
+            new logical join use public static methods.
+            </summary>
+        </member>
+        <member name="P:CamlBuilder.LogicalJoin.LogicalJoinType">
+            <summary>
+            Gets the logical join type.
+            </summary>
+        </member>
+        <member name="M:CamlBuilder.LogicalJoin.AddStatement(CamlBuilder.Statement)">
+            <summary>
+            Adds a new statement to this logical join
+            </summary>
+            <param name="statement">Statement to be added.</param>
+        </member>
+        <member name="M:CamlBuilder.LogicalJoin.AddStatements(System.Collections.Generic.IEnumerable{CamlBuilder.Statement})">
+            <summary>
+            Adds new statements to this logical join.
+            </summary>
+            <param name="statements">Statements to be added to logical join.</param>
+        </member>
+        <member name="M:CamlBuilder.LogicalJoin.GetCaml">
+            <summary>
+            Returns CAML string representation of this
+            logical join statement.
+            </summary>
+            <returns>CAML string.</returns>
+        </member>
+        <member name="M:CamlBuilder.LogicalJoin.And(CamlBuilder.Statement[])">
+            <summary>
+            Instanciates a new <i>And</i> logical join with specified inner <paramref name="statements"/>.
+            </summary>
+            <param name="statements">And statements.</param>
+            <returns>And logical join instance.</returns>
+        </member>
+        <member name="M:CamlBuilder.LogicalJoin.And(System.Collections.Generic.IEnumerable{CamlBuilder.Statement})">
+            <summary>
+            Instanciates a new <i>And</i> logical join with specified inner <paramref name="statements"/>.
+            </summary>
+            <param name="statements">And statements.</param>
+            <returns>And logical join instance.</returns>
+        </member>
+        <member name="M:CamlBuilder.LogicalJoin.Or(CamlBuilder.Statement[])">
+            <summary>
+            Instanciates a new <i>Or</i> logical join with specified inner <paramref name="statements"/>.
+            </summary>
+            <param name="statements">Or statements.</param>
+            <returns>Or logical join instance.</returns>
+        </member>
+        <member name="M:CamlBuilder.LogicalJoin.Or(System.Collections.Generic.IEnumerable{CamlBuilder.Statement})">
+            <summary>
+            Instanciates a new <i>Or</i> logical join with specified inner <paramref name="statements"/>.
+            </summary>
+            <param name="statements">Or statements.</param>
+            <returns>Or logical join instance.</returns>
+        </member>
+        <member name="T:CamlBuilder.LogicalJoinType">
+            <summary>
+            Specifies logical join types.
+            </summary>
+        </member>
+        <member name="F:CamlBuilder.LogicalJoinType.Or">
+            <summary>
+            Indicates an Or logical join.
+            </summary>
+        </member>
+        <member name="F:CamlBuilder.LogicalJoinType.And">
+            <summary>
+            Indicates an And logical join.
+            </summary>
+        </member>
+        <member name="T:CamlBuilder.MembershipType">
+            <summary>
+            Defines membership types used by Membership operator.
+            </summary>
+            <seealso cref="M:CamlBuilder.Operator.Membership(CamlBuilder.FieldReference,CamlBuilder.MembershipType)"/>
+        </member>
+        <member name="F:CamlBuilder.MembershipType.SpWebAllUsers">
+            <summary>
+            Indicates SPWeb.AllUsers membership.
+            </summary>
+        </member>
+        <member name="F:CamlBuilder.MembershipType.SpGroup">
+            <summary>
+            Indicates SPGroup membership.
+            </summary>
+        </member>
+        <member name="F:CamlBuilder.MembershipType.SpWebGroups">
+            <summary>
+            Indicates SPWebGroups membership.
+            </summary>
+        </member>
+        <member name="F:CamlBuilder.MembershipType.CurrentUserGroups">
+            <summary>
+            Indicates CurrentUserGroups membership.
+            </summary>
+        </member>
+        <member name="F:CamlBuilder.MembershipType.SpWebUsers">
+            <summary>
+            Indicates SPWebUsers membership.
+            </summary>
+        </member>
+        <member name="T:CamlBuilder.Operator">
+            <summary>
+            Defines a CAML operator. This is an abstract class. To instanciate an operator use public static methods.
+            </summary>
+        </member>
+        <member name="P:CamlBuilder.Operator.OperatorType">
+            <summary>
+            Gets the operator type. 
+            </summary>
+        </member>
+        <member name="P:CamlBuilder.Operator.FieldReference">
+            <summary>
+            Gets the name of the field on which this operator acts on.
+            </summary>
+        </member>
+        <member name="M:CamlBuilder.Operator.IsNull(CamlBuilder.FieldReference)">
+            <summary>
+            Instanciates a new <i>IsNull</i> operator to perform on specified <paramref name="fieldRef"/>.
+            </summary>
+            <param name="fieldRef">Reference to the field to operate on.</param>
+            <returns>IsNull operator instance.</returns>
+        </member>
+        <member name="M:CamlBuilder.Operator.IsNotNull(CamlBuilder.FieldReference)">
+            <summary>
+            Instanciates a new <i>IsNotNull</i> operator to perform on specified <paramref name="fieldRef"/>.
+            </summary>
+            <param name="fieldRef">Reference to the field to operate on.</param>
+            <returns>IsNotNull operator instance.</returns>
+        </member>
+        <member name="M:CamlBuilder.Operator.Equal(CamlBuilder.FieldReference,CamlBuilder.ValueType,System.Object)">
+            <summary>
+            Instanciates a new <i>Equal</i> operator which will perform on specified <paramref name="fieldRef"/>.
+            </summary>
+            <param name="fieldRef">Reference to the field to operate on.</param>
+            <param name="valueType">Field type</param>
+            <param name="value">Value against which the value returned by the field element is compared to.</param>
+            <returns>Equal operator instance.</returns>
+        </member>
+        <member name="M:CamlBuilder.Operator.Equal(CamlBuilder.FieldReference,CamlBuilder.Value)">
+            <summary>
+            Instanciates a new <i>Equal</i> operator which will perform on specified <paramref name="fieldRef"/>.
+            </summary>
+            <param name="fieldRef">Reference to the field to operate on.</param>
+            <param name="value">Value against which the value returned by the field element is compared to.</param>
+            <returns>Equal operator instance.</returns>
+        </member>
+        <member name="M:CamlBuilder.Operator.NotEqual(CamlBuilder.FieldReference,CamlBuilder.ValueType,System.Object)">
+            <summary>
+            Instanciates a new <i>NotEqual</i> operator which will perform on specified <paramref name="fieldRef"/>.
+            </summary>
+            <param name="fieldRef">Reference to the field to operate on.</param>
+            <param name="valueType">Field type</param>
+            <param name="value">Value against which the value returned by the field element is compared to.</param>
+            <returns>NotEqual operator instance.</returns>
+        </member>
+        <member name="M:CamlBuilder.Operator.NotEqual(CamlBuilder.FieldReference,CamlBuilder.Value)">
+            <summary>
+            Instanciates a new <i>NotEqual</i> operator which will perform on specified <paramref name="fieldRef"/>.
+            </summary>
+            <param name="fieldRef">Reference to the field to operate on.</param>
+            <param name="value">Value against which the value returned by the field element is compared to.</param>
+            <returns>NotEqual operator instance.</returns>
+        </member>
+        <member name="M:CamlBuilder.Operator.BeginsWith(CamlBuilder.FieldReference,CamlBuilder.ValueType,System.Object)">
+            <summary>
+            Instanciates a new <i>BeginsWith</i> operator which will perform on specified <paramref name="fieldRef"/>.
+            </summary>
+            <param name="fieldRef">Reference to the field to operate on.</param>
+            <param name="valueType">Field type</param>
+            <param name="value">Value against which the value returned by the field element is compared to.</param>
+            <returns>BeginsWith operator instance.</returns>
+        </member>
+        <member name="M:CamlBuilder.Operator.BeginsWith(CamlBuilder.FieldReference,CamlBuilder.Value)">
+            <summary>
+            Instanciates a new <i>BeginsWith</i> operator which will perform on specified <paramref name="fieldRef"/>.
+            </summary>
+            <param name="fieldRef">Reference to the field to operate on.</param>
+            <param name="value">Value against which the value returned by the field element is compared to.</param>
+            <returns>BeginsWith operator instance.</returns>
+        </member>
+        <member name="M:CamlBuilder.Operator.Contains(CamlBuilder.FieldReference,CamlBuilder.ValueType,System.Object)">
+            <summary>
+            Instanciates a new <i>Contains</i> operator which will perform on specified <paramref name="fieldRef"/>.
+            </summary>
+            <param name="fieldRef">Reference to the field to operate on.</param>
+            <param name="valueType">Field type</param>
+            <param name="value">Value against which the value returned by the field element is compared to.</param>
+            <returns>Contains operator instance.</returns>
+        </member>
+        <member name="M:CamlBuilder.Operator.Contains(CamlBuilder.FieldReference,CamlBuilder.Value)">
+            <summary>
+            Instanciates a new <i>Contains</i> operator which will perform on specified <paramref name="fieldRef"/>.
+            </summary>
+            <param name="fieldRef">Reference to the field to operate on.</param>
+            <param name="value">Value against which the value returned by the field element is compared to.</param>
+            <returns>Contains operator instance.</returns>
+        </member>
+        <member name="M:CamlBuilder.Operator.DateRangesOverlap(CamlBuilder.FieldReference,CamlBuilder.ValueType,System.Object)">
+            <summary>
+            Instanciates a new <i>DateRangesOverlap</i> operator which will perform on specified <paramref name="fieldRef"/>.
+            </summary>
+            <param name="fieldRef">Reference to the field to operate on.</param>
+            <param name="valueType">Field type</param>
+            <param name="value">Value against which the value returned by the field element is compared to.</param>
+            <returns>DateRangesOverlap operator instance.</returns>
+        </member>
+        <member name="M:CamlBuilder.Operator.DateRangesOverlap(CamlBuilder.FieldReference,CamlBuilder.Value)">
+            <summary>
+            Instanciates a new <i>DateRangesOverlap</i> operator which will perform on specified <paramref name="fieldRef"/>.
+            </summary>
+            <param name="fieldRef">Reference to the field to operate on.</param>
+            <param name="value">Value against which the value returned by the field element is compared to.</param>
+            <returns>DateRangesOverlap operator instance.</returns>
+        </member>
+        <member name="M:CamlBuilder.Operator.GreaterThan(CamlBuilder.FieldReference,CamlBuilder.ValueType,System.Object)">
+            <summary>
+            Instanciates a new <i>GreaterThan</i> operator which will perform on specified <paramref name="fieldRef"/>.
+            </summary>
+            <param name="fieldRef">Reference to the field to operate on.</param>
+            <param name="valueType">Field type</param>
+            <param name="value">Value against which the value returned by the field element is compared to.</param>
+            <returns>GreaterThan operator instance.</returns>
+        </member>
+        <member name="M:CamlBuilder.Operator.GreaterThan(CamlBuilder.FieldReference,CamlBuilder.Value)">
+            <summary>
+            Instanciates a new <i>GreaterThan</i> operator which will perform on specified <paramref name="fieldRef"/>.
+            </summary>
+            <param name="fieldRef">Reference to the field to operate on.</param>
+            <param name="value">Value against which the value returned by the field element is compared to.</param>
+            <returns>GreaterThan operator instance.</returns>
+        </member>
+        <member name="M:CamlBuilder.Operator.GreaterThanOrEqualTo(CamlBuilder.FieldReference,CamlBuilder.ValueType,System.Object)">
+            <summary>
+            Instanciates a new <i>GreaterThanOrEqualTo</i> operator which will perform on specified <paramref name="fieldRef"/>.
+            </summary>
+            <param name="fieldRef">Reference to the field to operate on.</param>
+            <param name="valueType">Field type</param>
+            <param name="value">Value against which the value returned by the field element is compared to.</param>
+            <returns>GreaterThanOrEqualTo operator instance.</returns>
+        </member>
+        <member name="M:CamlBuilder.Operator.GreaterThanOrEqualTo(CamlBuilder.FieldReference,CamlBuilder.Value)">
+            <summary>
+            Instanciates a new <i>GreaterThanOrEqualTo</i> operator which will perform on specified <paramref name="fieldRef"/>.
+            </summary>
+            <param name="fieldRef">Reference to the field to operate on.</param>
+            <param name="value">Value against which the value returned by the field element is compared to.</param>
+            <returns>GreaterThanOrEqualTo operator instance.</returns>
+        </member>
+        <member name="M:CamlBuilder.Operator.LowerThan(CamlBuilder.FieldReference,CamlBuilder.ValueType,System.Object)">
+            <summary>
+            Instanciates a new <i>LowerThan</i> operator which will perform on specified <paramref name="fieldRef"/>.
+            </summary>
+            <param name="fieldRef">Reference to the field to operate on.</param>
+            <param name="valueType">Field type</param>
+            <param name="value">Value against which the value returned by the field element is compared to.</param>
+            <returns>LowerThan operator instance.</returns>
+        </member>
+        <member name="M:CamlBuilder.Operator.LowerThan(CamlBuilder.FieldReference,CamlBuilder.Value)">
+            <summary>
+            Instanciates a new <i>LowerThan</i> operator which will perform on specified <paramref name="fieldRef"/>.
+            </summary>
+            <param name="fieldRef">Reference to the field to operate on.</param>
+            <param name="value">Value against which the value returned by the field element is compared to.</param>
+            <returns>LowerThan operator instance.</returns>
+        </member>
+        <member name="M:CamlBuilder.Operator.LowerThanOrEqualTo(CamlBuilder.FieldReference,CamlBuilder.ValueType,System.Object)">
+            <summary>
+            Instanciates a new <i>LowerThanOrEqualTo</i> operator which will perform on specified <paramref name="fieldRef"/>.
+            </summary>
+            <param name="fieldRef">Reference to the field to operate on.</param>
+            <param name="valueType">Field type</param>
+            <param name="value">Value against which the value returned by the field element is compared to.</param>
+            <returns>LowerThanOrEqualTo operator instance.</returns>
+        </member>
+        <member name="M:CamlBuilder.Operator.LowerThanOrEqualTo(CamlBuilder.FieldReference,CamlBuilder.Value)">
+            <summary>
+            Instanciates a new <i>LowerThanOrEqualTo</i> operator which will perform on specified <paramref name="fieldRef"/>.
+            </summary>
+            <param name="fieldRef">Reference to the field to operate on.</param>
+            <param name="value">Value against which the value returned by the field element is compared to.</param>
+            <returns>LowerThanOrEqualTo operator instance.</returns>
+        </member>
+        <member name="M:CamlBuilder.Operator.Includes(CamlBuilder.FieldReference,CamlBuilder.ValueType,System.Object)">
+            <summary>
+            Instanciates a new <i>Includes</i> operator which will perform on specified <paramref name="fieldRef"/>.
+            </summary>
+            <param name="fieldRef">Reference to the field to operate on.</param>
+            <param name="valueType">Field type</param>
+            <param name="value">Value against which the value returned by the field element is compared to.</param>
+            <returns>Includes operator instance.</returns>
+        </member>
+        <member name="M:CamlBuilder.Operator.Includes(CamlBuilder.FieldReference,CamlBuilder.Value)">
+            <summary>
+            Instanciates a new <i>Includes</i> operator which will perform on specified <paramref name="fieldRef"/>.
+            </summary>
+            <param name="fieldRef">Reference to the field to operate on.</param>
+            <param name="value">Value against which the value returned by the field element is compared to.</param>
+            <returns>Includes operator instance.</returns>
+        </member>
+        <member name="M:CamlBuilder.Operator.NotIncludes(CamlBuilder.FieldReference,CamlBuilder.ValueType,System.Object)">
+            <summary>
+            Instanciates a new <i>NotIncludes</i> operator which will perform on specified <paramref name="fieldRef"/>.
+            </summary>
+            <param name="fieldRef">Reference to the field to operate on.</param>
+            <param name="valueType">Field type</param>
+            <param name="value">Value against which the value returned by the field element is compared to.</param>
+            <returns>NotIncludes operator instance.</returns>
+        </member>
+        <member name="M:CamlBuilder.Operator.NotIncludes(CamlBuilder.FieldReference,CamlBuilder.Value)">
+            <summary>
+            Instanciates a new <i>NotIncludes</i> operator which will perform on specified <paramref name="fieldRef"/>.
+            </summary>
+            <param name="fieldRef">Reference to the field to operate on.</param>
+            <param name="value">Value against which the value returned by the field element is compared to.</param>
+            <returns>NotIncludes operator instance.</returns>
+        </member>
+        <member name="M:CamlBuilder.Operator.In(CamlBuilder.FieldReference,System.Collections.Generic.IEnumerable{CamlBuilder.Value})">
+            <summary>
+            Instanciates a new <i>In</i> operator which will perform on specified <paramref name="fieldRef"/>.
+            </summary>
+            <param name="fieldRef">Reference to the field to operate on.</param>
+            <param name="values">Values against which the value returned by the field element is compared to.</param>
+            <returns>In operator instance.</returns>
+        </member>
+        <member name="M:CamlBuilder.Operator.Membership(CamlBuilder.FieldReference,CamlBuilder.MembershipType)">
+            <summary>
+            Instanciates a new <i>Membership</i> operator which will perform on specified <paramref name="fieldRef"/>.
+            </summary>
+            <param name="fieldRef">Reference to the field to operate on.</param>
+            <param name="membershipType">Type of membership for the operator to use to filter for.</param>
+            <returns>Membership operator instance.</returns>
+        </member>
+        <member name="T:CamlBuilder.OperatorType">
+            <summary>
+            Specifies operator types.
+            </summary>
+        </member>
+        <member name="F:CamlBuilder.OperatorType.Equal">
+            <summary>
+            Indicates an Equal operator
+            </summary>
+        </member>
+        <member name="F:CamlBuilder.OperatorType.NotEqual">
+            <summary>
+            Indicates a NotEqual operator
+            </summary>
+        </member>
+        <member name="F:CamlBuilder.OperatorType.GreaterThan">
+            <summary>
+            Indicates a GreaterThan operator
+            </summary>
+        </member>
+        <member name="F:CamlBuilder.OperatorType.GreaterThanOrEqualTo">
+            <summary>
+            Indicates a GreaterThanOrEqualTo operator
+            </summary>
+        </member>
+        <member name="F:CamlBuilder.OperatorType.LowerThan">
+            <summary>
+            Indicates a LowerThan operator
+            </summary>
+        </member>
+        <member name="F:CamlBuilder.OperatorType.LowerThanOrEqualTo">
+            <summary>
+            Indicates a LowerThanOrEqualTo operator
+            </summary>
+        </member>
+        <member name="F:CamlBuilder.OperatorType.IsNull">
+            <summary>
+            Indicates an IsNull operator
+            </summary>
+        </member>
+        <member name="F:CamlBuilder.OperatorType.IsNotNull">
+            <summary>
+            Indicates an IsNotNull operator
+            </summary>
+        </member>
+        <member name="F:CamlBuilder.OperatorType.BeginsWith">
+            <summary>
+            Indicates a BeginsWith operator
+            </summary>
+        </member>
+        <member name="F:CamlBuilder.OperatorType.Contains">
+            <summary>
+            Indicates a Contains operator
+            </summary>
+        </member>
+        <member name="F:CamlBuilder.OperatorType.DateRangesOverlap">
+            <summary>
+            Indicates a DateRangesOverlap operator
+            </summary>
+        </member>
+        <member name="F:CamlBuilder.OperatorType.Includes">
+            <summary>
+            Indicates an Includes operator
+            </summary>
+        </member>
+        <member name="F:CamlBuilder.OperatorType.NotIncludes">
+            <summary>
+            Indicates an NotIncludes operator
+            </summary>
+        </member>
+        <member name="F:CamlBuilder.OperatorType.In">
+            <summary>
+            Indicates an In operator
+            </summary>
+        </member>
+        <member name="F:CamlBuilder.OperatorType.Membership">
+            <summary>
+            Indicates a Membership operator
+            </summary>
+        </member>
+        <member name="T:CamlBuilder.OrderByFieldOrder">
+            <summary>
+            Specifies the order of query result.
+            </summary>
+        </member>
+        <member name="F:CamlBuilder.OrderByFieldOrder.Ascending">
+            <summary>
+            Defines ascending order.
+            </summary>
+        </member>
+        <member name="F:CamlBuilder.OrderByFieldOrder.Descending">
+            <summary>
+            Specifies descending order.
+            </summary>
+        </member>
+        <member name="T:CamlBuilder.Query">
+            <summary>
+            Class which represents a CAML query.
+            </summary>
+            <summary>
+            Defines a CAML query. This class has no constructors available. To instanciate a
+            new query use public static methods.
+            </summary>
+        </member>
+        <member name="P:CamlBuilder.Query.Statement">
+            <summary>
+            Gets the statement holded by this query.
+            </summary>
+        </member>
+        <member name="M:CamlBuilder.Query.Build(CamlBuilder.Statement)">
+            <summary>
+            Instanciates a new <i>Query</i> with the specified inner <paramref name="statement"/>
+            </summary>
+            <param name="statement"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CamlBuilder.Query.GetCaml(System.Boolean)">
+            <summary>
+            Returns query's CAML string representation
+            </summary>
+            <param name="whereClauseOnly">true to return only query's Where; otherwise false</param>
+            <returns>Query CAML string surrounded by Query element or only the Where clause</returns>
+        </member>
+        <member name="M:CamlBuilder.Query.GetCaml">
+            <summary>
+            Returns query's CAML string representation surrounded by Query element
+            </summary>
+            <returns>Query CAML string surrounded by Query element.</returns>
+        </member>
+        <member name="M:CamlBuilder.Query.OrderBy(CamlBuilder.FieldReference)">
+            <summary>
+            Adds a new query sort order relatively to a specified <paramref name="fieldRef"/>.
+            </summary>
+            <param name="fieldRef">Reference to the field where to perform the ordering on.</param>
+            <returns>Returns the query itself.</returns>
+            <remarks>Use <see cref="P:CamlBuilder.FieldReference.Ascending"/> with false value to specify descending order.</remarks>
+        </member>
+        <member name="M:CamlBuilder.Query.OrderBy(System.Collections.Generic.IEnumerable{CamlBuilder.FieldReference})">
+            <summary>
+            Adds a collection of sort orders relatively to specified <paramref name="fieldRefs"/>.
+            </summary>
+            <param name="fieldRefs">References to the fields where to perform the ordering on.</param>
+            <returns>Returns the query itself.</returns>
+            <remarks>Use <see cref="P:CamlBuilder.FieldReference.Ascending"/> with false value to specify descending order.</remarks>
+        </member>
+        <member name="M:CamlBuilder.Query.GroupBy(CamlBuilder.FieldReference)">
+            <summary>
+            Specify the query's group-by options. Query will be grouped by specified <paramref name="fieldRef"/>.
+            </summary>
+            <param name="fieldRef">Reference to the field to group by.</param>
+            <returns>Returns the query itself.</returns>
+        </member>
+        <member name="M:CamlBuilder.Query.GroupBy(System.Collections.Generic.IEnumerable{CamlBuilder.FieldReference})">
+            <summary>
+            Specify the query's group-by options. Query will be grouped by specified <paramref name="fieldRefs"/>.
+            </summary>
+            <param name="fieldRefs">References to the fields to group by.</param>
+            <returns>Returns the query itself.</returns>
+        </member>
+        <member name="T:CamlBuilder.Statement">
+            <summary>
+            Defines a CAML statement. It can be a <see cref="T:CamlBuilder.LogicalJoin"/> or a <see cref="T:CamlBuilder.Operator"/>. 
+            </summary>
+        </member>
+        <member name="T:CamlBuilder.Value">
+            <summary>
+            Defines a CAML value. This class has no constructors available.To instanciate a
+            new value use public static methods.
+            </summary>
+        </member>
+        <member name="P:CamlBuilder.Value.Type">
+            <summary>
+            Specifies the data type for the value contained by this element.
+            </summary>
+        </member>
+        <member name="P:CamlBuilder.Value.IncludeTimeValue">
+            <summary>
+            Specifies to build DateTime queries based on time as well as date. If you do not set
+            this attribute, the time portion of queries that involve date and time are ignored.
+            </summary>
+        </member>
+        <member name="M:CamlBuilder.Value.Now">
+            <summary>
+            Value representng the current date and time.
+            </summary>
+            <returns>Value representng the current date and time.</returns>
+        </member>
+        <member name="M:CamlBuilder.Value.Now(System.Boolean)">
+            <summary>
+            Value representing the current date and time.
+            </summary>
+            <param name="includeTimeValue">True if is to be included the time part; otherwise, false</param>
+            <returns>Value representng the current date and time.</returns>
+        </member>
+        <member name="M:CamlBuilder.Value.Month">
+            <summary>
+            Value representing the current month.
+            
+            Can be used in together with <see cref="M:CamlBuilder.Operator.DateRangesOverlap(CamlBuilder.FieldReference,CamlBuilder.ValueType,System.Object)"/> operator
+            to retrieve from a calendar all instances of a recurring event that occur within a month.
+            </summary>
+            <returns>Value representing the current month.</returns>
+        </member>
+        <member name="M:CamlBuilder.Value.Month(System.Boolean)">
+            <summary>
+            Can be used in together with <see cref="M:CamlBuilder.Operator.DateRangesOverlap(CamlBuilder.FieldReference,CamlBuilder.ValueType,System.Object)"/> operator
+            to retrieve from a calendar all instances of a recurring event that occur within a month.
+            </summary>
+            <param name="includeTimeValue">True if is to be included the time part; otherwise, false</param>
+            <returns>Value representing the current month.</returns>
+        </member>
+        <member name="M:CamlBuilder.Value.Today">
+            <summary>
+            Value representing the current day.
+            
+            Renders the current date in the format that is relative to the server's local time zone. For servers in
+            the United States, the format is MM/DD/YYYY (for example, 1/21/2001).
+            </summary>
+            <returns>Value representing the current day.</returns>
+        </member>
+        <member name="M:CamlBuilder.Value.Today(System.Int32)">
+            <summary>
+            Value representing the current day.
+            
+            Renders the current date in the format that is relative to the server's local time zone. For servers in
+            the United States, the format is MM/DD/YYYY (for example, 1/21/2001).
+            </summary>
+            <param name="offset">Adds or subtracts the number of days that are specified by the positive or negative integer value.</param>
+            <returns>Value representing the current day.</returns>
+        </member>
+        <member name="M:CamlBuilder.Value.Today(System.Boolean)">
+            <summary>
+            Value representing the current day.
+            
+            Renders the current date in the format that is relative to the server's local time zone. For servers in
+            the United States, the format is MM/DD/YYYY (for example, 1/21/2001).
+            </summary>
+            <param name="includeTimeValue">True if is to be included the time part; otherwise, false</param>
+            <returns>Value representing the current day.</returns>
+        </member>
+        <member name="M:CamlBuilder.Value.Today(System.Boolean,System.Int32)">
+            <summary>
+            Value representing the current day.
+            
+            Renders the current date in the format that is relative to the server's local time zone. For servers in
+            the United States, the format is MM/DD/YYYY (for example, 1/21/2001).
+            </summary>
+            <param name="includeTimeValue">True if is to be included the time part; otherwise, false</param>
+            <param name="offset">Adds or subtracts the number of days that are specified by the positive or negative integer value.</param>
+            <returns>Value representing the current day.</returns>
+        </member>
+        <member name="M:CamlBuilder.Value.ObjectValue(CamlBuilder.ValueType,System.Object)">
+            <summary>
+            Can be used to represent any <paramref name="type"/> of value.
+            </summary>
+            <param name="type">Specifies the data type for the value contained by this element.</param>
+            <param name="value">Value against which the value returned by the FieldRef element is compared</param>
+            <returns>Value representing any object value.</returns>
+            <remarks>
+            CamlBuilder uses ToString() on top of <paramref name="value"/> to build the final CAML query.
+            </remarks>
+        </member>
+        <member name="M:CamlBuilder.Value.ObjectValue(CamlBuilder.ValueType,System.Nullable{System.Boolean},System.Object)">
+            <summary>
+            Can be used to represent any <paramref name="type"/> of value.
+            </summary>
+            <param name="type">Specifies the data type for the value contained by this element.</param>
+            <param name="includeTimeValue">
+            Specifies to build DateTime queries based on time as well as date. If you set this to null
+            the time portion of queries that involve date and time are ignored.
+            </param>
+            <param name="value">Value against which the value returned by the FieldRef element is compared</param>
+            <returns>Value representing any object value.</returns>
+            <remarks>
+            CamlBuilder uses ToString() on top of <paramref name="value"/> to build the final CAML query.
+            </remarks>
+        </member>
+        <member name="M:CamlBuilder.Value.UserId">
+            <summary>
+            Contains the value if the unique ID number of the currently authenticated user of a site, as
+            defined in the UserInfo table of the content database.
+            </summary>
+            <returns>Value representing the currently authenticated user unique ID number.</returns>
+        </member>
+        <member name="M:CamlBuilder.Value.ListProperties(CamlBuilder.ValueType,System.Collections.Generic.IEnumerable{CamlBuilder.ListPropertyValueItem})">
+            <summary>
+            Value of a specified column in the List of Lists table.
+            </summary>
+            <param name="type">Specifies the data type for the value contained by this element.</param>
+            <param name="listProperties">List of properties.</param>
+            <returns>Value representing a list of lists table.</returns>
+        </member>
+        <member name="M:CamlBuilder.Value.ListProperties(CamlBuilder.ValueType,System.Nullable{System.Boolean},System.Collections.Generic.IEnumerable{CamlBuilder.ListPropertyValueItem})">
+            <summary>
+            Value of a specified column in the List of Lists table.
+            </summary>
+            <param name="type">Specifies the data type for the value contained by this element.</param>
+            <param name="includeTimeValue">
+            Specifies to build DateTime queries based on time as well as date. If you set this to null
+            the time portion of queries that involve date and time are ignored.
+            </param>
+            <param name="listProperties">List of properties.</param>
+            <returns>Value representing a list of lists table.</returns>
+        </member>
+        <member name="T:CamlBuilder.ValueType">
+            <summary>
+            Specifies types of reference for a field in a list.
+            </summary>
+        </member>
+        <member name="F:CamlBuilder.ValueType.Text">
+            <summary>
+            Indicates a Text field type
+            </summary>
+        </member>
+        <member name="F:CamlBuilder.ValueType.DateTime">
+            <summary>
+            Indicates a DateTime field type
+            </summary>
+        </member>
+        <member name="F:CamlBuilder.ValueType.Integer">
+            <summary>
+            Indicates a Integer field type
+            </summary>
+        </member>
+        <member name="F:CamlBuilder.ValueType.Note">
+            <summary>
+            Indicates a Note field type
+            </summary>
+        </member>
+        <member name="F:CamlBuilder.ValueType.Choice">
+            <summary>
+            Indicates a Choice field type
+            </summary>
+        </member>
+        <member name="F:CamlBuilder.ValueType.Number">
+            <summary>
+            Indicates a Number field type
+            </summary>
+        </member>
+        <member name="F:CamlBuilder.ValueType.Guid">
+            <summary>
+            Indicates a Guid field type
+            </summary>
+        </member>
+        <member name="F:CamlBuilder.ValueType.Boolean">
+            <summary>
+            Indicates a Boolean field type
+            </summary>
+        </member>
+        <member name="F:CamlBuilder.ValueType.Counter">
+            <summary>
+            Indicates a Counter field type
+            </summary>
+        </member>
+        <member name="F:CamlBuilder.ValueType.Currency">
+            <summary>
+            Indicates a Currency field type
+            </summary>
+        </member>
+        <member name="F:CamlBuilder.ValueType.Url">
+            <summary>
+            Indicates an URL field type
+            </summary>
+        </member>
+        <member name="F:CamlBuilder.ValueType.Computed">
+            <summary>
+            Indicates a Computed field type
+            </summary>
+        </member>
+        <member name="F:CamlBuilder.ValueType.Lookup">
+            <summary>
+            Indicates a Lookup field type
+            </summary>
+        </member>
+        <member name="F:CamlBuilder.ValueType.File">
+            <summary>
+            Indicates a File field type
+            </summary>
+        </member>
+        <member name="F:CamlBuilder.ValueType.User">
+            <summary>
+            Indicates an User field type
+            </summary>
+        </member>
+        <member name="F:CamlBuilder.ValueType.Attachments">
+            <summary>
+            Indicates an Attachments field type
+            </summary>
+        </member>
+        <member name="F:CamlBuilder.ValueType.MultiChoice">
+            <summary>
+            Indicates a MultiChoice field type
+            </summary>
+        </member>
+        <member name="F:CamlBuilder.ValueType.GridChoice">
+            <summary>
+            Indicates a GridChoice field type
+            </summary>
+        </member>
+        <member name="F:CamlBuilder.ValueType.Threading">
+            <summary>
+            Indicates a Threading field type
+            </summary>
+        </member>
+        <member name="F:CamlBuilder.ValueType.CrossProjectLink">
+            <summary>
+            Indicates a CrossProjectLink field type
+            </summary>
+        </member>
+        <member name="F:CamlBuilder.ValueType.Recurrence">
+            <summary>
+            Indicates a Recurrence field type
+            </summary>
+        </member>
+        <member name="F:CamlBuilder.ValueType.ModStat">
+            <summary>
+            Indicates a ModStat field type
+            </summary>
+        </member>
+        <member name="F:CamlBuilder.ValueType.ContentTypeId">
+            <summary>
+            Indicates a ContentTypeId field type
+            </summary>
+        </member>
+        <member name="F:CamlBuilder.ValueType.WorkflowStatus">
+            <summary>
+            Indicates a WorkflowStatus field type
+            </summary>
+        </member>
+        <member name="F:CamlBuilder.ValueType.AllDayEvent">
+            <summary>
+            Indicates a AllDayEvent field type
+            </summary>
+        </member>
+        <member name="F:CamlBuilder.ValueType.Error">
+            <summary>
+            Indicates an Error field type
+            </summary>
+        </member>
+        <member name="F:CamlBuilder.ValueType.WorkflowEventType">
+            <summary>
+            Indicates a WorkflowEventType field type
+            </summary>
+        </member>
+        <member name="T:Microsoft.SharePoint.Client.ListItemExtensions">
+            <summary>
+            Extension methods for the ListItem object
+            </summary>
+        </member>
+        <member name="M:Microsoft.SharePoint.Client.ListItemExtensions.PageType(Microsoft.SharePoint.Client.ListItem)">
+            <summary>
+            Determines the type of page
+            </summary>
+            <param name="item">Page list item</param>
+            <returns>Type of page</returns>
+        </member>
+        <member name="M:Microsoft.SharePoint.Client.ListItemExtensions.WebParts(Microsoft.SharePoint.Client.ListItem,SharePointPnP.Modernization.Framework.PageTransformation)">
+            <summary>
+            Gets the web part information from the page
+            </summary>
+            <param name="item">Page list item</param>
+            <param name="pageTransformation">PageTransformation model loaded from XML</param>
+            <returns>Page layout + collection of web parts on the page</returns>
+        </member>
+        <member name="M:Microsoft.SharePoint.Client.ListItemExtensions.LastModifiedDateTime(Microsoft.SharePoint.Client.ListItem)">
+            <summary>
+            Get's the page last modified date time
+            </summary>
+            <param name="item">Page list item</param>
+            <returns>DateTime of the last modification</returns>
+        </member>
+        <member name="M:Microsoft.SharePoint.Client.ListItemExtensions.LastModifiedBy(Microsoft.SharePoint.Client.ListItem)">
+            <summary>
+            Get's the page last modified by
+            </summary>
+            <param name="item">Page list item</param>
+            <returns>Last modified by user/account</returns>
+        </member>
+        <member name="M:Microsoft.SharePoint.Client.ListItemExtensions.PageLayoutFile(Microsoft.SharePoint.Client.ListItem)">
+            <summary>
+            Get's the page page layout file
+            </summary>
+            <param name="item">Page list item</param>
+            <returns>Page layout file defined for this page</returns>
+        </member>
+        <member name="M:Microsoft.SharePoint.Client.ListItemExtensions.PageLayout(Microsoft.SharePoint.Client.ListItem)">
+            <summary>
+            Get's the page page layout
+            </summary>
+            <param name="item">Page list item</param>
+            <returns>Page layout defined for this page</returns>
+        </member>
+        <member name="M:Microsoft.SharePoint.Client.ListItemExtensions.Audiences(Microsoft.SharePoint.Client.ListItem)">
+            <summary>
+            Get's the page audience(s)
+            </summary>
+            <param name="item">Page list item</param>
+            <returns>Page layout defined for this page</returns>
+        </member>
+        <member name="M:Microsoft.SharePoint.Client.ListItemExtensions.Transform(Microsoft.SharePoint.Client.ListItem,SharePointPnP.Modernization.Framework.Transform.PageTransformationInformation)">
+            <summary>
+            Transforms a classic wiki/webpart page into a modern page, using the default page transformation model (webpartmapping.xml)
+            </summary>
+            <param name="sourcePage">ListItem for the classic wiki/webpart page</param>
+            <param name="pageTransformationInformation">Information to drive the page transformation process</param>
+        </member>
+        <member name="M:Microsoft.SharePoint.Client.ListItemExtensions.Transform(Microsoft.SharePoint.Client.ListItem,SharePointPnP.Modernization.Framework.Transform.PageTransformationInformation,System.String)">
+            <summary>
+            Transforms a classic wiki/webpart page into a modern page using a custom transformation model
+            </summary>
+            <param name="sourcePage">ListItem for the classic wiki/webpart page</param>
+            <param name="pageTransformationInformation">Information to drive the page transformation process</param>
+            <param name="pageTransformationFile">Page transformation model to be used</param>
+        </member>
+        <member name="M:Microsoft.SharePoint.Client.ListItemExtensions.FieldExistsAndUsed(Microsoft.SharePoint.Client.ListItem,System.String)">
+            <summary>
+            Checks if a listitem contains a field with a value
+            </summary>
+            <param name="item">List item to check</param>
+            <param name="fieldName">Name of the field to check</param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.SharePoint.Client.ListItemExtensions.FieldExists(Microsoft.SharePoint.Client.ListItem,System.String)">
+            <summary>
+            Checks if a listitem contains a field
+            </summary>
+            <param name="item">List item to check</param>
+            <param name="fieldName">Name of the field to check</param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.SharePoint.Client.SiteExtensions.GetAllSubSites(Microsoft.SharePoint.Client.Site)">
+            <summary>
+            Gets all sub sites for a given site
+            </summary>
+            <param name="site">Site to find all sub site for</param>
+            <returns>IEnumerable of strings holding the sub site urls</returns>
+        </member>
+        <member name="T:Microsoft.SharePoint.Client.WebExtensions">
+            <summary>
+            Class that deals with site (both site collection and web site) creation, status, retrieval and settings
+            </summary>
+        </member>
+        <member name="M:Microsoft.SharePoint.Client.WebExtensions.GetPages(Microsoft.SharePoint.Client.Web,System.String)">
+            <summary>
+            Returns the site pages from a web, optionally filtered on pagename
+            </summary>
+            <param name="web">Web to get the pages from</param>
+            <param name="pageNameStartsWith">Filter to get all pages starting with</param>
+            <returns>A list of pages (ListItem intances)</returns>
+        </member>
+        <member name="M:Microsoft.SharePoint.Client.WebExtensions.GetAdmins(Microsoft.SharePoint.Client.Web)">
+            <summary>
+            Returns the admins of this site
+            </summary>
+            <param name="web">Site to scan</param>
+            <returns>List of admins</returns>
+        </member>
+        <member name="M:Microsoft.SharePoint.Client.WebExtensions.GetOwners(Microsoft.SharePoint.Client.Web)">
+            <summary>
+            Returns owners of this web
+            </summary>
+            <param name="web">Web to scan</param>
+            <returns>List of owners</returns>
+        </member>
+        <member name="M:Microsoft.SharePoint.Client.WebExtensions.GetMembers(Microsoft.SharePoint.Client.Web)">
+            <summary>
+            Returns members of this site
+            </summary>
+            <param name="web">Web to scan</param>
+            <returns>Members of this web</returns>
+        </member>
+        <member name="M:Microsoft.SharePoint.Client.WebExtensions.GetVisitors(Microsoft.SharePoint.Client.Web)">
+            <summary>
+            Returns visitors of this site
+            </summary>
+            <param name="web">Web to scan</param>
+            <returns>Visitors of this web</returns>
+        </member>
+        <member name="M:Microsoft.SharePoint.Client.WebExtensions.ClaimsHaveRoleAssignment(Microsoft.SharePoint.Client.Web,System.String,System.String)">
+            <summary>
+            Checks if the passed claims are assigned a role
+            </summary>
+            <param name="web">Web to check</param>
+            <param name="claim1">Claim to check</param>
+            <param name="claim2">Claim to check</param>
+            <returns>True if claim1 or claim2 has a role</returns>
+        </member>
+        <member name="M:Microsoft.SharePoint.Client.WebExtensions.GetEveryoneExceptExternalUsersClaim(Microsoft.SharePoint.Client.Web)">
+            <summary>
+            Resolves the Everyone Except External Users claim
+            </summary>
+            <param name="web">web to use for the resolving</param>
+            <returns>Loginname for the "Everyone Except External Users" claim</returns>
+        </member>
+        <member name="T:AngleSharp.Dom.AngleSharpExtensions">
+            <summary>
+            Extension methods for AngleSharp
+            </summary>
+        </member>
+        <member name="M:AngleSharp.Dom.AngleSharpExtensions.PartialMatch(AngleSharp.Dom.ITokenList,System.String)">
+            <summary>
+            Performs a partial match on a list of tokens (e.g. classes on an element)
+            </summary>
+            <param name="tokenList">List of tokens to search in</param>
+            <param name="filter">Partial token to match via an StartsWidth</param>
+            <returns>First matching token if found, null if no match</returns>
+        </member>
+    </members>
+</doc>
