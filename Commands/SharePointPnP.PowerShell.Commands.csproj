@@ -636,7 +636,7 @@
     <Compile Include="Provisioning\Tenant\AddTenantSequence.cs" />
     <Compile Include="Provisioning\Tenant\NewTenantSequence.cs" />
     <Compile Include="Provisioning\Tenant\NewTenantTemplate.cs" />
-    <Compile Include="Provisioning\AddFilesToProvisioningTemplate.cs" />
+    <Compile Include="Provisioning\Site\AddFilesToProvisioningTemplate.cs" />
     <Compile Include="RecordsManagement\GetListManualRecordDeclaration.cs" />
     <Compile Include="RecordsManagement\GetInPlaceRecordsManagement.cs" />
     <Compile Include="RecordsManagement\SetListRecordDeclaration.cs" />
@@ -1086,9 +1086,7 @@
     <Content Include="Resources\pnp.ico" />
     <EmbeddedResource Include="ClientSidePages\webpartmapping.xml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Provisioning\Utilities\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>

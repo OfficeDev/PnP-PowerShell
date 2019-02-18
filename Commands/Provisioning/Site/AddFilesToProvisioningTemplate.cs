@@ -8,7 +8,7 @@ using System.Linq;
 using System.Management.Automation;
 using SPFile = Microsoft.SharePoint.Client.File;
 
-namespace SharePointPnP.PowerShell.Commands.Provisioning
+namespace SharePointPnP.PowerShell.Commands.Provisioning.Site
 {
     [Cmdlet(VerbsCommon.Add, "PnPFilesToProvisioningTemplate")]
     [CmdletHelp("Adds files to a PnP Provisioning Template",
