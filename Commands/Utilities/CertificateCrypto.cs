@@ -47,13 +47,13 @@ namespace SharePointPnP.PowerShell.Commands.Utilities
                 // The data following the version will be the ASN.1 data itself, which in our case
                 // are a sequence of integers.
 
-                var parms = new CspParameters
+                var cspParams = new CspParameters
                 {
                     Flags = CspProviderFlags.UseMachineKeyStore,
                     KeyContainerName = Guid.NewGuid().ToString().ToUpperInvariant()
                 };
 
-                var rsa = new RSACryptoServiceProvider(parms);
+                var rsa = new RSACryptoServiceProvider(cspParams);
                 var rsAparams = new RSAParameters { Modulus = rd.ReadBytes(DecodeIntegerSize(rd)) };
 
 
