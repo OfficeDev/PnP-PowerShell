@@ -57,16 +57,16 @@ namespace SharePointPnP.PowerShell.Commands
                 Url = $"{uri.ToString().TrimEnd('/')}/{Url.TrimStart('/')}";
             }
 
-            bool dodelete = true;
+            bool doDelete = true;
             // Check if not deleting the root web
             var siteUri = new Uri(Url);
             if ($"{siteUri.Scheme}://{siteUri.Host}".Equals(Url, StringComparison.OrdinalIgnoreCase) && !Force)
             {
-                dodelete = false;
-                dodelete = ShouldContinue("You are trying to delete the root site collection. Be aware that you need to contact Office 365 Support in order to create a new root site collection. Also notice that some CSOM and REST operations require the root site collection to be present. Removing this site can affect all your remote processing code, even when accessing non-root site collections.", Resources.Confirm);
+                doDelete = false;
+                doDelete = ShouldContinue("You are trying to delete the root site collection. Be aware that you need to contact Office 365 Support in order to create a new root site collection. Also notice that some CSOM and REST operations require the root site collection to be present. Removing this site can affect all your remote processing code, even when accessing non-root site collections.", Resources.Confirm);
             }
 
-            if (dodelete && (Force || ShouldContinue(string.Format(Resources.RemoveSiteCollection0, Url), Resources.Confirm)))
+            if (doDelete && (Force || ShouldContinue(string.Format(Resources.RemoveSiteCollection0, Url), Resources.Confirm)))
             {
                 Func<TenantOperationMessage, bool> timeoutFunction = TimeoutFunction;
 
