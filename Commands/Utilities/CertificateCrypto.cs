@@ -54,7 +54,7 @@ namespace SharePointPnP.PowerShell.Commands.Utilities
                 };
 
                 var rsa = new RSACryptoServiceProvider(parms);
-                var rsAparams = new RSAParameters { Modulus = rd.ReadBytes(DecodeIntegerSize(rd)) };
+                var rsaParams = new RSAParameters { Modulus = rd.ReadBytes(DecodeIntegerSize(rd)) };
 
 
                 // Argh, this is a pain.  From emperical testing it appears to be that RSAParameters doesn't like byte buffers that
@@ -62,18 +62,18 @@ namespace SharePointPnP.PowerShell.Commands.Utilities
                 // is a bug, but it sure would be helpful if it allowed that. So, there's some extra code here that knows what the
                 // sizes of the various components are supposed to be.  Using these sizes we can ensure the buffer sizes are exactly
                 // what the RSAParameters expect.  Thanks, Microsoft.
-                var traits = new RSAParameterTraits(rsAparams.Modulus.Length * 8);
+                var traits = new RSAParameterTraits(rsaParams.Modulus.Length * 8);
 
-                rsAparams.Modulus = AlignBytes(rsAparams.Modulus, traits.SizeMod);
-                rsAparams.Exponent = AlignBytes(rd.ReadBytes(DecodeIntegerSize(rd)), traits.SizeExp);
-                rsAparams.D = AlignBytes(rd.ReadBytes(DecodeIntegerSize(rd)), traits.SizeD);
-                rsAparams.P = AlignBytes(rd.ReadBytes(DecodeIntegerSize(rd)), traits.SizeP);
-                rsAparams.Q = AlignBytes(rd.ReadBytes(DecodeIntegerSize(rd)), traits.SizeQ);
-                rsAparams.DP = AlignBytes(rd.ReadBytes(DecodeIntegerSize(rd)), traits.SizeDp);
-                rsAparams.DQ = AlignBytes(rd.ReadBytes(DecodeIntegerSize(rd)), traits.SizeDq);
-                rsAparams.InverseQ = AlignBytes(rd.ReadBytes(DecodeIntegerSize(rd)), traits.SizeInvQ);
+                rsaParams.Modulus = AlignBytes(rsaParams.Modulus, traits.SizeMod);
+                rsaParams.Exponent = AlignBytes(rd.ReadBytes(DecodeIntegerSize(rd)), traits.SizeExp);
+                rsaParams.D = AlignBytes(rd.ReadBytes(DecodeIntegerSize(rd)), traits.SizeD);
+                rsaParams.P = AlignBytes(rd.ReadBytes(DecodeIntegerSize(rd)), traits.SizeP);
+                rsaParams.Q = AlignBytes(rd.ReadBytes(DecodeIntegerSize(rd)), traits.SizeQ);
+                rsaParams.DP = AlignBytes(rd.ReadBytes(DecodeIntegerSize(rd)), traits.SizeDp);
+                rsaParams.DQ = AlignBytes(rd.ReadBytes(DecodeIntegerSize(rd)), traits.SizeDq);
+                rsaParams.InverseQ = AlignBytes(rd.ReadBytes(DecodeIntegerSize(rd)), traits.SizeInvQ);
 
-                rsa.ImportParameters(rsAparams);
+                rsa.ImportParameters(rsaParams);
                 return rsa;
             }
             //catch (Exception e)
