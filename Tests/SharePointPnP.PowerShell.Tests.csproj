@@ -367,7 +367,9 @@
     <Compile Include="BrandingTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\PnPTestList.xml" />
+    <Content Include="Resources\PnPTestList.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\template.xml" />
     <Content Include="Resources\webpart.xml" />
   </ItemGroup>

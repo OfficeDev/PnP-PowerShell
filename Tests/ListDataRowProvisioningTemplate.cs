@@ -93,6 +93,31 @@ namespace SharePointPnP.PowerShell.Tests
             }
         }
 
+        // note: Add-PnPDataRowsToProvisioningTemplate changes the template version to latest; check that this does not destroy the template (it did...)
+        [TestMethod]
+        public void GetDataRowsFromList_TwoTimes()
+        {
+            using (var scope = new PSTestScope(true))
+            {
+                var results = scope.ExecuteCommand("Add-PnPDataRowsToProvisioningTemplate",
+                    new CommandParameter("Path", @"Resources\PnPTestList.xml"),
+                    new CommandParameter("List", "PnPTestList"),
+                    new CommandParameter("Query", "<View></View>")
+                    );
+                var template = results[0].BaseObject as ProvisioningTemplate;
+                Assert.AreEqual(10, template.Lists[0].DataRows.Count, "Unexpected number of rows (first run)");
+
+                results = scope.ExecuteCommand("Add-PnPDataRowsToProvisioningTemplate",
+                    new CommandParameter("Path", @"Resources\PnPTestList.xml"),
+                    new CommandParameter("List", "PnPTestList"),
+                    new CommandParameter("Query", "<View></View>")
+                    );
+                Assert.IsTrue(results.Count > 0, "Did not get results the second time");
+                template = results[0].BaseObject as ProvisioningTemplate;
+                Assert.AreEqual(10, template.Lists[0].DataRows.Count, "Unexpected number of rows (second run)");
+            }
+        }
+
         [TestMethod]
         public void GetDataRowsFromListNoFields()
         {
@@ -103,7 +128,7 @@ namespace SharePointPnP.PowerShell.Tests
                 //Assert.IsTrue(template.Any());
 
                 var results = scope.ExecuteCommand("Add-PnPDataRowsToProvisioningTemplate",
-                    new CommandParameter("Path", @"..\\..\\Resources\\PnPTestList.xml"),
+                    new CommandParameter("Path", @"Resources\PnPTestList.xml"),
                     new CommandParameter("List", "PnPTestList"),
                     new CommandParameter("Query", "<View></View>")
                     );
@@ -113,7 +138,6 @@ namespace SharePointPnP.PowerShell.Tests
                     
             }
         }
-
 
         [TestMethod]
         public void GetDataRowsFromListWithFields()
@@ -126,7 +150,7 @@ namespace SharePointPnP.PowerShell.Tests
 
                 string[] fields = new string[] { "Title" };
                 var results = scope.ExecuteCommand("Add-PnPDataRowsToProvisioningTemplate",
-                    new CommandParameter("Path", @"..\\..\\Resources\\PnPTestList.xml"),
+                    new CommandParameter("Path", @"Resources\PnPTestList.xml"),
                     new CommandParameter("List", "PnPTestList"),
                     new CommandParameter("Query", "<View></View>"),
                     new CommandParameter("Fields", fields)
@@ -148,7 +172,7 @@ namespace SharePointPnP.PowerShell.Tests
              
                 string[] fields = new string[] { "Title" };
                 var results = scope.ExecuteCommand("Add-PnPDataRowsToProvisioningTemplate",
-                    new CommandParameter("Path", @"..\\..\\Resources\\PnPTestList.xml"),
+                    new CommandParameter("Path", @"Resources\PnPTestList.xml"),
                     new CommandParameter("List", "PnPTestList"),
                     new CommandParameter("Query", "<View></View>"),
                     new CommandParameter("Fields", fields),
@@ -171,7 +195,7 @@ namespace SharePointPnP.PowerShell.Tests
             using(var scope =  new PSTestScope(true))
             {
                 var results = scope.ExecuteCommand("Add-PnPListFoldersToProvisioningTemplate",
-                   new CommandParameter("Path", @"..\\..\\Resources\\PnPTestList.xml"),
+                   new CommandParameter("Path", @"Resources\PnPTestList.xml"),
                    new CommandParameter("List", "PnPTestList"),
                    new CommandParameter("Recursive", false)
                    );
@@ -190,7 +214,7 @@ namespace SharePointPnP.PowerShell.Tests
             using (var scope = new PSTestScope(true))
             {
                 var results = scope.ExecuteCommand("Add-PnPListFoldersToProvisioningTemplate",
-                   new CommandParameter("Path", @"..\\..\\Resources\\PnPTestList.xml"),
+                   new CommandParameter("Path", @"Resources\PnPTestList.xml"),
                    new CommandParameter("List", "PnPTestList"),
                    new CommandParameter("Recursive", true)
                    );
@@ -209,7 +233,7 @@ namespace SharePointPnP.PowerShell.Tests
             using (var scope = new PSTestScope(true))
             {
                 var results = scope.ExecuteCommand("Add-PnPListFoldersToProvisioningTemplate",
-                   new CommandParameter("Path", @"..\\..\\Resources\\PnPTestList.xml"),
+                   new CommandParameter("Path", @"Resources\PnPTestList.xml"),
                    new CommandParameter("List", "PnPTestList"),
                    new CommandParameter("Recursive", false),
                    new CommandParameter("IncludeSecurity", true)
@@ -230,7 +254,7 @@ namespace SharePointPnP.PowerShell.Tests
             using (var scope = new PSTestScope(true))
             {
                 var results = scope.ExecuteCommand("Add-PnPListFoldersToProvisioningTemplate",
-                   new CommandParameter("Path", @"..\\..\\Resources\\PnPTestList.xml"),
+                   new CommandParameter("Path", @"Resources\PnPTestList.xml"),
                    new CommandParameter("List", "PnPTestList"),
                    new CommandParameter("Recursive", true),
                    new CommandParameter("IncludeSecurity", true)

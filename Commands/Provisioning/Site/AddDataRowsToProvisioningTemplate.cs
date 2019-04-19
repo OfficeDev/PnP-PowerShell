@@ -12,7 +12,6 @@ using System.IO;
 using System.Linq;
 using System.Management.Automation;
 using System.Text;
-using System.Text.RegularExpressions;
 using SPSite = Microsoft.SharePoint.Client.Site;
 
 namespace SharePointPnP.PowerShell.Commands.Provisioning.Site
@@ -211,6 +210,7 @@ namespace SharePointPnP.PowerShell.Commands.Provisioning.Site
                 XMLTemplateProvider provider = new XMLFileSystemTemplateProvider(Path, "");
                 provider.SaveAs(template, Path, formatter, TemplateProviderExtensions);
             }
+            WriteObject(template);
         }
 
         private string GetFieldValueAsText(Web web, ListItem listItem, Microsoft.SharePoint.Client.Field field)
