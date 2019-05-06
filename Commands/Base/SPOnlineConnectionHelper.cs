@@ -487,7 +487,7 @@ namespace SharePointPnP.PowerShell.Commands.Base
         }
 #endif
 
-        internal static SPOnlineConnection InstantiateSPOnlineConnection(Uri url, PSCredential credentials, PSHost host, bool currentCredentials, int minimalHealthScore, int retryCount, int retryWait, int requestTimeout, string tenantAdminUrl, bool disableTelemetry, bool skipAdminCheck = false, ClientAuthenticationMode authenticationMode = ClientAuthenticationMode.Default)
+        internal static SPOnlineConnection InstantiateSPOnlineConnection(Uri url, PSCredential credentials, PSHost host, bool currentCredentials, int minimalHealthScore, int retryCount, int retryWait, int requestTimeout, string tenantAdminUrl, bool disableTelemetry, bool skipAdminCheck = false, ClientAuthenticationMode authenticationMode = ClientAuthenticationMode.Default, bool disableFormsBasedAuthentication = false)
         {
             var context = new PnPClientContext(url.AbsoluteUri);
 
@@ -508,6 +508,19 @@ namespace SharePointPnP.PowerShell.Commands.Base
                 var formsAuthInfo = new FormsAuthenticationLoginInfo(credentials.UserName, EncryptionUtility.ToInsecureString(credentials.Password));
                 context.FormsAuthenticationLoginInfo = formsAuthInfo;
             }
+
+#if ONPREMISES
+            if (disableFormsBasedAuthentication)
+            {
+                context.ExecutingWebRequest += (sender, args) =>
+                {
+                    // Disables the forms based authentication, so that SharePoint will (ideally) fall back to Windows Authentication
+                    // see https://github.com/SharePoint/PnP-PowerShell/issues/808#issuecomment-369554812 for further details
+                    args.WebRequestExecutor.RequestHeaders.Remove("X-FORMS_BASED_AUTH_ACCEPTED");
+                    args.WebRequestExecutor.RequestHeaders.Add("X-FORMS_BASED_AUTH_ACCEPTED", "f");
+                };
+            }
+#endif
 
             if (!currentCredentials)
             {

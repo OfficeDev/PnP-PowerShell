@@ -117,6 +117,10 @@ PS:> Connect-PnPOnline -Url https://yourserver -ClientId <id> -HighTrustCertific
         Code = @"PS:> Connect-PnPOnline -Url https://yourserver -ClientId 763d5e60-b57e-426e-8e87-b7258f7f8188 -HighTrustCertificatePath c:\HighTrust.pfx -HighTrustCertificatePassword 'password' -HighTrustCertificateIssuerId 6b9534d8-c2c1-49d6-9f4b-cd415620bca8",
         Remarks = @"Connect to an on-premises SharePoint environment using a high trust certificate stored in a .PFX file.",
         SortOrder = 15)]
+    [CmdletExample(
+        Code = @"PS:> Connect-PnPOnline -Url http://yourlocalserver -Credentials (Get-Credential) -DisableFormsBasedAuthentication",
+        Remarks = @"This will prompt for username and password and disables the Forms Based Authentication so that SharePoint falls back to Windows Authentication.",
+        SortOrder = 15)]
 #endif
     public class ConnectOnline : PSCmdlet
     {
@@ -190,6 +194,11 @@ PS:> Connect-PnPOnline -Url https://yourserver -ClientId <id> -HighTrustCertific
 
         [Parameter(Mandatory = false, ParameterSetName = ParameterSet_MAIN, HelpMessage = "If you want to connect to your on-premises SharePoint farm using ADFS")]
         public SwitchParameter UseAdfs;
+
+#if ONPREMISES
+        [Parameter(Mandatory = false, ParameterSetName = ParameterSet_MAIN, HelpMessage = "Disables Forms Based Authentication for additional claims provider and uses NTLM instead")]
+        public SwitchParameter DisableFormsBasedAuthentication;
+#endif
 
         [Parameter(Mandatory = false, ParameterSetName = ParameterSet_MAIN, HelpMessage = "Authenticate using Kerberos to an on-premises ADFS instance.")]
         public SwitchParameter Kerberos;
@@ -613,7 +622,14 @@ Use -PnPO365ManagementShell instead");
                         creds = Host.UI.PromptForCredential(Properties.Resources.EnterYourCredentials, "", "", "");
                     }
                 }
-                connection = SPOnlineConnectionHelper.InstantiateSPOnlineConnection(new Uri(Url), creds, Host, CurrentCredentials, MinimalHealthScore, RetryCount, RetryWait, RequestTimeout, TenantAdminUrl, NoTelemetry, SkipTenantAdminCheck, AuthenticationMode);
+
+#if !ONPREMISES
+                var disableFormsBasedAuthentication = false;
+#else
+                var disableFormsBasedAuthentication = DisableFormsBasedAuthentication;
+#endif
+
+                connection = SPOnlineConnectionHelper.InstantiateSPOnlineConnection(new Uri(Url), creds, Host, CurrentCredentials, MinimalHealthScore, RetryCount, RetryWait, RequestTimeout, TenantAdminUrl, NoTelemetry, SkipTenantAdminCheck, AuthenticationMode, disableFormsBasedAuthentication);
             }
 #if !ONPREMISES
 #if !NETSTANDARD2_0
