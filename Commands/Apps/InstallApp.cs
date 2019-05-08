@@ -6,6 +6,7 @@ using SharePointPnP.PowerShell.Commands.Base.PipeBinds;
 using System;
 using System.Management.Automation;
 using System.Threading;
+using SharePointPnP.PowerShell.Commands.Base;
 
 namespace SharePointPnP.PowerShell.Commands.Apps
 {
@@ -41,9 +42,10 @@ namespace SharePointPnP.PowerShell.Commands.Apps
 
         protected override void ExecuteCmdlet()
         {
-            var manager = new AppManager(ClientContext);
+            var additionalHeaders = GetAdditionalHeaders();
+            var manager = new AppManager(ClientContext, additionalHeaders);
 
-            var app = Identity.GetAppMetadata(ClientContext, Scope);
+            var app = Identity.GetAppMetadata(ClientContext, Scope, additionalHeaders);
             if (app != null)
             {
                 manager.Install(app, Scope);

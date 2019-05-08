@@ -30,6 +30,7 @@ namespace SharePointPnP.PowerShell.Commands.Base
         public static TokenResult TokenResult { get; set; }
         public static SPOnlineConnection CurrentConnection { get; internal set; }
         public ConnectionType ConnectionType { get; protected set; }
+        public bool DisableFormsBasedAuthentication { get; protected set; }
         public InitializationType InitializationType { get; protected set; }
         public int MinimalHealthScore { get; protected set; }
         public int RetryCount { get; protected set; }
@@ -93,7 +94,7 @@ namespace SharePointPnP.PowerShell.Commands.Base
             }
         }
 
-        internal SPOnlineConnection(ClientContext context, ConnectionType connectionType, int minimalHealthScore, int retryCount, int retryWait, PSCredential credential, string url, string tenantAdminUrl, string pnpVersionTag, System.Management.Automation.Host.PSHost host, bool disableTelemetry, InitializationType initializationType)
+        internal SPOnlineConnection(ClientContext context, ConnectionType connectionType, int minimalHealthScore, int retryCount, int retryWait, PSCredential credential, string url, string tenantAdminUrl, string pnpVersionTag, System.Management.Automation.Host.PSHost host, bool disableTelemetry, InitializationType initializationType, bool disableFormsBasedAuthentication = false)
         {
             if (!disableTelemetry)
             {
@@ -115,6 +116,7 @@ namespace SharePointPnP.PowerShell.Commands.Base
             PnPVersionTag = pnpVersionTag;
             Url = (new Uri(url)).AbsoluteUri;
             ConnectionMethod = ConnectionMethod.Credentials;
+            DisableFormsBasedAuthentication = disableFormsBasedAuthentication;
         }
 
         internal SPOnlineConnection(ClientContext context, TokenResult tokenResult, ConnectionType connectionType, int minimalHealthScore, int retryCount, int retryWait, PSCredential credential, string url, string tenantAdminUrl, string pnpVersionTag, PSHost host, bool disableTelemetry, InitializationType initializationType)

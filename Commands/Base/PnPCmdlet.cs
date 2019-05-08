@@ -124,5 +124,20 @@ namespace SharePointPnP.PowerShell.Commands
         {
             base.EndProcessing();
         }
+
+        /// <summary>
+        /// Computes additional headers for REST API calls that have to be included during composition of the request
+        /// </summary>
+        /// <returns><see cref="Dictionary{TKey,TValue}"/> that contains the key and value of the additional headers</returns>
+        protected virtual Dictionary<string, string> GetAdditionalHeaders()
+        {
+            var additionalHeaders = new Dictionary<string, string>();
+            if (SPOnlineConnection.CurrentConnection.DisableFormsBasedAuthentication)
+            {
+                additionalHeaders.Add("X-FORMS_BASED_AUTH_ACCEPTED", "f");
+            }
+
+            return additionalHeaders;
+        }
     }
 }

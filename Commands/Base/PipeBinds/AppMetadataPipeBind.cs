@@ -3,6 +3,7 @@ using Microsoft.SharePoint.Client;
 using OfficeDevPnP.Core.ALM;
 using OfficeDevPnP.Core.Enums;
 using System;
+using System.Collections.Generic;
 
 namespace SharePointPnP.PowerShell.Commands.Base.PipeBinds
 {
@@ -35,9 +36,9 @@ namespace SharePointPnP.PowerShell.Commands.Base.PipeBinds
 
         public string Title => _title;
 
-        public AppMetadata GetAppMetadata(ClientContext context, AppCatalogScope scope)
+        public AppMetadata GetAppMetadata(ClientContext context, AppCatalogScope scope, Dictionary<string, string> additionalHeaders)
         {
-            var appmanager = new AppManager(context);
+            var appmanager = new AppManager(context, additionalHeaders);
             if (_id != Guid.Empty)
             {
                 return appmanager.GetAvailable(_id, scope);

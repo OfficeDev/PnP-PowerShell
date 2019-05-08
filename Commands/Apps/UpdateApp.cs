@@ -29,8 +29,9 @@ namespace SharePointPnP.PowerShell.Commands.Apps
 
         protected override void ExecuteCmdlet()
         {
-            var manager = new AppManager(ClientContext);
-            var app = Identity.GetAppMetadata(ClientContext, Scope);
+            var additionalHeaders = GetAdditionalHeaders();
+            var manager = new AppManager(ClientContext, additionalHeaders);
+            var app = Identity.GetAppMetadata(ClientContext, Scope, additionalHeaders);
             if (app != null)
             {
                 manager.Upgrade(Identity.Id, Scope);

@@ -38,11 +38,12 @@ namespace SharePointPnP.PowerShell.Commands.Apps
 
         protected override void ExecuteCmdlet()
         {
-            var manager = new AppManager(ClientContext);
+            var additionalHeaders = GetAdditionalHeaders();
+            var manager = new AppManager(ClientContext, additionalHeaders);
 
             if (MyInvocation.BoundParameters.ContainsKey("Identity"))
             {
-                var app = Identity.GetAppMetadata(ClientContext, Scope);
+                var app = Identity.GetAppMetadata(ClientContext, Scope, additionalHeaders);
                 if (app != null)
                 {
                     WriteObject(app);
