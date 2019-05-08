@@ -118,6 +118,13 @@ PS:> Connect-PnPOnline -Url https://yourserver -ClientId <id> -HighTrustCertific
         Remarks = @"Connect to an on-premises SharePoint environment using a high trust certificate stored in a .PFX file.",
         SortOrder = 15)]
 #endif
+#if !ONPREMISES
+    [CmdletExample(
+        Code = @"PS:> Connect-PnPOnline -ClientId <application client id from the AAD app registration> -CertificatePath '<path to the PFX file>' -CertificatePassword (ConvertTo-SecureString -AsPlainText \""<password assigned to the cer/pfx certificate pair>\"" -Force) -Url https://<tenantname>.sharepoint.com -Tenant <tenantname>.onmicrosoft.com",
+        Remarks = @"Connect to SharePoint Online using an Azure Active Directory Application Registration. See https://docs.microsoft.com/en-us/sharepoint/dev/solution-guidance/security-apponly-azuread how to set up such an application.",
+        SortOrder = 16)]
+#endif
+
     public class ConnectOnline : PSCmdlet
     {
         private const string ParameterSet_MAIN = "Main";
