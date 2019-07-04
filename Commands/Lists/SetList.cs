@@ -94,13 +94,16 @@ namespace SharePointPnP.PowerShell.Commands.Lists
         [Parameter(Mandatory = false, HelpMessage = "Enable or disable whether content approval is enabled for the list. Set to $true to enable, $false to disable.")]
         public bool EnableModeration;
 
+        [Parameter(Mandatory = false, HelpMessage = "If used the security inheritance is reset for this list")]
+        public SwitchParameter InheritPermissions;
+
         protected override void ExecuteCmdlet()
         {
             var list = Identity.GetList(SelectedWeb);
 
             if (list != null)
             {
-                list.EnsureProperties(l => l.EnableAttachments, l => l.EnableVersioning, l => l.EnableMinorVersions, l => l.Hidden, l => l.EnableModeration, l => l.BaseType);
+                list.EnsureProperties(l => l.EnableAttachments, l => l.EnableVersioning, l => l.EnableMinorVersions, l => l.Hidden, l => l.EnableModeration, l => l.BaseType, l => l.ContentTypesEnabled);
 
                 var enableVersioning = list.EnableVersioning;
                 var enableMinorVersions = list.EnableMinorVersions;
@@ -112,6 +115,16 @@ namespace SharePointPnP.PowerShell.Commands.Lists
                 {
                     list.BreakRoleInheritance(CopyRoleAssignments, ClearSubscopes);
                     isDirty = true;
+                }
+
+                if (InheritPermissions)
+                {
+                    list.EnsureProperty(l => l.HasUniqueRoleAssignments);
+                    if (list.HasUniqueRoleAssignments)
+                    {
+                        list.ResetRoleInheritance();
+                        isDirty = true;
+                    }
                 }
 
                 if (!string.IsNullOrEmpty(Title))
@@ -189,9 +202,6 @@ namespace SharePointPnP.PowerShell.Commands.Lists
                 }
                 isDirty = false;
 
-
-
-
                 if (list.EnableVersioning)
                 {
                     // list or doclib?
@@ -219,8 +229,6 @@ namespace SharePointPnP.PowerShell.Commands.Lists
                             isDirty = true;
                         }
                     }
-
-
                 }
                 if (isDirty)
                 {
