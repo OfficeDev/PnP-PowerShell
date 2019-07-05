@@ -94,7 +94,7 @@ namespace SharePointPnP.PowerShell.Commands.Lists
         [Parameter(Mandatory = false, HelpMessage = "Enable or disable whether content approval is enabled for the list. Set to $true to enable, $false to disable.")]
         public bool EnableModeration;
 
-        [Parameter(Mandatory = false, HelpMessage = "If used the security inheritance is reset for this list")]
+        [Parameter(Mandatory = false, HelpMessage = "If used, the security inheritance is reset for this list and will inherit permissions of the current web.")]
         public SwitchParameter InheritPermissions;
 
         protected override void ExecuteCmdlet()
@@ -111,11 +111,6 @@ namespace SharePointPnP.PowerShell.Commands.Lists
                 var enableAttachments = list.EnableAttachments;
 
                 var isDirty = false;
-                if (BreakRoleInheritance)
-                {
-                    list.BreakRoleInheritance(CopyRoleAssignments, ClearSubscopes);
-                    isDirty = true;
-                }
 
                 if (InheritPermissions)
                 {
@@ -126,6 +121,12 @@ namespace SharePointPnP.PowerShell.Commands.Lists
                         isDirty = true;
                     }
                 }
+
+                if (BreakRoleInheritance)
+                {
+                    list.BreakRoleInheritance(CopyRoleAssignments, ClearSubscopes);
+                    isDirty = true;
+                }                
 
                 if (!string.IsNullOrEmpty(Title))
                 {
