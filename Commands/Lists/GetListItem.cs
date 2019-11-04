@@ -109,7 +109,7 @@ namespace SharePointPnP.PowerShell.Commands.Lists
                     }
                     viewFieldsStringBuilder.Append("</ViewFields>");
                 }
-                query.ViewXml = $"<View><Query><Where><Eq><FieldRef Name='GUID'/><Value Type='Guid'>{UniqueId.Id}</Value></Eq></Where></Query>{viewFieldsStringBuilder}</View>";
+                query.ViewXml = $"<View><Query><Where><Eq><FieldRef Name='UniqueId'/><Value Type='Guid'>{UniqueId.Id}</Value></Eq></Where></Query>{viewFieldsStringBuilder}</View>";
                 var listItem = list.GetItems(query);
                 ClientContext.Load(listItem);
                 ClientContext.ExecuteQueryRetry();
