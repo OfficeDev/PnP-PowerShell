@@ -73,11 +73,18 @@ namespace SharePointPnP.PowerShell.Commands
     [CmdletAdditionalParameter(ParameterType = typeof(string), ParameterName = "Classification", Mandatory = false, HelpMessage = @"Specifies the classification of the new site collection", ParameterSetName = ParameterSet_TEAM)]
     [CmdletAdditionalParameter(ParameterType = typeof(string), ParameterName = "IsPublic", Mandatory = false, HelpMessage = @"Specifies if new site collection is public. Defaults to false.", ParameterSetName = ParameterSet_TEAM)]
     [CmdletAdditionalParameter(ParameterType = typeof(string[]), ParameterName = "Owners", Mandatory = false, HelpMessage = @"Specifies the owners of the site. Specify the value as a string array: ""user@domain.com"",""anotheruser@domain.com""", ParameterSetName = ParameterSet_TEAM)]
+    [CmdletAdditionalParameter(ParameterType = typeof(uint), ParameterName = "Lcid", Mandatory = false, HelpMessage = @"Specifies the language of the new site collection. Defaults to the current language of the web connected to.", ParameterSetName = ParameterSet_TEAM_CLASSIC)]
+    [CmdletAdditionalParameter(ParameterType = typeof(string), ParameterName = "Title", Mandatory = true, HelpMessage = @"Specifies the title of the new site collection", ParameterSetName = ParameterSet_TEAM_CLASSIC)]
+    [CmdletAdditionalParameter(ParameterType = typeof(string), ParameterName = "Alias", Mandatory = true, HelpMessage = @"Specifies the alias of the new site collection which represents the part of the URL that will be assigned to the site behind 'https://tenant.sharepoint.com/sites/' or 'https://tenant.sharepoint.com/teams/' based on the managed path configuration in the SharePoint Online Admin portal, this parameter only applies to Modern Team Sites", ParameterSetName = ParameterSet_TEAM_CLASSIC)]
+    [CmdletAdditionalParameter(ParameterType = typeof(string), ParameterName = "Description", Mandatory = false, HelpMessage = @"Specifies the description of the new site collection", ParameterSetName = ParameterSet_TEAM_CLASSIC)]
+    [CmdletAdditionalParameter(ParameterType = typeof(string), ParameterName = "Classification", Mandatory = false, HelpMessage = @"Specifies the classification of the new site collection", ParameterSetName = ParameterSet_TEAM_CLASSIC)]
+    [CmdletAdditionalParameter(ParameterType = typeof(string), ParameterName = "Owner", Mandatory = false, HelpMessage = @"Specifies the owner of the site. Specify the value as a string array: ""user@domain.com""", ParameterSetName = ParameterSet_TEAM_CLASSIC)]
     public class NewSite : PnPCmdlet, IDynamicParameters
     {
         private const string ParameterSet_COMMUNICATIONBUILTINDESIGN = "Communication Site with Built-In Site Design";
         private const string ParameterSet_COMMUNICATIONCUSTOMDESIGN = "Communication Site with Custom Design";
         private const string ParameterSet_TEAM = "Team Site";
+        private const string ParameterSet_TEAM_CLASSIC = "Team Site Classic";
 
         [Parameter(Mandatory = true, HelpMessage = "Specifies with type of site to create.")]
         public SiteType Type;
@@ -87,6 +94,7 @@ namespace SharePointPnP.PowerShell.Commands
 
         private CommunicationSiteParameters _communicationSiteParameters;
         private TeamSiteParameters _teamSiteParameters;
+        private TeamSiteClassicParameters _teamSiteClassicParameters;
 
 
 
@@ -103,6 +111,11 @@ namespace SharePointPnP.PowerShell.Commands
                     {
                         _teamSiteParameters = new TeamSiteParameters();
                         return _teamSiteParameters;
+                    }
+                case SiteType.TeamClassic:
+                    {
+                        _teamSiteClassicParameters = new TeamSiteClassicParameters();
+                        return _teamSiteClassicParameters;
                     }
             }
             return null;
@@ -142,6 +155,18 @@ namespace SharePointPnP.PowerShell.Commands
                 var returnedContext = OfficeDevPnP.Core.Sites.SiteCollection.Create(ClientContext, creationInformation);
                 //var results = ClientContext.CreateSiteAsync(creationInformation);
                 //var returnedContext = results.GetAwaiter().GetResult();
+                WriteObject(returnedContext.Url);
+            }
+            else if (Type == SiteType.TeamClassic)
+            {
+                var creationInformation = new OfficeDevPnP.Core.Sites.TeamNoGroupSiteCollectionCreationInformation();
+                creationInformation.Title = _teamSiteClassicParameters.Title;
+                creationInformation.Url = _teamSiteClassicParameters.Alias;
+                creationInformation.Classification = _teamSiteClassicParameters.Classification;
+                creationInformation.Description = _teamSiteClassicParameters.Description;
+                creationInformation.Lcid = _teamSiteClassicParameters.Lcid;
+                creationInformation.Owner = _teamSiteClassicParameters.Owner;
+                var returnedContext = OfficeDevPnP.Core.Sites.SiteCollection.Create(ClientContext, creationInformation);
                 WriteObject(returnedContext.Url);
             }
             else
@@ -231,6 +256,27 @@ namespace SharePointPnP.PowerShell.Commands
 
             [Parameter(Mandatory = false, ParameterSetName = ParameterSet_TEAM)]
             public string[] Owners;
+        }
+
+        public class TeamSiteClassicParameters
+        {
+            [Parameter(Mandatory = true, ParameterSetName = ParameterSet_TEAM_CLASSIC)]
+            public string Title;
+
+            [Parameter(Mandatory = true, ParameterSetName = ParameterSet_TEAM_CLASSIC)]
+            public string Alias;
+
+            [Parameter(Mandatory = false, ParameterSetName = ParameterSet_TEAM_CLASSIC)]
+            public string Description;
+
+            [Parameter(Mandatory = false, ParameterSetName = ParameterSet_TEAM_CLASSIC)]
+            public string Classification;
+
+            [Parameter(Mandatory = false, ParameterSetName = ParameterSet_TEAM_CLASSIC)]
+            public uint Lcid;
+
+            [Parameter(Mandatory = false, ParameterSetName = ParameterSet_TEAM_CLASSIC)]
+            public string Owner;
         }
     }
 }

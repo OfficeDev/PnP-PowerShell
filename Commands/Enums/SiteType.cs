@@ -9,6 +9,7 @@ namespace SharePointPnP.PowerShell.Commands.Enums
     public enum SiteType
     {
         CommunicationSite = 1,
-        TeamSite = 2
+        TeamSite = 2,
+        TeamClassic = 3
     }
 }
