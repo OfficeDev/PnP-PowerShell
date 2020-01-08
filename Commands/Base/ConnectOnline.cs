@@ -650,6 +650,21 @@ Use -PnPO365ManagementShell instead");
             }
             else if (ParameterSetName == ParameterSet_ACCESSTOKEN)
             {
+                // Register assembly redirects
+                AppDomain.CurrentDomain.AssemblyResolve += (sender, args) =>
+                {
+                    // Assembly redirect for NewtonSoft.Json for any requested version of it to the version we're using in the current solution
+                    if (args.Name.Contains("Newtonsoft.Json")) return Assembly.LoadFrom(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "newtonsoft.json.dll"));
+                    foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
+                    {
+                        if (assembly.FullName.Equals(args.Name))
+                        {
+                            return assembly;
+                        }
+                    }
+                    return null;
+                };
+
                 var jwtToken = new System.IdentityModel.Tokens.Jwt.JwtSecurityToken(AccessToken);
                 var aud = jwtToken.Audiences.FirstOrDefault();
                 var url = Url;
