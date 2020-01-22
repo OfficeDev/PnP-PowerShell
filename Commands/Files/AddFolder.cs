@@ -28,7 +28,9 @@ namespace SharePointPnP.PowerShell.Commands.Files
             ClientContext.Load(folder, f => f.ServerRelativeUrl);
             ClientContext.ExecuteQueryRetry();
 
-            folder.CreateFolder(Name);
+            var result = folder.CreateFolder(Name);
+
+            WriteObject(result);
         }
     }
 }
