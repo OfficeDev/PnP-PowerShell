@@ -7,7 +7,6 @@ namespace SharePointPnP.PowerShell.Commands.Base
 {
     public class BasePSCmdlet : PSCmdlet
     {
-        private Assembly newtonsoftAssembly;
 
         protected override void BeginProcessing()
         {
@@ -23,26 +22,11 @@ namespace SharePointPnP.PowerShell.Commands.Base
 
         private void FixAssemblyResolving()
         {
-            newtonsoftAssembly = Assembly.LoadFrom(Path.Combine(AssemblyDirectory, "NewtonSoft.Json.dll"));
             AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
-        }
-
-        private string AssemblyDirectory
-        {
-            get
-            {
-                var location = Assembly.GetExecutingAssembly().Location;
-                var escapedLocation = Uri.UnescapeDataString(location);
-                return Path.GetDirectoryName(escapedLocation);
-            }
         }
 
         private Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
         {
-            if (args.Name.StartsWith("Newtonsoft.Json"))
-            {
-                return newtonsoftAssembly;
-            }
             foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
             {
                 if (assembly.FullName == args.Name)
