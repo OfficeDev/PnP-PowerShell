@@ -675,6 +675,19 @@ namespace SharePointPnP.PowerShell.Commands.Base
                     // as using "UseDefaultCredentials" in a HttpClient.
                     context.Credentials = CredentialCache.DefaultNetworkCredentials;
                 }
+                
+                //Add Request Header to force Windows Authentication
+                context.ExecutingWebRequest += delegate(object sender, WebRequestEventArgs e)
+                {
+                    try
+                    {
+                        //Add the header that tells SharePoint to use Windows authentication
+                        e.WebRequestExecutor.RequestHeaders.Add(
+                        "X-FORMS_BASED_AUTH_ACCEPTED", "f");
+                    }
+                    catch { }
+                };
+                
             }
 #if SP2013 || SP2016 || SP2019
             var connectionType = ConnectionType.OnPrem;
