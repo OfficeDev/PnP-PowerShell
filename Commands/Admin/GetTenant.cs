@@ -14,7 +14,7 @@ ResourceQuotaAllocated, and SiteCreationMode.
 
 Currently, there are no parameters for this cmdlet.
 
-You must have the SharePoint Online admin or Global admin role to run the cmdlet.",
+You must have the Global admin role to run the cmdlet.",
         SupportedPlatform = CmdletSupportedPlatform.Online,
         Category = CmdletHelpCategory.TenantAdmin)]
     [CmdletExample(
