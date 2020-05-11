@@ -1,6 +1,6 @@
 Before creating a pull request, make sure that you have read the contribution file located at
 
-https://github.com/SharePoint/PnP-PowerShell/blob/dev/CONTRIBUTING.md
+https://github.com/pnp/PnP-PowerShell/blob/dev/CONTRIBUTING.md
 
 ## Type ##
 - [ ] Bug Fix
