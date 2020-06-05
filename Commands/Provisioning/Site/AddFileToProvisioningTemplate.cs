@@ -5,12 +5,15 @@ using OfficeDevPnP.Core.Framework.Provisioning.Model;
 using OfficeDevPnP.Core.Framework.Provisioning.Providers;
 using OfficeDevPnP.Core.Framework.Provisioning.Providers.Xml;
 using SharePointPnP.PowerShell.CmdletHelpAttributes;
+using SharePointPnP.PowerShell.Commands.Utilities;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Management.Automation;
 using System.Net;
 using PnPFileLevel = OfficeDevPnP.Core.Framework.Provisioning.Model.FileLevel;
+using SPFile = Microsoft.SharePoint.Client.File;
 
 namespace SharePointPnP.PowerShell.Commands.Provisioning.Site
 {
@@ -37,10 +40,14 @@ namespace SharePointPnP.PowerShell.Commands.Provisioning.Site
         Code = @"PS:> Add-PnPFileToProvisioningTemplate -Path template.pnp -SourceUrl ""Shared%20Documents/ProjectStatus.docs""",
         Remarks = "Adds a file to a PnP Provisioning Template retrieved from the currently connected site. The url can be server relative or web relative. If specifying a server relative url has to start with the current site url.",
         SortOrder = 5)]
+    [CmdletExample(
+        Code = @"PS:> Add-PnPFileToProvisioningTemplate -Path template.pnp -SourceUrl ""SitePages/Home.aspx"" -ExtractWebParts",
+        Remarks = "Adds a file to a PnP Provisioning Template retrieved from the currently connected site. If the file is a classic page, also extract its webparts. The url can be server relative or web relative. If specifying a server relative url has to start with the current site url.",
+        SortOrder = 6)]
     public class AddFileToProvisioningTemplate : PnPWebCmdlet
     {
         const string parameterSet_LOCALFILE = "Local File";
-        const string parameterSet_REMOTEFILE = "Remove File";
+        const string parameterSet_REMOTEFILE = "Remote File";
 
         [Parameter(Mandatory = true, Position = 0, HelpMessage = "Filename of the .PNP Open XML site template to read from, optionally including full path.")]
         public string Path;
@@ -63,6 +70,9 @@ namespace SharePointPnP.PowerShell.Commands.Provisioning.Site
         [Parameter(Mandatory = false, Position = 5, HelpMessage = "Set to overwrite in site, Defaults to true")]
         public SwitchParameter FileOverwrite = true;
 
+        [Parameter(Mandatory = false, Position = 6, ParameterSetName = parameterSet_REMOTEFILE, HelpMessage = "Include webparts if the file is a page")]
+        public SwitchParameter ExtractWebParts = true;
+
         [Parameter(Mandatory = false, Position = 4, HelpMessage = "Allows you to specify ITemplateProviderExtension to execute while loading the template.")]
         public ITemplateProviderExtension[] TemplateProviderExtensions;
 
@@ -84,9 +94,18 @@ namespace SharePointPnP.PowerShell.Commands.Provisioning.Site
             {
                 throw new ApplicationException("Invalid template file!");
             }
+            // Add a file from the connected Web
             if (this.ParameterSetName == parameterSet_REMOTEFILE)
             {
-                SelectedWeb.EnsureProperty(w => w.ServerRelativeUrl);
+                if (ExtractWebParts)
+                {
+                    ClientContext.Load(SelectedWeb, web => web.Url, web => web.Id, web => web.ServerRelativeUrl);
+                    ClientContext.Load(((ClientContext)SelectedWeb.Context).Site, site => site.Id, site => site.ServerRelativeUrl, site => site.Url);
+                    ClientContext.Load(SelectedWeb.Lists, lists => lists.Include(l => l.Title, l => l.RootFolder.ServerRelativeUrl, l => l.Id));
+                }
+
+                ClientContext.ExecuteQuery();
+
                 var sourceUri = new Uri(SourceUrl, UriKind.RelativeOrAbsolute);
                 var serverRelativeUrl =
                     sourceUri.IsAbsoluteUri ? sourceUri.AbsolutePath :
@@ -94,30 +113,9 @@ namespace SharePointPnP.PowerShell.Commands.Provisioning.Site
                     SelectedWeb.ServerRelativeUrl.TrimEnd('/') + "/" + SourceUrl;
 
                 var file = SelectedWeb.GetFileByServerRelativeUrl(serverRelativeUrl);
-
-                var fileName = file.EnsureProperty(f => f.Name);
-                var folderRelativeUrl = serverRelativeUrl.Substring(0, serverRelativeUrl.Length - fileName.Length - 1);
-                var folderWebRelativeUrl = HttpUtility.UrlKeyValueDecode(folderRelativeUrl.Substring(SelectedWeb.ServerRelativeUrl.TrimEnd('/').Length + 1));
-                if (ClientContext.HasPendingRequest) ClientContext.ExecuteQuery();
-                try
-                {
-#if SP2013 || SP2016
-                    var fi = SelectedWeb.GetFileByServerRelativeUrl(serverRelativeUrl);
-#else
-                    var fi = SelectedWeb.GetFileByServerRelativePath(ResourcePath.FromDecodedUrl(serverRelativeUrl));
-#endif
-                    var fileStream = fi.OpenBinaryStream();
-                    ClientContext.ExecuteQueryRetry();
-                    using (var ms = fileStream.Value)
-                    {
-                        AddFileToTemplate(template, ms, folderWebRelativeUrl, fileName, folderWebRelativeUrl);
-                    }
-                }
-                catch (WebException exc)
-                {
-                    WriteWarning($"Can't add file from url {serverRelativeUrl} : {exc}");
-                }
+                AddSPFileToTemplate(template, file);
             }
+            // Add a file from the file system
             else
             {
                 if (!System.IO.Path.IsPathRooted(Source))
@@ -128,17 +126,108 @@ namespace SharePointPnP.PowerShell.Commands.Provisioning.Site
                 // Load the file and add it to the .PNP file
                 using (var fs = System.IO.File.OpenRead(Source))
                 {
-                    Folder = Folder.Replace("\\", "/");
+                    Folder = Folder.Replace('\\', '/');
 
-                    var fileName = Source.IndexOf("\\", StringComparison.Ordinal) > 0 ? Source.Substring(Source.LastIndexOf("\\") + 1) : Source;
+                    var fileName = Source.IndexOf(System.IO.Path.DirectorySeparatorChar) > 0 
+                        ? Source.Substring(Source.LastIndexOf(System.IO.Path.DirectorySeparatorChar) + 1) 
+                        : Source;
                     var container = !string.IsNullOrEmpty(Container) ? Container : string.Empty;
                     AddFileToTemplate(template, fs, Folder, fileName, container);
                 }
             }
         }
 
-        private void AddFileToTemplate(ProvisioningTemplate template, Stream fs, string folder, string fileName, string container)
+        private void AddSPFileToTemplate(ProvisioningTemplate template, SPFile file)
         {
+            if (template == null) throw new ArgumentNullException(nameof(template));
+            if (file == null) throw new ArgumentNullException(nameof(file));
+
+            file.EnsureProperties(f => f.Name, f => f.ServerRelativeUrl);
+            var serverRelativeUrl = file.ServerRelativeUrl;
+            var fileName = file.Name;
+            var folderRelativeUrl = serverRelativeUrl.Substring(0, serverRelativeUrl.Length - fileName.Length - 1);
+            var folderWebRelativeUrl = HttpUtility.UrlKeyValueDecode(folderRelativeUrl.Substring(SelectedWeb.ServerRelativeUrl.TrimEnd('/').Length + 1));
+
+            try
+            {
+#if SP2013 || SP2016
+                var fi = SelectedWeb.GetFileByServerRelativeUrl(serverRelativeUrl);
+#else
+                var fi = SelectedWeb.GetFileByServerRelativePath(ResourcePath.FromDecodedUrl(serverRelativeUrl));
+#endif
+
+                IEnumerable<WebPart> webParts = null;
+                if (ExtractWebParts)
+                {
+                    webParts = ExtractSPFileWebParts(file).ToArray();
+                }
+
+                var fileStream = fi.OpenBinaryStream();
+                ClientContext.ExecuteQueryRetry();
+                using (var ms = fileStream.Value)
+                {
+                    AddFileToTemplate(template, ms, folderWebRelativeUrl, fileName, folderWebRelativeUrl, webParts);
+                }
+            }
+            catch (WebException exc)
+            {
+                WriteWarning($"Can't add file from url {serverRelativeUrl} : {exc}");
+            }
+        }
+
+        private IEnumerable<WebPart> ExtractSPFileWebParts(SPFile file)
+        {
+            if (file == null) throw new ArgumentNullException(nameof(file));
+
+            if (string.Compare(System.IO.Path.GetExtension(file.Name), ".aspx", true) == 0)
+            {
+                foreach (var spwp in SelectedWeb.GetWebParts(file.ServerRelativeUrl))
+                {
+                    spwp.EnsureProperties(wp => wp.WebPart, wp => wp.ZoneId);
+                    yield return new WebPart
+                    {
+                        Contents = Tokenize(SelectedWeb.GetWebPartXml(spwp.Id, file.ServerRelativeUrl)),
+                        Order = (uint)spwp.WebPart.ZoneIndex,
+                        Title = spwp.WebPart.Title,
+                        Zone = spwp.ZoneId
+                    };
+                }
+            }
+        }
+        private string Tokenize(string input)
+        {
+            if (string.IsNullOrEmpty(input)) return input;
+
+            foreach (var list in SelectedWeb.Lists)
+            {
+                var webRelativeUrl = list.GetWebRelativeUrl();
+                if (!webRelativeUrl.StartsWith("_catalogs", StringComparison.Ordinal))
+                {
+                    input = input
+                        .ReplaceCaseInsensitive(list.Id.ToString("D"), "{listid:" + list.Title + "}")
+                        .ReplaceCaseInsensitive(webRelativeUrl, "{listurl:" + list.Title + "}");
+                }
+            }
+            return input.ReplaceCaseInsensitive(SelectedWeb.Url, "{site}")
+                .ReplaceCaseInsensitive(SelectedWeb.ServerRelativeUrl, "{site}")
+                .ReplaceCaseInsensitive(SelectedWeb.Id.ToString(), "{siteid}")
+                .ReplaceCaseInsensitive(((ClientContext)SelectedWeb.Context).Site.ServerRelativeUrl, "{sitecollection}")
+                .ReplaceCaseInsensitive(((ClientContext)SelectedWeb.Context).Site.Id.ToString(), "{sitecollectionid}")
+                .ReplaceCaseInsensitive(((ClientContext)SelectedWeb.Context).Site.Url, "{sitecollection}");
+        }
+
+        private void AddFileToTemplate(
+            ProvisioningTemplate template,
+            Stream fs, 
+            string folder,
+            string fileName, 
+            string container,
+            IEnumerable<WebPart> webParts = null
+            )
+        {
+            if (template == null) throw new ArgumentNullException(nameof(template));
+            if (fs == null) throw new ArgumentNullException(nameof(fs));
+
             var source = !string.IsNullOrEmpty(container) ? (container + "/" + fileName) : fileName;
 
             template.Connector.SaveFileStream(fileName, container, fs);
@@ -162,6 +251,8 @@ namespace SharePointPnP.PowerShell.Commands.Provisioning.Site
                 Level = FileLevel,
                 Overwrite = FileOverwrite,
             };
+
+            if (webParts != null) newFile.WebParts.AddRange(webParts);
 
             template.Files.Add(newFile);
 
