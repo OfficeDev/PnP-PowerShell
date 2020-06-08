@@ -24,6 +24,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 - Added `-SensitivityLabel` option to `New-PnPSite` which allows for directly assigning a sensitivity label to a SharePoint sitecollection when creating it. Requires modern sensitivity labels and E5 licenses to be enabled on the tenant. [PR #2713](https://github.com/pnp/PnP-PowerShell/pull/2713)
 - Added `Get-PnPOffice365CurrentServiceStatus`, `Get-PnPOffice365HistoricalServiceStatus`, `Get-PnPOffice365ServiceMessage` and `Get-PnPOffice365Services` to retrieve information from the Office 365 Management API regarding the Office 365 services [PR #2684](https://github.com/pnp/PnP-PowerShell/pull/2684)
 - Added `Get-PnPAvailableLanguage` which returns a list of all supported languages on the SharePoint web [PR #2716](https://github.com/pnp/PnP-PowerShell/pull/2716)
+- Added `-HideFromAddressLists` and `-HideFromOutlookClients` to `Set-PnPUnifiedGroup` to allow for setting the visibility of Microsoft 365 Groups [PR #2717](https://github.com/pnp/PnP-PowerShell/pull/2717)
 
 ### Changed
 - Fixed uploading a file using `Add-PnPFile` using `-ContentType` throwing an exception [PR #2619](https://github.com/pnp/PnP-PowerShell/pull/2619)
