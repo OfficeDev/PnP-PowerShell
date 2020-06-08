@@ -35,6 +35,10 @@ namespace SharePointPnP.PowerShell.Commands.Graph
        Code = @"PS:> Set-PnPUnifiedGroup -Identity $group -Owners demo@contoso.com",
        Remarks = "Sets demo@contoso.com as owner of the group.",
        SortOrder = 5)]
+    [CmdletExample(
+       Code = @"PS:> Set-PnPUnifiedGroup -Identity $group -HideFromOutlookClients:$false",
+       Remarks = "Ensures the provided group will be shown in Outlook clients.",
+       SortOrder = 6)]
     [CmdletMicrosoftGraphApiPermission(MicrosoftGraphApiPermission.Group_ReadWrite_All)]
     public class SetUnifiedGroup : PnPGraphCmdlet
     {
@@ -61,6 +65,12 @@ namespace SharePointPnP.PowerShell.Commands.Graph
 
         [Parameter(Mandatory = false, HelpMessage = "Creates a Microsoft Teams team associated with created group")]
         public SwitchParameter CreateTeam;
+
+        [Parameter(Mandatory = false, HelpMessage = "Hides the group from the Global Address List")]
+        public bool? HideFromAddressLists;
+
+        [Parameter(Mandatory = false, HelpMessage = "Hides the group from Outlook Clients")]
+        public bool? HideFromOutlookClients;
 
         protected override void ExecuteCmdlet()
         {
@@ -98,6 +108,12 @@ namespace SharePointPnP.PowerShell.Commands.Graph
                     groupLogo: groupLogoStream,
                     isPrivate: isPrivateGroup,
                     createTeam: CreateTeam);
+
+                if (ParameterSpecified(nameof(HideFromAddressLists)) || ParameterSpecified(nameof(HideFromOutlookClients)))
+                {
+                    // For this scenario a separate call needs to be made
+                    UnifiedGroupsUtility.SetUnifiedGroupVisibility(group.GroupId, AccessToken, HideFromAddressLists, HideFromOutlookClients);
+                }
             }
             else
             {
