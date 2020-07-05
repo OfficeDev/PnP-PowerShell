@@ -9,8 +9,9 @@ namespace SharePointPnP.PowerShell.Commands.Graph
 {
     [Cmdlet(VerbsData.Restore, "PnPDeletedUnifiedGroup")]
 
-    [CmdletHelp("Restores one deleted Office 365 Group (aka Unified Group)",
+    [CmdletHelp("Restores one deleted Microsoft 365 Group (aka Unified Group)",
         Category = CmdletHelpCategory.Graph,
+        OutputTypeLink = "https://docs.microsoft.com/graph/api/directory-deleteditems-restore",
         SupportedPlatform = CmdletSupportedPlatform.Online)]
     [CmdletExample(
         Code = "PS:> Restore-PnPDeletedUnifiedGroup -Identity 38b32e13-e900-4d95-b860-fb52bc07ca7f",

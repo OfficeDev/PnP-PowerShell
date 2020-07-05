@@ -112,6 +112,7 @@
     <Compile Include="CmdletHelpCategory.cs" />
     <Compile Include="CmdletRelatedLinkAttribute.cs" />
     <Compile Include="CmdletSupportedPlatform.cs" />
+    <Compile Include="CmdletTokenTypeAttribute.cs" />
     <Compile Include="PnPParameterAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CmdletHelpAttribute.cs" />

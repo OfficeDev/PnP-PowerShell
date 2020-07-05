@@ -12,7 +12,7 @@ using System.Collections.Generic;
 namespace SharePointPnP.PowerShell.Commands.Diagnostic
 {
     [Cmdlet(VerbsDiagnostic.Measure, "PnPList")]
-    [CmdletHelp("Returns statistics on the list object",
+    [CmdletHelp("Returns statistics on the list object. This may fail on lists larger than the list view threshold",
         Category = CmdletHelpCategory.Diagnostic,
         SupportedPlatform = CmdletSupportedPlatform.Online | CmdletSupportedPlatform.SP2016 | CmdletSupportedPlatform.SP2019)]
     [CmdletExample(

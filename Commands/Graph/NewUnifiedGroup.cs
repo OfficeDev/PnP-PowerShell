@@ -70,7 +70,7 @@ namespace SharePointPnP.PowerShell.Commands.Graph
 
             if (!Force)
             {
-                var candidates = UnifiedGroupsUtility.ListUnifiedGroups(AccessToken,
+                var candidates = UnifiedGroupsUtility.GetUnifiedGroups(AccessToken,
                     mailNickname: MailNickname,
                     endIndex: 1);
                 // ListUnifiedGroups retrieves groups with starts-with, so need another check

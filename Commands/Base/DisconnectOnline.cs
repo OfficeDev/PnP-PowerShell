@@ -9,7 +9,8 @@ namespace SharePointPnP.PowerShell.Commands.Base
 {
     [Cmdlet(VerbsCommunications.Disconnect, "PnPOnline")]
     [CmdletHelp("Disconnects the context",
-        "Disconnects the current context and requires you to build up a new connection in order to use the Cmdlets again. Using Connect-PnPOnline to connect to a different site has the same effect.",
+        DetailedDescription = "Disconnects the current context and requires you to build up a new connection in order to use the Cmdlets again. Using Connect-PnPOnline to connect to a different site has the same effect.",
+        SupportedPlatform = CmdletSupportedPlatform.All,
         Category = CmdletHelpCategory.Base)]
     [CmdletExample(
         Code = @"PS:> Disconnect-PnPOnline",
@@ -22,16 +23,24 @@ namespace SharePointPnP.PowerShell.Commands.Base
 
         protected override void ProcessRecord()
         {
+            // If no specific connection has been passed in, take the connection from the current context
+            if(Connection == null)
+            {
+                Connection = PnPConnection.CurrentConnection;
+            }
 #if !ONPREMISES
-            if(PnPConnection.CurrentConnection?.Certificate != null)
+            if(Connection?.Certificate != null)
             {
 #if !NETSTANDARD2_1
-                PnPConnectionHelper.CleanupCryptoMachineKey(PnPConnection.CurrentConnection.Certificate);
+                if (Connection != null && Connection.DeleteCertificateFromCacheOnDisconnect)
+                {
+                    PnPConnectionHelper.CleanupCryptoMachineKey(Connection.Certificate);
+                }
 #endif
-                PnPConnection.CurrentConnection.Certificate = null;
+                Connection.Certificate = null;
             }
 #endif
-                var success = false;
+            var success = false;
             if (Connection != null)
             {
                 success = DisconnectProvidedService(Connection);
@@ -63,7 +72,7 @@ namespace SharePointPnP.PowerShell.Commands.Base
 
         internal static bool DisconnectProvidedService(PnPConnection connection)
         {
-            connection.ClearTokens();
+            //connection.ClearTokens();
             Environment.SetEnvironmentVariable("PNPPSHOST", string.Empty);
             Environment.SetEnvironmentVariable("PNPPSSITE", string.Empty);
             if (connection == null)

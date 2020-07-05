@@ -9,6 +9,8 @@ namespace SharePointPnP.PowerShell.CmdletHelpAttributes
     [Flags]
     public enum MicrosoftGraphApiPermission : int
     {
+        None = 0,
+
         #region Groups - https://docs.microsoft.com/graph/permissions-reference#group-permissions
 
         /// <summary>
@@ -89,7 +91,18 @@ namespace SharePointPnP.PowerShell.CmdletHelpAttributes
         /// Manage all user identities
         /// </summary>
         [EnumMember(Value = "User.ManageIdentities.All")]
-        User_ManageIdentities_All = 2048
+        User_ManageIdentities_All = 2048,
+
+
+        #endregion
+
+        #region AppCatalog - https://docs.microsoft.com/en-gb/graph/permissions-reference#appcatalog-resource-permissions
+
+        [EnumMember(Value = "AppCatalog.Read.All")]
+        AppCatalog_Read_All = 4096,
+
+        [EnumMember(Value = "AppCatalog.ReadWrite.All")]
+        AppCatalog_ReadWrite_All = 8192,
 
         #endregion
     }
@@ -108,15 +121,18 @@ namespace SharePointPnP.PowerShell.CmdletHelpAttributes
         /// <summary>
         /// One or more permissions of which only one is needed to granted to the token
         /// </summary>
-        public MicrosoftGraphApiPermission ApiPermission { get; set; }
+        public MicrosoftGraphApiPermission OrApiPermissions { get; set; }
+
+        public MicrosoftGraphApiPermission AndApiPermissions { get; set; }
 
         /// <summary>
         /// Constructs a new ApiPermissionAttribute
         /// </summary>
         /// <param name="apiPermission">One or more possible permissions of which only one is needed to be granted in the token</param>
-        public CmdletMicrosoftGraphApiPermission(MicrosoftGraphApiPermission apiPermission)
+        public CmdletMicrosoftGraphApiPermission(MicrosoftGraphApiPermission orPermissions, MicrosoftGraphApiPermission andPermissions = MicrosoftGraphApiPermission.None)
         {
-            ApiPermission = apiPermission;
+            OrApiPermissions = orPermissions;
+            AndApiPermissions = andPermissions;
         }
     }
 }

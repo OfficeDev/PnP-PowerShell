@@ -4,13 +4,16 @@
     <TargetFramework>netstandard2.1</TargetFramework>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
-    <AssemblyName>SharePointPnP.PowerShell.Core</AssemblyName>
+    <AssemblyName>PnP.PowerShell.Core</AssemblyName>
     <RootNamespace>SharePointPnP.PowerShell.Commands</RootNamespace>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <PackageId>PnP.PowerShell.Core</PackageId>
+    <Authors>PnP.PowerShell.Core</Authors>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <OutputPath>bin\DebugCore\</OutputPath>
+    <DefineConstants>TRACE;NETSTANDARD2_1</DefineConstants>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -26,6 +29,7 @@
   <ItemGroup>
     <None Remove="ModuleFiles\SharePointPnP.PowerShell.2013.Commands.Format.ps1xml" />
     <None Remove="ModuleFiles\SharePointPnP.PowerShell.2016.Commands.Format.ps1xml" />
+    <None Remove="ModuleFiles\SharePointPnP.PowerShell.2019.Commands.Format.ps1xml" />
     <None Remove="ModuleFiles\SharePointPnP.PowerShell.Online.Commands.Format.ps1xml" />
     <None Remove="SharePointPnP.PowerShell.Commands.csproj.DotSettings" />
   </ItemGroup>
@@ -33,11 +37,12 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.ApplicationInsights" Version="2.5.1" />
     <PackageReference Include="Microsoft.Graph" Version="3.6.0" />
-    <PackageReference Include="Microsoft.Identity.Client" Version="4.14.0" />
+    <PackageReference Include="Microsoft.Identity.Client" Version="4.15.0" />
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
     <PackageReference Include="PowerShellStandard.Library" Version="3.0.0-preview-02" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.2.1" />
     <PackageReference Include="System.Reflection.Emit" Version="4.3.0" />
+    <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="4.7.0" />
     <PackageReference Include="System.Text.Encodings.Web" Version="4.7.0" />
     <PackageReference Include="System.Text.Json" Version="4.7.0" />
   </ItemGroup>
@@ -111,7 +116,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="ModuleFiles\SharePointPnP.PowerShell.Core.Format.ps1xml">
+    <None Update="ModuleFiles\PnP.PowerShell.Core.Format.ps1xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

@@ -21,6 +21,7 @@ namespace SharePointPnP.PowerShell.Commands.Graph
        Code = "PS:> New-PnPGraphSubscription -ChangeType Updates -NotificationUrl https://mywebapiservice/notifications -Resource \"Users\" -ExpirationDateTime (Get-Date).AddHours(1) -ClientState [Guid]::NewGuid().ToString()",
        Remarks = "Creates a new Microsoft Graph subscription listening for changes to user objects during the next hour and will signal the URL provided through NotificationUrl when a change has been made",
        SortOrder = 2)]
+    // Deliberately omitting the CmdletMicrosoftGraphApiPermission attribute as permissions vary largely by the subscription type being used
     public class NewGraphSubscription : PnPGraphCmdlet
     {
         [Parameter(Mandatory = true, HelpMessage = "The event(s) the subscription should trigger on")]

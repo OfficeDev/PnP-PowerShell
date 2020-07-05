@@ -622,6 +622,10 @@
     <Compile Include="Base\GetException.cs" />
     <Compile Include="Base\GetPowerShellTelemetryEnabled.cs" />
     <Compile Include="Base\EnablePowerShellTelemetry.cs" />
+    <Compile Include="Base\PipeBinds\TeamsAppPipeBind.cs" />
+    <Compile Include="Base\PipeBinds\TeamsChannelPipeBind.cs" />
+    <Compile Include="Base\PipeBinds\TeamsTabPipeBind.cs" />
+    <Compile Include="Base\PipeBinds\TeamsTeamPipeBind.cs" />
     <Compile Include="Base\PnPConnectedCmdlet.cs" />
     <Compile Include="Enums\Office365Workload.cs" />
     <Compile Include="Graph\GetGraphAccessToken.cs" />
@@ -630,7 +634,6 @@
     <Compile Include="Base\PipeBinds\AlertPipeBind.cs" />
     <Compile Include="Base\PipeBinds\ApplyConfigurationPipeBind.cs" />
     <Compile Include="Base\PipeBinds\ExtractConfigurationPipeBind.cs" />
-    <Compile Include="Base\PipeBinds\TeamPipeBind.cs" />
     <Compile Include="Base\PipeBinds\PagePipeBind.cs" />
     <Compile Include="Base\PipeBinds\ProvisioningTemplatePipeBind.cs" />
     <Compile Include="Base\PipeBinds\ProvisioningHierarchyPipeBind.cs" />
@@ -706,6 +709,24 @@
     <Compile Include="Model\ServicePrincipalPermissionGrant.cs" />
     <Compile Include="ClientSidePages\ConvertToClientSidePage.cs" />
     <Compile Include="Model\SPOTenantSyncClientRestriction.cs" />
+    <Compile Include="Model\Teams\Group.cs" />
+    <Compile Include="Model\Teams\Team.cs" />
+    <Compile Include="Model\Teams\TeamApp.cs" />
+    <Compile Include="Model\Teams\TeamAppInstance.cs" />
+    <Compile Include="Model\Teams\TeamChannel.cs" />
+    <Compile Include="Model\Teams\TeamChannelMessage.cs" />
+    <Compile Include="Model\Teams\TeamDiscoverySettings.cs" />
+    <Compile Include="Model\Teams\TeamFunSettings.cs" />
+    <Compile Include="Model\Teams\TeamGuestSettings.cs" />
+    <Compile Include="Model\Teams\TeamMemberSettings.cs" />
+    <Compile Include="Model\Teams\TeamMessagingSettings.cs" />
+    <Compile Include="Model\Teams\TeamSecurity.cs" />
+    <Compile Include="Model\Teams\TeamSecurityUser.cs" />
+    <Compile Include="Model\Teams\TeamSettings.cs" />
+    <Compile Include="Model\Teams\TeamTab.cs" />
+    <Compile Include="Model\Teams\TeamTabConfiguration.cs" />
+    <Compile Include="Model\Teams\TeamTabResource.cs" />
+    <Compile Include="Model\Teams\User.cs" />
     <Compile Include="Navigation\GetNavigationNode.cs" />
     <Compile Include="Branding\SetWebTheme.cs" />
     <Compile Include="ClientSidePages\GetClientSideComponent.cs" />
@@ -897,6 +918,17 @@
     <Compile Include="Site\DisableSharingForNonOwnersOfSite.cs" />
     <Compile Include="Site\TestOffice365GroupAliasIsUsed.cs" />
     <Compile Include="Taxonomy\NewTermLabel.cs" />
+    <Compile Include="Teams\AddTeamsChannel.cs" />
+    <Compile Include="Teams\GetTeamsApp.cs" />
+    <Compile Include="Teams\GetTeamsChannel.cs" />
+    <Compile Include="Teams\GetTeamsChannelMessage.cs" />
+    <Compile Include="Teams\GetTeamsTab.cs" />
+    <Compile Include="Teams\GetTeamsTeam.cs" />
+    <Compile Include="Teams\NewTeamsTeam.cs" />
+    <Compile Include="Teams\RemoveTeamsChannel.cs" />
+    <Compile Include="Teams\RemoveTeamsTab.cs" />
+    <Compile Include="Teams\RemoveTeamsTeam.cs" />
+    <Compile Include="Teams\SubmitTeamsChannelMessage.cs" />
     <Compile Include="UserProfiles\GetUPABulkImportStatus.cs" />
     <Compile Include="UserProfiles\SetUserOneDriveQuota.cs" />
     <Compile Include="UserProfiles\ResetUserOneDriveQuotaToDefault.cs" />
@@ -912,12 +944,15 @@
     <Compile Include="Utilities\JwtUtility.cs" />
     <Compile Include="Utilities\OperatingSystem.cs" />
     <Compile Include="Utilities\ProvisioningHelper.cs" />
+    <Compile Include="Utilities\REST\GraphCollection.cs" />
+    <Compile Include="Utilities\REST\GraphHelper.cs" />
     <Compile Include="Utilities\REST\MetadataType.cs" />
     <Compile Include="Utilities\REST\RestHelper.cs" />
     <Compile Include="Utilities\REST\RestRequest.cs" />
     <Compile Include="Utilities\Shell.cs" />
     <Compile Include="Utilities\StringExtensions.cs" />
     <Compile Include="SiteDesigns\SetSiteScript.cs" />
+    <Compile Include="Utilities\TeamsUtility.cs" />
     <Compile Include="Utilities\UrlUtilities.cs" />
     <Compile Include="WebParts\AddClientSideWebPart.cs" />
     <Compile Include="ClientSidePages\GetAvailableClientSideComponents.cs" />
@@ -1217,7 +1252,7 @@
     </PreBuildEvent>
   </PropertyGroup>
   <Target Name="BeforeBuild">
-    <Exec Command="del $(ProjectDir)\obj\SharePointPnP.PowerShell.Core.*" />
+    <Exec Command="del $(ProjectDir)\obj\PnP.PowerShell.Core.*" />
     <Exec Command="del $(ProjectDir)\obj\*.json" />
   </Target>
   <Target Name="AfterBuild">

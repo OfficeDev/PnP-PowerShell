@@ -2,9 +2,11 @@
 using SharePointPnP.PowerShell.CmdletHelpAttributes;
 using SharePointPnP.PowerShell.Commands.Model;
 using SharePointPnP.PowerShell.Commands.Properties;
+using SharePointPnP.PowerShell.Core.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Management.Automation;
+using System.Net.Http;
 
 namespace SharePointPnP.PowerShell.Commands.Base
 {
@@ -23,16 +25,33 @@ namespace SharePointPnP.PowerShell.Commands.Base
         {
             get
             {
+                var tokenType = TokenType.All;
+
+                // Collect, if present, the token type attribute
+                var tokenTypeAttribute = (CmdletTokenTypeAttribute)Attribute.GetCustomAttribute(GetType(), typeof(CmdletTokenTypeAttribute));
+                if(tokenTypeAttribute != null)
+                {
+                    tokenType = tokenTypeAttribute.TokenType;
+                }
                 // Collect the permission attributes to discover required roles
                 var requiredRoleAttributes = (CmdletMicrosoftGraphApiPermission[])Attribute.GetCustomAttributes(GetType(), typeof(CmdletMicrosoftGraphApiPermission));
-                var requiredRoles = new List<string>(requiredRoleAttributes.Length);
+                var orRequiredRoles = new List<string>(requiredRoleAttributes.Length);
+                var andRequiredRoles = new List<string>(requiredRoleAttributes.Length);
                 foreach (var requiredRoleAttribute in requiredRoleAttributes)
                 {
+
                     foreach (MicrosoftGraphApiPermission role in Enum.GetValues(typeof(MicrosoftGraphApiPermission)))
                     {
-                        if(requiredRoleAttribute.ApiPermission.HasFlag(role))
+                        if (role != MicrosoftGraphApiPermission.None)
                         {
-                            requiredRoles.Add(role.ToString().Replace("_", "."));
+                            if (requiredRoleAttribute.OrApiPermissions.HasFlag(role))
+                            {
+                                orRequiredRoles.Add(role.ToString().Replace("_", "."));
+                            }
+                            if (requiredRoleAttribute.AndApiPermissions.HasFlag(role))
+                            {
+                                andRequiredRoles.Add(role.ToString().Replace("_", "."));
+                            }
                         }
                     }
                 }
@@ -41,7 +60,7 @@ namespace SharePointPnP.PowerShell.Commands.Base
                 if (PnPConnection.CurrentConnection != null)
                 {
                     // There is an active connection, try to get a Microsoft Graph Token on the active connection
-                    if (PnPConnection.CurrentConnection.TryGetToken(Enums.TokenAudience.MicrosoftGraph, ByPassPermissionCheck.ToBool() ? null : requiredRoles.ToArray()) is GraphToken token)
+                    if (PnPConnection.CurrentConnection.TryGetToken(Enums.TokenAudience.MicrosoftGraph, ByPassPermissionCheck.ToBool() ? null : orRequiredRoles.ToArray(), ByPassPermissionCheck.ToBool() ? null : andRequiredRoles.ToArray(), tokenType) is GraphToken token)
                     {
                         // Microsoft Graph Access Token available, return it
                         return token;
@@ -59,6 +78,8 @@ namespace SharePointPnP.PowerShell.Commands.Base
         /// Returns an Access Token for Microsoft Graph, if available, otherwise NULL
         /// </summary>
         public string AccessToken => Token?.AccessToken;
+
+        public HttpClient HttpClient => PnPConnection.CurrentConnection.HttpClient;
     }
 }
 #endif

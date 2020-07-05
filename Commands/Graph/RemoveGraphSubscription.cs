@@ -16,6 +16,7 @@ namespace SharePointPnP.PowerShell.Commands.Graph
        Code = "PS:> Remove-PnPGraphSubscription -Identity bc204397-1128-4911-9d70-1d8bceee39da",
        Remarks = "Removes the Microsoft Graph subscription with the id 'bc204397-1128-4911-9d70-1d8bceee39da'",
        SortOrder = 1)]
+    // Deliberately omitting the CmdletMicrosoftGraphApiPermission attribute as permissions vary largely by the subscription type being used
     public class RemoveGraphSubscription : PnPGraphCmdlet
     {
         [Parameter(Mandatory = true, ValueFromPipeline = true, HelpMessage = "The unique id or an instance of a Microsoft Graph Subscription")]

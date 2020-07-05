@@ -11,7 +11,7 @@ using System.Management.Automation;
 namespace SharePointPnP.PowerShell.Commands.Graph
 {
     [Cmdlet(VerbsCommon.Set, "PnPUnifiedGroup")]
-    [CmdletHelp("Sets Microsoft 365 Group (aka Unified Group) properties. Requires the Azure Active Directory application permission 'Group.ReadWrite.All'.",
+    [CmdletHelp("Sets Microsoft 365 Group (aka Unified Group) properties",
         Category = CmdletHelpCategory.Graph,
         OutputTypeLink = "https://docs.microsoft.com/graph/api/group-update",
         SupportedPlatform = CmdletSupportedPlatform.Online)]
@@ -25,15 +25,15 @@ namespace SharePointPnP.PowerShell.Commands.Graph
        SortOrder = 2)]
     [CmdletExample(
        Code = @"PS:> Set-PnPUnifiedGroup -Identity $group -GroupLogoPath "".\MyLogo.png""",
-       Remarks = "Sets a specific Microsoft 365 Group logo.",
+       Remarks = "Sets a specific Microsoft 365 Group logo",
        SortOrder = 3)]
     [CmdletExample(
        Code = @"PS:> Set-PnPUnifiedGroup -Identity $group -IsPrivate:$false",
-       Remarks = "Sets a group to be Public if previously Private.",
+       Remarks = "Sets a group to be Public if previously Private",
        SortOrder = 4)]
     [CmdletExample(
        Code = @"PS:> Set-PnPUnifiedGroup -Identity $group -Owners demo@contoso.com",
-       Remarks = "Sets demo@contoso.com as owner of the group.",
+       Remarks = "Sets demo@contoso.com as owner of the group",
        SortOrder = 5)]
     [CmdletMicrosoftGraphApiPermission(MicrosoftGraphApiPermission.Group_ReadWrite_All)]
     public class SetUnifiedGroup : PnPGraphCmdlet
@@ -56,7 +56,7 @@ namespace SharePointPnP.PowerShell.Commands.Graph
         [Parameter(Mandatory = false, HelpMessage = "Makes the group private when selected")]
         public SwitchParameter IsPrivate;
 
-        [Parameter(Mandatory = false, HelpMessage = "The path to the logo file of to set")]
+        [Parameter(Mandatory = false, HelpMessage = "The path to the logo file of to set. Logo must be at least 48 pixels wide and may be at most 4 MB in size. Requires Site.ReadWrite.All permissions.")]
         public string GroupLogoPath;
 
         [Parameter(Mandatory = false, HelpMessage = "Creates a Microsoft Teams team associated with created group")]
@@ -88,16 +88,24 @@ namespace SharePointPnP.PowerShell.Commands.Graph
                 {
                     isPrivateGroup = IsPrivate.ToBool();
                 }
-                UnifiedGroupsUtility.UpdateUnifiedGroup(
-                    groupId: group.GroupId,
-                    accessToken: AccessToken,
-                    displayName: DisplayName,
-                    description: Description,
-                    owners: Owners,
-                    members: Members,
-                    groupLogo: groupLogoStream,
-                    isPrivate: isPrivateGroup,
-                    createTeam: CreateTeam);
+                try
+                {
+                    UnifiedGroupsUtility.UpdateUnifiedGroup(
+                        groupId: group.GroupId,
+                        accessToken: AccessToken,
+                        displayName: DisplayName,
+                        description: Description,
+                        owners: Owners,
+                        members: Members,
+                        groupLogo: groupLogoStream,
+                        isPrivate: isPrivateGroup,
+                        createTeam: CreateTeam);
+                }
+                catch(Exception e)
+                {
+                    while (e.InnerException != null) e = e.InnerException;
+                    WriteError(new ErrorRecord(e, "GROUPUPDATEFAILED", ErrorCategory.InvalidOperation, this));
+                }
             }
             else
             {

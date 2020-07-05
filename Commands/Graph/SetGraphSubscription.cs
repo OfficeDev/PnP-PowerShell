@@ -17,6 +17,7 @@ namespace SharePointPnP.PowerShell.Commands.Graph
        Code = "PS:> Set-PnPGraphSubscription -Identity bc204397-1128-4911-9d70-1d8bceee39da -ExpirationDate \"2020-11-22T18:23:45.9356913Z\"",
        Remarks = "Updates the Microsoft Graph subscription with the id 'bc204397-1128-4911-9d70-1d8bceee39da' to expire at the mentioned date",
        SortOrder = 1)]
+    // Deliberately omitting the CmdletMicrosoftGraphApiPermission attribute as permissions vary largely by the subscription type being used
     public class SetGraphSubscription : PnPGraphCmdlet
     {
         [Parameter(Mandatory = true, ValueFromPipeline = true, HelpMessage = "The unique id or an instance of a Microsoft Graph Subscription")]

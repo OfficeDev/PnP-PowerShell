@@ -7,7 +7,7 @@ using System.Management.Automation;
 namespace SharePointPnP.PowerShell.Commands.Graph
 {
     [Cmdlet(VerbsLifecycle.Enable, "PnPSiteClassification")]
-    [CmdletHelp("Enables Site Classifications for the tenant. Requires a connection to the Microsoft Graph.",
+    [CmdletHelp("Enables Site Classifications for the tenant",
         Category = CmdletHelpCategory.Graph, 
         SupportedPlatform = CmdletSupportedPlatform.Online)]
     [CmdletExample(

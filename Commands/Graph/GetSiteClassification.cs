@@ -7,12 +7,11 @@ using System.Management.Automation;
 namespace SharePointPnP.PowerShell.Commands.Graph
 {
     [Cmdlet(VerbsCommon.Get, "PnPSiteClassification")]
-    [CmdletHelp("Returns the defined Site Classifications for the tenant. Requires a connection to the Microsoft Graph.",
+    [CmdletHelp("Returns the defined Site Classifications for the tenant",
         Category = CmdletHelpCategory.Graph,
         SupportedPlatform = CmdletSupportedPlatform.Online)]
     [CmdletExample(
-       Code = @"PS:> Connect-PnPOnline -Scopes ""Directory.ReadWrite.All""
-PS:> Get-PnPSiteClassification",
+       Code = @"PS:> Get-PnPSiteClassification",
        Remarks = @"Returns the currently set site classifications for the tenant.",
        SortOrder = 1)]
     [CmdletMicrosoftGraphApiPermission(MicrosoftGraphApiPermission.Directory_ReadWrite_All | MicrosoftGraphApiPermission.Directory_Read_All)]

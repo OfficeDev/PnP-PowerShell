@@ -52,10 +52,10 @@ namespace SharePointPnP.PowerShell.Commands.Base.PipeBinds
             }
             else if (!string.IsNullOrEmpty(DisplayName))
             {
-                var groups = UnifiedGroupsUtility.ListUnifiedGroups(accessToken, DisplayName, includeSite: true, includeClassification:includeClassification);
+                var groups = UnifiedGroupsUtility.GetUnifiedGroups(accessToken, DisplayName, includeSite: true, includeClassification:includeClassification);
                 if (groups == null || groups.Count == 0)
                 {
-                    groups = UnifiedGroupsUtility.ListUnifiedGroups(accessToken, mailNickname: DisplayName, includeSite: true, includeClassification:includeClassification);
+                    groups = UnifiedGroupsUtility.GetUnifiedGroups(accessToken, mailNickname: DisplayName, includeSite: true, includeClassification:includeClassification);
                 }
                 if (groups != null && groups.Any())
                 {

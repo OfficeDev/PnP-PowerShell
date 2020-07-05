@@ -5,6 +5,7 @@ using System;
 using System.Linq;
 using System.Web;
 using System.Collections.Generic;
+using SharePointPnP.PowerShell.Core.Attributes;
 
 namespace SharePointPnP.PowerShell.Commands.Model
 {
@@ -53,6 +54,10 @@ namespace SharePointPnP.PowerShell.Commands.Model
         public Guid? TenantId { get; protected set; }
 
         /// <summary>
+        /// The type of the token, e.g. Application or Generic
+        /// </summary>
+        public TokenType TokenType { get; protected set; } 
+        /// <summary>
         /// Instantiates a new token
         /// </summary>
         /// <param name="accesstoken">Accesstoken of which to instantiate a new token</param>
@@ -78,6 +83,8 @@ namespace SharePointPnP.PowerShell.Commands.Model
                 rolesList.AddRange(scope.Value.Split(' '));
             }
             Roles = rolesList.ToArray();
+
+            TokenType = ParsedToken.Claims.FirstOrDefault(c => c.Type == "upn") != null ? TokenType.Delegate : TokenType.Application;
         }
 
         private object List<T>()

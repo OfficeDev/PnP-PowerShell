@@ -9,14 +9,15 @@ namespace SharePointPnP.PowerShell.Commands.Graph
 {
     [Cmdlet(VerbsCommon.Reset, "PnPUnifiedGroupExpiration")]
     [CmdletHelp("Renews the Office 365 Group by extending its expiration with the number of days defined in the group expiration policy set on the Azure Active Directory",
-        DetailedDescription = "Renews the Office 365 Group by extending its expiration with the number of days defined in the group expiration policy set on the Azure Active Directory. Requires the Azure Active Directory application permission 'Group.ReadWrite.All' or 'Directory.ReadWrite.All'.",
-        Category = CmdletHelpCategory.Graph,
+        DetailedDescription = "Renews the Office 365 Group by extending its expiration with the number of days defined in the group expiration policy set on the Azure Active Directory",
+        Category = CmdletHelpCategory.Graph,        
         OutputTypeLink = "https://docs.microsoft.com/graph/api/group-renew",
         SupportedPlatform = CmdletSupportedPlatform.Online)]
     [CmdletExample(
        Code = "PS:> Reset-PnPUnifiedGroupExpiration",
        Remarks = "Renews the Office 365 Group by extending its expiration with the number of days defined in the group expiration policy set on the Azure Active Directory",
        SortOrder = 1)]
+    [CmdletMicrosoftGraphApiPermission(MicrosoftGraphApiPermission.Directory_ReadWrite_All | MicrosoftGraphApiPermission.Group_ReadWrite_All)]
     public class ResetUnifiedGroupExpiration : PnPGraphCmdlet
     {
         [Parameter(Mandatory = true, ValueFromPipeline = true, HelpMessage = "The Identity of the Office 365 Group")]

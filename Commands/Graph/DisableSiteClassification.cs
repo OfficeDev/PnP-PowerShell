@@ -7,12 +7,11 @@ using System.Management.Automation;
 namespace SharePointPnP.PowerShell.Commands.Graph
 {
     [Cmdlet(VerbsLifecycle.Disable, "PnPSiteClassification")]
-    [CmdletHelp("Disables Site Classifications for the tenant. Requires a connection to the Microsoft Graph.",
+    [CmdletHelp("Disables Site Classifications for the tenant",
         Category = CmdletHelpCategory.Graph,
         SupportedPlatform = CmdletSupportedPlatform.Online)]
     [CmdletExample(
-        Code = @"PS:> Connect-PnPOnline -Scopes ""Directory.ReadWrite.All""
-PS:> Disable-PnPSiteClassification",
+        Code = @"PS:> Disable-PnPSiteClassification",
        Remarks = @"Disables Site Classifications for your tenant.",
        SortOrder = 1)]
     [CmdletMicrosoftGraphApiPermission(MicrosoftGraphApiPermission.Directory_ReadWrite_All)]

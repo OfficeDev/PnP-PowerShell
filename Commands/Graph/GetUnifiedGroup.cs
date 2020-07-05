@@ -65,7 +65,7 @@ namespace SharePointPnP.PowerShell.Commands.Graph
             else
             {
                 // Retrieve all the groups
-                groups = UnifiedGroupsUtility.ListUnifiedGroups(AccessToken, includeSite: !ExcludeSiteUrl.IsPresent, includeClassification:IncludeClassification.IsPresent, includeHasTeam: IncludeHasTeam.IsPresent);
+                groups = UnifiedGroupsUtility.GetUnifiedGroups(AccessToken, includeSite: !ExcludeSiteUrl.IsPresent, includeClassification:IncludeClassification.IsPresent, includeHasTeam: IncludeHasTeam.IsPresent);
             }
 
             if (group != null)

@@ -2021,9 +2021,9 @@
       </TableControl>
     </View>
     <View>
-      <Name>BaseTeam</Name>
+      <Name>Team</Name>
       <ViewSelectedBy>
-        <TypeName>OfficeDevPnP.Core.Framework.Provisioning.Model.Teams.BaseTeam</TypeName>
+        <TypeName>SharePointPnP.PowerShell.Commands.Model.Teams.Team</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableHeaders>
@@ -2037,13 +2037,10 @@
             <Label>Visibility</Label>
           </TableColumnHeader>
           <TableColumnHeader>
-            <Label>Archived</Label>
+            <Label>IsArchived</Label>
           </TableColumnHeader>
           <TableColumnHeader>
             <Label>MailNickname</Label>
-          </TableColumnHeader>
-          <TableColumnHeader>
-            <Label>Description</Label>
           </TableColumnHeader>
         </TableHeaders>
         <TableRowEntries>
@@ -2059,13 +2056,10 @@
                 <PropertyName>Visibility</PropertyName>
               </TableColumnItem>
               <TableColumnItem>
-                <PropertyName>Archived</PropertyName>
+                <PropertyName>IsArchived</PropertyName>
               </TableColumnItem>
               <TableColumnItem>
                 <PropertyName>MailNickname</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>Description</PropertyName>
               </TableColumnItem>
             </TableColumnItems>
           </TableRowEntry>
@@ -2075,7 +2069,7 @@
     <View>
       <Name>TeamChannel</Name>
       <ViewSelectedBy>
-        <TypeName>OfficeDevPnP.Core.Framework.Provisioning.Model.Teams.TeamChannel</TypeName>
+        <TypeName>SharePointPnP.PowerShell.Commands.Model.Teams.TeamChannel</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableHeaders>
@@ -2128,6 +2122,82 @@
               </TableColumnItem>
               <TableColumnItem>
                 <PropertyName>DisplayName</PropertyName>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+      </TableControl>
+    </View>
+    <View>
+      <Name>TeamTab</Name>
+      <ViewSelectedBy>
+        <TypeName>SharePointPnP.PowerShell.Commands.Model.Teams.TeamApp</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableHeaders>
+          <TableColumnHeader>
+            <Label>Id</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>DisplayName</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>DistributionMethod</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>ExternalId</Label>
+          </TableColumnHeader>
+        </TableHeaders>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <PropertyName>ID</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>DisplayName</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>DistributionMethod</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>ExternalId</PropertyName>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+      </TableControl>
+    </View>
+    <View>
+      <Name>TeamTab</Name>
+      <ViewSelectedBy>
+        <TypeName>SharePointPnP.PowerShell.Commands.Model.Teams.TeamChannelMessage</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableHeaders>
+          <TableColumnHeader>
+            <Label>Id</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Body.Content</Label>
+          </TableColumnHeader>
+          <TableColumnHeadeR>
+            <Label>CreatedDateTime</Label>
+          </TableColumnHeadeR>
+        </TableHeaders>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <PropertyName>ID</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>
+                  $_.Body.Content
+                </ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>CreatedDateTime</PropertyName>
               </TableColumnItem>
             </TableColumnItems>
           </TableRowEntry>

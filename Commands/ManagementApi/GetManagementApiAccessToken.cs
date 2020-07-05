@@ -29,7 +29,7 @@ namespace SharePointPnP.PowerShell.Commands.ManagementApi
 
         protected override void ExecuteCmdlet()
         {
-            var officeManagementApiToken = OfficeManagementApiToken.AcquireToken(TenantId, ClientId, ClientSecret);
+            var officeManagementApiToken = OfficeManagementApiToken.AcquireApplicationToken(TenantId, ClientId, ClientSecret);
             WriteObject(officeManagementApiToken.AccessToken);
         }
     }
