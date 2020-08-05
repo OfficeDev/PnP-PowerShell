@@ -1,9 +1,9 @@
 ﻿using OfficeDevPnP.Core.Utilities;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.CmdletHelpAttributes;
 using System;
 using System.Management.Automation;
 
-namespace SharePointPnP.PowerShell.Commands.Base
+namespace PnP.PowerShell.Commands.Base
 {
     [Cmdlet(VerbsCommon.Get, "PnPHealthScore")]
     [CmdletHelp("Retrieves the healthscore of the site given in his Url parameter or from the current connection if the Url parameter is not provided",

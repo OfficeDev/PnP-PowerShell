@@ -6,10 +6,10 @@ using System.Management.Automation;
 using System.Management.Automation.Runspaces;
 using Microsoft.PowerShell.Commands;
 using Microsoft.SharePoint.Client;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.CmdletHelpAttributes;
 using File = System.IO.File;
 
-namespace SharePointPnP.PowerShell.Commands.Provider.SPOProxy
+namespace PnP.PowerShell.Commands.Provider.SPOProxy
 {
     [Cmdlet(CmdletVerb, CmdletNoun, DefaultParameterSetName = "Path", SupportsShouldProcess = true, SupportsTransactions = true)]
     [CmdletHelp("Proxy cmdlet for using Copy-Item between SharePoint provider and FileSystem provider", Category = CmdletHelpCategory.Files)]

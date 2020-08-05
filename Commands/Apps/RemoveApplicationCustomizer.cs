@@ -1,14 +1,14 @@
 ﻿#if !SP2013 && !SP2016
 using System.Management.Automation;
 using Microsoft.SharePoint.Client;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
-using SharePointPnP.PowerShell.Commands.Base.PipeBinds;
-using SharePointPnP.PowerShell.Commands.Enums;
-using Resources = SharePointPnP.PowerShell.Commands.Properties.Resources;
+using PnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.Commands.Base.PipeBinds;
+using PnP.PowerShell.Commands.Enums;
+using Resources = PnP.PowerShell.Commands.Properties.Resources;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SharePointPnP.PowerShell.Commands.Branding
+namespace PnP.PowerShell.Commands.Branding
 {
     [Cmdlet(VerbsCommon.Remove, "PnPApplicationCustomizer", ConfirmImpact = ConfirmImpact.High, SupportsShouldProcess = true)]
     [CmdletHelp("Removes a SharePoint Framework client side extension application customizer",

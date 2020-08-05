@@ -1,10 +1,10 @@
 ﻿#if !ONPREMISES
 using Microsoft.SharePoint.Client;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
-using SharePointPnP.PowerShell.Commands.Base;
+using PnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.Commands.Base;
 using System.Management.Automation;
 
-namespace SharePointPnP.PowerShell.Commands.Apps
+namespace PnP.PowerShell.Commands.Apps
 {
     [Cmdlet(VerbsLifecycle.Register, "PnPAppCatalogSite")]
     [CmdletHelp("Creates a new App Catalog Site and sets this site as the Tenant App Catalog",

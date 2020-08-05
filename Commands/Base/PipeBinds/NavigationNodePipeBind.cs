@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SharePointPnP.PowerShell.Commands.Base.PipeBinds
+namespace PnP.PowerShell.Commands.Base.PipeBinds
 {
     public class NavigationNodePipeBind
     {

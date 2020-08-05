@@ -3,10 +3,10 @@ using System.Management.Automation;
 using Microsoft.SharePoint.Client;
 using Microsoft.SharePoint.Client.WebParts;
 using OfficeDevPnP.Core.Utilities;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
-using SharePointPnP.PowerShell.Commands.Base.PipeBinds;
+using PnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.Commands.Base.PipeBinds;
 
-namespace SharePointPnP.PowerShell.Commands.WebParts
+namespace PnP.PowerShell.Commands.WebParts
 {
     [Cmdlet(VerbsCommon.Remove, "PnPWebPart")]
     [CmdletHelp("Removes a web part from a page",

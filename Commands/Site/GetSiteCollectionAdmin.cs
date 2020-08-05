@@ -1,11 +1,11 @@
 ﻿using System.Management.Automation;
 using Microsoft.SharePoint.Client;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.CmdletHelpAttributes;
 using System.Linq.Expressions;
 using System;
 using System.Linq;
 
-namespace SharePointPnP.PowerShell.Commands.Site
+namespace PnP.PowerShell.Commands.Site
 {
     [Cmdlet(VerbsCommon.Get, "PnPSiteCollectionAdmin")]
     [CmdletHelp("Returns the current site collection administrators of the site collection in the current context",
@@ -42,10 +42,10 @@ namespace SharePointPnP.PowerShell.Commands.Site
                     g => g.LoginName)
            };
 
-            ClientContext.Load(SelectedWeb.SiteUsers, users => users.Include(retrievalExpressions));
+            var siteCollectionAdminUsersQuery = SelectedWeb.SiteUsers.Where(u => u.IsSiteAdmin);
+            var siteCollectionAdminUsers = ClientContext.LoadQuery(siteCollectionAdminUsersQuery.Include(retrievalExpressions));
             ClientContext.ExecuteQueryRetry();
 
-            var siteCollectionAdminUsers = SelectedWeb.SiteUsers.Where(su => su.IsSiteAdmin);
             WriteObject(siteCollectionAdminUsers, true);
         }
     }

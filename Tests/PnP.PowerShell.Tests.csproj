@@ -1,0 +1,845 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{AD2E3CF9-65C7-40FD-9F52-CE8259031C6E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PnP.PowerShell.Tests</RootNamespace>
+    <AssemblyName>PnP.PowerShell.Tests</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
+    <IsCodedUITest>False</IsCodedUITest>
+    <TestProjectType>UnitTest</TestProjectType>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug15|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug15\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;ONPREMISES;SP2013</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release15|AnyCPU'">
+    <OutputPath>bin\Release15\</OutputPath>
+    <DefineConstants>TRACE;ONPREMISES;SP2013</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug16|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug16\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;ONPREMISES;SP2016</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release16|AnyCPU'">
+    <OutputPath>bin\Release16\</OutputPath>
+    <DefineConstants>TRACE;ONPREMISES;SP2016</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug19|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug19\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;ONPREMISES;SP2016</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release19|AnyCPU'">
+    <OutputPath>bin\Release19\</OutputPath>
+    <DefineConstants>TRACE;ONPREMISES;SP2016</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <Choose>
+    <When Condition=" '$(Configuration)' == 'debug' Or '$(Configuration)' == 'release' ">
+      <ItemGroup>
+        <Reference Include="Microsoft.Office.Client.Policy, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+          <SpecificVersion>False</SpecificVersion>
+          <HintPath>..\..\PnP-Sites-Core\Assemblies\16.1\Microsoft.Office.Client.Policy.dll</HintPath>
+        </Reference>
+        <Reference Include="Microsoft.Office.Client.TranslationServices, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+          <SpecificVersion>False</SpecificVersion>
+          <HintPath>..\..\PnP-Sites-Core\Assemblies\16.1\Microsoft.Office.Client.TranslationServices.dll</HintPath>
+        </Reference>
+        <Reference Include="Microsoft.Online.SharePoint.Client.Tenant, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+          <SpecificVersion>False</SpecificVersion>
+          <HintPath>..\..\PnP-Sites-Core\Assemblies\16.1\Microsoft.Online.SharePoint.Client.Tenant.dll</HintPath>
+        </Reference>
+        <Reference Include="Microsoft.SharePoint.Client, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+          <SpecificVersion>False</SpecificVersion>
+          <HintPath>..\..\PnP-Sites-Core\Assemblies\16.1\Microsoft.SharePoint.Client.dll</HintPath>
+        </Reference>
+        <Reference Include="Microsoft.SharePoint.Client.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+          <SpecificVersion>False</SpecificVersion>
+          <HintPath>..\..\PnP-Sites-Core\Assemblies\16.1\Microsoft.SharePoint.Client.DocumentManagement.dll</HintPath>
+        </Reference>
+        <Reference Include="Microsoft.SharePoint.Client.Publishing, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+          <SpecificVersion>False</SpecificVersion>
+          <HintPath>..\..\PnP-Sites-Core\Assemblies\16.1\Microsoft.SharePoint.Client.Publishing.dll</HintPath>
+        </Reference>
+        <Reference Include="Microsoft.SharePoint.Client.Runtime, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+          <SpecificVersion>False</SpecificVersion>
+          <HintPath>..\..\PnP-Sites-Core\Assemblies\16.1\Microsoft.SharePoint.Client.Runtime.dll</HintPath>
+        </Reference>
+        <Reference Include="Microsoft.SharePoint.Client.Search, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+          <SpecificVersion>False</SpecificVersion>
+          <HintPath>..\..\PnP-Sites-Core\Assemblies\16.1\Microsoft.SharePoint.Client.Search.dll</HintPath>
+        </Reference>
+        <Reference Include="Microsoft.SharePoint.Client.Search.Applications, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+          <SpecificVersion>False</SpecificVersion>
+          <HintPath>..\..\PnP-Sites-Core\Assemblies\16.1\Microsoft.SharePoint.Client.Search.Applications.dll</HintPath>
+        </Reference>
+        <Reference Include="Microsoft.SharePoint.Client.Taxonomy, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+          <SpecificVersion>False</SpecificVersion>
+          <HintPath>..\..\PnP-Sites-Core\Assemblies\16.1\Microsoft.SharePoint.Client.Taxonomy.dll</HintPath>
+        </Reference>
+        <Reference Include="Microsoft.SharePoint.Client.UserProfiles, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+          <SpecificVersion>False</SpecificVersion>
+          <HintPath>..\..\PnP-Sites-Core\Assemblies\16.1\Microsoft.SharePoint.Client.UserProfiles.dll</HintPath>
+        </Reference>
+        <Reference Include="Microsoft.SharePoint.Client.WorkflowServices, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+          <SpecificVersion>False</SpecificVersion>
+          <HintPath>..\..\PnP-Sites-Core\Assemblies\16.1\Microsoft.SharePoint.Client.WorkflowServices.dll</HintPath>
+        </Reference>
+      </ItemGroup>
+    </When>
+    <When Condition=" '$(Configuration)' == 'debug19' Or '$(Configuration)' == 'release19' ">
+      <ItemGroup>
+        <Reference Include="Microsoft.Office.Client.Policy, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+          <SpecificVersion>False</SpecificVersion>
+          <HintPath>..\..\PnP-Sites-Core\Assemblies\16.0.10000\Microsoft.Office.Client.Policy.dll</HintPath>
+        </Reference>
+        <Reference Include="Microsoft.Office.Client.TranslationServices, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+          <SpecificVersion>False</SpecificVersion>
+          <HintPath>..\..\PnP-Sites-Core\Assemblies\16.0.10000\Microsoft.Office.Client.TranslationServices.dll</HintPath>
+        </Reference>
+        <Reference Include="Microsoft.Online.SharePoint.Client.Tenant, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+          <SpecificVersion>False</SpecificVersion>
+          <HintPath>..\..\PnP-Sites-Core\Assemblies\16.0.10000\Microsoft.Online.SharePoint.Client.Tenant.dll</HintPath>
+        </Reference>
+        <Reference Include="Microsoft.SharePoint.Client, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+          <SpecificVersion>False</SpecificVersion>
+          <HintPath>..\..\PnP-Sites-Core\Assemblies\16.0.10000\Microsoft.SharePoint.Client.dll</HintPath>
+        </Reference>
+        <Reference Include="Microsoft.SharePoint.Client.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+          <SpecificVersion>False</SpecificVersion>
+          <HintPath>..\..\PnP-Sites-Core\Assemblies\16.0.10000\Microsoft.SharePoint.Client.DocumentManagement.dll</HintPath>
+        </Reference>
+        <Reference Include="Microsoft.SharePoint.Client.Publishing, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+          <SpecificVersion>False</SpecificVersion>
+          <HintPath>..\..\PnP-Sites-Core\Assemblies\16.0.10000\Microsoft.SharePoint.Client.Publishing.dll</HintPath>
+        </Reference>
+        <Reference Include="Microsoft.SharePoint.Client.Runtime, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+          <SpecificVersion>False</SpecificVersion>
+          <HintPath>..\..\PnP-Sites-Core\Assemblies\16.0.10000\Microsoft.SharePoint.Client.Runtime.dll</HintPath>
+        </Reference>
+        <Reference Include="Microsoft.SharePoint.Client.Search, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+          <SpecificVersion>False</SpecificVersion>
+          <HintPath>..\..\PnP-Sites-Core\Assemblies\16.0.10000\Microsoft.SharePoint.Client.Search.dll</HintPath>
+        </Reference>
+        <Reference Include="Microsoft.SharePoint.Client.Search.Applications, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+          <SpecificVersion>False</SpecificVersion>
+          <HintPath>..\..\PnP-Sites-Core\Assemblies\16.0.10000\Microsoft.SharePoint.Client.Search.Applications.dll</HintPath>
+        </Reference>
+        <Reference Include="Microsoft.SharePoint.Client.Taxonomy, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+          <SpecificVersion>False</SpecificVersion>
+          <HintPath>..\..\PnP-Sites-Core\Assemblies\16.0.10000\Microsoft.SharePoint.Client.Taxonomy.dll</HintPath>
+        </Reference>
+        <Reference Include="Microsoft.SharePoint.Client.UserProfiles, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+          <SpecificVersion>False</SpecificVersion>
+          <HintPath>..\..\PnP-Sites-Core\Assemblies\16.0.10000\Microsoft.SharePoint.Client.UserProfiles.dll</HintPath>
+        </Reference>
+        <Reference Include="Microsoft.SharePoint.Client.WorkflowServices, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+          <SpecificVersion>False</SpecificVersion>
+          <HintPath>..\..\PnP-Sites-Core\Assemblies\16.0.10000\Microsoft.SharePoint.Client.WorkflowServices.dll</HintPath>
+        </Reference>
+        <Reference Include="Microsoft.Office.Client.Education, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+          <SpecificVersion>False</SpecificVersion>
+          <HintPath>..\ReferenceAssemblies\16.0.10000\Microsoft.Office.Client.Education.dll</HintPath>
+        </Reference>
+      </ItemGroup>
+    </When>
+    <When Condition=" '$(Configuration)' == 'debug16' Or '$(Configuration)' == 'release16' ">
+      <ItemGroup>
+        <Reference Include="Microsoft.Office.Client.Policy, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+          <SpecificVersion>False</SpecificVersion>
+          <HintPath>..\..\PnP-Sites-Core\Assemblies\16.0\Microsoft.Office.Client.Policy.dll</HintPath>
+        </Reference>
+        <Reference Include="Microsoft.Office.Client.TranslationServices, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+          <SpecificVersion>False</SpecificVersion>
+          <HintPath>..\..\PnP-Sites-Core\Assemblies\16.0\Microsoft.Office.Client.TranslationServices.dll</HintPath>
+        </Reference>
+        <Reference Include="Microsoft.Online.SharePoint.Client.Tenant, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+          <SpecificVersion>False</SpecificVersion>
+          <HintPath>..\..\PnP-Sites-Core\Assemblies\16.0\Microsoft.Online.SharePoint.Client.Tenant.dll</HintPath>
+        </Reference>
+        <Reference Include="Microsoft.SharePoint.Client, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+          <SpecificVersion>False</SpecificVersion>
+          <HintPath>..\..\PnP-Sites-Core\Assemblies\16.0\Microsoft.SharePoint.Client.dll</HintPath>
+        </Reference>
+        <Reference Include="Microsoft.SharePoint.Client.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+          <SpecificVersion>False</SpecificVersion>
+          <HintPath>..\..\PnP-Sites-Core\Assemblies\16.0\Microsoft.SharePoint.Client.DocumentManagement.dll</HintPath>
+        </Reference>
+        <Reference Include="Microsoft.SharePoint.Client.Publishing, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+          <SpecificVersion>False</SpecificVersion>
+          <HintPath>..\..\PnP-Sites-Core\Assemblies\16.0\Microsoft.SharePoint.Client.Publishing.dll</HintPath>
+        </Reference>
+        <Reference Include="Microsoft.SharePoint.Client.Runtime, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+          <SpecificVersion>False</SpecificVersion>
+          <HintPath>..\..\PnP-Sites-Core\Assemblies\16.0\Microsoft.SharePoint.Client.Runtime.dll</HintPath>
+        </Reference>
+        <Reference Include="Microsoft.SharePoint.Client.Search, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+          <SpecificVersion>False</SpecificVersion>
+          <HintPath>..\..\PnP-Sites-Core\Assemblies\16.0\Microsoft.SharePoint.Client.Search.dll</HintPath>
+        </Reference>
+        <Reference Include="Microsoft.SharePoint.Client.Search.Applications, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+          <SpecificVersion>False</SpecificVersion>
+          <HintPath>..\..\PnP-Sites-Core\Assemblies\16.0\Microsoft.SharePoint.Client.Search.Applications.dll</HintPath>
+        </Reference>
+        <Reference Include="Microsoft.SharePoint.Client.Taxonomy, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+          <SpecificVersion>False</SpecificVersion>
+          <HintPath>..\..\PnP-Sites-Core\Assemblies\16.0\Microsoft.SharePoint.Client.Taxonomy.dll</HintPath>
+        </Reference>
+        <Reference Include="Microsoft.SharePoint.Client.UserProfiles, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+          <SpecificVersion>False</SpecificVersion>
+          <HintPath>..\..\PnP-Sites-Core\Assemblies\16.0\Microsoft.SharePoint.Client.UserProfiles.dll</HintPath>
+        </Reference>
+        <Reference Include="Microsoft.SharePoint.Client.WorkflowServices, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+          <SpecificVersion>False</SpecificVersion>
+          <HintPath>..\..\PnP-Sites-Core\Assemblies\16.0\Microsoft.SharePoint.Client.WorkflowServices.dll</HintPath>
+        </Reference>
+        <Reference Include="Microsoft.Office.Client.Education, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+          <SpecificVersion>False</SpecificVersion>
+          <HintPath>..\ReferenceAssemblies\16.0\Microsoft.Office.Client.Education.dll</HintPath>
+        </Reference>
+      </ItemGroup>
+    </When>
+    <Otherwise>
+      <ItemGroup>
+        <Reference Include="Microsoft.Office.Client.Policy, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+          <SpecificVersion>False</SpecificVersion>
+          <HintPath>..\..\PnP-Sites-Core\Assemblies\15\Microsoft.Office.Client.Policy.dll</HintPath>
+        </Reference>
+        <Reference Include="Microsoft.Office.Client.TranslationServices, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+          <SpecificVersion>False</SpecificVersion>
+          <HintPath>..\..\PnP-Sites-Core\Assemblies\15\Microsoft.Office.Client.TranslationServices.dll</HintPath>
+        </Reference>
+        <Reference Include="Microsoft.Online.SharePoint.Client.Tenant, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+          <SpecificVersion>False</SpecificVersion>
+          <HintPath>..\..\PnP-Sites-Core\Assemblies\15\Microsoft.Online.SharePoint.Client.Tenant.dll</HintPath>
+        </Reference>
+        <Reference Include="Microsoft.SharePoint.Client, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+          <SpecificVersion>False</SpecificVersion>
+          <HintPath>..\..\PnP-Sites-Core\Assemblies\15\Microsoft.SharePoint.Client.dll</HintPath>
+        </Reference>
+        <Reference Include="Microsoft.SharePoint.Client.DocumentManagement, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+          <SpecificVersion>False</SpecificVersion>
+          <HintPath>..\..\PnP-Sites-Core\Assemblies\15\Microsoft.SharePoint.Client.DocumentManagement.dll</HintPath>
+        </Reference>
+        <Reference Include="Microsoft.SharePoint.Client.Publishing, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+          <SpecificVersion>False</SpecificVersion>
+          <HintPath>..\..\PnP-Sites-Core\Assemblies\15\Microsoft.SharePoint.Client.Publishing.dll</HintPath>
+        </Reference>
+        <Reference Include="Microsoft.SharePoint.Client.Runtime, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+          <SpecificVersion>False</SpecificVersion>
+          <HintPath>..\..\PnP-Sites-Core\Assemblies\15\Microsoft.SharePoint.Client.Runtime.dll</HintPath>
+        </Reference>
+        <Reference Include="Microsoft.SharePoint.Client.Search, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+          <SpecificVersion>False</SpecificVersion>
+          <HintPath>..\..\PnP-Sites-Core\Assemblies\15\Microsoft.SharePoint.Client.Search.dll</HintPath>
+        </Reference>
+        <Reference Include="Microsoft.SharePoint.Client.Search.Applications, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+          <SpecificVersion>False</SpecificVersion>
+          <HintPath>..\..\PnP-Sites-Core\Assemblies\15\Microsoft.SharePoint.Client.Search.Applications.dll</HintPath>
+        </Reference>
+        <Reference Include="Microsoft.SharePoint.Client.Taxonomy, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+          <SpecificVersion>False</SpecificVersion>
+          <HintPath>..\..\PnP-Sites-Core\Assemblies\15\Microsoft.SharePoint.Client.Taxonomy.dll</HintPath>
+        </Reference>
+        <Reference Include="Microsoft.SharePoint.Client.UserProfiles, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+          <SpecificVersion>False</SpecificVersion>
+          <HintPath>..\..\PnP-Sites-Core\Assemblies\15\Microsoft.SharePoint.Client.UserProfiles.dll</HintPath>
+        </Reference>
+        <Reference Include="Microsoft.SharePoint.Client.WorkflowServices, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+          <SpecificVersion>False</SpecificVersion>
+          <HintPath>..\..\PnP-Sites-Core\Assemblies\15\Microsoft.SharePoint.Client.WorkflowServices.dll</HintPath>
+        </Reference>
+        <Reference Include="Microsoft.Office.Client.Education, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+          <SpecificVersion>False</SpecificVersion>
+          <HintPath>..\ReferenceAssemblies\15\Microsoft.Office.Client.Education.dll</HintPath>
+        </Reference>
+      </ItemGroup>
+    </Otherwise>
+  </Choose>
+  <ItemGroup>
+    <Reference Include="OfficeDevPnP.Core">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\PnP-Sites-Core\Core\OfficeDevPnP.Core\bin\$(Configuration)\OfficeDevPnP.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="SharePointPnP.Modernization.Framework, Version=1.0.1812.0, Culture=neutral, PublicKeyToken=5e633289e95c321a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Binaries\SharePointPnP.Modernization.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Management.Automation, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\WindowsPowerShell\3.0\System.Management.Automation.dll</HintPath>
+    </Reference>
+    <Reference Include="System.XML" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <Choose>
+    <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
+      <ItemGroup>
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+      </ItemGroup>
+    </When>
+    <Otherwise>
+      <ItemGroup>
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework">
+          <Private>False</Private>
+        </Reference>
+      </ItemGroup>
+    </Otherwise>
+  </Choose>
+  <ItemGroup>
+    <Compile Include="Admin\ClearPnPTenantAppCatalogUrlTests.cs" />
+    <Compile Include="Admin\GetPnPStorageEntityTests.cs" />
+    <Compile Include="Admin\GetPnPTenantAppCatalogUrlTests.cs" />
+    <Compile Include="Admin\GetPnPTenantSiteTests.cs" />
+    <Compile Include="Admin\GetPnPTimeZoneIdTests.cs" />
+    <Compile Include="Admin\NewPnPTenantSiteTests.cs" />
+    <Compile Include="Admin\RemovePnPStorageEntityTests.cs" />
+    <Compile Include="Admin\RemovePnPTenantSiteTests.cs" />
+    <Compile Include="Admin\SetPnPStorageEntityTests.cs" />
+    <Compile Include="Admin\SetPnPTenantAppCatalogUrlTests.cs" />
+    <Compile Include="Admin\SetPnPTenantSiteTests.cs" />
+    <Compile Include="Base\GetPnPAuthenticationRealmTests.cs" />
+    <Compile Include="Branding\GetPnPMasterPageTests.cs" />
+    <Compile Include="OriginalTests\AdminTests.cs" />
+    <Compile Include="Admin\AddPnPHubSiteAssociationTests.cs" />
+    <Compile Include="Admin\AddPnPOffice365GroupToSiteTests.cs" />
+    <Compile Include="Admin\AddPnPOrgAssetsLibraryTests.cs" />
+    <Compile Include="Admin\AddPnPOrgNewsSiteTests.cs" />
+    <Compile Include="Admin\AddPnPSiteCollectionAppCatalogTests.cs" />
+    <Compile Include="Admin\AddPnPTenantCdnOriginTests.cs" />
+    <Compile Include="Admin\AddPnPTenantThemeTests.cs" />
+    <Compile Include="Admin\GetPnPHideDefaultThemesTests.cs" />
+    <Compile Include="Admin\GetPnPHomeSiteTests.cs" />
+    <Compile Include="Admin\GetPnPHubSiteChildTests.cs" />
+    <Compile Include="Admin\GetPnPHubSiteTests.cs" />
+    <Compile Include="Admin\GetPnPKnowledgeHubSiteTests.cs" />
+    <Compile Include="Admin\GetPnPOrgAssetsLibraryTests.cs" />
+    <Compile Include="Admin\GetPnPOrgNewsSiteTests.cs" />
+    <Compile Include="Admin\GetPnPTenantCdnEnabledTests.cs" />
+    <Compile Include="Admin\GetPnPTenantCdnOriginTests.cs" />
+    <Compile Include="Admin\GetPnPTenantCdnPoliciesTests.cs" />
+    <Compile Include="Admin\GetPnPTenantIdTests.cs" />
+    <Compile Include="Admin\GetPnPTenantSyncClientRestrictionTests.cs" />
+    <Compile Include="Admin\GetPnPTenantTests.cs" />
+    <Compile Include="Admin\GetPnPTenantThemeTests.cs" />
+    <Compile Include="Admin\GrantPnPHubSiteRightsTests.cs" />
+    <Compile Include="Admin\InvokePnPSPRestMethodTests.cs" />
+    <Compile Include="Admin\RegisterPnPHubSiteTests.cs" />
+    <Compile Include="Admin\RemovePnPHomeSiteTests.cs" />
+    <Compile Include="Admin\RemovePnPHubSiteAssociationTests.cs" />
+    <Compile Include="Admin\RemovePnPKnowledgeHubSiteTests.cs" />
+    <Compile Include="Admin\RemovePnPOrgAssetsLibraryTests.cs" />
+    <Compile Include="Admin\RemovePnPOrgNewsSiteTests.cs" />
+    <Compile Include="Admin\RemovePnPSiteCollectionAppCatalogTests.cs" />
+    <Compile Include="Admin\RemovePnPTenantCdnOriginTests.cs" />
+    <Compile Include="Admin\RemovePnPTenantThemeTests.cs" />
+    <Compile Include="Admin\RevokePnPHubSiteRightsTests.cs" />
+    <Compile Include="Admin\SetPnPHideDefaultThemesTests.cs" />
+    <Compile Include="Admin\SetPnPHomeSiteTests.cs" />
+    <Compile Include="Admin\SetPnPHubSiteTests.cs" />
+    <Compile Include="Admin\SetPnPKnowledgeHubSiteTests.cs" />
+    <Compile Include="Admin\SetPnPTenantCdnEnabledTests.cs" />
+    <Compile Include="Admin\SetPnPTenantCdnPolicyTests.cs" />
+    <Compile Include="Admin\SetPnPTenantSyncClientRestrictionTests.cs" />
+    <Compile Include="Admin\SetPnPTenantTests.cs" />
+    <Compile Include="Admin\UnregisterPnPHubSiteTests.cs" />
+    <Compile Include="Apps\AddPnPAppTests.cs" />
+    <Compile Include="Apps\ApprovePnPTenantServicePrincipalPermissionRequestTests.cs" />
+    <Compile Include="Apps\DenyPnPTenantServicePrincipalPermissionRequestTests.cs" />
+    <Compile Include="Apps\DisablePnPTenantServicePrincipalTests.cs" />
+    <Compile Include="Apps\EnablePnPTenantServicePrincipalTests.cs" />
+    <Compile Include="Apps\GetPnPAppInstanceTests.cs" />
+    <Compile Include="Apps\GetPnPAppTests.cs" />
+    <Compile Include="Apps\GetPnPTenantServicePrincipalPermissionGrantsTests.cs" />
+    <Compile Include="Apps\GetPnPTenantServicePrincipalPermissionRequestsTests.cs" />
+    <Compile Include="Apps\GetPnPTenantServicePrincipalTests.cs" />
+    <Compile Include="Apps\GrantPnPTenantServicePrincipalPermissionTests.cs" />
+    <Compile Include="Apps\ImportPnPAppPackageTests.cs" />
+    <Compile Include="Apps\InstallPnPAppTests.cs" />
+    <Compile Include="Apps\PublishPnPAppTests.cs" />
+    <Compile Include="Apps\RegisterPnPAppCatalogSiteTests.cs" />
+    <Compile Include="Apps\RemovePnPAppTests.cs" />
+    <Compile Include="Apps\RevokePnPTenantServicePrincipalPermissionTests.cs" />
+    <Compile Include="Apps\SyncPnPAppToTeamsTests.cs" />
+    <Compile Include="Apps\UninstallPnPAppInstanceTests.cs" />
+    <Compile Include="Apps\UninstallPnPAppTests.cs" />
+    <Compile Include="Apps\UnpublishPnPAppTests.cs" />
+    <Compile Include="Apps\UpdatePnPAppTests.cs" />
+    <Compile Include="OriginalTests\BaseTests.cs" />
+    <Compile Include="Base\AddPnPStoredCredentialTests.cs" />
+    <Compile Include="Base\ConnectPnPOnlineTests.cs" />
+    <Compile Include="Base\DisablePnPPowerShellTelemetryTests.cs" />
+    <Compile Include="Base\DisconnectPnPOnlineTests.cs" />
+    <Compile Include="Base\EnablePnPPowerShellTelemetryTests.cs" />
+    <Compile Include="Base\GetPnPAccessTokenTests.cs" />
+    <Compile Include="Base\GetPnPAppAuthAccessTokenTests.cs" />
+    <Compile Include="Base\GetPnPAzureCertificateTests.cs" />
+    <Compile Include="Base\GetPnPConnectionTests.cs" />
+    <Compile Include="Base\GetPnPContextTests.cs" />
+    <Compile Include="Base\GetPnPExceptionTests.cs" />
+    <Compile Include="Base\GetPnPGraphAccessTokenTests.cs" />
+    <Compile Include="Base\GetPnPHealthScoreTests.cs" />
+    <Compile Include="Base\GetPnPPowerShellTelemetryEnabledTests.cs" />
+    <Compile Include="Base\GetPnPPropertyTests.cs" />
+    <Compile Include="Base\GetPnPStoredCredentialTests.cs" />
+    <Compile Include="Base\InitializePnPPowerShellAuthenticationTests.cs" />
+    <Compile Include="Base\InvokePnPQueryTests.cs" />
+    <Compile Include="Base\NewPnPAzureCertificateTests.cs" />
+    <Compile Include="Base\RemovePnPStoredCredentialTests.cs" />
+    <Compile Include="Base\RequestPnPAccessTokenTests.cs" />
+    <Compile Include="Base\SetPnPContextTests.cs" />
+    <Compile Include="Base\SetPnPTraceLogTests.cs" />
+    <Compile Include="Branding\AddPnPApplicationCustomizerTests.cs" />
+    <Compile Include="Branding\AddPnPCustomActionTests.cs" />
+    <Compile Include="Branding\AddPnPJavaScriptBlockTests.cs" />
+    <Compile Include="Branding\AddPnPJavaScriptLinkTests.cs" />
+    <Compile Include="Branding\AddPnPNavigationNodeTests.cs" />
+    <Compile Include="Branding\DisablePnPResponsiveUITests.cs" />
+    <Compile Include="Branding\EnablePnPResponsiveUITests.cs" />
+    <Compile Include="Branding\GetPnPApplicationCustomizerTests.cs" />
+    <Compile Include="Branding\GetPnPCustomActionTests.cs" />
+    <Compile Include="Branding\GetPnPFooterTests.cs" />
+    <Compile Include="Branding\GetPnPHomePageTests.cs" />
+    <Compile Include="Branding\GetPnPJavaScriptLinkTests.cs" />
+    <Compile Include="Branding\GetPnPNavigationNodeTests.cs" />
+    <Compile Include="Branding\GetPnPThemeTests.cs" />
+    <Compile Include="Branding\RemovePnPApplicationCustomizerTests.cs" />
+    <Compile Include="Branding\RemovePnPCustomActionTests.cs" />
+    <Compile Include="Branding\RemovePnPJavaScriptLinkTests.cs" />
+    <Compile Include="Branding\RemovePnPNavigationNodeTests.cs" />
+    <Compile Include="Branding\SetPnPApplicationCustomizerTests.cs" />
+    <Compile Include="Branding\SetPnPFooterTests.cs" />
+    <Compile Include="Branding\SetPnPHomePageTests.cs" />
+    <Compile Include="Branding\SetPnPMasterPageTests.cs" />
+    <Compile Include="Branding\SetPnPMinimalDownloadStrategyTests.cs" />
+    <Compile Include="Branding\SetPnPThemeTests.cs" />
+    <Compile Include="Branding\SetPnPWebThemeTests.cs" />
+    <Compile Include="ClientSidePages\AddPnPClientSidePageSectionTests.cs" />
+    <Compile Include="ClientSidePages\AddPnPClientSidePageTests.cs" />
+    <Compile Include="ClientSidePages\AddPnPClientSideTextTests.cs" />
+    <Compile Include="ClientSidePages\GetPnPAvailableClientSideComponentsTests.cs" />
+    <Compile Include="ClientSidePages\GetPnPClientSideComponentTests.cs" />
+    <Compile Include="ClientSidePages\GetPnPClientSidePageTests.cs" />
+    <Compile Include="ClientSidePages\MovePnPClientSideComponentTests.cs" />
+    <Compile Include="ClientSidePages\RemovePnPClientSideComponentTests.cs" />
+    <Compile Include="ClientSidePages\RemovePnPClientSidePageTests.cs" />
+    <Compile Include="ClientSidePages\SetPnPClientSidePageTests.cs" />
+    <Compile Include="ClientSidePages\SetPnPClientSideTextTests.cs" />
+    <Compile Include="ClientSidePages\SetPnPClientSideWebPartTests.cs" />
+    <Compile Include="ContentTypes\AddPnPContentTypeTests.cs" />
+    <Compile Include="ContentTypes\AddPnPContentTypeToListTests.cs" />
+    <Compile Include="ContentTypes\AddPnPFieldToContentTypeTests.cs" />
+    <Compile Include="ContentTypes\GetPnPContentTypePublishingHubUrlTests.cs" />
+    <Compile Include="ContentTypes\GetPnPContentTypeTests.cs" />
+    <Compile Include="ContentTypes\RemovePnPContentTypeFromListTests.cs" />
+    <Compile Include="ContentTypes\RemovePnPContentTypeTests.cs" />
+    <Compile Include="ContentTypes\RemovePnPFieldFromContentTypeTests.cs" />
+    <Compile Include="ContentTypes\SetPnPDefaultContentTypeToListTests.cs" />
+    <Compile Include="OriginalTests\ContentTypeTests.cs" />
+    <Compile Include="OriginalTests\ClientSidePagesTests.cs" />
+    <Compile Include="Diagnostic\MeasurePnPListTests.cs" />
+    <Compile Include="Diagnostic\MeasurePnPResponseTimeTests.cs" />
+    <Compile Include="Diagnostic\MeasurePnPWebTests.cs" />
+    <Compile Include="DocumentSets\AddPnPContentTypeToDocumentSetTests.cs" />
+    <Compile Include="DocumentSets\AddPnPDocumentSetTests.cs" />
+    <Compile Include="DocumentSets\GetPnPDocumentSetTemplateTests.cs" />
+    <Compile Include="DocumentSets\RemovePnPContentTypeFromDocumentSetTests.cs" />
+    <Compile Include="DocumentSets\SetPnPDocumentSetFieldTests.cs" />
+    <Compile Include="OriginalTests\EventReceiverTests.cs" />
+    <Compile Include="Events\AddPnPEventReceiverTests.cs" />
+    <Compile Include="Events\GetPnPEventReceiverTests.cs" />
+    <Compile Include="Events\RemovePnPEventReceiverTests.cs" />
+    <Compile Include="Extensibility\NewPnPExtensibilityHandlerObjectTests.cs" />
+    <Compile Include="Features\DisablePnPFeatureTests.cs" />
+    <Compile Include="Features\EnablePnPFeatureTests.cs" />
+    <Compile Include="Features\GetPnPFeatureTests.cs" />
+    <Compile Include="OriginalTests\FeatureTests.cs" />
+    <Compile Include="OriginalTests\FieldsTests.cs" />
+    <Compile Include="Fields\AddPnPFieldFromXmlTests.cs" />
+    <Compile Include="Fields\AddPnPFieldTests.cs" />
+    <Compile Include="Fields\AddPnPTaxonomyFieldTests.cs" />
+    <Compile Include="Fields\GetPnPFieldTests.cs" />
+    <Compile Include="Fields\RemovePnPFieldTests.cs" />
+    <Compile Include="Fields\SetPnPFieldTests.cs" />
+    <Compile Include="Fields\SetPnPViewTests.cs" />
+    <Compile Include="OriginalTests\FilesTest.cs" />
+    <Compile Include="Files\AddPnPFileTests.cs" />
+    <Compile Include="Files\AddPnPFolderTests.cs" />
+    <Compile Include="Files\CopyPnPFileTests.cs" />
+    <Compile Include="Files\FindPnPFileTests.cs" />
+    <Compile Include="Files\GetPnPFileTests.cs" />
+    <Compile Include="Files\GetPnPFolderItemTests.cs" />
+    <Compile Include="Files\GetPnPFolderTests.cs" />
+    <Compile Include="Files\MovePnPFileTests.cs" />
+    <Compile Include="Files\MovePnPFolderTests.cs" />
+    <Compile Include="Files\RemovePnPFileTests.cs" />
+    <Compile Include="Files\RemovePnPFolderTests.cs" />
+    <Compile Include="Files\RenamePnPFileTests.cs" />
+    <Compile Include="Files\RenamePnPFolderTests.cs" />
+    <Compile Include="Files\ResetPnPFileVersionTests.cs" />
+    <Compile Include="Files\ResolvePnPFolderTests.cs" />
+    <Compile Include="Files\SetPnPFileCheckedInTests.cs" />
+    <Compile Include="Files\SetPnPFileCheckedOutTests.cs" />
+    <Compile Include="Files\SetPnPFolderPermissionTests.cs" />
+    <Compile Include="Graph\AddPnPSiteClassificationTests.cs" />
+    <Compile Include="Graph\DisablePnPSiteClassificationTests.cs" />
+    <Compile Include="Graph\EnablePnPSiteClassificationTests.cs" />
+    <Compile Include="Graph\GetPnPAADUserTests.cs" />
+    <Compile Include="Graph\GetPnPDeletedUnifiedGroupTests.cs" />
+    <Compile Include="Graph\GetPnPGraphSubscriptionTests.cs" />
+    <Compile Include="Graph\GetPnPSiteClassificationTests.cs" />
+    <Compile Include="Graph\GetPnPUnifiedGroupMembersTests.cs" />
+    <Compile Include="Graph\GetPnPUnifiedGroupOwnersTests.cs" />
+    <Compile Include="Graph\GetPnPUnifiedGroupTests.cs" />
+    <Compile Include="Graph\NewPnPGraphSubscriptionTests.cs" />
+    <Compile Include="Graph\NewPnPUnifiedGroupTests.cs" />
+    <Compile Include="Graph\RemovePnPDeletedUnifiedGroupTests.cs" />
+    <Compile Include="Graph\RemovePnPGraphSubscriptionTests.cs" />
+    <Compile Include="Graph\RemovePnPSiteClassificationTests.cs" />
+    <Compile Include="Graph\RemovePnPUnifiedGroupTests.cs" />
+    <Compile Include="Graph\ResetPnPUnifiedGroupExpirationTests.cs" />
+    <Compile Include="Graph\RestorePnPDeletedUnifiedGroupTests.cs" />
+    <Compile Include="Graph\SetPnPGraphSubscriptionTests.cs" />
+    <Compile Include="Graph\SetPnPUnifiedGroupTests.cs" />
+    <Compile Include="Graph\UpdatePnPSiteClassificationTests.cs" />
+    <Compile Include="InformationManagement\GetPnPLabelTests.cs" />
+    <Compile Include="InformationManagement\GetPnPListInformationRightsManagementTests.cs" />
+    <Compile Include="InformationManagement\GetPnPSiteClosureTests.cs" />
+    <Compile Include="InformationManagement\GetPnPSitePolicyTests.cs" />
+    <Compile Include="InformationManagement\ResetPnPLabelTests.cs" />
+    <Compile Include="InformationManagement\SetPnPLabelTests.cs" />
+    <Compile Include="InformationManagement\SetPnPListInformationRightsManagementTests.cs" />
+    <Compile Include="InformationManagement\SetPnPSiteClosureTests.cs" />
+    <Compile Include="InformationManagement\SetPnPSitePolicyTests.cs" />
+    <Compile Include="OriginalTests\InvokeWebActionTest.cs" />
+    <Compile Include="OriginalTests\ListDataRowProvisioningTemplate.cs" />
+    <Compile Include="Lists\AddPnPListItemTests.cs" />
+    <Compile Include="Lists\AddPnPViewTests.cs" />
+    <Compile Include="Lists\ClearPnPDefaultColumnValuesTests.cs" />
+    <Compile Include="Lists\GetPnPDefaultColumnValuesTests.cs" />
+    <Compile Include="Lists\GetPnPListItemTests.cs" />
+    <Compile Include="Lists\GetPnPListTests.cs" />
+    <Compile Include="Lists\GetPnPViewTests.cs" />
+    <Compile Include="Lists\MovePnPListItemToRecycleBinTests.cs" />
+    <Compile Include="Lists\NewPnPListTests.cs" />
+    <Compile Include="Lists\RemovePnPListItemTests.cs" />
+    <Compile Include="Lists\RemovePnPListTests.cs" />
+    <Compile Include="Lists\RemovePnPViewTests.cs" />
+    <Compile Include="Lists\RequestPnPReIndexListTests.cs" />
+    <Compile Include="Lists\SetPnPDefaultColumnValuesTests.cs" />
+    <Compile Include="Lists\SetPnPListItemPermissionTests.cs" />
+    <Compile Include="Lists\SetPnPListItemTests.cs" />
+    <Compile Include="Lists\SetPnPListPermissionTests.cs" />
+    <Compile Include="Lists\SetPnPListTests.cs" />
+    <Compile Include="ManagementApi\GetPnPManagementApiAccessTokenTests.cs" />
+    <Compile Include="ManagementApi\GetPnPOffice365CurrentServiceStatusTests.cs" />
+    <Compile Include="ManagementApi\GetPnPOffice365HistoricalServiceStatusTests.cs" />
+    <Compile Include="ManagementApi\GetPnPOffice365ServiceMessageTests.cs" />
+    <Compile Include="ManagementApi\GetPnPOffice365ServicesTests.cs" />
+    <Compile Include="ManagementApi\GetPnPOfficeManagementApiAccessTokenTests.cs" />
+    <Compile Include="ManagementApi\GetPnPUnifiedAuditLogTests.cs" />
+    <Compile Include="OriginalTests\PrincipalsTests.cs" />
+    <Compile Include="Principals\AddPnPAlertTests.cs" />
+    <Compile Include="Principals\AddPnPUserToGroupTests.cs" />
+    <Compile Include="Principals\GetPnPAlertTests.cs" />
+    <Compile Include="Principals\GetPnPGroupMembersTests.cs" />
+    <Compile Include="Principals\GetPnPGroupPermissionsTests.cs" />
+    <Compile Include="Principals\GetPnPGroupTests.cs" />
+    <Compile Include="Principals\GetPnPUserTests.cs" />
+    <Compile Include="Principals\NewPnPGroupTests.cs" />
+    <Compile Include="Principals\NewPnPUserTests.cs" />
+    <Compile Include="Principals\RemovePnPAlertTests.cs" />
+    <Compile Include="Principals\RemovePnPGroupTests.cs" />
+    <Compile Include="Principals\RemovePnPUserFromGroupTests.cs" />
+    <Compile Include="Principals\RemovePnPUserTests.cs" />
+    <Compile Include="Principals\SetPnPGroupPermissionsTests.cs" />
+    <Compile Include="Principals\SetPnPGroupTests.cs" />
+    <Compile Include="Provisioning.Site\AddPnPDataRowsToProvisioningTemplateTests.cs" />
+    <Compile Include="Provisioning.Site\AddPnPFileToProvisioningTemplateTests.cs" />
+    <Compile Include="Provisioning.Site\AddPnPListFoldersToProvisioningTemplateTests.cs" />
+    <Compile Include="Provisioning.Site\ApplyPnPProvisioningTemplateTests.cs" />
+    <Compile Include="Provisioning.Site\ExportPnPListToProvisioningTemplateTests.cs" />
+    <Compile Include="Provisioning.Site\GetPnPProvisioningTemplateTests.cs" />
+    <Compile Include="Provisioning.Site\GetPnPTenantTemplateTests.cs" />
+    <Compile Include="Provisioning.Site\RemovePnPFileFromProvisioningTemplateTests.cs" />
+    <Compile Include="Provisioning.Site\SetPnPProvisioningTemplateMetadataTests.cs" />
+    <Compile Include="Provisioning.Tenant\AddPnPProvisioningTemplateTests.cs" />
+    <Compile Include="Provisioning.Tenant\AddPnPTenantSequenceSiteTests.cs" />
+    <Compile Include="Provisioning.Tenant\AddPnPTenantSequenceSubSiteTests.cs" />
+    <Compile Include="Provisioning.Tenant\AddPnPTenantSequenceTests.cs" />
+    <Compile Include="Provisioning.Tenant\ApplyPnPTenantTemplateTests.cs" />
+    <Compile Include="Provisioning.Tenant\ExportPnPClientSidePageTests.cs" />
+    <Compile Include="Provisioning.Tenant\GetPnPTenantSequenceSiteTests.cs" />
+    <Compile Include="Provisioning.Tenant\GetPnPTenantSequenceTests.cs" />
+    <Compile Include="Provisioning.Tenant\NewPnPTenantSequenceCommunicationSiteTests.cs" />
+    <Compile Include="Provisioning.Tenant\NewPnPTenantSequenceTeamNoGroupSiteTests.cs" />
+    <Compile Include="Provisioning.Tenant\NewPnPTenantSequenceTeamNoGroupSubSiteTests.cs" />
+    <Compile Include="Provisioning.Tenant\NewPnPTenantSequenceTeamSiteTests.cs" />
+    <Compile Include="Provisioning.Tenant\NewPnPTenantSequenceTests.cs" />
+    <Compile Include="Provisioning.Tenant\NewPnPTenantTemplateTests.cs" />
+    <Compile Include="Provisioning.Tenant\ReadPnPTenantTemplateTests.cs" />
+    <Compile Include="Provisioning.Tenant\SavePnPTenantTemplateTests.cs" />
+    <Compile Include="Provisioning.Tenant\TestPnPTenantTemplateTests.cs" />
+    <Compile Include="OriginalTests\ProvisioningTemplateTests.cs" />
+    <Compile Include="OriginalTests\GraphTests.cs" />
+    <Compile Include="Publishing\AddPnPHtmlPublishingPageLayoutTests.cs" />
+    <Compile Include="Publishing\AddPnPMasterPageTests.cs" />
+    <Compile Include="Publishing\AddPnPPublishingImageRenditionTests.cs" />
+    <Compile Include="Publishing\AddPnPPublishingPageLayoutTests.cs" />
+    <Compile Include="Publishing\AddPnPPublishingPageTests.cs" />
+    <Compile Include="Publishing\AddPnPWikiPageTests.cs" />
+    <Compile Include="Publishing\GetPnPPublishingImageRenditionTests.cs" />
+    <Compile Include="Publishing\GetPnPWikiPageContentTests.cs" />
+    <Compile Include="Publishing\RemovePnPPublishingImageRenditionTests.cs" />
+    <Compile Include="Publishing\RemovePnPWikiPageTests.cs" />
+    <Compile Include="Publishing\SetPnPAvailablePageLayoutsTests.cs" />
+    <Compile Include="Publishing\SetPnPDefaultPageLayoutTests.cs" />
+    <Compile Include="Publishing\SetPnPWikiPageContentTests.cs" />
+    <Compile Include="RecordsManagement\ClearPnPListItemAsRecordTests.cs" />
+    <Compile Include="RecordsManagement\DisablePnPInPlaceRecordsManagementForSiteTests.cs" />
+    <Compile Include="RecordsManagement\EnablePnPInPlaceRecordsManagementForSiteTests.cs" />
+    <Compile Include="RecordsManagement\GetPnPInPlaceRecordsManagementTests.cs" />
+    <Compile Include="RecordsManagement\GetPnPListRecordDeclarationTests.cs" />
+    <Compile Include="RecordsManagement\SetPnPInPlaceRecordsManagementTests.cs" />
+    <Compile Include="RecordsManagement\SetPnPListItemAsRecordTests.cs" />
+    <Compile Include="RecordsManagement\SetPnPListRecordDeclarationTests.cs" />
+    <Compile Include="RecordsManagement\TestPnPListItemIsRecordTests.cs" />
+    <Compile Include="RecycleBin\ClearPnPRecycleBinItemTests.cs" />
+    <Compile Include="RecycleBin\ClearPnPTenantRecycleBinItemTests.cs" />
+    <Compile Include="RecycleBin\GetPnPRecycleBinItemTests.cs" />
+    <Compile Include="RecycleBin\GetPnPTenantRecycleBinItemTests.cs" />
+    <Compile Include="RecycleBin\MovePnPRecycleBinItemTests.cs" />
+    <Compile Include="RecycleBin\RestorePnPRecycleBinItemTests.cs" />
+    <Compile Include="RecycleBin\RestorePnPTenantRecycleBinItemTests.cs" />
+    <Compile Include="Search\GetPnPSearchConfigurationTests.cs" />
+    <Compile Include="Search\GetPnPSearchCrawlLogTests.cs" />
+    <Compile Include="Search\GetPnPSearchSettingsTests.cs" />
+    <Compile Include="Search\GetPnPSiteSearchQueryResultsTests.cs" />
+    <Compile Include="Search\RemovePnPSearchConfigurationTests.cs" />
+    <Compile Include="Search\SetPnPSearchConfigurationTests.cs" />
+    <Compile Include="Search\SetPnPSearchSettingsTests.cs" />
+    <Compile Include="Search\SubmitPnPSearchQueryTests.cs" />
+    <Compile Include="SiteDesigns\AddPnPSiteDesignTaskTests.cs" />
+    <Compile Include="SiteDesigns\AddPnPSiteDesignTests.cs" />
+    <Compile Include="SiteDesigns\AddPnPSiteScriptTests.cs" />
+    <Compile Include="SiteDesigns\GetPnPSiteDesignRightsTests.cs" />
+    <Compile Include="SiteDesigns\GetPnPSiteDesignRunStatusTests.cs" />
+    <Compile Include="SiteDesigns\GetPnPSiteDesignRunTests.cs" />
+    <Compile Include="SiteDesigns\GetPnPSiteDesignTaskTests.cs" />
+    <Compile Include="SiteDesigns\GetPnPSiteDesignTests.cs" />
+    <Compile Include="SiteDesigns\GetPnPSiteScriptFromListTests.cs" />
+    <Compile Include="SiteDesigns\GetPnPSiteScriptFromWebTests.cs" />
+    <Compile Include="SiteDesigns\GetPnPSiteScriptTests.cs" />
+    <Compile Include="SiteDesigns\GrantPnPSiteDesignRightsTests.cs" />
+    <Compile Include="SiteDesigns\InvokePnPSiteDesignTests.cs" />
+    <Compile Include="SiteDesigns\RemovePnPSiteDesignTaskTests.cs" />
+    <Compile Include="SiteDesigns\RemovePnPSiteDesignTests.cs" />
+    <Compile Include="SiteDesigns\RemovePnPSiteScriptTests.cs" />
+    <Compile Include="SiteDesigns\RevokePnPSiteDesignRightsTests.cs" />
+    <Compile Include="SiteDesigns\SetPnPSiteDesignTests.cs" />
+    <Compile Include="SiteDesigns\SetPnPSiteScriptTests.cs" />
+    <Compile Include="Site\AddPnPRoleDefinitionTests.cs" />
+    <Compile Include="Site\AddPnPSiteCollectionAdminTests.cs" />
+    <Compile Include="Site\AddPnPTeamsTeamTests.cs" />
+    <Compile Include="Site\DisablePnPSharingForNonOwnersOfSiteTests.cs" />
+    <Compile Include="Site\EnablePnPCommSiteTests.cs" />
+    <Compile Include="Site\GetPnPAuditingTests.cs" />
+    <Compile Include="Site\GetPnPIsSiteAliasAvailableTests.cs" />
+    <Compile Include="Site\GetPnPRoleDefinitionTests.cs" />
+    <Compile Include="Site\GetPnPSharingForNonOwnersOfSiteTests.cs" />
+    <Compile Include="Site\GetPnPSiteCollectionAdminTests.cs" />
+    <Compile Include="Site\GetPnPSiteTests.cs" />
+    <Compile Include="Site\InstallPnPSolutionTests.cs" />
+    <Compile Include="Site\NewPnPSiteTests.cs" />
+    <Compile Include="Site\RemovePnPRoleDefinitionTests.cs" />
+    <Compile Include="Site\RemovePnPSiteCollectionAdminTests.cs" />
+    <Compile Include="Site\SetPnPAppSideLoadingTests.cs" />
+    <Compile Include="Site\SetPnPAuditingTests.cs" />
+    <Compile Include="Site\SetPnPSiteTests.cs" />
+    <Compile Include="Site\TestPnPOffice365GroupAliasIsUsedTests.cs" />
+    <Compile Include="Site\UninstallPnPSolutionTests.cs" />
+    <Compile Include="Taxonomy\ExportPnPTaxonomyTests.cs" />
+    <Compile Include="Taxonomy\ExportPnPTermGroupToXmlTests.cs" />
+    <Compile Include="Taxonomy\GetPnPSiteCollectionTermStoreTests.cs" />
+    <Compile Include="Taxonomy\GetPnPTaxonomyItemTests.cs" />
+    <Compile Include="Taxonomy\GetPnPTaxonomySessionTests.cs" />
+    <Compile Include="Taxonomy\GetPnPTermGroupTests.cs" />
+    <Compile Include="Taxonomy\GetPnPTermSetTests.cs" />
+    <Compile Include="Taxonomy\GetPnPTermTests.cs" />
+    <Compile Include="Taxonomy\ImportPnPTaxonomyTests.cs" />
+    <Compile Include="Taxonomy\ImportPnPTermGroupFromXmlTests.cs" />
+    <Compile Include="Taxonomy\ImportPnPTermSetTests.cs" />
+    <Compile Include="Taxonomy\NewPnPTermGroupTests.cs" />
+    <Compile Include="Taxonomy\NewPnPTermLabelTests.cs" />
+    <Compile Include="Taxonomy\NewPnPTermSetTests.cs" />
+    <Compile Include="Taxonomy\NewPnPTermTests.cs" />
+    <Compile Include="Taxonomy\RemovePnPTaxonomyItemTests.cs" />
+    <Compile Include="Taxonomy\RemovePnPTermGroupTests.cs" />
+    <Compile Include="Taxonomy\SetPnPTaxonomyFieldValueTests.cs" />
+    <Compile Include="UserProfiles\GetPnPUPABulkImportStatusTests.cs" />
+    <Compile Include="UserProfiles\GetPnPUserOneDriveQuotaTests.cs" />
+    <Compile Include="UserProfiles\GetPnPUserProfilePropertyTests.cs" />
+    <Compile Include="UserProfiles\NewPnPPersonalSiteTests.cs" />
+    <Compile Include="UserProfiles\NewPnPUPABulkImportJobTests.cs" />
+    <Compile Include="UserProfiles\ResetPnPUserOneDriveQuotaToDefaultTests.cs" />
+    <Compile Include="UserProfiles\SetPnPUserOneDriveQuotaTests.cs" />
+    <Compile Include="UserProfiles\SetPnPUserProfilePropertyTests.cs" />
+    <Compile Include="Utilities\SendPnPMailTests.cs" />
+    <Compile Include="OriginalTests\WebhookSubscriptionsTests.cs" />
+    <Compile Include="OriginalTests\DiagnosticTests.cs" />
+    <Compile Include="Webhooks\AddPnPWebhookSubscriptionTests.cs" />
+    <Compile Include="Webhooks\GetPnPWebhookSubscriptionsTests.cs" />
+    <Compile Include="Webhooks\RemovePnPWebhookSubscriptionTests.cs" />
+    <Compile Include="Webhooks\SetPnPWebhookSubscriptionTests.cs" />
+    <Compile Include="WebParts\AddPnPClientSideWebPartTests.cs" />
+    <Compile Include="WebParts\AddPnPWebPartToWebPartPageTests.cs" />
+    <Compile Include="WebParts\AddPnPWebPartToWikiPageTests.cs" />
+    <Compile Include="WebParts\GetPnPWebPartPropertyTests.cs" />
+    <Compile Include="WebParts\GetPnPWebPartTests.cs" />
+    <Compile Include="WebParts\GetPnPWebPartXmlTests.cs" />
+    <Compile Include="WebParts\RemovePnPWebPartTests.cs" />
+    <Compile Include="WebParts\SetPnPWebPartPropertyTests.cs" />
+    <Compile Include="OriginalTests\WebTests.cs" />
+    <Compile Include="OriginalTests\ProvisioningTemplateFromFolderTest.cs" />
+    <Compile Include="OriginalTests\WebPartsTests.cs" />
+    <Compile Include="OriginalTests\ListsTests.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PSTestScope.cs" />
+    <Compile Include="TestCommon.cs" />
+    <Compile Include="OriginalTests\BrandingTests.cs" />
+    <Compile Include="Webs\AddPnPIndexedPropertyTests.cs" />
+    <Compile Include="Webs\GetPnPAvailableLanguageTests.cs" />
+    <Compile Include="Webs\GetPnPIndexedPropertyKeysTests.cs" />
+    <Compile Include="Webs\GetPnPPropertyBagTests.cs" />
+    <Compile Include="Webs\GetPnPRequestAccessEmailsTests.cs" />
+    <Compile Include="Webs\GetPnPSubWebsTests.cs" />
+    <Compile Include="Webs\GetPnPWebTemplatesTests.cs" />
+    <Compile Include="Webs\GetPnPWebTests.cs" />
+    <Compile Include="Webs\InvokePnPWebActionTests.cs" />
+    <Compile Include="Webs\NewPnPWebTests.cs" />
+    <Compile Include="Webs\RemovePnPIndexedPropertyTests.cs" />
+    <Compile Include="Webs\RemovePnPPropertyBagValueTests.cs" />
+    <Compile Include="Webs\RemovePnPWebTests.cs" />
+    <Compile Include="Webs\RequestPnPReIndexWebTests.cs" />
+    <Compile Include="Webs\SetPnPIndexedPropertiesTests.cs" />
+    <Compile Include="Webs\SetPnPPropertyBagValueTests.cs" />
+    <Compile Include="Webs\SetPnPRequestAccessEmailsTests.cs" />
+    <Compile Include="Webs\SetPnPWebPermissionTests.cs" />
+    <Compile Include="Webs\SetPnPWebTests.cs" />
+    <Compile Include="Workflows\AddPnPWorkflowDefinitionTests.cs" />
+    <Compile Include="Workflows\AddPnPWorkflowSubscriptionTests.cs" />
+    <Compile Include="Workflows\GetPnPWorkflowDefinitionTests.cs" />
+    <Compile Include="Workflows\GetPnPWorkflowInstanceTests.cs" />
+    <Compile Include="Workflows\GetPnPWorkflowSubscriptionTests.cs" />
+    <Compile Include="Workflows\RemovePnPWorkflowDefinitionTests.cs" />
+    <Compile Include="Workflows\RemovePnPWorkflowSubscriptionTests.cs" />
+    <Compile Include="Workflows\ResumePnPWorkflowInstanceTests.cs" />
+    <Compile Include="Workflows\StartPnPWorkflowInstanceTests.cs" />
+    <Compile Include="Workflows\StopPnPWorkflowInstanceTests.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\PnPTestList.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\template.xml" />
+    <Content Include="Resources\webpart.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="App.config.sample" />
+    <None Include="UnitTests-Readme.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Commands\PnP.PowerShell.Commands.csproj">
+      <Project>{1dde6f0a-ca49-419a-9ce8-a6ca02f43ce0}</Project>
+      <Name>PnP.PowerShell.Commands</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Choose>
+    <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
+      <ItemGroup>
+        <Reference Include="Microsoft.VisualStudio.QualityTools.CodedUITestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+        <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+        <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Extension, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+        <Reference Include="Microsoft.VisualStudio.TestTools.UITesting, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

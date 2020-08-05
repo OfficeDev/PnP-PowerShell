@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Text.Json;
 using Microsoft.SharePoint.Client;
-using Newtonsoft.Json;
 
-namespace SharePointPnP.PowerShell.Commands.Utilities.REST
+namespace PnP.PowerShell.Commands.Utilities.REST
 {
     public class RestRequest
     {
@@ -95,7 +93,7 @@ namespace SharePointPnP.PowerShell.Commands.Utilities.REST
             var select = _selects.Any() ? string.Join(",", _selects) : null;
             var expands = _expands.Any() ? string.Join(",", _expands) : null;
             properties["__metadata"] = new MetadataType(metadataType);
-            var content = JsonConvert.SerializeObject(properties);
+            var content = JsonSerializer.Serialize(properties);
             RestHelper.ExecutePostRequest(_context, _root, content, select, _filter, expands, contentType: contentType);
         }
 
@@ -107,7 +105,7 @@ namespace SharePointPnP.PowerShell.Commands.Utilities.REST
             var payload = new Dictionary<string, object>() {
                 { "parameters", properties}
             };
-            var content = JsonConvert.SerializeObject(payload);
+            var content = JsonSerializer.Serialize(payload);
 
             return RestHelper.ExecutePostRequest<T>(_context, _root, content, select, _filter, expands, contentType: contentType);
         }
@@ -138,7 +136,7 @@ namespace SharePointPnP.PowerShell.Commands.Utilities.REST
             var select = _selects.Any() ? string.Join(",", _selects) : null;
             var expands = _expands.Any() ? string.Join(",", _expands) : null;
             properties["__metadata"] = new MetadataType(metadataType);
-            var content = JsonConvert.SerializeObject(properties);
+            var content = JsonSerializer.Serialize(properties);
             return RestHelper.ExecuteMergeRequest<T>(_context, _root, content, select, _filter, expands, contentType: contentType);
         }
 
@@ -147,7 +145,7 @@ namespace SharePointPnP.PowerShell.Commands.Utilities.REST
             var select = _selects.Any() ? string.Join(",", _selects) : null;
             var expands = _expands.Any() ? string.Join(",", _expands) : null;
             properties["__metadata"] = new MetadataType(metadataType);
-            var content = JsonConvert.SerializeObject(properties);
+            var content = JsonSerializer.Serialize(properties);
             RestHelper.ExecuteMergeRequest(_context, _root, content, select, _filter, expands, contentType: contentType);
         }
 

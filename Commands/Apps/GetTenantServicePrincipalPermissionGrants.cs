@@ -1,13 +1,13 @@
 ﻿#if !ONPREMISES
 using Microsoft.Online.SharePoint.TenantAdministration.Internal;
 using Microsoft.SharePoint.Client;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
-using SharePointPnP.PowerShell.Commands.Base;
-using SharePointPnP.PowerShell.Commands.Model;
+using PnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.Commands.Base;
+using PnP.PowerShell.Commands.Model;
 using System.Linq;
 using System.Management.Automation;
 
-namespace SharePointPnP.PowerShell.Commands.Apps
+namespace PnP.PowerShell.Commands.Apps
 {
     [Cmdlet(VerbsCommon.Get, "PnPTenantServicePrincipalPermissionGrants")]
     [CmdletHelp(@"Gets the collection of permission grants for the ""SharePoint Online Client"" service principal",

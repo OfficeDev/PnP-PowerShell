@@ -1,8 +1,8 @@
 ﻿#if !ONPREMISES
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.CmdletHelpAttributes;
 using System;
 using System.Collections.Generic;
-#if NETSTANDARD2_1
+#if PNPPSCORE
 using System.IdentityModel.Tokens.Jwt;
 #else
 using System.IdentityModel.Tokens;
@@ -11,7 +11,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Management.Automation;
 
-namespace SharePointPnP.PowerShell.Commands.Base
+namespace PnP.PowerShell.Commands.Base
 {
     [Cmdlet(VerbsCommon.Get, "PnPAccessToken")]
     [CmdletHelp("Returns the current OAuth Access token",

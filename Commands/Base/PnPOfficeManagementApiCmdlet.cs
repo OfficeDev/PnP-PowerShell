@@ -1,12 +1,14 @@
 ﻿#if !ONPREMISES
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
-using SharePointPnP.PowerShell.Commands.Model;
-using SharePointPnP.PowerShell.Commands.Properties;
+using PnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.Commands.Model;
+using PnP.PowerShell.Commands.Properties;
+using PnP.PowerShell.Core.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Management.Automation;
+using System.Net.Http;
 
-namespace SharePointPnP.PowerShell.Commands.Base
+namespace PnP.PowerShell.Commands.Base
 {
     /// <summary>
     /// Base class for all the PnP Microsoft Office Management API related cmdlets
@@ -23,19 +25,43 @@ namespace SharePointPnP.PowerShell.Commands.Base
         {
             get
             {
+                var tokenType = TokenType.All;
+
+                // Collect, if present, the token type attribute
+                var tokenTypeAttribute = (CmdletTokenTypeAttribute)Attribute.GetCustomAttribute(GetType(), typeof(CmdletTokenTypeAttribute));
+                if (tokenTypeAttribute != null)
+                {
+                    tokenType = tokenTypeAttribute.TokenType;
+                }
+
                 // Collect the permission attributes to discover required roles
                 var requiredRoleAttributes = (CmdletOfficeManagementApiPermissionAttribute[])Attribute.GetCustomAttributes(GetType(), typeof(CmdletOfficeManagementApiPermissionAttribute));
-                var requiredRoles = new List<string>(requiredRoleAttributes.Length);
-                foreach(var requiredRoleAttribute in requiredRoleAttributes)
+                var orRequiredRoles = new List<string>(requiredRoleAttributes.Length);
+                var andRequiredRoles = new List<string>(requiredRoleAttributes.Length);
+
+                foreach (var requiredRoleAttribute in requiredRoleAttributes)
                 {
-                    requiredRoles.Add(requiredRoleAttribute.ApiPermission.ToString().Replace("_", "."));
+                    foreach (OfficeManagementApiPermission role in Enum.GetValues(typeof(OfficeManagementApiPermission)))
+                    {
+                        if (role != OfficeManagementApiPermission.None)
+                        {
+                            if (requiredRoleAttribute.OrApiPermissions.HasFlag(role))
+                            {
+                                orRequiredRoles.Add(role.ToString().Replace("_", "."));
+                            }
+                            if (requiredRoleAttribute.AndApiPermissions.HasFlag(role))
+                            {
+                                andRequiredRoles.Add(role.ToString().Replace("_", "."));
+                            }
+                        }
+                    }
                 }
 
                 // Ensure we have an active connection
                 if (PnPConnection.CurrentConnection != null)
                 {
                     // There is an active connection, try to get a Microsoft Office Management API Token on the active connection
-                    if (PnPConnection.CurrentConnection.TryGetToken(Enums.TokenAudience.OfficeManagementApi, ByPassPermissionCheck.ToBool() ? null : requiredRoles.ToArray()) is OfficeManagementApiToken token)
+                    if (PnPConnection.CurrentConnection.TryGetToken(Enums.TokenAudience.OfficeManagementApi, ByPassPermissionCheck.ToBool() ? null : orRequiredRoles.ToArray(), ByPassPermissionCheck.ToBool() ? null : andRequiredRoles.ToArray(), tokenType) is OfficeManagementApiToken token)
                     {
                         // Microsoft Office Management API Access Token available, return it
                         return token;
@@ -57,6 +83,9 @@ namespace SharePointPnP.PowerShell.Commands.Base
         /// Root URL to the Office 365 Management API
         /// </summary>
         protected string ApiRootUrl => $"https://manage.office.com/api/v1.0/{Token.TenantId}/";
+
+        public HttpClient HttpClient => PnPConnection.CurrentConnection.HttpClient;
+
     }
 }
 #endif

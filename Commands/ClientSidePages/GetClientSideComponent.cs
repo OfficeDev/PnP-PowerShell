@@ -1,11 +1,11 @@
 ﻿#if !SP2013 && !SP2016
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
-using SharePointPnP.PowerShell.Commands.Base.PipeBinds;
+using PnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.Commands.Base.PipeBinds;
 using System;
 using System.Linq;
 using System.Management.Automation;
 
-namespace SharePointPnP.PowerShell.Commands.ClientSidePages
+namespace PnP.PowerShell.Commands.ClientSidePages
 {
     [Cmdlet(VerbsCommon.Get, "PnPClientSideComponent")]
     [CmdletHelp("Retrieve one or more Client-Side components from a site page",

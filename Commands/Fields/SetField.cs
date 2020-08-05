@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Management.Automation;
 using Microsoft.SharePoint.Client;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
-using SharePointPnP.PowerShell.Commands.Base.PipeBinds;
+using PnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.Commands.Base.PipeBinds;
 using System.Collections;
 
-namespace SharePointPnP.PowerShell.Commands.Fields
+namespace PnP.PowerShell.Commands.Fields
 {
     [Cmdlet(VerbsCommon.Set, "PnPField")]
     [CmdletHelp("Changes one or more properties of a field in a specific list or for the whole web",
         Category = CmdletHelpCategory.Fields,
         OutputType = typeof(Field),
-        OutputTypeLink = "https://msdn.microsoft.com/en-us/library/microsoft.sharepoint.client.field.aspx")]
+        OutputTypeLink = "https://docs.microsoft.com/previous-versions/office/sharepoint-server/ee545882(v=office.15)")]
     [CmdletExample(
         Code = @"PS:> Set-PnPField -Identity AssignedTo -Values @{JSLink=""customrendering.js"";Group=""My fields""}",
         Remarks = @"Updates the AssignedTo field on the current web to use customrendering.js for the JSLink and sets the group name the field is categorized in to ""My Fields"". Lists that are already using the AssignedTo field will not be updated.",
@@ -40,6 +40,7 @@ namespace SharePointPnP.PowerShell.Commands.Fields
 
         protected override void ExecuteCmdlet()
         {
+            const string allowDeletionPropertyKey = "AllowDeletion";
             Field field = null;
             if (List != null)
             {
@@ -84,7 +85,14 @@ namespace SharePointPnP.PowerShell.Commands.Fields
                 }
             }
 
-            ClientContext.Load(field);
+            if (Values.ContainsKey(allowDeletionPropertyKey))
+            {
+                ClientContext.Load(field, f => f.SchemaXmlWithResourceTokens);
+            }
+            else
+            {
+                ClientContext.Load(field);
+            }
             ClientContext.ExecuteQueryRetry();
 
             // Get a reference to the type-specific object to allow setting type-specific properties, i.e. LookupList and LookupField for Microsoft.SharePoint.Client.FieldLookup
@@ -95,7 +103,10 @@ namespace SharePointPnP.PowerShell.Commands.Fields
                 var value = Values[key];
 
                 var property = typeSpecificField.GetType().GetProperty(key);
-                if (property == null)
+
+                bool isAllowDeletionProperty = string.Equals(key, allowDeletionPropertyKey, StringComparison.Ordinal);
+
+                if (property == null && !isAllowDeletionProperty)
                 {
                     WriteWarning($"No property '{key}' found on this field. Value will be ignored.");
                 }
@@ -103,7 +114,14 @@ namespace SharePointPnP.PowerShell.Commands.Fields
                 {
                     try
                     {
-                        property.SetValue(typeSpecificField, value);
+                        if (isAllowDeletionProperty)
+                        {
+                            field.SetAllowDeletion(value as bool?);
+                        }
+                        else
+                        {
+                            property.SetValue(typeSpecificField, value);
+                        }
                     }
                     catch (Exception e)
                     {

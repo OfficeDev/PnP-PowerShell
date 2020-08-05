@@ -1,4 +1,4 @@
-﻿namespace SharePointPnP.PowerShell.Commands.InformationManagement
+﻿namespace PnP.PowerShell.Commands.InformationManagement
 {
     public enum ClosureState
     {

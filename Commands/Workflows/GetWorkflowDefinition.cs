@@ -1,9 +1,9 @@
 ﻿using System.Management.Automation;
 using Microsoft.SharePoint.Client;
 using Microsoft.SharePoint.Client.WorkflowServices;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.CmdletHelpAttributes;
 
-namespace SharePointPnP.PowerShell.Commands.Workflows
+namespace PnP.PowerShell.Commands.Workflows
 {
     [Cmdlet(VerbsCommon.Get, "PnPWorkflowDefinition")]
     [CmdletHelp("Returns a workflow definition",

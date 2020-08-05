@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace SharePointPnP.PowerShell.Commands.Utilities
+namespace PnP.PowerShell.Commands.Utilities
 {
     public static class UrlUtilities
     {

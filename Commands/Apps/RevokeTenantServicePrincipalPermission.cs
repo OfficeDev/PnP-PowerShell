@@ -1,11 +1,11 @@
 ﻿#if !ONPREMISES
 using Microsoft.Online.SharePoint.TenantAdministration.Internal;
 using Microsoft.SharePoint.Client;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
-using SharePointPnP.PowerShell.Commands.Base;
+using PnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.Commands.Base;
 using System.Management.Automation;
 
-namespace SharePointPnP.PowerShell.Commands.Apps
+namespace PnP.PowerShell.Commands.Apps
 {
     [Cmdlet(VerbsSecurity.Revoke, "PnPTenantServicePrincipalPermission")]
     [CmdletHelp(@"Revokes a permission that was previously granted to the ""SharePoint Online Client"" service principal.",

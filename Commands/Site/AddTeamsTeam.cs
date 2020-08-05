@@ -1,9 +1,9 @@
 ﻿#if !ONPREMISES
 using OfficeDevPnP.Core.Sites;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.CmdletHelpAttributes;
 using System.Management.Automation;
 
-namespace SharePointPnP.PowerShell.Commands.Site
+namespace PnP.PowerShell.Commands.Site
 {
     [Cmdlet(VerbsCommon.Add, "PnPTeamsTeam")]
     [CmdletHelp("Adds a Teams team to an existing, group connected, site collection",

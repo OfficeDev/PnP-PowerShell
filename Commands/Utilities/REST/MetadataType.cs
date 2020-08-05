@@ -1,11 +1,11 @@
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
-namespace SharePointPnP.PowerShell.Commands.Utilities.REST
+namespace PnP.PowerShell.Commands.Utilities.REST
 {
     public class MetadataType
     {
-        [JsonProperty("type")]
-        public string _typename;
+        [JsonPropertyName("type")]
+        public string _typename { get; set; }
 
         public MetadataType(string typename)
         {

@@ -6,14 +6,14 @@ using OfficeDevPnP.Core.Framework.Provisioning.Connectors;
 using OfficeDevPnP.Core.Framework.Provisioning.Model;
 using OfficeDevPnP.Core.Framework.Provisioning.ObjectHandlers;
 using OfficeDevPnP.Core.Framework.Provisioning.Providers;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.CmdletHelpAttributes;
 using OfficeDevPnP.Core.Framework.Provisioning.Providers.Xml;
 using File = System.IO.File;
-using Resources = SharePointPnP.PowerShell.Commands.Properties.Resources;
-using SharePointPnP.PowerShell.Commands.Utilities;
+using Resources = PnP.PowerShell.Commands.Properties.Resources;
+using PnP.PowerShell.Commands.Utilities;
 using System.Collections.Generic;
 
-namespace SharePointPnP.PowerShell.Commands.Provisioning.Site
+namespace PnP.PowerShell.Commands.Provisioning.Site
 {
     [Cmdlet(VerbsData.Export, "PnPListToProvisioningTemplate", SupportsShouldProcess = true)]
     [CmdletHelp("Exports one or more lists to provisioning template",
@@ -177,7 +177,7 @@ namespace SharePointPnP.PowerShell.Commands.Provisioning.Site
 
                 if (extension == ".pnp")
                 {
-#if !NETSTANDARD2_1
+#if !PNPPSCORE
                     IsolatedStorage.InitializeIsolatedStorage();
 #endif
                     XMLTemplateProvider provider = new XMLOpenXMLTemplateProvider(

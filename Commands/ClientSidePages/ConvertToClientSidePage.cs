@@ -1,10 +1,10 @@
-﻿#if !ONPREMISES && !NETSTANDARD2_1
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
+﻿#if !ONPREMISES && !PNPPSCORE
+using PnP.PowerShell.CmdletHelpAttributes;
 using System;
 using System.Management.Automation;
-using SharePointPnP.PowerShell.Commands.Base.PipeBinds;
+using PnP.PowerShell.Commands.Base.PipeBinds;
 using SharePointPnP.Modernization.Framework.Transform;
-using SharePointPnP.PowerShell.Commands.Utilities;
+using PnP.PowerShell.Commands.Utilities;
 using System.Reflection;
 using SharePointPnP.Modernization.Framework.Cache;
 using Microsoft.SharePoint.Client;
@@ -13,10 +13,10 @@ using SharePointPnP.Modernization.Framework;
 using System.IO;
 using SharePointPnP.Modernization.Framework.Telemetry.Observers;
 using SharePointPnP.Modernization.Framework.Publishing;
-using SharePointPnP.PowerShell.Commands.Base;
+using PnP.PowerShell.Commands.Base;
 using SharePointPnP.Modernization.Framework.Delve;
 
-namespace SharePointPnP.PowerShell.Commands.ClientSidePages
+namespace PnP.PowerShell.Commands.ClientSidePages
 {
 
     [Cmdlet(VerbsData.ConvertTo, "PnPClientSidePage")]

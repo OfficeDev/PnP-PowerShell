@@ -7,14 +7,14 @@ using System.Management.Automation.Provider;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using Microsoft.SharePoint.Client;
-using SharePointPnP.PowerShell.Commands.Base;
-using SharePointPnP.PowerShell.Commands.Extensions;
-using SharePointPnP.PowerShell.Commands.Provider.Parameters;
-using SharePointPnP.PowerShell.Commands.Provider.SPOProxy;
+using PnP.PowerShell.Commands.Base;
+using PnP.PowerShell.Commands.Extensions;
+using PnP.PowerShell.Commands.Provider.Parameters;
+using PnP.PowerShell.Commands.Provider.SPOProxy;
 using File = Microsoft.SharePoint.Client.File;
-using PnPResources = SharePointPnP.PowerShell.Commands.Properties.Resources;
+using PnPResources = PnP.PowerShell.Commands.Properties.Resources;
 
-namespace SharePointPnP.PowerShell.Commands.Provider
+namespace PnP.PowerShell.Commands.Provider
 {
     [CmdletProvider(PSProviderName, ProviderCapabilities.ShouldProcess)]
     public class SPOProvider : NavigationCmdletProvider, IContentCmdletProvider
@@ -537,7 +537,7 @@ namespace SharePointPnP.PowerShell.Commands.Provider
                 if (ShouldProcess($"Clear content from {GetServerRelativePath(path)}"))
                 {
                     var file = obj as File;
-#if NETSTANDARD2_1
+#if PNPPSCORE
                     file.SaveBinary(new FileSaveBinaryInformation());
 #else
                     File.SaveBinaryDirect(file.Context as ClientContext, file.ServerRelativeUrl, Stream.Null, true);

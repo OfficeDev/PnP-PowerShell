@@ -5,9 +5,9 @@ using System.Management.Automation;
 using System.Web;
 using Microsoft.SharePoint.Client;
 using Microsoft.SharePoint.Client.Search.Administration;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.CmdletHelpAttributes;
 
-namespace SharePointPnP.PowerShell.Commands.Search
+namespace PnP.PowerShell.Commands.Search
 {
     public enum LogLevel
     {

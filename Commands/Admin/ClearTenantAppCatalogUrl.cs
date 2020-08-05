@@ -1,10 +1,10 @@
 ﻿#if !ONPREMISES
 using System.Management.Automation;
 using Microsoft.SharePoint.Client;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
-using SharePointPnP.PowerShell.Commands.Base;
+using PnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.Commands.Base;
 
-namespace SharePointPnP.PowerShell.Commands
+namespace PnP.PowerShell.Commands
 {
     [Cmdlet(VerbsCommon.Clear, "PnPTenantAppCatalogUrl", SupportsShouldProcess = true)]
     [CmdletHelp(@"Removes the url of the tenant scoped app catalog. It will not delete the site collection itself.",

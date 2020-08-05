@@ -1,10 +1,10 @@
 ﻿using System.Management.Automation;
 using Microsoft.SharePoint.Client;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
-using Resources = SharePointPnP.PowerShell.Commands.Properties.Resources;
+using PnP.PowerShell.CmdletHelpAttributes;
+using Resources = PnP.PowerShell.Commands.Properties.Resources;
 using OfficeDevPnP.Core.Utilities;
 
-namespace SharePointPnP.PowerShell.Commands.Files
+namespace PnP.PowerShell.Commands.Files
 {
     [Cmdlet(VerbsCommon.Rename, "PnPFile", SupportsShouldProcess = true)]
     [CmdletHelp("Renames a file in its current location",

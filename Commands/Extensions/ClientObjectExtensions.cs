@@ -4,7 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace SharePointPnP.PowerShell.Commands.Extensions
+namespace PnP.PowerShell.Commands.Extensions
 {
     //TODO: Should this be in core?
     public static class ClientObjectExtensions

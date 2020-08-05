@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Management.Automation;
 using Microsoft.SharePoint.Client;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
-using SharePointPnP.PowerShell.Commands.Enums;
+using PnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.Commands.Enums;
 
-namespace SharePointPnP.PowerShell.Commands.Branding
+namespace PnP.PowerShell.Commands.Branding
 {
     [Cmdlet(VerbsCommon.Add, "PnPJavaScriptBlock")]
     [CmdletHelp("Adds a link to a JavaScript snippet/block to a web or site collection",

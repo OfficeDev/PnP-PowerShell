@@ -1,15 +1,15 @@
 ﻿using System.Management.Automation;
 using Microsoft.SharePoint.Client;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
-using Resources = SharePointPnP.PowerShell.Commands.Properties.Resources;
+using PnP.PowerShell.CmdletHelpAttributes;
+using Resources = PnP.PowerShell.Commands.Properties.Resources;
 using OfficeDevPnP.Core.Utilities;
 
-namespace SharePointPnP.PowerShell.Commands.Files
+namespace PnP.PowerShell.Commands.Files
 {
-    [Cmdlet(VerbsCommon.Move, "PnPFile", SupportsShouldProcess = true)]
-    [CmdletHelp("Moves a file to a different location",
+    [Cmdlet(VerbsCommon.Move, "PnPFile", SupportsShouldProcess = true, DefaultParameterSetName = ParameterSet_SITE)]
+    [CmdletHelp("Moves a file or folder to a different location",
 #if !ONPREMISES
-        DetailedDescription = "Allows moving a file to a different location inside the same document library, such as in a subfolder, to a different document library on the same site collection or to a document library on another site collection",
+        DetailedDescription = "Allows moving a file or folder to a different location inside the same document library, such as in a subfolder, to a different document library on the same site collection or to a document library on another site collection",
 #else
         DetailedDescription = "Allows moving a file to a different location inside the same document library, such as in a subfolder or to a different document library on the same site collection. It is not possible to move files between site collections.",
 #endif
@@ -27,6 +27,10 @@ namespace SharePointPnP.PowerShell.Commands.Files
         Remarks = @"Moves a file named Document.docx located in the document library named ""Shared Documents"" in the current site to the document library named ""Shared Documents"" in another site collection ""otherproject"" allowing it to overwrite an existing file Document.docx in the destination, allowing the fields to be different on the destination document library from the source document library and allowing a lower document version limit on the destination compared to the source.",
         Code = @"PS:>Move-PnPFile -ServerRelativeUrl ""/sites/project/Shared Documents/Document.docx"" -TargetServerRelativeLibrary ""/sites/otherproject/Shared Documents"" -OverwriteIfAlreadyExists -AllowSchemaMismatch -AllowSmallerVersionLimitOnDestination",
         SortOrder = 3)]
+    [CmdletExample(
+        Remarks = @"Moves a folder named Archive located in the document library named ""Shared Documents"" in the current site to the document library named ""Project"" in another site collection ""archive"" not allowing it to overwrite an existing folder named ""Archive"" in the destination, allowing the fields to be different on the destination document library from the source document library and allowing a lower document version limit on the destination compared to the source.",
+        Code = @"PS:>Move-PnPFile -ServerRelativeUrl ""/sites/project/Shared Documents/Archive"" -TargetServerRelativeLibrary ""/sites/archive/Project"" -AllowSchemaMismatch -AllowSmallerVersionLimitOnDestination",
+        SortOrder = 4)]
 #endif
 
     public class MoveFile : PnPWebCmdlet
@@ -39,29 +43,29 @@ namespace SharePointPnP.PowerShell.Commands.Files
 
         [Parameter(Mandatory = true, Position = 0, ValueFromPipeline = true, ParameterSetName = ParameterSet_SERVER, HelpMessage = "Server relative Url specifying the file to move. Must include the file name.")]
 #if !ONPREMISES
-        [Parameter(Mandatory = false, Position = 0, ValueFromPipeline = true, ParameterSetName = ParameterSet_OTHERSITE, HelpMessage = "Server relative Url specifying the file to move. Must include the file name.")]
+        [Parameter(Mandatory = false, Position = 0, ValueFromPipeline = true, ParameterSetName = ParameterSet_OTHERSITE, HelpMessage = "Server relative Url specifying the file or folder to move. Must include the file name if it regards a file or the folder name if it regards a folder.")]
 #endif
         public string ServerRelativeUrl = string.Empty;
 
-        [Parameter(Mandatory = true, Position = 0, ValueFromPipeline = true, ParameterSetName = ParameterSet_SITE, HelpMessage = "Site relative Url specifying the file to move. Must include the file name.")]
+        [Parameter(Mandatory = true, Position = 0, ValueFromPipeline = true, ParameterSetName = ParameterSet_SITE, HelpMessage = "Site relative Url specifying the file or folder to move. Must include the file or folder name.")]
 #if !ONPREMISES
-        [Parameter(Mandatory = false, Position = 0, ValueFromPipeline = true, ParameterSetName = ParameterSet_OTHERSITE, HelpMessage = "Site relative Url specifying the file to move. Must include the file name.")]
+        [Parameter(Mandatory = false, Position = 0, ValueFromPipeline = true, ParameterSetName = ParameterSet_OTHERSITE, HelpMessage = "Site relative Url specifying the file or folder to move. Must include the file or folder name.")]
 #endif
         public string SiteRelativeUrl = string.Empty;
 
-        [Parameter(Mandatory = true, ParameterSetName = ParameterSet_SITE, Position = 1, HelpMessage = "Server relative Url where to move the file to. Must include the file name.")]
-        [Parameter(Mandatory = true, ParameterSetName = ParameterSet_SERVER, Position = 1, HelpMessage = "Server relative Url where to move the file to. Must include the file name.")]
+        [Parameter(Mandatory = true, ParameterSetName = ParameterSet_SITE, Position = 1, HelpMessage = "Server relative Url where to move the file or folder to. Must include the file or folder name.")]
+        [Parameter(Mandatory = true, ParameterSetName = ParameterSet_SERVER, Position = 1, HelpMessage = "Server relative Url where to move the file or folder to. Must include the file or folder name.")]
         public string TargetUrl = string.Empty;
 
 #if !ONPREMISES
-        [Parameter(Mandatory = true, Position = 1, ParameterSetName = ParameterSet_OTHERSITE, HelpMessage = "Server relative url of a document library where to move the file to. Must not include the file name.")]
+        [Parameter(Mandatory = true, Position = 1, ParameterSetName = ParameterSet_OTHERSITE, HelpMessage = "Server relative url of a document library where to move the fileor folder to. Must not include the file or folder name.")]
         public string TargetServerRelativeLibrary = string.Empty;
 #endif
 
-        [Parameter(Mandatory = false, ParameterSetName = ParameterSet_SERVER, HelpMessage = "If provided, if a file already exists at the TargetUrl, it will be overwritten. If omitted, the move operation will be canceled if the file already exists at the TargetUrl location.")]
-        [Parameter(Mandatory = false, ParameterSetName = ParameterSet_SITE, HelpMessage = "If provided, if a file already exists at the TargetUrl, it will be overwritten. If omitted, the move operation will be canceled if the file already exists at the TargetUrl location.")]
+        [Parameter(Mandatory = false, ParameterSetName = ParameterSet_SERVER, HelpMessage = "If provided, if a file or folder already exists at the TargetUrl, it will be overwritten. If omitted, the move operation will be canceled if the file or folder already exists at the TargetUrl location.")]
+        [Parameter(Mandatory = false, ParameterSetName = ParameterSet_SITE, HelpMessage = "If provided, if a file or folder already exists at the TargetUrl, it will be overwritten. If omitted, the move operation will be canceled if the file or folder already exists at the TargetUrl location.")]
 #if !ONPREMISES
-        [Parameter(Mandatory = false, ParameterSetName = ParameterSet_OTHERSITE, HelpMessage = "If provided, if a file already exists at the TargetServerRelativeLibrary, it will be overwritten. If omitted, the move operation will be canceled if the file already exists at the TargetServerRelativeLibrary location.")]
+        [Parameter(Mandatory = false, ParameterSetName = ParameterSet_OTHERSITE, HelpMessage = "If provided, if a file or folder already exists at the TargetServerRelativeLibrary, it will be overwritten. If omitted, the move operation will be canceled if the file or folder already exists at the TargetServerRelativeLibrary location.")]
 #endif
         public SwitchParameter OverwriteIfAlreadyExists;
 

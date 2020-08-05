@@ -1,9 +1,9 @@
 ﻿using Microsoft.SharePoint.Client;
 using System.Management.Automation;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.CmdletHelpAttributes;
 using OfficeDevPnP.Core.Utilities;
 
-namespace SharePointPnP.PowerShell.Commands
+namespace PnP.PowerShell.Commands
 {
     [Cmdlet(VerbsCommon.Remove, "PnPPropertyBagValue", SupportsShouldProcess = true, ConfirmImpact = ConfirmImpact.High)]
     [CmdletHelp("Removes a value from the property bag",

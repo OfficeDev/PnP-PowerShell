@@ -1,14 +1,14 @@
 ﻿#if !ONPREMISES
 using OfficeDevPnP.Core.Utilities;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
-using SharePointPnP.PowerShell.Commands.Model;
+using PnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.Commands.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Management.Automation;
 using System.Net.Http;
 
-namespace SharePointPnP.PowerShell.Commands.Base
+namespace PnP.PowerShell.Commands.Base
 {
     [Cmdlet(VerbsLifecycle.Request, "PnPAccessToken")]
     [CmdletHelp("Requests an OAuth Access token",
@@ -39,7 +39,7 @@ namespace SharePointPnP.PowerShell.Commands.Base
     {
 
         [Parameter(Mandatory = false, HelpMessage = "The Azure Application Client Id to use to retrieve the token. Defaults to the PnP Office 365 Management Shell")]
-        public string ClientId = PnPConnection.DeviceLoginClientId; // defaults to PnPO365ManagementShell
+        public string ClientId = PnPConnection.PnPManagementShellClientId; // defaults to PnPManagementShell
 
         [Parameter(Mandatory = false, HelpMessage = "The scopes to retrieve the token for. Defaults to AllSites.FullControl")]
         public string Resource;

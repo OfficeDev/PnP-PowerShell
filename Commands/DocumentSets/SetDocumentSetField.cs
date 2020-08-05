@@ -2,10 +2,10 @@
 using System.Linq;
 using System.Management.Automation;
 using Microsoft.SharePoint.Client;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
-using SharePointPnP.PowerShell.Commands.Base.PipeBinds;
+using PnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.Commands.Base.PipeBinds;
 
-namespace SharePointPnP.PowerShell.Commands.DocumentSets
+namespace PnP.PowerShell.Commands.DocumentSets
 {
     [Cmdlet(VerbsCommon.Set, "PnPDocumentSetField")]
     [CmdletHelp("Sets a site column from the available content types to a document set", 

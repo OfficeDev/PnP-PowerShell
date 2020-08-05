@@ -11,7 +11,7 @@ using Microsoft.PowerShell.Commands;
 using Microsoft.SharePoint.Client;
 using File = System.IO.File;
 
-namespace SharePointPnP.PowerShell.Commands.Provider.SPOProxy
+namespace PnP.PowerShell.Commands.Provider.SPOProxy
 {
     internal class SPOProxyImplementation
     {

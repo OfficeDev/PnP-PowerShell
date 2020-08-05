@@ -1,13 +1,13 @@
 ﻿using System.Management.Automation;
 using Microsoft.SharePoint.Client;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
-using SharePointPnP.PowerShell.Commands.Base.PipeBinds;
+using PnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.Commands.Base.PipeBinds;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System;
-using SharePointPnP.PowerShell.Commands.Extensions;
+using PnP.PowerShell.Commands.Extensions;
 
-namespace SharePointPnP.PowerShell.Commands
+namespace PnP.PowerShell.Commands
 {
     [Cmdlet(VerbsCommon.Get, "PnPSubWebs")]
     [CmdletHelp("Returns the subwebs of the current web", 

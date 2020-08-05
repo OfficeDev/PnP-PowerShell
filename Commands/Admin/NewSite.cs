@@ -1,13 +1,13 @@
 ﻿#if !ONPREMISES
 using System.Management.Automation;
 using Microsoft.SharePoint.Client;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
-using SharePointPnP.PowerShell.Commands.Base.PipeBinds;
-using SharePointPnP.PowerShell.Commands.Enums;
+using PnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.Commands.Base.PipeBinds;
+using PnP.PowerShell.Commands.Enums;
 using System;
-using SharePointPnP.PowerShell.Commands.Base;
+using PnP.PowerShell.Commands.Base;
 
-namespace SharePointPnP.PowerShell.Commands
+namespace PnP.PowerShell.Commands
 {
     [Cmdlet(VerbsCommon.New, "PnPSite")]
     [CmdletHelp("Creates either a communication site or a Microsoft 365 group-connected team site",

@@ -1,13 +1,13 @@
 ﻿#if !ONPREMISES
 using Microsoft.Online.SharePoint.TenantAdministration;
 using Microsoft.SharePoint.Client;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
-using SharePointPnP.PowerShell.Commands.Base;
-using SharePointPnP.PowerShell.Commands.Base.PipeBinds;
+using PnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.Commands.Base;
+using PnP.PowerShell.Commands.Base.PipeBinds;
 using System;
 using System.Management.Automation;
 
-namespace SharePointPnP.PowerShell.Commands.Admin
+namespace PnP.PowerShell.Commands.Admin
 {
     [Cmdlet(VerbsSecurity.Revoke, "PnPHubSiteRights")]
     [CmdletHelp(@"Revoke permissions to the permissions already in place to associate sites to Hub Sites for one or more specific users",

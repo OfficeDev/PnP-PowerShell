@@ -1,12 +1,12 @@
 ﻿using Microsoft.SharePoint.Client;
 using OfficeDevPnP.Core.Utilities;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.CmdletHelpAttributes;
 using System;
 using System.IO;
 using System.Management.Automation;
 using File = Microsoft.SharePoint.Client.File;
 
-namespace SharePointPnP.PowerShell.Commands.Files
+namespace PnP.PowerShell.Commands.Files
 {
     [Cmdlet(VerbsCommon.Get, "PnPFile", DefaultParameterSetName = "Return as file object")]
     [CmdletHelp("Downloads a file.",

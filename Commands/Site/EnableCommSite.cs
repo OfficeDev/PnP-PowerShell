@@ -1,10 +1,10 @@
 ﻿#if !ONPREMISES
 using OfficeDevPnP.Core.Sites;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.CmdletHelpAttributes;
 using System;
 using System.Management.Automation;
 
-namespace SharePointPnP.PowerShell.Commands.Site
+namespace PnP.PowerShell.Commands.Site
 {
     [Cmdlet(VerbsLifecycle.Enable, "PnPCommSite")]
     [CmdletHelp("Enables the modern communication site experience on a classic team site.",

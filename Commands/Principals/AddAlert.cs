@@ -3,11 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Management.Automation;
 using Microsoft.SharePoint.Client;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
-using SharePointPnP.PowerShell.Commands.Base.PipeBinds;
-using SharePointPnP.PowerShell.Commands.Enums;
+using PnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.Commands.Base.PipeBinds;
+using PnP.PowerShell.Commands.Enums;
 
-namespace SharePointPnP.PowerShell.Commands.Principals
+namespace PnP.PowerShell.Commands.Principals
 {
     [Cmdlet(VerbsCommon.Add, "PnPAlert")]
     [CmdletHelp("Adds an alert for a user to a list",

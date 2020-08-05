@@ -1,10 +1,10 @@
 ﻿using System.Management.Automation;
+using System.Text.Json;
 using Microsoft.SharePoint.Client;
-using Newtonsoft.Json;
 using OfficeDevPnP.Core.Framework.Provisioning.Model;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.CmdletHelpAttributes;
 
-namespace SharePointPnP.PowerShell.Commands.Branding
+namespace PnP.PowerShell.Commands.Branding
 {
     [Cmdlet(VerbsCommon.Get, "PnPTheme")]
     [CmdletHelp("Returns the current theme/composed look of the current web.",
@@ -30,7 +30,7 @@ namespace SharePointPnP.PowerShell.Commands.Branding
                 try
                 {
                     WriteWarning("The information presented here is based upon the fact that the theme has been set using either the PnP Provisioning Engine or using the Set-PnPTheme cmdlet. This information is retrieved from a propertybag value and may differ from the actual site.");
-                    var composedLook = JsonConvert.DeserializeObject<ComposedLook>(SelectedWeb.GetPropertyBagValueString("_PnP_ProvisioningTemplateComposedLookInfo", ""));
+                    var composedLook = JsonSerializer.Deserialize<ComposedLook>(SelectedWeb.GetPropertyBagValueString("_PnP_ProvisioningTemplateComposedLookInfo", ""));
                     WriteObject(composedLook);
                 }
                 catch

@@ -3,11 +3,11 @@ using System;
 using System.Management.Automation;
 using Microsoft.Online.SharePoint.TenantAdministration;
 using Microsoft.SharePoint.Client;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
-using SharePointPnP.PowerShell.Commands.Base.PipeBinds;
-using SharePointPnP.PowerShell.Commands.Utilities;
+using PnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.Commands.Base.PipeBinds;
+using PnP.PowerShell.Commands.Utilities;
 
-namespace SharePointPnP.PowerShell.Commands.Branding
+namespace PnP.PowerShell.Commands.Branding
 {
     [Cmdlet(VerbsCommon.Set, "PnPWebTheme")]
     [CmdletHelp("Sets the theme of the current web.", DetailedDescription = "Sets the theme of the current web. * Requires Tenant Administration Rights *", Category = CmdletHelpCategory.Branding, SupportedPlatform = CmdletSupportedPlatform.Online)]

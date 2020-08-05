@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SharePointPnP.PowerShell.Commands.Model
+namespace PnP.PowerShell.Commands.Model
 {
     public class TenantServicePrincipalPermissionGrant
     {

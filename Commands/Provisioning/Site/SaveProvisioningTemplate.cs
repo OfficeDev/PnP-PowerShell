@@ -2,9 +2,9 @@
 using OfficeDevPnP.Core.Framework.Provisioning.Model;
 using OfficeDevPnP.Core.Framework.Provisioning.Providers;
 using OfficeDevPnP.Core.Framework.Provisioning.Providers.Xml;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
-using SharePointPnP.PowerShell.Commands.Base.PipeBinds;
-using SharePointPnP.PowerShell.Commands.Utilities;
+using PnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.Commands.Base.PipeBinds;
+using PnP.PowerShell.Commands.Utilities;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -13,7 +13,7 @@ using System.Management.Automation;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SharePointPnP.PowerShell.Commands.Provisioning
+namespace PnP.PowerShell.Commands.Provisioning
 {
     [Cmdlet(VerbsData.Save, "PnPProvisioningTemplate")]
     [CmdletHelp("Saves a PnP site template to the file system",
@@ -106,7 +106,7 @@ PS:> Save-PnPProvisioningTemplate -Template $template -Out .\template.pnp -Schem
 
             if (extension == ".pnp")
             {
-#if !NETSTANDARD2_1
+#if !PNPPSCORE
                 IsolatedStorage.InitializeIsolatedStorage();
 #endif
                 XMLTemplateProvider provider = new XMLOpenXMLTemplateProvider(

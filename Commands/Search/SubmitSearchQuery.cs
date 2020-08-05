@@ -3,11 +3,11 @@ using System.Collections;
 using System.Management.Automation;
 using Microsoft.SharePoint.Client;
 using Microsoft.SharePoint.Client.Search.Query;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.CmdletHelpAttributes;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SharePointPnP.PowerShell.Commands.Search
+namespace PnP.PowerShell.Commands.Search
 {
     [Cmdlet(VerbsLifecycle.Submit, "PnPSearchQuery", DefaultParameterSetName = "Limit")]
     [Alias("Invoke-PnPSearchQuery")]

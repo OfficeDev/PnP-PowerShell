@@ -1,7 +1,7 @@
-﻿using SharePointPnP.PowerShell.Commands.Properties;
+﻿using PnP.PowerShell.Commands.Properties;
 using System;
 
-namespace SharePointPnP.PowerShell.Commands.Base
+namespace PnP.PowerShell.Commands.Base
 {
     /// <summary>
     /// Base class for all the PnP Cmdlets which require a connection to have been made

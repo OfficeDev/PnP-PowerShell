@@ -1,4 +1,4 @@
-﻿namespace SharePointPnP.PowerShell.Commands.Enums
+﻿namespace PnP.PowerShell.Commands.Enums
 {
     /// <summary>
     /// Defines the available scopes for a Provisioning Template definition

@@ -1,4 +1,4 @@
-﻿namespace SharePointPnP.PowerShell.Commands.Model
+﻿namespace PnP.PowerShell.Commands.Model
 {
     /// <summary>
     /// Name/value parameter of a recorded event in the Office 365 Management API

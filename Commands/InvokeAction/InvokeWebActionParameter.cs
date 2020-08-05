@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SharePointPnP.PowerShell.Commands.InvokeAction
+namespace PnP.PowerShell.Commands.InvokeAction
 {
     internal class InvokeActionParameter<T>
     {

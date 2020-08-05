@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace SharePointPnP.PowerShell.Commands.Model
+namespace PnP.PowerShell.Commands.Model
 {
     /// <summary>
     /// Contains the data of one recorded event in the Office 365 Management API

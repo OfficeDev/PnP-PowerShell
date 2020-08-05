@@ -1,4 +1,4 @@
-﻿namespace SharePointPnP.PowerShell.Commands.Model
+﻿namespace PnP.PowerShell.Commands.Model
 {
     public class ProvisionedSite
     {

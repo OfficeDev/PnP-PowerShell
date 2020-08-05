@@ -1,15 +1,15 @@
 ﻿using Microsoft.SharePoint.Client;
 using System.Collections.Generic;
 using System.Management.Automation;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
-using SharePointPnP.PowerShell.Commands.Base.PipeBinds;
+using PnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.Commands.Base.PipeBinds;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
-using SharePointPnP.PowerShell.Commands.Base;
-using SharePointPnP.PowerShell.Commands.Enums;
+using PnP.PowerShell.Commands.Base;
+using PnP.PowerShell.Commands.Enums;
 
-namespace SharePointPnP.PowerShell.Commands.Features
+namespace PnP.PowerShell.Commands.Features
 {
     [Cmdlet(VerbsCommon.Get, "PnPFeature")]
     [CmdletHelp("Returns all activated or a specific activated feature",

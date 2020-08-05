@@ -1,18 +1,18 @@
-﻿#if !ONPREMISES && !NETSTANDARD2_1
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
+﻿#if !ONPREMISES && !PNPPSCORE
+using PnP.PowerShell.CmdletHelpAttributes;
 using System;
 using System.Management.Automation;
-using SharePointPnP.PowerShell.Commands.Utilities;
+using PnP.PowerShell.Commands.Utilities;
 using System.Reflection;
 using Microsoft.SharePoint.Client;
 using System.IO;
 using SharePointPnP.Modernization.Framework.Publishing;
-using SharePointPnP.PowerShell.Commands.Base.PipeBinds;
+using PnP.PowerShell.Commands.Base.PipeBinds;
 using SharePointPnP.Modernization.Framework.Cache;
 using SharePointPnP.Modernization.Framework.Telemetry.Observers;
 using SharePointPnP.Modernization.Framework.Transform;
 
-namespace SharePointPnP.PowerShell.Commands.ClientSidePages
+namespace PnP.PowerShell.Commands.ClientSidePages
 {
     [Cmdlet(VerbsData.Export, "PnPClientSidePageMapping")]
     [CmdletHelp("Get's the built-in maping files or a custom mapping file for your publishing portal page layouts. These mapping files are used to tailor the page transformation experience.",

@@ -1,14 +1,15 @@
 ﻿#if !ONPREMISES
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
-using SharePointPnP.PowerShell.Commands.Base;
+using PnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.Commands.Base;
 using System.Collections.Generic;
 using System.Management.Automation;
 
-namespace SharePointPnP.PowerShell.Commands.Graph
+namespace PnP.PowerShell.Commands.Graph
 {
     [Cmdlet(VerbsCommon.Get, "PnPGraphSubscription", DefaultParameterSetName = ParameterSet_LIST)]
     [CmdletHelp("Gets subscriptions from Microsoft Graph. Requires the Azure Active Directory application permission 'Subscription.Read.All'.",
         Category = CmdletHelpCategory.Graph,
+        OutputTypeLink = "https://docs.microsoft.com/graph/api/subscription-get",
         SupportedPlatform = CmdletSupportedPlatform.Online)]
     [CmdletExample(
        Code = "PS:> Get-PnPGraphSubscription",
@@ -18,6 +19,7 @@ namespace SharePointPnP.PowerShell.Commands.Graph
        Code = "PS:> Get-PnPGraphSubscription -Identity 328c7693-5524-44ac-a946-73e02d6b0f98",
        Remarks = "Retrieves the subscription from Microsoft Graph with the id 328c7693-5524-44ac-a946-73e02d6b0f98",
        SortOrder = 2)]
+    // Deliberately omitting the CmdletMicrosoftGraphApiPermission attribute as permissions vary largely by the subscription type being used
     public class GetGraphSubscription : PnPGraphCmdlet
     {
         const string ParameterSet_BYID = "Return by specific ID";

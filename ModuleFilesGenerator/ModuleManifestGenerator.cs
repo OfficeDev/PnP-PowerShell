@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SharePointPnP.PowerShell.ModuleFilesGenerator
+namespace PnP.PowerShell.ModuleFilesGenerator
 {
     internal class ModuleManifestGenerator
     {
@@ -68,11 +68,8 @@ namespace SharePointPnP.PowerShell.ModuleFilesGenerator
             }
 
             // Create Module Manifest
-#if !NETCOREAPP3_0
             var psd1Path = $"{new FileInfo(_assemblyPath).Directory}\\ModuleFiles\\SharePointPnPPowerShell{spVersion}.psd1";
-#else
-            var psd1Path = $"{new FileInfo(_assemblyPath).Directory}\\ModuleFiles\\SharePointPnPPowerShellCore.psd1";
-#endif
+
             var cmdletsToExportString = string.Join(",", _cmdlets.Select(c => "'" + c.FullCommand + "'"));
             string aliasesToExportString = null;
             if (aliasesToExport.Any())
@@ -86,41 +83,41 @@ namespace SharePointPnP.PowerShell.ModuleFilesGenerator
         {
 #if !NETCOREAPP3_0
             var manifest = $@"@{{
-    RootModule = 'SharePointPnP.PowerShell.{spVersion}.Commands.dll'
+    RootModule = 'PnP.PowerShell.{spVersion}.Commands.dll'
     ModuleVersion = '{_assemblyVersion}'
-    Description = 'SharePoint Patterns and Practices PowerShell Cmdlets for SharePoint {spVersion}'
+    Description = 'Microsoft 365 Patterns and Practices PowerShell Cmdlets for SharePoint {spVersion}'
     GUID = '8f1147be-a8e4-4bd2-a705-841d5334edc0'
-    Author = 'SharePoint Patterns and Practices'
-    CompanyName = 'SharePoint Patterns and Practices'
+    Author = 'Microsoft 365 Patterns and Practices'
+    CompanyName = 'Microsoft 365 Patterns and Practices'
     DotNetFrameworkVersion = '4.6.1'
     ProcessorArchitecture = 'None'
     FunctionsToExport = '*'
     CmdletsToExport = {cmdletsToExport}
     VariablesToExport = '*'
     AliasesToExport = '*'
-    FormatsToProcess = 'SharePointPnP.PowerShell.{spVersion}.Commands.Format.ps1xml' 
+    FormatsToProcess = 'PnP.PowerShell.{spVersion}.Commands.Format.ps1xml' 
     PrivateData = @{{
         PSData = @{{
             ProjectUri = 'https://aka.ms/sppnp'
-            IconUri = 'https://raw.githubusercontent.com/pnp/media/master/optimized/pnp-projects/blue/png/pnp-powershell-300.png'
+            IconUri = 'https://github.com/pnp/media/blob/19f8d40f400f9f0d766a8efd69496d8f536b853f/parker/ms/300w/parker-ms-300.png'
         }}
     }}
 }}";
 #else
             var manifest = $@"@{{
-    RootModule = 'SharePointPnP.PowerShell.Core.dll'
+    RootModule = 'PnP.PowerShell.Core.dll'
     ModuleVersion = '{_assemblyVersion}'
-    Description = 'SharePoint Patterns and Practices PowerShell Cmdlets for SharePoint Online'
+    Description = 'Microsoft 365 Patterns and Practices PowerShell Cmdlets for SharePoint Online'
     GUID = '0b0430ce-d799-4f3b-a565-f0dca1f31e17'
-    Author = 'SharePoint Patterns and Practices'
-    CompanyName = 'SharePoint Patterns and Practices'
-    PowerShellVersion = '5.0'
+    Author = 'Microsoft 365 Patterns and Practices'
+    CompanyName = 'Microsoft 365 Patterns and Practices'
+    PowerShellVersion = '6.0'
     ProcessorArchitecture = 'None'
     FunctionsToExport = '*'
     CmdletsToExport = {cmdletsToExport}
     VariablesToExport = '*'
     AliasesToExport = '*'
-    FormatsToProcess = 'SharePointPnP.PowerShell.{spVersion}.Format.ps1xml' 
+    FormatsToProcess = 'PnP.PowerShell.{spVersion}.Format.ps1xml' 
     PrivateData = @{{
         PSData = @{{
             ProjectUri = 'https://aka.ms/sppnp'

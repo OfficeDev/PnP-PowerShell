@@ -1,13 +1,13 @@
 ﻿using System.Management.Automation;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.CmdletHelpAttributes;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Security;
 using System.Security.Cryptography.X509Certificates;
-using SharePointPnP.PowerShell.Commands.Utilities;
+using PnP.PowerShell.Commands.Utilities;
 
-namespace SharePointPnP.PowerShell.Commands.Base
+namespace PnP.PowerShell.Commands.Base
 {
     [Cmdlet(VerbsCommon.New, "PnPAzureCertificate")]
     [CmdletHelp(@"Generate a new 2048bit self-signed certificate and manifest settings for use when using CSOM via an app-only ADAL application.

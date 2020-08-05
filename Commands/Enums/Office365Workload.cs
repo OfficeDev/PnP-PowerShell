@@ -1,4 +1,4 @@
-﻿namespace SharePointPnP.PowerShell.Commands.Enums
+﻿namespace PnP.PowerShell.Commands.Enums
 {
     /// <summary>
     /// The types of workloads available within Office 365

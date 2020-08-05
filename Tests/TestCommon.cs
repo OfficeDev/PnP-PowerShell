@@ -5,9 +5,9 @@ using System.Security;
 using System.Net;
 using Core = OfficeDevPnP.Core;
 using System.Threading;
-using SharePointPnP.PowerShell.Commands.Base;
+using PnP.PowerShell.Commands.Base;
 
-namespace SharePointPnP.PowerShell.Tests
+namespace PnP.PowerShell.Tests
 {
     static class TestCommon
     {

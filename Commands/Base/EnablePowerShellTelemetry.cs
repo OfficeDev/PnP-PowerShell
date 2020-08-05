@@ -1,8 +1,8 @@
-﻿using SharePointPnP.PowerShell.CmdletHelpAttributes;
+﻿using PnP.PowerShell.CmdletHelpAttributes;
 using System;
 using System.Management.Automation;
 
-namespace SharePointPnP.PowerShell.Commands.Base
+namespace PnP.PowerShell.Commands.Base
 {
     [Cmdlet(VerbsLifecycle.Enable, "PnPPowerShellTelemetry")]
     [CmdletHelp("Enables PnP PowerShell telemetry tracking.",

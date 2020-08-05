@@ -2,10 +2,10 @@
 using System.Linq;
 using System.Management.Automation;
 using Microsoft.SharePoint.Client;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
-using SharePointPnP.PowerShell.Commands.Base.PipeBinds;
+using PnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.Commands.Base.PipeBinds;
 
-namespace SharePointPnP.PowerShell.Commands.Lists
+namespace PnP.PowerShell.Commands.Lists
 {
     //TODO: Create Test
     [Cmdlet(VerbsCommon.Set, "PnPListPermission")]

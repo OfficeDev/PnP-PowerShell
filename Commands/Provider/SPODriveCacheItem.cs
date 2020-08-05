@@ -1,6 +1,6 @@
 using System;
 
-namespace SharePointPnP.PowerShell.Commands.Provider
+namespace PnP.PowerShell.Commands.Provider
 {
     internal class SPODriveCacheItem
     {

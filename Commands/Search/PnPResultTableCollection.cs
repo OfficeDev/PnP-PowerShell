@@ -5,7 +5,7 @@ using Microsoft.Office.Server.Search.WebControls;
 using Microsoft.SharePoint.Client;
 using Microsoft.SharePoint.Client.Search.Query;
 
-namespace SharePointPnP.PowerShell.Commands.Search
+namespace PnP.PowerShell.Commands.Search
 {
 
     public class PnPResultTableCollection : ClientValueObjectCollection<PnPResultTable>

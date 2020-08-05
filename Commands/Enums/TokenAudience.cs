@@ -1,4 +1,4 @@
-﻿namespace SharePointPnP.PowerShell.Commands.Enums
+﻿namespace PnP.PowerShell.Commands.Enums
 {
     /// <summary>
     /// Defines the commonly used audiences in oAuth tokens to connect to APIs

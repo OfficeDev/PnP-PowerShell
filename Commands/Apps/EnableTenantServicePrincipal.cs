@@ -1,11 +1,11 @@
 ﻿#if !ONPREMISES
 using Microsoft.Online.SharePoint.TenantAdministration.Internal;
 using Microsoft.SharePoint.Client;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
-using SharePointPnP.PowerShell.Commands.Base;
+using PnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.Commands.Base;
 using System.Management.Automation;
 
-namespace SharePointPnP.PowerShell.Commands.Apps
+namespace PnP.PowerShell.Commands.Apps
 {
     [Cmdlet(VerbsLifecycle.Enable, "PnPTenantServicePrincipal", ConfirmImpact = ConfirmImpact.High)]
     [CmdletHelp(@"Enables the current tenant's ""SharePoint Online Client"" service principal.",

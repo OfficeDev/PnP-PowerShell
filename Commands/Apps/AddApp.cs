@@ -1,11 +1,11 @@
 ﻿#if !SP2013 && !SP2016
 using OfficeDevPnP.Core.ALM;
 using OfficeDevPnP.Core.Enums;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
-using SharePointPnP.PowerShell.Commands.Enums;
+using PnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.Commands.Enums;
 using System.Management.Automation;
 
-namespace SharePointPnP.PowerShell.Commands.Apps
+namespace PnP.PowerShell.Commands.Apps
 {
     [Cmdlet(VerbsCommon.Add, "PnPApp")]
     [CmdletHelp("Add/uploads an available app to the app catalog",

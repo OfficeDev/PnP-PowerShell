@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data;
 
-namespace SharePointPnP.PowerShell.Commands.InvokeAction
+namespace PnP.PowerShell.Commands.InvokeAction
 {
     public class InvokeWebActionResult
     {

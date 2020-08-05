@@ -4,12 +4,12 @@ using System.Linq;
 using System.Management.Automation;
 using System.Reflection;
 using System.Runtime.Serialization;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
-using SharePointPnP.PowerShell.ModuleFilesGenerator.Model;
-using CmdletInfo = SharePointPnP.PowerShell.ModuleFilesGenerator.Model.CmdletInfo;
+using PnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.ModuleFilesGenerator.Model;
+using CmdletInfo = PnP.PowerShell.ModuleFilesGenerator.Model.CmdletInfo;
 using System.ComponentModel;
 
-namespace SharePointPnP.PowerShell.ModuleFilesGenerator
+namespace PnP.PowerShell.ModuleFilesGenerator
 {
     internal class CmdletsAnalyzer
     {

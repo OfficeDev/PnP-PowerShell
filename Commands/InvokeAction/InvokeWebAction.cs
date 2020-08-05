@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Management.Automation;
-using SharePointPnP.PowerShell.Commands.Extensions;
-using SharePointPnP.PowerShell.Commands.Base;
+using PnP.PowerShell.Commands.Extensions;
+using PnP.PowerShell.Commands.Base;
 
-namespace SharePointPnP.PowerShell.Commands.InvokeAction
+namespace PnP.PowerShell.Commands.InvokeAction
 {
 	internal class InvokeWebAction
 	{

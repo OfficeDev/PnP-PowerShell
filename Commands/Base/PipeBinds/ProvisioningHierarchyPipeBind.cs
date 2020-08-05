@@ -3,9 +3,9 @@ using System.IO;
 using OfficeDevPnP.Core.Framework.Provisioning.Connectors;
 using OfficeDevPnP.Core.Framework.Provisioning.Model;
 using OfficeDevPnP.Core.Framework.Provisioning.Providers.Xml;
-using SharePointPnP.PowerShell.Commands.Utilities;
+using PnP.PowerShell.Commands.Utilities;
 
-namespace SharePointPnP.PowerShell.Commands.Base.PipeBinds
+namespace PnP.PowerShell.Commands.Base.PipeBinds
 {
     public sealed class ProvisioningHierarchyPipeBind
     {

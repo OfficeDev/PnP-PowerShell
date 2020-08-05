@@ -4,7 +4,7 @@ using Microsoft.SharePoint.Client;
 using System;
 using System.Linq;
 
-namespace SharePointPnP.PowerShell.Commands.Base.PipeBinds
+namespace PnP.PowerShell.Commands.Base.PipeBinds
 {
     public sealed class TenantSiteDesignTaskPipeBind
     {

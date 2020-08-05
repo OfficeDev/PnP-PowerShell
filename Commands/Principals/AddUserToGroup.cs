@@ -1,20 +1,20 @@
 ﻿using System.Management.Automation;
 using Microsoft.SharePoint.Client;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
-using SharePointPnP.PowerShell.Commands.Base.PipeBinds;
+using PnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.Commands.Base.PipeBinds;
 
-namespace SharePointPnP.PowerShell.Commands.Principals
+namespace PnP.PowerShell.Commands.Principals
 {
     [Cmdlet(VerbsCommon.Add, "PnPUserToGroup")]
-    [CmdletHelp("Adds a user to a group", 
+    [CmdletHelp("Adds a user to a SharePoint group", 
         Category = CmdletHelpCategory.Principals)]
     [CmdletExample(
         Code = @"PS:> Add-PnPUserToGroup -LoginName user@company.com -Identity 'Marketing Site Members'",
-		Remarks = @"Add the specified user to the group ""Marketing Site Members""",
+		Remarks = @"Add the specified user to the SharePoint group ""Marketing Site Members""",
         SortOrder = 1)]
     [CmdletExample(
         Code = @"PS:> Add-PnPUserToGroup -LoginName user@company.com -Identity 5",
-        Remarks = "Add the specified user to the group with Id 5",
+        Remarks = "Add the specified user to the SharePoint group with Id 5",
         SortOrder = 2)]
     public class AddUserToGroup : PnPWebCmdlet
     {
@@ -22,9 +22,9 @@ namespace SharePointPnP.PowerShell.Commands.Principals
         [Parameter(Mandatory = true, HelpMessage = "The login name of the user", ParameterSetName = "Internal")]
         public string LoginName;
 
-        [Parameter(Mandatory = true, HelpMessage = "The group id, group name or group object to add the user to.", ValueFromPipeline = true, ParameterSetName = "Internal")]
+        [Parameter(Mandatory = true, HelpMessage = "The SharePoint group id, SharePoint group name or SharePoint group object to add the user to", ValueFromPipeline = true, ParameterSetName = "Internal")]
 #if !ONPREMISES
-        [Parameter(Mandatory = true, HelpMessage = "The group id, group name or group object to add the user to.", ValueFromPipeline = true, ParameterSetName = "External")]
+        [Parameter(Mandatory = true, HelpMessage = "The SharePoint group id, SharePoint group name or SharePoint group object to add the user to", ValueFromPipeline = true, ParameterSetName = "External")]
 #endif
         public GroupPipeBind Identity;
 

@@ -3,13 +3,13 @@ using System.IO;
 using System.Management.Automation;
 using Microsoft.SharePoint.Client;
 using OfficeDevPnP.Core.Utilities;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
-using SharePointPnP.PowerShell.Commands.Base.PipeBinds;
+using PnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.Commands.Base.PipeBinds;
 using System;
-using SharePointPnP.PowerShell.Commands.Utilities;
-using SharePointPnP.PowerShell.Commands.Enums;
+using PnP.PowerShell.Commands.Utilities;
+using PnP.PowerShell.Commands.Enums;
 
-namespace SharePointPnP.PowerShell.Commands.Files
+namespace PnP.PowerShell.Commands.Files
 {
     [Cmdlet(VerbsCommon.Add, "PnPFile")]
     [CmdletHelp("Uploads a file to Web",

@@ -1,11 +1,11 @@
 ﻿#if !ONPREMISES
 using OfficeDevPnP.Core.Enums;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
-using SharePointPnP.PowerShell.Commands.Base.PipeBinds;
+using PnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.Commands.Base.PipeBinds;
 using System;
 using System.Management.Automation;
 
-namespace SharePointPnP.PowerShell.Commands.Apps
+namespace PnP.PowerShell.Commands.Apps
 {
     [Cmdlet(VerbsData.Sync, "PnPAppToTeams")]
     [CmdletHelp("Synchronize an app from the tenant app catalog to the Microsoft Teams app catalog", SupportedPlatform = CmdletSupportedPlatform.Online,

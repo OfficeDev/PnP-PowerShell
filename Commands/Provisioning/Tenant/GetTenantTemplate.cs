@@ -6,16 +6,16 @@ using Microsoft.SharePoint.Client;
 using OfficeDevPnP.Core.Framework.Provisioning.Connectors;
 using OfficeDevPnP.Core.Framework.Provisioning.Model;
 using OfficeDevPnP.Core.Framework.Provisioning.ObjectHandlers;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.CmdletHelpAttributes;
 using OfficeDevPnP.Core.Framework.Provisioning.Providers.Xml;
 using File = System.IO.File;
-using Resources = SharePointPnP.PowerShell.Commands.Properties.Resources;
-using SharePointPnP.PowerShell.Commands.Base.PipeBinds;
+using Resources = PnP.PowerShell.Commands.Properties.Resources;
+using PnP.PowerShell.Commands.Base.PipeBinds;
 using OfficeDevPnP.Core.Framework.Provisioning.Model.Configuration;
-using SharePointPnP.PowerShell.Commands.Base;
+using PnP.PowerShell.Commands.Base;
 using System.Threading.Tasks;
 
-namespace SharePointPnP.PowerShell.Commands.Provisioning.Site
+namespace PnP.PowerShell.Commands.Provisioning.Site
 {
     [Cmdlet(VerbsCommon.Get, "PnPTenantTemplate", SupportsShouldProcess = true)]
     [CmdletHelp("Generates a provisioning tenant template from a site. If the site is a hubsite any connected site will be included.",

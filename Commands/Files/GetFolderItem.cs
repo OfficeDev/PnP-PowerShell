@@ -4,11 +4,11 @@ using System.Linq;
 using System.Management.Automation;
 using Microsoft.SharePoint.Client;
 using OfficeDevPnP.Core.Utilities;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
-using SharePointPnP.PowerShell.Commands.Base.PipeBinds;
+using PnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.Commands.Base.PipeBinds;
 using File = Microsoft.SharePoint.Client.File;
 
-namespace SharePointPnP.PowerShell.Commands.Files
+namespace PnP.PowerShell.Commands.Files
 {
     [Cmdlet(VerbsCommon.Get, "PnPFolderItem")]
     [CmdletHelp("List content in folder", Category = CmdletHelpCategory.Files, SupportedPlatform = CmdletSupportedPlatform.All)]

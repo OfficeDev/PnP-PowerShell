@@ -1,8 +1,8 @@
 ﻿using System.Management.Automation;
 using OfficeDevPnP.Core.Framework.Provisioning.Model;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.CmdletHelpAttributes;
 
-namespace SharePointPnP.PowerShell.Commands.Extensibility
+namespace PnP.PowerShell.Commands.Extensibility
 {
     [Cmdlet(VerbsCommon.New, "PnPExtensibilityHandlerObject")]
     [CmdletHelp("Creates an ExtensibilityHandler Object, to be used by the Get-PnPProvisioningTemplate cmdlet", 

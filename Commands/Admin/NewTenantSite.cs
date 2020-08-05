@@ -3,13 +3,13 @@ using OfficeDevPnP.Core;
 #if ONPREMISES
 using OfficeDevPnP.Core.Entities;
 #endif
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
-using SharePointPnP.PowerShell.Commands.Base;
+using PnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.Commands.Base;
 using System;
 using System.Management.Automation;
-using Resources = SharePointPnP.PowerShell.Commands.Properties.Resources;
+using Resources = PnP.PowerShell.Commands.Properties.Resources;
 
-namespace SharePointPnP.PowerShell.Commands
+namespace PnP.PowerShell.Commands
 {
     [Cmdlet(VerbsCommon.New, "PnPTenantSite")]
     [CmdletHelp("Creates a new (classic) site collection for the current tenant",

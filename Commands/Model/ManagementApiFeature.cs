@@ -1,16 +1,17 @@
-﻿using Newtonsoft.Json;
+﻿
+using System.Text.Json.Serialization;
 
-namespace SharePointPnP.PowerShell.Commands.Model
+namespace PnP.PowerShell.Commands.Model
 {
     /// <summary>
     /// Information regarding one Office 365 service feature
     /// </summary>
     public class ManagementApiFeature
     {
-        [JsonProperty("Name")]
+        [JsonPropertyName("Name")]
         public string Name { get; set; }
 
-        [JsonProperty("DisplayName")]
+        [JsonPropertyName("DisplayName")]
         public string DisplayName { get; set; }
     }
 }

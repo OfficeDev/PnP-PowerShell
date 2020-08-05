@@ -1,9 +1,9 @@
 ﻿#if !ONPREMISES
 using System.Management.Automation;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
-using SharePointPnP.PowerShell.Commands.Base;
+using PnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.Commands.Base;
 
-namespace SharePointPnP.PowerShell.Commands.ManagementApi
+namespace PnP.PowerShell.Commands.ManagementApi
 {
     [Cmdlet(VerbsCommon.Get, "PnPOfficeManagementApiAccessToken")]
     [CmdletHelp("Gets an access token for the Microsoft Office 365 Management API from the current connection",

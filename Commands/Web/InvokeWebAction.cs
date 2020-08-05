@@ -1,12 +1,12 @@
 ﻿using Microsoft.SharePoint.Client;
 using web = Microsoft.SharePoint.Client.Web;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
-using SharePointPnP.PowerShell.Commands.InvokeAction;
+using PnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.Commands.InvokeAction;
 using System;
 using System.Collections.Generic;
 using System.Management.Automation;
 
-namespace SharePointPnP.PowerShell.Commands
+namespace PnP.PowerShell.Commands
 {
     [Cmdlet(VerbsLifecycle.Invoke, "PnPWebAction", SupportsShouldProcess = true)]
     [CmdletHelp("Executes operations on web, lists and list items.",

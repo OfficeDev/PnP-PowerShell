@@ -2,14 +2,14 @@
 using OfficeDevPnP.Core.Framework.Provisioning.Model;
 using OfficeDevPnP.Core.Framework.Provisioning.Providers;
 using OfficeDevPnP.Core.Framework.Provisioning.Providers.Xml;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
-using SharePointPnP.PowerShell.Commands.Utilities;
+using PnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.Commands.Utilities;
 using System;
 using System.IO;
 using System.Management.Automation;
 using System.Text;
 
-namespace SharePointPnP.PowerShell.Commands.Provisioning
+namespace PnP.PowerShell.Commands.Provisioning
 {
     [Cmdlet(VerbsCommunications.Read, "PnPProvisioningTemplate")]
     [Alias("Load-PnPProvisioningTemplate")]

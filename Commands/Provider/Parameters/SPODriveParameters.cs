@@ -1,7 +1,7 @@
 using System.Management.Automation;
 using Microsoft.SharePoint.Client;
 
-namespace SharePointPnP.PowerShell.Commands.Provider.Parameters
+namespace PnP.PowerShell.Commands.Provider.Parameters
 {
     public class SPODriveParameters
     {

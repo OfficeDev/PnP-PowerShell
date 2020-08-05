@@ -2,11 +2,11 @@
 using System.Management.Automation;
 using System.Threading;
 using Microsoft.SharePoint.Client;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
-using SharePointPnP.PowerShell.Commands.Base;
-using Resources = SharePointPnP.PowerShell.Commands.Properties.Resources;
+using PnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.Commands.Base;
+using Resources = PnP.PowerShell.Commands.Properties.Resources;
 
-namespace SharePointPnP.PowerShell.Commands.RecycleBin
+namespace PnP.PowerShell.Commands.RecycleBin
 {
     [Cmdlet(VerbsData.Restore, "PnPTenantRecycleBinItem")]
     [CmdletHelp("Restores a site collection from the tenant scoped recycle bin",

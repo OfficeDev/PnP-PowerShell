@@ -3,11 +3,11 @@ using System.Management.Automation;
 using System.Threading;
 using Microsoft.SharePoint.Client;
 using OfficeDevPnP.Core.Utilities;
-using SharePointPnP.PowerShell.Commands.Base;
-using Resources = SharePointPnP.PowerShell.Commands.Properties.Resources;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.Commands.Base;
+using Resources = PnP.PowerShell.Commands.Properties.Resources;
+using PnP.PowerShell.CmdletHelpAttributes;
 
-namespace SharePointPnP.PowerShell.Commands
+namespace PnP.PowerShell.Commands
 {
     /// <summary>
     /// Base class for all the PnP SharePoint related cmdlets

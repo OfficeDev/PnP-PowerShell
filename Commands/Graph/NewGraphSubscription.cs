@@ -1,11 +1,11 @@
 ﻿#if !ONPREMISES
 using OfficeDevPnP.Core.Framework.Graph;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
-using SharePointPnP.PowerShell.Commands.Base;
+using PnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.Commands.Base;
 using System;
 using System.Management.Automation;
 
-namespace SharePointPnP.PowerShell.Commands.Graph
+namespace PnP.PowerShell.Commands.Graph
 {
     [Cmdlet(VerbsCommon.New, "PnPGraphSubscription")]
     [CmdletHelp("Creates a new Microsof Graph Subscription which allows your webhook API to be called when a change occurs in Microsoft Graph",
@@ -21,6 +21,7 @@ namespace SharePointPnP.PowerShell.Commands.Graph
        Code = "PS:> New-PnPGraphSubscription -ChangeType Updates -NotificationUrl https://mywebapiservice/notifications -Resource \"Users\" -ExpirationDateTime (Get-Date).AddHours(1) -ClientState [Guid]::NewGuid().ToString()",
        Remarks = "Creates a new Microsoft Graph subscription listening for changes to user objects during the next hour and will signal the URL provided through NotificationUrl when a change has been made",
        SortOrder = 2)]
+    // Deliberately omitting the CmdletMicrosoftGraphApiPermission attribute as permissions vary largely by the subscription type being used
     public class NewGraphSubscription : PnPGraphCmdlet
     {
         [Parameter(Mandatory = true, HelpMessage = "The event(s) the subscription should trigger on")]

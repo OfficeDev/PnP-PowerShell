@@ -1,15 +1,16 @@
 ﻿#if !ONPREMISES
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
-using SharePointPnP.PowerShell.Commands.Base;
+using PnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.Commands.Base;
 using System;
 using System.Collections.Generic;
 using System.Management.Automation;
 
-namespace SharePointPnP.PowerShell.Commands.Graph
+namespace PnP.PowerShell.Commands.Graph
 {
     [Cmdlet(VerbsCommon.Get, "PnPAADUser", DefaultParameterSetName = ParameterSet_LIST)]
-    [CmdletHelp("Gets users from Azure Active Directory. Requires the Azure Active Directory application permission 'User.Read.All'.",
+    [CmdletHelp("Retrieves users from Azure Active Directory",
         Category = CmdletHelpCategory.Graph,
+        OutputTypeLink = "https://docs.microsoft.com/graph/api/user-get",
         SupportedPlatform = CmdletSupportedPlatform.Online)]
     [CmdletExample(
        Code = "PS:> Get-PnPAADUser",
@@ -43,6 +44,7 @@ namespace SharePointPnP.PowerShell.Commands.Graph
        Code = "PS:> Get-PnPAADUser -Delta -DeltaToken abcdef",
        Remarks = "Retrieves all the users from Azure Active Directory which have had changes since the provided DeltaToken was given out",
        SortOrder = 8)]
+    [CmdletMicrosoftGraphApiPermission(MicrosoftGraphApiPermission.User_Read_All | MicrosoftGraphApiPermission.User_ReadWrite_All | MicrosoftGraphApiPermission.Directory_Read_All | MicrosoftGraphApiPermission.Directory_ReadWrite_All)]
     public class GetAADUser : PnPGraphCmdlet
     {
         const string ParameterSet_BYID = "Return by specific ID";

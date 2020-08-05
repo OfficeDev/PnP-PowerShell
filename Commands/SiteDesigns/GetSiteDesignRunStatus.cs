@@ -1,11 +1,11 @@
 ﻿#if !ONPREMISES
 using Microsoft.Online.SharePoint.TenantAdministration;
 using Microsoft.SharePoint.Client;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
-using SharePointPnP.PowerShell.Commands.Base;
+using PnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.Commands.Base;
 using System.Management.Automation;
 
-namespace SharePointPnP.PowerShell.Commands.SiteDesigns
+namespace PnP.PowerShell.Commands.SiteDesigns
 {
     [Cmdlet(VerbsCommon.Get, "PnPSiteDesignRunStatus", SupportsShouldProcess = true)]
     [CmdletHelp(@"Retrieves and displays a list of all site script actions executed for a specified site design applied to a site. ",

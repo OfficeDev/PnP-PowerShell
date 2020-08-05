@@ -1,18 +1,21 @@
-﻿#if !ONPREMISES && !NETSTANDARD2_1
-using Newtonsoft.Json;
+﻿#if !ONPREMISES && !PNPPSCORE
 using OfficeDevPnP.Core.Utilities;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
-using SharePointPnP.PowerShell.Commands.Model;
-using SharePointPnP.PowerShell.Commands.Utilities;
+using PnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.Commands.Model;
+using PnP.PowerShell.Commands.Utilities;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Management.Automation;
+using System.Management.Automation.Host;
 using System.Security;
+using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
+using System.Text.Json;
+using Resources = PnP.PowerShell.Commands.Properties.Resources;
 
-namespace SharePointPnP.PowerShell.Commands.Base
+namespace PnP.PowerShell.Commands.Base
 {
     [Cmdlet(VerbsData.Initialize, "PnPPowerShellAuthentication")]
     [CmdletHelp(@"Initializes a Azure AD App and optionally creates a new self-signed certificate to use with the application registration.",
@@ -23,9 +26,22 @@ namespace SharePointPnP.PowerShell.Commands.Base
     [CmdletAdditionalParameter(ParameterType = typeof(string[]), ParameterName = "Scopes", HelpMessage = "Specify which permissions scopes to request.", ParameterSetName = ParameterSet_EXISTINGCERT)]
 
     [CmdletExample(
-       Code = @"PS:> Initialize-PnPPowerShellAuthentication -ApplicationName TestApp -Tenant yourtenant.onmicrosoft.com -StoreLocation CurrentUser",
+       Code = @"PS:> Initialize-PnPPowerShellAuthentication -ApplicationName TestApp -Tenant yourtenant.onmicrosoft.com -Store CurrentUser",
        Remarks = "Creates a new Azure AD Application registration, creates a new self signed certificate, and adds it to the local certificate store. It will upload the certificate to the azure app registration and it will request the following permissions: Sites.FullControl.All, Group.ReadWrite.All, User.Read.All",
        SortOrder = 1)]
+    [CmdletExample(
+       Code = @"PS:> Initialize-PnPPowerShellAuthentication -ApplicationName TestApp -Tenant yourtenant.onmicrosoft.com -CertificatePath c:\certificate.pfx -CertificatePassword (ConvertTo-SecureString -String ""password"" -AsPlainText -Force)",
+       Remarks = "Creates a new Azure AD Application registration which will use the existing private key certificate at the provided path to allow access. It will upload the provided private key certificate to the azure app registration and it will request the following permissions: Sites.FullControl.All, Group.ReadWrite.All, User.Read.All",
+       SortOrder = 2)]
+    [CmdletExample(
+       Code = @"PS:> Initialize-PnPPowerShellAuthentication -ApplicationName TestApp -Tenant yourtenant.onmicrosoft.com -Store CurrentUser -Scopes ""MSGraph.User.Read.All"",""SPO.Sites.Read.All""",
+       Remarks = "Creates a new Azure AD Application registration, creates a new self signed certificate, and adds it to the local certificate store. It will upload the certificate to the azure app registration and it will request the following permissions: Sites.Read.All, User.Read.All",
+       SortOrder = 3)]
+    [CmdletExample(
+       Code = @"PS:> Initialize-PnPPowerShellAuthentication -ApplicationName TestApp -Tenant yourtenant.onmicrosoft.com -OutPath c:\ -CertificatePassword (ConvertTo-SecureString -String ""password"" -AsPlainText -Force)",
+       Remarks = @"Creates a new Azure AD Application registration, creates a new self signed certificate, and stores the public and private key certificates in c:\. The private key certificate will be locked with the password ""password"". It will upload the certificate to the azure app registration and it will request the following permissions: Sites.FullControl.All, Group.ReadWrite.All, User.Read.All",
+       SortOrder = 4)]
+
     public class InitializePowerShellAuthentication : BasePSCmdlet, IDynamicParameters
     {
         private const string ParameterSet_EXISTINGCERT = "Existing Certificate";
@@ -79,13 +95,39 @@ namespace SharePointPnP.PowerShell.Commands.Base
             var cert = new X509Certificate2();
             if (ParameterSetName == ParameterSet_EXISTINGCERT)
             {
+                // Ensure a file exists at the provided CertificatePath
+                if (!File.Exists(CertificatePath))
+                {
+                    throw new PSArgumentException(string.Format(Resources.CertificateNotFoundAtPath, CertificatePath), nameof(CertificatePath));
+                }
+
                 if (ParameterSpecified(nameof(CertificatePassword)))
                 {
-                    cert.Import(CertificatePath, CertificatePassword, X509KeyStorageFlags.Exportable);
+                    try
+                    { 
+                        cert.Import(CertificatePath, CertificatePassword, X509KeyStorageFlags.Exportable);
+                    }
+                    catch (CryptographicException e) when (e.Message.Contains("The specified network password is not correct"))
+                    {
+                        throw new PSArgumentNullException(nameof(CertificatePassword), string.Format(Resources.PrivateKeyCertificateImportFailedPasswordIncorrect, nameof(CertificatePassword)));
+                    }
                 }
                 else
                 {
-                    cert.Import(CertificatePath);
+                    try
+                    {
+                        cert.Import(CertificatePath);
+                    }
+                    catch(CryptographicException e) when (e.Message.Contains("The specified network password is not correct"))
+                    {
+                        throw new PSArgumentNullException(nameof(CertificatePassword), string.Format(Resources.PrivateKeyCertificateImportFailedPasswordMissing, nameof(CertificatePassword)));
+                    }
+                }
+
+                // Ensure the certificate at the provided CertificatePath holds a private key
+                if (!cert.HasPrivateKey)
+                {
+                    throw new PSArgumentException(string.Format(Resources.CertificateAtPathHasNoPrivateKey, CertificatePath), nameof(CertificatePath));
                 }
             }
             else
@@ -192,25 +234,41 @@ namespace SharePointPnP.PowerShell.Commands.Base
                     requiredResourceAccess = scopesPayload
                 };
                 var postResult = HttpHelper.MakePostRequestForString("https://graph.microsoft.com/beta/applications", payload, "application/json", token);
-                var azureApp = JsonConvert.DeserializeObject<AzureApp>(postResult);
+                var azureApp = JsonSerializer.Deserialize<AzureApp>(postResult);
                 record.Properties.Add(new PSVariableProperty(new PSVariable("AzureAppId", azureApp.AppId)));
 
                 var waitTime = 60;
                 Host.UI.Write(ConsoleColor.Yellow, Host.UI.RawUI.BackgroundColor, $"Waiting {waitTime} seconds to launch consent flow in a browser window. This wait is required to make sure that Azure AD is able to initialize all required artifacts.");
+                
+                Console.TreatControlCAsInput = true;
+               
                 for (var i = 0; i < waitTime; i++)
                 {
                     Host.UI.Write(ConsoleColor.Yellow, Host.UI.RawUI.BackgroundColor, ".");
                     System.Threading.Thread.Sleep(1000);
+
+                    // Check if CTRL+C has been pressed and if so, abort the wait
+                    if (Host.UI.RawUI.KeyAvailable)
+                    {
+                        var key = Host.UI.RawUI.ReadKey(ReadKeyOptions.AllowCtrlC | ReadKeyOptions.NoEcho | ReadKeyOptions.IncludeKeyUp);
+                        if((key.ControlKeyState.HasFlag(ControlKeyStates.LeftCtrlPressed) || key.ControlKeyState.HasFlag(ControlKeyStates.RightCtrlPressed)) && key.VirtualKeyCode == 67)
+                        {
+                            
+                            break;
+                        }
+                    }
                 }
                 Host.UI.WriteLine();
+
                 var consentUrl = $"https://login.microsoftonline.com/{Tenant}/v2.0/adminconsent?client_id={azureApp.AppId}&scope=https://microsoft.sharepoint-df.com/.default";
                 record.Properties.Add(new PSVariableProperty(new PSVariable("Certificate Thumbprint", cert.GetCertHashString())));
+
+                WriteObject(record);
 
                 AzureAuthHelper.OpenConsentFlow(consentUrl, (message) =>
                 {
                     Host.UI.WriteLine(ConsoleColor.Red, Host.UI.RawUI.BackgroundColor, message);
-                });
-                WriteObject(record);
+                });                
             }
         }
 

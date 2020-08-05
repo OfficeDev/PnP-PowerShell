@@ -1,14 +1,12 @@
 ﻿#if !ONPREMISES
 using Microsoft.Online.SharePoint.TenantAdministration;
 using Microsoft.SharePoint.Client;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
-using SharePointPnP.PowerShell.Commands.Base;
+using PnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.Commands.Base;
 using System.Management.Automation;
-using OfficeDevPnP.Core.Sites;
-using SharePointPnP.PowerShell.Commands.Base.PipeBinds;
-using System;
+using PnP.PowerShell.Commands.Base.PipeBinds;
 
-namespace SharePointPnP.PowerShell.Commands.Admin
+namespace PnP.PowerShell.Commands.Admin
 {
     [Cmdlet(VerbsCommon.Add, "PnPSiteCollectionAppCatalog")]
     [CmdletHelp("Adds a Site Collection scoped App Catalog to a site",
@@ -17,7 +15,8 @@ namespace SharePointPnP.PowerShell.Commands.Admin
     [CmdletExample(
         Code = @"PS:> Add-PnPSiteCollectionAppCatalog -Site ""https://contoso.sharepoint.com/sites/FinanceTeamsite""",
         Remarks = @"This will add a SiteCollection app catalog to the specified site", SortOrder = 1)]
-    public class AddSiteCollectionAppCatalog: PnPAdminCmdlet
+    [CmdletRelatedLink(Text = "Documentation", Url = "https://docs.microsoft.com/sharepoint/dev/general-development/site-collection-app-catalog#configure-and-manage-site-collection-app-catalogs")]
+    public class AddSiteCollectionAppCatalog : PnPAdminCmdlet
     {
         [Parameter(Mandatory = true, HelpMessage = @"Url of the site to add the app catalog to.")]
         public SitePipeBind Site;

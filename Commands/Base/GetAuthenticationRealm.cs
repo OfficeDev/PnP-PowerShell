@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Management.Automation;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.CmdletHelpAttributes;
 using System.Net;
 using Microsoft.SharePoint.Client;
 
-namespace SharePointPnP.PowerShell.Commands
+namespace PnP.PowerShell.Commands
 {
     [Cmdlet(VerbsCommon.Get, "PnPAuthenticationRealm")]
     [CmdletHelp("Returns the authentication realm", 

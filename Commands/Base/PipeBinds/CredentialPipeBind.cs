@@ -1,7 +1,7 @@
 ﻿using System.Management.Automation;
-using SharePointPnP.PowerShell.Commands.Utilities;
+using PnP.PowerShell.Commands.Utilities;
 
-namespace SharePointPnP.PowerShell.Commands.Base.PipeBinds
+namespace PnP.PowerShell.Commands.Base.PipeBinds
 {
     public sealed class CredentialPipeBind
     {

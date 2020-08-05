@@ -1,6 +1,6 @@
 ﻿#if !SP2013 && !SP2016
 
-namespace SharePointPnP.PowerShell.Commands.ClientSidePages
+namespace PnP.PowerShell.Commands.ClientSidePages
 {
     internal static class ClientSidePageUtilities
     {

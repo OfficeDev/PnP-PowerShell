@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using SharePointPnP.PowerShell.ModuleFilesGenerator.Model;
+using PnP.PowerShell.ModuleFilesGenerator.Model;
 
-namespace SharePointPnP.PowerShell.ModuleFilesGenerator
+namespace PnP.PowerShell.ModuleFilesGenerator
 {
     internal class ParameterComparer : IEqualityComparer<CmdletParameterInfo>
     {

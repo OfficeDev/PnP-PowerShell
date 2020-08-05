@@ -2,11 +2,11 @@
 using System.Management.Automation;
 using Microsoft.SharePoint.Client;
 using OfficeDevPnP.Core.Entities;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
-using SharePointPnP.PowerShell.Commands.Base.PipeBinds;
+using PnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.Commands.Base.PipeBinds;
 using System.Collections.Generic;
 
-namespace SharePointPnP.PowerShell.Commands.Fields
+namespace PnP.PowerShell.Commands.Fields
 {
     [Cmdlet(VerbsCommon.Add, "PnPField", DefaultParameterSetName = "Add field to list")]
     [CmdletHelp("Add a field",

@@ -3,7 +3,7 @@ using Microsoft.Online.SharePoint.TenantAdministration;
 using System;
 using System.Collections.Generic;
 
-namespace SharePointPnP.PowerShell.Commands.Model
+namespace PnP.PowerShell.Commands.Model
 {
     /// <summary>
     /// Returned properties for <see cref="GetPnPTenantSyncClientRestriction"/>

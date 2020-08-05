@@ -3,13 +3,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Management.Automation;
-using Newtonsoft.Json;
-using OfficeDevPnP.Core.Framework.Graph;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
-using SharePointPnP.PowerShell.Commands.Base;
-using SharePointPnP.PowerShell.Commands.Model;
+using PnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.Commands.Base;
+using PnP.PowerShell.Commands.Model;
+using PnP.PowerShell.Commands.Utilities.REST;
 
-namespace SharePointPnP.PowerShell.Commands.ManagementApi
+namespace PnP.PowerShell.Commands.ManagementApi
 {
     [Cmdlet(VerbsCommon.Get, "PnPUnifiedAuditLog")]
     [CmdletHelp(
@@ -67,9 +66,11 @@ namespace SharePointPnP.PowerShell.Commands.ManagementApi
         private IEnumerable<ManagementApiSubscription> GetSubscriptions()
         {
             var url = $"{ApiUrl}/subscriptions/list";
-            var res = GraphHttpClient.MakeGetRequestForString(url.ToString(), AccessToken);
-            var subscriptions = JsonConvert.DeserializeObject<IEnumerable<ManagementApiSubscription>>(res);
-            return subscriptions;
+            return GraphHelper.GetAsync<IEnumerable<ManagementApiSubscription>>(HttpClient, url, AccessToken).GetAwaiter().GetResult();
+
+            //var res = GraphHttpClient.MakeGetRequestForString(url.ToString(), AccessToken);
+            //var subscriptions = JsonConvert.DeserializeObject<IEnumerable<ManagementApiSubscription>>(res);
+            //return subscriptions;
         }
 
         private void EnsureSubscription(string contentType)
@@ -78,13 +79,18 @@ namespace SharePointPnP.PowerShell.Commands.ManagementApi
             var subscription = subscriptions.FirstOrDefault(s => s.ContentType == contentType);
             if (subscription == null)
             {
-                var url = $"{ApiUrl}/subscriptions/start?contentType={contentType}&PublisherIdentifier={Token.TenantId}";
-                var res = GraphHttpClient.MakePostRequestForString(url.ToString(), accessToken: AccessToken);
-                var response = JsonConvert.DeserializeObject<ManagementApiSubscription>(res);
-                if (response.Status != "enabled")
+                subscription = GraphHelper.PostAsync<ManagementApiSubscription>(HttpClient, $"{ApiUrl}/subscriptions/start?contentType={contentType}&PublisherIdentifier={Token.TenantId}", AccessToken).GetAwaiter().GetResult();
+                if (!subscription.Status.Equals("enabled", StringComparison.OrdinalIgnoreCase))
                 {
                     throw new Exception($"Cannot enable subscription for {contentType}");
                 }
+                //    var url = $"{ApiUrl}/subscriptions/start?contentType={contentType}&PublisherIdentifier={Token.TenantId}";
+                //var res = GraphHttpClient.MakePostRequestForString(url.ToString(), accessToken: AccessToken);
+                //var response = JsonConvert.DeserializeObject<ManagementApiSubscription>(res);
+                //if (response.Status != "enabled")
+                //{
+                //    throw new Exception($"Cannot enable subscription for {contentType}");
+                //}
             }
         }
 
@@ -101,6 +107,18 @@ namespace SharePointPnP.PowerShell.Commands.ManagementApi
             {
                 url += $"&endTime={EndTime:yyyy-MM-ddThh:mm:ss}";
             }
+            
+            var subscriptionContents = GraphHelper.GetAsync<IEnumerable<ManagementApiSubscriptionContent>>(HttpClient, url, AccessToken).GetAwaiter().GetResult();
+            if(subscriptionContents != null)
+            {
+                foreach(var content in subscriptionContents)
+                {
+                    var logs = GraphHelper.GetAsync<IEnumerable<ManagementApiUnifiedLogRecord>>(HttpClient, content.ContentUri, AccessToken,false).GetAwaiter().GetResult();
+                    WriteObject(logs, true);
+                }
+            }
+
+            /*
             var res = GraphHttpClient.MakeGetRequestForString(url.ToString(), AccessToken);
             if (!string.IsNullOrEmpty(res))
             {
@@ -112,6 +130,7 @@ namespace SharePointPnP.PowerShell.Commands.ManagementApi
                     WriteObject(logs, true);
                 }
             }
+            */
         }
     }
 }

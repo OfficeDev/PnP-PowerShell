@@ -3,14 +3,17 @@ using System.IO;
 using System.Management.Automation;
 using System.Reflection;
 
-namespace SharePointPnP.PowerShell.Commands.Base
+namespace PnP.PowerShell.Commands.Base
 {
     /// <summary>
     /// Base class for all the PnP Cmdlets
     /// </summary>
     public class BasePSCmdlet : PSCmdlet
     {
-        private Assembly newtonsoftAssembly;
+        private static Assembly newtonsoftAssembly;
+        private static Assembly systemBuffersAssembly;
+        private static Assembly systemRuntimeCompilerServicesUnsafeAssembly;
+        private static Assembly systemThreadingTasksExtensionsAssembly;
 
         protected override void BeginProcessing()
         {
@@ -32,19 +35,40 @@ namespace SharePointPnP.PowerShell.Commands.Base
 
         private void FixAssemblyResolving()
         {
-            var newtonsoftAssemblyByLocation = Path.Combine(AssemblyDirectoryFromLocation, "Newtonsoft.Json.dll");
-            if (File.Exists(newtonsoftAssemblyByLocation))
+            if (BasePSCmdlet.newtonsoftAssembly == null)
             {
-                // Local run, network run, etc.
-                newtonsoftAssembly = Assembly.LoadFrom(newtonsoftAssemblyByLocation);
+                newtonsoftAssembly = GetAssembly("Newtonsoft.Json.dll");
+            }
+            if (systemBuffersAssembly == null)
+            {
+                systemBuffersAssembly = GetAssembly("System.Buffers.dll");
+            }
+            if (systemRuntimeCompilerServicesUnsafeAssembly == null)
+            {
+                systemRuntimeCompilerServicesUnsafeAssembly = GetAssembly("System.Runtime.CompilerServices.Unsafe.dll");
+            }
+            if (systemThreadingTasksExtensionsAssembly == null)
+            {
+                systemThreadingTasksExtensionsAssembly = GetAssembly("System.Threading.Tasks.Extensions.dll");
+            }
+
+            AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
+        }
+
+        private Assembly GetAssembly(string assemblyName)
+        {
+            Assembly assembly = null;
+            var assemblyPath = Path.Combine(AssemblyDirectoryFromLocation, assemblyName);
+            if (File.Exists(assemblyPath))
+            {
+                assembly = Assembly.LoadFrom(assemblyPath);
             }
             else
             {
-                // Running from Azure Function
-                var newtonsoftAssemblyByCodeBase = Path.Combine(AssemblyDirectoryFromCodeBase, "Newtonsoft.Json.dll");
-                newtonsoftAssembly = Assembly.LoadFrom(newtonsoftAssemblyByCodeBase);
+                var codebasePath = Path.Combine(AssemblyDirectoryFromCodeBase, assemblyName);
+                assembly = Assembly.LoadFrom(codebasePath);
             }
-            AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
+            return assembly;
         }
 
         private string AssemblyDirectoryFromLocation
@@ -73,6 +97,18 @@ namespace SharePointPnP.PowerShell.Commands.Base
             if (args.Name.StartsWith("NewtonSoft.Json", StringComparison.InvariantCultureIgnoreCase))
             {
                 return newtonsoftAssembly;
+            }
+            if (args.Name.StartsWith("System.Buffers", StringComparison.InvariantCultureIgnoreCase))
+            {
+                return systemBuffersAssembly;
+            }
+            if (args.Name.StartsWith("System.Runtime.CompilerServices.Unsafe", StringComparison.InvariantCultureIgnoreCase))
+            {
+                return systemRuntimeCompilerServicesUnsafeAssembly;
+            }
+            if (args.Name.StartsWith("System.Threading.Tasks.Extensions", StringComparison.InvariantCultureIgnoreCase))
+            {
+                return systemThreadingTasksExtensionsAssembly;
             }
             foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
             {

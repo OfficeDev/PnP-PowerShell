@@ -151,7 +151,7 @@
     <value>No list found with id, title or url '{0}'</value>
   </data>
   <data name="NoSharePointConnection" xml:space="preserve">
-    <value>The current connection holds no SharePoint context. Please use one of the Connect-PnPOnline commands which uses the -Url argument but not -SPOManagementShell or -PnPO365ManagementShell to connect.</value>
+    <value>The current connection holds no SharePoint context. Please use one of the Connect-PnPOnline commands which uses the -Url argument to connect.</value>
   </data>
   <data name="NoConnectionToDisconnect" xml:space="preserve">
     <value>No connection to disconnect</value>
@@ -328,7 +328,7 @@
     <value>No URL specified nor does the provided access token contain an audience</value>
   </data>
   <data name="CertificateWithThumbprintNotFound" xml:space="preserve">
-    <value>No certificate with the thumbprint '{0}' has been found in the Windows certificate store</value>
+    <value>No certificate with the thumbprint '{0}' has been found in the Windows Certificate Store</value>
   </data>
   <data name="ClientCertificateInvalid" xml:space="preserve">
     <value>The client certificate is invalid</value>
@@ -338,5 +338,23 @@
   </data>
   <data name="ParameterSetNotImplemented" xml:space="preserve">
     <value>Parameter set {0} has not yet been implemented. Please create an issue for this on GitHub.</value>
+  </data>
+  <data name="WebhooksOnlySupportsLists" xml:space="preserve">
+    <value>This Cmdlet currently only supports List Webhooks</value>
+  </data>
+  <data name="CertificateAtPathHasNoPrivateKey" xml:space="preserve">
+    <value>The certificate located at '{0}' holds no private key. Ensure you provide the private key certificate, typically the .pfx file.</value>
+  </data>
+  <data name="CertificateNotFoundAtPath" xml:space="preserve">
+    <value>No private key certificate has been found at '{0}'</value>
+  </data>
+  <data name="PrivateKeyCertificateImportFailedPasswordIncorrect" xml:space="preserve">
+    <value>Reading of the private key certificate failed as the password with which it has been signed does not match the provided password. Use {0} to provide the proper password for the private key certificate file.</value>
+  </data>
+  <data name="PrivateKeyCertificateImportFailedPasswordMissing" xml:space="preserve">
+    <value>Reading of the private key certificate failed as the password with which it has been signed has not been provided. Use {0} to provide the password.</value>
+  </data>
+  <data name="CertificateWithThumbprintDoesNotHavePrivateKey" xml:space="preserve">
+    <value>The provided certificate with the thumbprint '{0}' does not have a private key which is required for a connection to be established. Ensure you have imported the certificate containing the private key, typically the .pfx file, into the Windows Certificate Store.</value>
   </data>
 </root>

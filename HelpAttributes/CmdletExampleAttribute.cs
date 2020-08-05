@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SharePointPnP.PowerShell.CmdletHelpAttributes
+namespace PnP.PowerShell.CmdletHelpAttributes
 {
     /// <summary>
     /// Add this attribute to a cmdlet class in order to provide examples in the documentation

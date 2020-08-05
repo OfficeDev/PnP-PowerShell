@@ -1,9 +1,9 @@
 ﻿#if !ONPREMISES
 using OfficeDevPnP.Core.Sites;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.CmdletHelpAttributes;
 using System.Management.Automation;
 
-namespace SharePointPnP.PowerShell.Commands.Site
+namespace PnP.PowerShell.Commands.Site
 {
     [Cmdlet(VerbsDiagnostic.Test, "PnPOffice365GroupAliasIsUsed")]
     [CmdletHelp("Tests if a given alias is already used used",

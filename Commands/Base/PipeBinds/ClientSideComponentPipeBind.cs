@@ -1,14 +1,14 @@
 ﻿#if !SP2013 && !SP2016
 using Microsoft.SharePoint.Client;
 using OfficeDevPnP.Core.Pages;
-using SharePointPnP.PowerShell.Commands.ClientSidePages;
+using PnP.PowerShell.Commands.ClientSidePages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SharePointPnP.PowerShell.Commands.Base.PipeBinds
+namespace PnP.PowerShell.Commands.Base.PipeBinds
 {
     public sealed class ClientSideComponentPipeBind
     {

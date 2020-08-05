@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace SharePointPnP.PowerShell.CmdletHelpAttributes
+namespace PnP.PowerShell.CmdletHelpAttributes
 {
     /// <summary>
     /// The available categories for cmdlet help categorization

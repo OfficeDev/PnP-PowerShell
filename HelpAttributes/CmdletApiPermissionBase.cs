@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SharePointPnP.PowerShell.CmdletHelpAttributes
+namespace PnP.PowerShell.CmdletHelpAttributes
 {
     /// <summary>
     /// Base attribute on a cmdlet class in order to provide the Api permission needed to execute the cmdlet

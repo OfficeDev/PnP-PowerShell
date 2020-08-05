@@ -1,12 +1,12 @@
-﻿#if !ONPREMISES && !NETSTANDARD2_1
+﻿#if !ONPREMISES && !PNPPSCORE
 using SharePointPnP.Modernization.Framework.Cache;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.CmdletHelpAttributes;
 using System;
 using System.IO;
 using System.Management.Automation;
 using System.Reflection;
 
-namespace SharePointPnP.PowerShell.Commands.ClientSidePages
+namespace PnP.PowerShell.Commands.ClientSidePages
 {
     [Cmdlet(VerbsData.Save, "PnPClientSidePageConversionLog")]
     [CmdletHelp("Persists the current client side page conversion log data to the loggers linked to the last used page transformation run. Needs to be used in conjunction with the -LogSkipFlush flag on the ConvertTo-PnPClientSidePage cmdlet",

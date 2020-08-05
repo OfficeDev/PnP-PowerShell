@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SharePointPnP.PowerShell.CmdletHelpAttributes
+namespace PnP.PowerShell.CmdletHelpAttributes
 {
     /// <summary>
     /// The list of supported platforms by these cmdlets.

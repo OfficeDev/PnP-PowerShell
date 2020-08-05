@@ -1,8 +1,8 @@
 ﻿using System.Management.Automation;
 using Microsoft.SharePoint.Client;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.CmdletHelpAttributes;
 
-namespace SharePointPnP.PowerShell.Commands.Publishing
+namespace PnP.PowerShell.Commands.Publishing
 {
     [Cmdlet(VerbsCommon.Add, "PnPPublishingImageRendition")]
     [CmdletHelp("Adds an Image Rendition if the Name of the Image Rendition does not already exist. This prevents creating two Image Renditions that share the same name.", Category = CmdletHelpCategory.Publishing)]

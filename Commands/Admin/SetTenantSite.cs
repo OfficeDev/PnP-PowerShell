@@ -2,8 +2,8 @@
 using System.Management.Automation;
 using Microsoft.Online.SharePoint.TenantManagement;
 using Microsoft.SharePoint.Client;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
-using SharePointPnP.PowerShell.Commands.Base;
+using PnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.Commands.Base;
 using System.Collections.Generic;
 using OfficeDevPnP.Core;
 using OfficeDevPnP.Core.Entities;
@@ -11,7 +11,7 @@ using Microsoft.Online.SharePoint.TenantAdministration;
 using System.Net;
 using System.Threading;
 
-namespace SharePointPnP.PowerShell.Commands
+namespace PnP.PowerShell.Commands
 {
     [Cmdlet(VerbsCommon.Set, "PnPTenantSite")]
     [CmdletHelp(@"Updates settings of a site collection",

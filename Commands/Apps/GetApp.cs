@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Management.Automation;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
-using SharePointPnP.PowerShell.Commands.Base.PipeBinds;
+using PnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.Commands.Base.PipeBinds;
 using OfficeDevPnP.Core.ALM;
 using System;
-using SharePointPnP.PowerShell.Commands.Enums;
+using PnP.PowerShell.Commands.Enums;
 using OfficeDevPnP.Core.Enums;
 using Microsoft.SharePoint.Client;
 
-namespace SharePointPnP.PowerShell.Commands.Apps
+namespace PnP.PowerShell.Commands.Apps
 {
     [Cmdlet(VerbsCommon.Get, "PnPApp")]
     [CmdletHelp("Returns the available apps from the app catalog",

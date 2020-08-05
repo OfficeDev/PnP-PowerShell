@@ -1,10 +1,10 @@
 ﻿#if !ONPREMISES
 using System.Management.Automation;
 using Microsoft.SharePoint.Client;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
-using SharePointPnP.PowerShell.Commands.Base.PipeBinds;
+using PnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.Commands.Base.PipeBinds;
 
-namespace SharePointPnP.PowerShell.Commands.RecordsManagement
+namespace PnP.PowerShell.Commands.RecordsManagement
 {
     [Cmdlet(VerbsDiagnostic.Test, "PnPListItemIsRecord")]
     [CmdletHelp("Checks if a list item is a record",

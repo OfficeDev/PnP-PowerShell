@@ -4,11 +4,11 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Management.Automation;
 using Microsoft.SharePoint.Client;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
-using SharePointPnP.PowerShell.Commands.Base;
-using SharePointPnP.PowerShell.Commands.Base.PipeBinds;
+using PnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.Commands.Base;
+using PnP.PowerShell.Commands.Base.PipeBinds;
 
-namespace SharePointPnP.PowerShell.Commands.Lists
+namespace PnP.PowerShell.Commands.Lists
 {
     [Cmdlet(VerbsCommon.Get, "PnPView")]
     [CmdletHelp("Returns one or all views from a list",

@@ -1,4 +1,4 @@
-﻿#if !NETSTANDARD2_1
+﻿#if !PNPPSCORE
 using Microsoft.Azure.ActiveDirectory.GraphClient;
 using Microsoft.Azure.ActiveDirectory.GraphClient.Internal;
 using Microsoft.Identity.Client;
@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Windows.Forms;
 
-namespace SharePointPnP.PowerShell.Commands.Utilities
+namespace PnP.PowerShell.Commands.Utilities
 {
     public static class AzureAuthHelper
     {

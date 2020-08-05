@@ -1,6 +1,6 @@
 ﻿using System.Management.Automation;
 
-namespace SharePointPnP.PowerShell.Commands.Provider.SPOProxy
+namespace PnP.PowerShell.Commands.Provider.SPOProxy
 {
     public abstract class SPOProxyCmdletBase : PSCmdlet
     {

@@ -1,11 +1,11 @@
 ﻿#if !SP2013 && !SP2016
 using OfficeDevPnP.Core.Pages;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
-using SharePointPnP.PowerShell.Commands.Base.PipeBinds;
+using PnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.Commands.Base.PipeBinds;
 using System;
 using System.Management.Automation;
 
-namespace SharePointPnP.PowerShell.Commands.WebParts
+namespace PnP.PowerShell.Commands.WebParts
 {
     [Cmdlet(VerbsCommon.Add, "PnPClientSideWebPart")]
     [CmdletHelp("Adds a Client-Side Web Part to a client-side page",

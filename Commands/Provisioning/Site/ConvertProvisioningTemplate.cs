@@ -1,12 +1,12 @@
 ﻿using System.IO;
 using System.Management.Automation;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.CmdletHelpAttributes;
 using OfficeDevPnP.Core.Framework.Provisioning.Providers.Xml;
-using Resources = SharePointPnP.PowerShell.Commands.Properties.Resources;
+using Resources = PnP.PowerShell.Commands.Properties.Resources;
 using OfficeDevPnP.Core.Framework.Provisioning.Providers;
-using SharePointPnP.PowerShell.Commands.Base;
+using PnP.PowerShell.Commands.Base;
 
-namespace SharePointPnP.PowerShell.Commands.Provisioning
+namespace PnP.PowerShell.Commands.Provisioning
 {
     [Cmdlet(VerbsData.Convert, "PnPProvisioningTemplate")]
     [CmdletHelp("Converts a provisioning template to an other schema version",

@@ -1,12 +1,12 @@
 ﻿using System;
-using SharePointPnP.PowerShell.Commands.Base;
-using SharePointPnP.PowerShell.Commands.Base.PipeBinds;
+using PnP.PowerShell.Commands.Base;
+using PnP.PowerShell.Commands.Base.PipeBinds;
 using System.Management.Automation;
 using Microsoft.SharePoint.Client;
-using SharePointPnP.PowerShell.Commands.Extensions;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.Commands.Extensions;
+using PnP.PowerShell.CmdletHelpAttributes;
 
-namespace SharePointPnP.PowerShell.Commands
+namespace PnP.PowerShell.Commands
 {
     public abstract class PnPWebCmdlet : PnPSharePointCmdlet
     {

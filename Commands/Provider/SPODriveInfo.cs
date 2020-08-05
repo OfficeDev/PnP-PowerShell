@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Management.Automation;
 using Microsoft.SharePoint.Client;
 
-namespace SharePointPnP.PowerShell.Commands.Provider
+namespace PnP.PowerShell.Commands.Provider
 {
     internal class SPODriveInfo : PSDriveInfo
     {

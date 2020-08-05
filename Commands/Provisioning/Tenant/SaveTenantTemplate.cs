@@ -3,15 +3,15 @@ using OfficeDevPnP.Core.Framework.Provisioning.Connectors;
 using OfficeDevPnP.Core.Framework.Provisioning.Model;
 using OfficeDevPnP.Core.Framework.Provisioning.Providers;
 using OfficeDevPnP.Core.Framework.Provisioning.Providers.Xml;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
-using SharePointPnP.PowerShell.Commands.Base.PipeBinds;
-using SharePointPnP.PowerShell.Commands.Utilities;
+using PnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.Commands.Base.PipeBinds;
+using PnP.PowerShell.Commands.Utilities;
 using System;
 using System.IO;
 using System.Linq;
 using System.Management.Automation;
 
-namespace SharePointPnP.PowerShell.Commands.Provisioning.Tenant
+namespace PnP.PowerShell.Commands.Provisioning.Tenant
 {
     [Cmdlet(VerbsData.Save, "PnPTenantTemplate")]
     [CmdletHelp("Saves a PnP provisioning hierarchy to the file system",
@@ -101,7 +101,7 @@ PS:> Save-PnPTenantTemplate -Template $template -Out .\template.pnp -Schema V202
 
             if (extension == ".pnp")
             {
-#if !NETSTANDARD2_1
+#if !PNPPSCORE
                 IsolatedStorage.InitializeIsolatedStorage();
 #endif
                 var templateFileName = outFileName.Substring(0, outFileName.LastIndexOf(".", StringComparison.Ordinal)) + ".xml";

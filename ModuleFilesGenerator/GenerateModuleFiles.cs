@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace SharePointPnP.PowerShell.ModuleFilesGenerator
+namespace PnP.PowerShell.ModuleFilesGenerator
 {
     public class GenerateModuleFiles
     {

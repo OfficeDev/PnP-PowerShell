@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SharePointPnP.PowerShell.Commands.Properties {
+namespace PnP.PowerShell.Commands.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace SharePointPnP.PowerShell.Commands.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SharePointPnP.PowerShell.Commands.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("PnP.PowerShell.Commands.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -79,7 +79,34 @@ namespace SharePointPnP.PowerShell.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No certificate with the thumbprint &apos;{0}&apos; has been found in the Windows certificate store.
+        ///   Looks up a localized string similar to The certificate located at &apos;{0}&apos; holds no private key. Ensure you provide the private key certificate, typically the .pfx file..
+        /// </summary>
+        internal static string CertificateAtPathHasNoPrivateKey {
+            get {
+                return ResourceManager.GetString("CertificateAtPathHasNoPrivateKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No private key certificate has been found at &apos;{0}&apos;.
+        /// </summary>
+        internal static string CertificateNotFoundAtPath {
+            get {
+                return ResourceManager.GetString("CertificateNotFoundAtPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The provided certificate with the thumbprint &apos;{0}&apos; does not have a private key which is required for a connection to be established. Ensure you have imported the certificate containing the private key, typically the .pfx file, into the Windows Certificate Store..
+        /// </summary>
+        internal static string CertificateWithThumbprintDoesNotHavePrivateKey {
+            get {
+                return ResourceManager.GetString("CertificateWithThumbprintDoesNotHavePrivateKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No certificate with the thumbprint &apos;{0}&apos; has been found in the Windows Certificate Store.
         /// </summary>
         internal static string CertificateWithThumbprintNotFound {
             get {
@@ -359,7 +386,7 @@ namespace SharePointPnP.PowerShell.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The current connection holds no SharePoint context. Please use one of the Connect-PnPOnline commands which uses the -Url argument but not -SPOManagementShell or -PnPO365ManagementShell to connect..
+        ///   Looks up a localized string similar to The current connection holds no SharePoint context. Please use one of the Connect-PnPOnline commands which uses the -Url argument to connect..
         /// </summary>
         internal static string NoSharePointConnection {
             get {
@@ -391,6 +418,24 @@ namespace SharePointPnP.PowerShell.Commands.Properties {
         internal static string ParameterSetNotImplemented {
             get {
                 return ResourceManager.GetString("ParameterSetNotImplemented", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reading of the private key certificate failed as the password with which it has been signed does not match the provided password. Use {0} to provide the proper password for the private key certificate file..
+        /// </summary>
+        internal static string PrivateKeyCertificateImportFailedPasswordIncorrect {
+            get {
+                return ResourceManager.GetString("PrivateKeyCertificateImportFailedPasswordIncorrect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reading of the private key certificate failed as the password with which it has been signed has not been provided. Use {0} to provide the password..
+        /// </summary>
+        internal static string PrivateKeyCertificateImportFailedPasswordMissing {
+            get {
+                return ResourceManager.GetString("PrivateKeyCertificateImportFailedPasswordMissing", resourceCulture);
             }
         }
         
@@ -724,6 +769,15 @@ namespace SharePointPnP.PowerShell.Commands.Properties {
         internal static string Web0CreatedAt1 {
             get {
                 return ResourceManager.GetString("Web0CreatedAt1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This Cmdlet currently only supports List Webhooks.
+        /// </summary>
+        internal static string WebhooksOnlySupportsLists {
+            get {
+                return ResourceManager.GetString("WebhooksOnlySupportsLists", resourceCulture);
             }
         }
     }

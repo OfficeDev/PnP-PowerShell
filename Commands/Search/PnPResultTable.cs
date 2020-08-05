@@ -3,7 +3,7 @@ using System.Data;
 using System.Linq;
 using Microsoft.SharePoint.Client.Search.Query;
 
-namespace SharePointPnP.PowerShell.Commands.Search
+namespace PnP.PowerShell.Commands.Search
 {
     public class PnPResultTable
     {

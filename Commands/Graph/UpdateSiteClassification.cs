@@ -1,31 +1,28 @@
 ﻿#if !ONPREMISES
 using OfficeDevPnP.Core.Framework.Graph.Model;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
-using SharePointPnP.PowerShell.Commands.Base;
+using PnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.Commands.Base;
 using System;
 using System.Collections.Generic;
 using System.Management.Automation;
 
-namespace SharePointPnP.PowerShell.Commands.Graph
+namespace PnP.PowerShell.Commands.Graph
 {
     [Cmdlet(VerbsData.Update, "PnPSiteClassification")]
-    [CmdletHelp("Updates Site Classifications for the tenant. Requires a connection to the Microsoft Graph with the permission 'Directory.ReadWrite.All'.",
+    [CmdletHelp("Updates Site Classifications for the tenant",
         Category = CmdletHelpCategory.Graph,
         SupportedPlatform = CmdletSupportedPlatform.Online)]
     [CmdletExample(
-        Code = @"PS:> Connect-PnPOnline -Scopes ""Directory.ReadWrite.All""
-PS:> Update-PnPSiteClassification -Classifications ""HBI"",""Top Secret""",
+        Code = @"PS:> Update-PnPSiteClassification -Classifications ""HBI"",""Top Secret""",
         Remarks = @"Replaces the existing values of the site classification settings",
         SortOrder = 1)]
     [CmdletExample(
-        Code = @"PS:> Connect-PnPOnline -Scopes ""Directory.ReadWrite.All""
-PS:> Update-PnPSiteClassification -DefaultClassification ""LBI""",
+        Code = @"PS:> Update-PnPSiteClassification -DefaultClassification ""LBI""",
         Remarks = @"Sets the default classification value to ""LBI"". This value needs to be present in the list of classification values.",
         SortOrder = 2)]
     [CmdletExample(
-        Code = @"PS:> Connect-PnPOnline -Scopes ""Directory.ReadWrite.All""
-PS:> Update-PnPSiteClassification -UsageGuidelinesUrl https://aka.ms/sppnp",
-        Remarks = @"sets the usage guideliness URL to the specified URL.",
+        Code = @"PS:> Update-PnPSiteClassification -UsageGuidelinesUrl https://aka.ms/sppnp",
+        Remarks = @"sets the usage guideliness URL to the specified URL",
         SortOrder = 3)]
     [CmdletMicrosoftGraphApiPermission(MicrosoftGraphApiPermission.Directory_ReadWrite_All)]
     public class UpdateSiteClassification : PnPGraphCmdlet

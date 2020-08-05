@@ -1,7 +1,7 @@
 ﻿using OfficeDevPnP.Core.Framework.Graph.Model;
 using System;
 
-namespace SharePointPnP.PowerShell.Commands.Base.PipeBinds
+namespace PnP.PowerShell.Commands.Base.PipeBinds
 {
     public class GraphSubscriptionPipeBind
     {

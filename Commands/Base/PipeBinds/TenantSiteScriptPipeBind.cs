@@ -2,7 +2,7 @@
 using Microsoft.Online.SharePoint.TenantAdministration;
 using System;
 
-namespace SharePointPnP.PowerShell.Commands.Base.PipeBinds
+namespace PnP.PowerShell.Commands.Base.PipeBinds
 {
     public sealed class TenantSiteScriptPipeBind
     {

@@ -1,4 +1,4 @@
-﻿namespace SharePointPnP.PowerShell.Commands.Enums
+﻿namespace PnP.PowerShell.Commands.Enums
 {
     /// <summary>
     /// Specifies the options for allowing using the old Groove sync client, used in i.e. <see cref="SetTenantSyncClientRestriction"/>.

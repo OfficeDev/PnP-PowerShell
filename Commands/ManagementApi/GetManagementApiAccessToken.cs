@@ -1,11 +1,11 @@
 ﻿#if !ONPREMISES
 using System;
 using System.Management.Automation;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
-using SharePointPnP.PowerShell.Commands.Base;
-using SharePointPnP.PowerShell.Commands.Model;
+using PnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.Commands.Base;
+using PnP.PowerShell.Commands.Model;
 
-namespace SharePointPnP.PowerShell.Commands.ManagementApi
+namespace PnP.PowerShell.Commands.ManagementApi
 {
     [Cmdlet(VerbsCommon.Get, "PnPManagementApiAccessToken")]
     [CmdletHelp("Gets an access token for the Office 365 Management API",
@@ -29,7 +29,7 @@ namespace SharePointPnP.PowerShell.Commands.ManagementApi
 
         protected override void ExecuteCmdlet()
         {
-            var officeManagementApiToken = OfficeManagementApiToken.AcquireToken(TenantId, ClientId, ClientSecret);
+            var officeManagementApiToken = OfficeManagementApiToken.AcquireApplicationToken(TenantId, ClientId, ClientSecret);
             WriteObject(officeManagementApiToken.AccessToken);
         }
     }

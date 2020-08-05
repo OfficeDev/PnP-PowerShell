@@ -1,9 +1,9 @@
 ﻿#if !ONPREMISES
 using System.Management.Automation;
 using Microsoft.SharePoint.Client;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.CmdletHelpAttributes;
 
-namespace SharePointPnP.PowerShell.Commands.Search
+namespace PnP.PowerShell.Commands.Search
 {
     [Cmdlet(VerbsCommon.Get, "PnPSearchSettings")]
     [CmdletHelp("Retrieves search settings for a site",
@@ -17,8 +17,8 @@ namespace SharePointPnP.PowerShell.Commands.Search
     {
         protected override void ExecuteCmdlet()
         {
-            ClientContext.Web.EnsureProperties(w => w.SearchScope, w => w.SearchBoxInNavBar);
-            ClientContext.Site.EnsureProperty(s => s.SearchBoxInNavBar);
+            ClientContext.Web.EnsureProperties(w => w.SearchScope, w => w.SearchBoxInNavBar, w => w.SearchBoxPlaceholderText);
+            ClientContext.Site.EnsureProperties(s => s.SearchBoxInNavBar, s => s.SearchBoxPlaceholderText);
 
             string siteUrl = ClientContext.Web.GetSiteCollectionSearchCenterUrl();
             string webUrl = ClientContext.Web.GetWebSearchCenterUrl(urlOnly: true);
@@ -29,6 +29,8 @@ namespace SharePointPnP.PowerShell.Commands.Search
             res.Properties.Add(new PSNoteProperty("Site Search Scope", ClientContext.Web.SearchScope));
             res.Properties.Add(new PSNoteProperty("Site collection search box visibility", ClientContext.Site.SearchBoxInNavBar));
             res.Properties.Add(new PSNoteProperty("Site search box visibility", ClientContext.Web.SearchBoxInNavBar));
+            res.Properties.Add(new PSNoteProperty("Site collection search box placeholder text", ClientContext.Site.SearchBoxPlaceholderText));
+            res.Properties.Add(new PSNoteProperty("Site search box placeholder text", ClientContext.Web.SearchBoxPlaceholderText));
             WriteObject(res);
         }
     }

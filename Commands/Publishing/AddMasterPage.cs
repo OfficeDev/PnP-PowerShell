@@ -1,8 +1,8 @@
 ﻿using System.Management.Automation;
 using Microsoft.SharePoint.Client;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.CmdletHelpAttributes;
 
-namespace SharePointPnP.PowerShell.Commands.Publishing
+namespace PnP.PowerShell.Commands.Publishing
 {
     [Cmdlet(VerbsCommon.Add, "PnPMasterPage")]
     [CmdletHelp("Adds a Masterpage",

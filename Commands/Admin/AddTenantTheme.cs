@@ -1,17 +1,17 @@
 ﻿#if !ONPREMISES
 using Microsoft.Online.SharePoint.TenantAdministration;
 using Microsoft.SharePoint.Client;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
-using SharePointPnP.PowerShell.Commands.Base;
+using PnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.Commands.Base;
 using System.Management.Automation;
 using OfficeDevPnP.Core.Sites;
-using SharePointPnP.PowerShell.Commands.Base.PipeBinds;
+using PnP.PowerShell.Commands.Base.PipeBinds;
 using System;
-using SharePointPnP.PowerShell.Commands.Model;
-using Newtonsoft.Json;
+using PnP.PowerShell.Commands.Model;
 using System.Linq;
+using System.Text.Json;
 
-namespace SharePointPnP.PowerShell.Commands.Admin
+namespace PnP.PowerShell.Commands.Admin
 {
     [Cmdlet(VerbsCommon.Add, "PnPTenantTheme")]
     [CmdletHelp("Adds or updates a theme to the tenant.",
@@ -73,14 +73,17 @@ PS:>Add-PnPTenantTheme -Identity ""MyCompanyTheme"" -Palette $themepalette -IsIn
             {
                 if (Overwrite.ToBool())
                 {
-                    Tenant.UpdateTenantTheme(Identity.Name, JsonConvert.SerializeObject(theme));
+                    Tenant.UpdateTenantTheme(Identity.Name, JsonSerializer.Serialize(theme));
                     ClientContext.ExecuteQueryRetry();
-                } else
+                }
+                else
                 {
                     WriteError(new ErrorRecord(new Exception($"Theme exists"), "THEMEEXISTS", ErrorCategory.ResourceExists, Identity.Name));
                 }
-            } else {
-                Tenant.AddTenantTheme(Identity.Name, JsonConvert.SerializeObject(theme));
+            }
+            else
+            {
+                Tenant.AddTenantTheme(Identity.Name, JsonSerializer.Serialize(theme));
                 ClientContext.ExecuteQueryRetry();
             }
         }

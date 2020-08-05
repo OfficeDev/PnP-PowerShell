@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SharePointPnP.PowerShell.Commands.Enums
+namespace PnP.PowerShell.Commands.Enums
 {
     public enum CdnType
     {

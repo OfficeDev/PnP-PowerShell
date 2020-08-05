@@ -1,4 +1,4 @@
-﻿namespace SharePointPnP.PowerShell.Commands.Enums
+﻿namespace PnP.PowerShell.Commands.Enums
 {
     public enum CredentialType
     {

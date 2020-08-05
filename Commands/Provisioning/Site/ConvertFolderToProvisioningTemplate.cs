@@ -1,13 +1,13 @@
 ﻿using OfficeDevPnP.Core.Framework.Provisioning.Connectors.OpenXML;
 using OfficeDevPnP.Core.Framework.Provisioning.Connectors.OpenXML.Model;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.CmdletHelpAttributes;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Management.Automation;
 
-namespace SharePointPnP.PowerShell.Commands.Provisioning
+namespace PnP.PowerShell.Commands.Provisioning
 {
     [Cmdlet(VerbsData.Convert, "PnPFolderToProvisioningTemplate")]
     [CmdletHelp("Creates a pnp package file of an existing template xml, and includes all files in the current folder",

@@ -1,11 +1,11 @@
-﻿#if !NETSTANDARD2_1
+﻿#if !PNPPSCORE
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SharePointPnP.PowerShell.Commands.Utilities
+namespace PnP.PowerShell.Commands.Utilities
 {
     internal static class IsolatedStorage
     {

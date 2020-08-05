@@ -1,4 +1,4 @@
-﻿#if !NETSTANDARD2_1
+﻿#if !PNPPSCORE
 using System;
 using System.Net;
 using System.Linq;
@@ -7,10 +7,10 @@ using System.Diagnostics;
 using System.Collections.Generic;
 using System.Management.Automation;
 using Microsoft.SharePoint.Client;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
-using SharePointPnP.PowerShell.Commands.Base.PipeBinds;
+using PnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.Commands.Base.PipeBinds;
 
-namespace SharePointPnP.PowerShell.Commands.Diagnostic
+namespace PnP.PowerShell.Commands.Diagnostic
 {
     [Cmdlet(VerbsDiagnostic.Measure, "PnPResponseTime")]
     [CmdletHelp("Gets statistics on response time for the specified endpoint by sending probe requests",

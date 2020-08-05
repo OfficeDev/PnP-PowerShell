@@ -1,7 +1,7 @@
 using System;
 using Microsoft.SharePoint.Client;
 
-namespace SharePointPnP.PowerShell.Commands.Provider
+namespace PnP.PowerShell.Commands.Provider
 {
     internal class SPODriveCacheWeb
     {

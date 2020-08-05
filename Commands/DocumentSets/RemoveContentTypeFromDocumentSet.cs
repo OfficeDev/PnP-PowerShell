@@ -1,9 +1,9 @@
 ﻿using System.Management.Automation;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
-using SharePointPnP.PowerShell.Commands.Base.PipeBinds;
+using PnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.Commands.Base.PipeBinds;
 using Microsoft.SharePoint.Client;
 
-namespace SharePointPnP.PowerShell.Commands.DocumentSets
+namespace PnP.PowerShell.Commands.DocumentSets
 {
     [Cmdlet(VerbsCommon.Remove, "PnPContentTypeFromDocumentSet")]
     [CmdletHelp("Removes a content type from a document set", 

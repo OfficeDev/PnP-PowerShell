@@ -1,25 +1,23 @@
 ﻿#if !ONPREMISES
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
-using SharePointPnP.PowerShell.Commands.Base;
+using PnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.Commands.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Management.Automation;
 
-namespace SharePointPnP.PowerShell.Commands.Graph
+namespace PnP.PowerShell.Commands.Graph
 {
     [Cmdlet(VerbsCommon.Remove, "PnPSiteClassification")]
-    [CmdletHelp("Removes one or more existing site classification values from the list of available values. Requires a connection to the Microsoft Graph",
+    [CmdletHelp("Removes one or more existing site classification values from the list of available values",
         Category = CmdletHelpCategory.Graph,
         SupportedPlatform = CmdletSupportedPlatform.Online)]
     [CmdletExample(
-        Code = @"PS:> Connect-PnPOnline -Scopes ""Directory.ReadWrite.All""
-PS:> Remove-PnPSiteClassification -Classifications ""HBI""",
+        Code = @"PS:> Remove-PnPSiteClassification -Classifications ""HBI""",
         Remarks = @"Removes the ""HBI"" site classification from the list of available values.",
         SortOrder = 1)]
     [CmdletExample(
-        Code = @"PS:> Connect-PnPOnline -Scopes ""Directory.ReadWrite.All""
-PS:> Remove-PnPSiteClassification -Classifications ""HBI"", ""Top Secret""",
+        Code = @"PS:> Remove-PnPSiteClassification -Classifications ""HBI"", ""Top Secret""",
         Remarks = @"Removes the ""HBI"" site classification from the list of available values.",
         SortOrder = 2)]
     [CmdletMicrosoftGraphApiPermission(MicrosoftGraphApiPermission.Directory_ReadWrite_All)]

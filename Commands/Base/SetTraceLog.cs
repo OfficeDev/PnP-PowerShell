@@ -1,9 +1,9 @@
-﻿using SharePointPnP.PowerShell.CmdletHelpAttributes;
+﻿using PnP.PowerShell.CmdletHelpAttributes;
 using System;
 using System.Diagnostics;
 using System.Management.Automation;
 
-namespace SharePointPnP.PowerShell.Commands.Base
+namespace PnP.PowerShell.Commands.Base
 {
     [Cmdlet(VerbsCommon.Set, "PnPTraceLog")]
     [CmdletHelp("Turn log tracing on or off",
@@ -62,7 +62,7 @@ namespace SharePointPnP.PowerShell.Commands.Base
                 if (WriteToConsole.IsPresent || string.IsNullOrEmpty(LogFile))
                 {
                     RemoveListener(ConsoleListenername);
-#if !NETSTANDARD2_1
+#if !PNPPSCORE
                     ConsoleTraceListener consoleListener = new ConsoleTraceListener(false);
                     consoleListener.Name = ConsoleListenername;
                     Trace.Listeners.Add(consoleListener);

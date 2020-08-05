@@ -1,11 +1,11 @@
-﻿using SharePointPnP.PowerShell.CmdletHelpAttributes;
-using SharePointPnP.PowerShell.Commands.Model;
+﻿using PnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.Commands.Model;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Management.Automation;
 
-namespace SharePointPnP.PowerShell.Commands.Base
+namespace PnP.PowerShell.Commands.Base
 {
     [Cmdlet(VerbsCommon.Get, "PnPException")]
     [CmdletHelp("Returns the last exception that occurred",

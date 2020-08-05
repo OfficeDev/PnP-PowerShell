@@ -1,11 +1,8 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Text.Json.Serialization;
 
-namespace SharePointPnP.PowerShell.Commands.Model
+namespace PnP.PowerShell.Commands.Model
 {
     internal class AzureApp
     {
@@ -19,9 +16,9 @@ namespace SharePointPnP.PowerShell.Commands.Model
     {
         [JsonIgnore]
         public string resourceAppId { get; set; }
-        [JsonProperty("id")]
+        [JsonPropertyName("id")]
         public string Id { get; set; }
-        [JsonProperty("type")]
+        [JsonPropertyName("type")]
         public string Type { get; set; } = "Role";
         [JsonIgnore]
         public string Identifier { get; set; }
@@ -115,6 +112,24 @@ namespace SharePointPnP.PowerShell.Commands.Model
                 Id = "741f803b-c850-494e-b5df-cde7c675a1ca",
                 Identifier = "MSGraph.User.ReadWrite.All"
             });
+            scopes.Add(new PermissionScope()
+            {
+                resourceAppId = "00000003-0000-0000-c000-000000000000",
+                Id = "88e58d74-d3df-44f3-ad47-e89edf4472e4",
+                Identifier = "MSGraph.AppCatalog.Read.All"
+            });
+            scopes.Add(new PermissionScope()
+            {
+                resourceAppId = "00000003-0000-0000-c000-000000000000",
+                Id = "1ca167d5-1655-44a1-8adf-1414072e1ef9",
+                Identifier = "MSGraph.AppCatalog.ReadWrite.All"
+            });
+            scopes.Add(new PermissionScope()
+            {
+                resourceAppId = "00000003-0000-0000-c000-000000000000",
+                Id = "3db89e36-7fa6-4012-b281-85f3d9d9fd2e",
+                Identifier = "MSGraph.AppCatalog.Submit"
+            });
             #endregion
             #region SPO
             // SPO
@@ -182,9 +197,9 @@ namespace SharePointPnP.PowerShell.Commands.Model
 
     public class AppResource
     {
-        [JsonProperty("resourceAppId")]
+        [JsonPropertyName("resourceAppId")]
         public string Id { get; set; }
-        [JsonProperty("resourceAccess")]
+        [JsonPropertyName("resourceAccess")]
         public List<PermissionScope> ResourceAccess { get; set; } = new List<PermissionScope>();
     }
 }

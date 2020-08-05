@@ -1,19 +1,25 @@
 ﻿using Microsoft.ApplicationInsights;
+using Microsoft.Identity.Client;
 using Microsoft.SharePoint.Client;
 using OfficeDevPnP.Core.Extensions;
-using SharePointPnP.PowerShell.Commands.Enums;
-using SharePointPnP.PowerShell.Commands.Model;
+using PnP.PowerShell.Commands.Enums;
+using PnP.PowerShell.Commands.Model;
+using PnP.PowerShell.Core.Attributes;
+using PnP.PowerShell.Commands.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Management.Automation;
 using System.Management.Automation.Host;
 using System.Net;
+using System.Net.Http;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Web;
+using TextCopy;
+using PnP.PowerShell.CmdletHelpAttributes;
 
-namespace SharePointPnP.PowerShell.Commands.Base
+namespace PnP.PowerShell.Commands.Base
 {
     public class PnPConnection
     {
@@ -22,16 +28,29 @@ namespace SharePointPnP.PowerShell.Commands.Base
         /// <summary>
         /// ClientId of the application registered in Azure Active Directory which should be used for the device oAuth flow
         /// </summary>
-        internal const string DeviceLoginClientId = "31359c7f-bd7e-475c-86db-fdb8c937548e";
-
+        internal const string PnPManagementShellClientId = "31359c7f-bd7e-475c-86db-fdb8c937548e";
         #endregion
 
         #region Properties
 
+        private HttpClient httpClient;
+
+        public HttpClient HttpClient
+        {
+            get
+            {
+                if (httpClient == null)
+                {
+                    httpClient = new HttpClient();
+                }
+                return httpClient;
+            }
+        }
         /// <summary>
         /// User Agent identifier to use on all connections being made to the APIs
         /// </summary>
         internal string UserAgent { get; set; }
+
 
         internal ConnectionMethod ConnectionMethod { get; set; }
 
@@ -49,6 +68,11 @@ namespace SharePointPnP.PowerShell.Commands.Base
         /// Indication for telemetry through which method a connection has been established
         /// </summary>
         public InitializationType InitializationType { get; protected set; }
+
+        /// <summary>
+        /// used to retrieve a new token in case the current token expires
+        /// </summary>
+        public string[] Scopes { get; internal set; }
 
         /// <summary>
         /// If provided, it defines the minimal health score the SharePoint server should return back before executing requests on it. Use scale 0 - 10 where 0 is most health and 10 is least healthy. If set to NULL, no health score check will take place.
@@ -79,6 +103,11 @@ namespace SharePointPnP.PowerShell.Commands.Base
         /// Certificate used to set up the connection
         /// </summary>
         public X509Certificate2 Certificate { get; internal set; }
+
+        /// <summary>
+        /// Boolean indicating if when using Disconnect-PnPOnline to destruct this PnPConnection instance, if the certificate file should be deleted from C:\ProgramData\Microsoft\Crypto\RSA\MachineKeys
+        /// </summary>
+        public bool DeleteCertificateFromCacheOnDisconnect { get; internal set; }
 
         public ClientContext Context { get; set; }
 
@@ -111,53 +140,70 @@ namespace SharePointPnP.PowerShell.Commands.Base
             return TryGetToken(tokenAudience, roles)?.AccessToken;
         }
 
+        internal static Action<DeviceCodeResult> DeviceLoginCallback(PSHost host, bool launchBrowser)
+        {
+            return deviceCodeResult =>
+            {
+
+                if (launchBrowser)
+                {
+                    ClipboardService.SetText(deviceCodeResult.UserCode);
+                    host?.UI.WriteLine($"Code {deviceCodeResult.UserCode} has been copied to clipboard");
+                    BrowserHelper.LaunchBrowser(deviceCodeResult.VerificationUrl);
+                }
+                else
+                {
+                    host?.UI.WriteLine(deviceCodeResult.Message);
+                }
+            };
+        }
         /// <summary>
         /// Tries to get a token for the provided audience
         /// </summary>
         /// <param name="tokenAudience">Audience to try to get a token for</param>
-        /// <param name="roles">The specific roles to request access to (i.e. Group.ReadWrite.All). Optional, will use default groups assigned to clientId if not specified.</param>
+        /// <param name="orRoles">The specific roles to request access to (i.e. Group.ReadWrite.All). Optional, will use default groups assigned to clientId if not specified.</param>
         /// <returns><see cref="GenericToken"/> for the audience or NULL if unable to retrieve a token for the audience on the current connection</returns>
-        internal GenericToken TryGetToken(TokenAudience tokenAudience, string[] roles = null)
+        internal GenericToken TryGetToken(TokenAudience tokenAudience, string[] orRoles = null, string[] andRoles = null, TokenType tokenType = TokenType.All)
         {
             GenericToken token = null;
 
-            // Validate if we have a token already
-            if (AccessTokens.ContainsKey(tokenAudience))
-            {
-                // We have a token already, ensure it is still valid
-                token = AccessTokens[tokenAudience];
-
-                if (token.ExpiresOn > DateTime.Now)
-                {
-                    // Token is still valid, ensure we dont have specific roles to check for or the requested roles to execute the command are present in the token
-                    if (roles == null || roles.Length == 0 || roles.Any(r => token.Roles.Contains(r)))
-                    {
-                        return token;
-                    }
-
-                    if (roles != null)
-                    {
-                        // Requested role was not part of the access token, throw an exception explaining which application registration is missing which role
-                        throw new PSSecurityException($"Access to {tokenAudience} failed because the app registration {ClientId} in tenant {Tenant} is not granted {(roles.Length != 1 ? "any of " : string.Empty)}the permission{(roles.Length != 1 ? "s" : string.Empty)} {string.Join(", ", roles).TrimEnd(new[] { ',', ' ' })}");
-                    }
-                }
-
-                // Token was no longer valid, proceed with trying to create a new token
-            }
-
-            // We do not have a token for the requested audience yet or it was no longer valid, try to create (a new) one
             switch (tokenAudience)
             {
                 case TokenAudience.MicrosoftGraph:
-                    if (!string.IsNullOrEmpty(Tenant))
+
+                    if (ConnectionMethod == ConnectionMethod.DeviceLogin || ConnectionMethod == ConnectionMethod.GraphDeviceLogin)
                     {
-                        if (Certificate != null)
+                        var officeManagementApiScopes = Enum.GetNames(typeof(OfficeManagementApiPermission)).Select(s => s.Replace("_", ".")).Intersect(Scopes).ToArray();
+                        // Take the remaining scopes and try requesting them from the Microsoft Graph API
+                        var scopes = Scopes.Except(officeManagementApiScopes).ToArray();
+                        token = GraphToken.AcquireApplicationTokenDeviceLogin(PnPConnection.PnPManagementShellClientId, scopes, DeviceLoginCallback(null, false));
+                    }
+                    else
+                    {
+                        if (!string.IsNullOrEmpty(Tenant))
                         {
-                            token = GraphToken.AcquireToken(Tenant, ClientId, Certificate);
-                        }
-                        else if (ClientSecret != null)
-                        {
-                            token = GraphToken.AcquireToken(Tenant, ClientId, ClientSecret);
+                            if (Certificate != null)
+                            {
+                                token = GraphToken.AcquireApplicationToken(Tenant, ClientId, Certificate);
+                            }
+                            else if (ClientSecret != null)
+                            {
+                                token = GraphToken.AcquireApplicationToken(Tenant, ClientId, ClientSecret);
+                            }
+                            else if (Scopes != null)
+                            {
+                                var officeManagementApiScopes = Enum.GetNames(typeof(OfficeManagementApiPermission)).Select(s => s.Replace("_", ".")).Intersect(Scopes).ToArray();
+                                // Take the remaining scopes and try requesting them from the Microsoft Graph API
+                                var scopes = Scopes.Except(officeManagementApiScopes).ToArray();
+                                if (scopes.Length > 0)
+                                {
+                                    token = PSCredential == null ? GraphToken.AcquireApplicationTokenInteractive(PnPManagementShellClientId, scopes) : GraphToken.AcquireDelegatedTokenWithCredentials(PnPManagementShellClientId, scopes, PSCredential.UserName, PSCredential.Password);
+                                }
+                                else
+                                {
+                                    throw new PSSecurityException($"Access to {tokenAudience} failed because you did not connect with any permission scopes related to this service (for instance 'Group.Read.All').");
+                                }
+                            }
                         }
                     }
                     break;
@@ -167,12 +213,26 @@ namespace SharePointPnP.PowerShell.Commands.Base
                     {
                         if (Certificate != null)
                         {
-                            token = OfficeManagementApiToken.AcquireToken(Tenant, ClientId, Certificate);
+                            token = OfficeManagementApiToken.AcquireApplicationToken(Tenant, ClientId, Certificate);
                         }
                         else if (ClientSecret != null)
                         {
-                            token = OfficeManagementApiToken.AcquireToken(Tenant, ClientId, ClientSecret);
+                            token = OfficeManagementApiToken.AcquireApplicationToken(Tenant, ClientId, ClientSecret);
                         }
+                        else if (Scopes != null)
+                        {
+                            var scopes = Enum.GetNames(typeof(OfficeManagementApiPermission)).Select(s => s.Replace("_", ".")).Intersect(Scopes).ToArray();
+                            // Take the remaining scopes and try requesting them from the Microsoft Graph API
+                            if (scopes.Length > 0)
+                            {
+                                token = PSCredential == null ? OfficeManagementApiToken.AcquireApplicationTokenInteractive(PnPManagementShellClientId, scopes) : OfficeManagementApiToken.AcquireDelegatedTokenWithCredentials(PnPManagementShellClientId, scopes, PSCredential.UserName, PSCredential.Password);
+                            }
+                            else
+                            {
+                                throw new PSSecurityException($"Access to {tokenAudience} failed because you did not connect with any permission scopes related to this service (for instance 'ServiceHealth.Read').");
+                            }
+                        }
+
                     }
                     break;
 
@@ -183,8 +243,11 @@ namespace SharePointPnP.PowerShell.Commands.Base
 
             if (token != null)
             {
-                // Managed to create a token for the requested audience, add it to our collection with tokens
-                AccessTokens[tokenAudience] = token;
+                var validationResults = ValidateTokenForPermissions(token, tokenAudience, orRoles, andRoles, tokenType);
+                if (!validationResults.valid)
+                {
+                    throw new PSSecurityException($"Access to {tokenAudience} failed because the app registration {ClientId} in tenant {Tenant} is not granted {validationResults.message}");
+                }
                 return token;
             }
 
@@ -208,6 +271,58 @@ namespace SharePointPnP.PowerShell.Commands.Base
         internal void ClearTokens()
         {
             AccessTokens.Clear();
+        }
+
+        private (bool valid, string message) ValidateTokenForPermissions(GenericToken token, TokenAudience tokenAudience, string[] orRoles = null, string[] andRoles = null, TokenType tokenType = TokenType.All)
+        {
+            bool valid = false;
+            var message = string.Empty;
+            if (tokenType != TokenType.All && token.TokenType != tokenType)
+            {
+                throw new PSSecurityException($"Access to {tokenAudience} failed because the API requires {(tokenType == TokenType.Application ? "an" : "a")} {tokenType} token while you currently use {(token.TokenType == TokenType.Application ? "an" : "a")} {token.TokenType} token.");
+            }
+            var andRolesMatched = false;
+            if (andRoles != null && andRoles.Length != 0)
+            {
+                // we have explicitely required roles
+                andRolesMatched = andRoles.All(r => token.Roles.Contains(r));
+            }
+            else
+            {
+                andRolesMatched = true;
+            }
+
+            var orRolesMatched = false;
+            if (orRoles != null && orRoles.Length != 0)
+            {
+                orRolesMatched = orRoles.Any(r => token.Roles.Contains(r));
+            }
+            else
+            {
+                orRolesMatched = true;
+            }
+
+            if (orRolesMatched && andRolesMatched)
+            {
+                valid = true;
+            }
+
+            if (orRoles != null || andRoles != null)
+            {
+                if (!valid)
+                {                // Requested role was not part of the access token, throw an exception explaining which application registration is missing which role
+                    if (!orRolesMatched)
+                    {
+                        message += "for one of the following roles: " + string.Join(", ", orRoles);
+                    }
+                    if (!andRolesMatched)
+                    {
+                        message += (message != string.Empty ? ", and " : ", ") + "for all of the following roles: " + string.Join(", ", andRoles);
+                    }
+                    throw new PSSecurityException($"Access to {tokenAudience} failed because the app registration {ClientId} in tenant {Tenant} is not granted {message}");
+                }
+            }
+            return (valid, message);
         }
 
         #endregion
@@ -394,6 +509,7 @@ namespace SharePointPnP.PowerShell.Commands.Base
                                                            TokenAudience tokenAudience,
                                                            PSHost host,
                                                            InitializationType initializationType,
+                                                           PSCredential credentials,
                                                            string url = null,
                                                            ClientContext clientContext = null,
                                                            int? minimalHealthScore = null,
@@ -406,14 +522,14 @@ namespace SharePointPnP.PowerShell.Commands.Base
                 Tenant = token.ParsedToken.Claims.FirstOrDefault(c => c.Type.Equals("tid", StringComparison.InvariantCultureIgnoreCase))?.Value,
                 ClientId = token.ParsedToken.Claims.FirstOrDefault(c => c.Type.Equals("appid", StringComparison.InvariantCultureIgnoreCase))?.Value
             };
-
+            connection.PSCredential = credentials;
             return connection;
         }
 
         #endregion
 
         internal PnPConnection(ClientContext context, ConnectionType connectionType, int minimalHealthScore, int retryCount, int retryWait, PSCredential credential, string clientId, string clientSecret, string url, string tenantAdminUrl, string pnpVersionTag, PSHost host, bool disableTelemetry, InitializationType initializationType)
-            : this(context, connectionType, minimalHealthScore, retryCount, retryWait, credential, url, tenantAdminUrl, pnpVersionTag, host, disableTelemetry, initializationType)
+        : this(context, connectionType, minimalHealthScore, retryCount, retryWait, credential, url, tenantAdminUrl, pnpVersionTag, host, disableTelemetry, initializationType)
         {
             ClientId = clientId;
             ClientSecret = clientSecret;
@@ -478,7 +594,7 @@ namespace SharePointPnP.PowerShell.Commands.Base
             PnPVersionTag = pnpVersionTag;
             Url = (new Uri(url)).AbsoluteUri;
             ConnectionMethod = ConnectionMethod.AccessToken;
-            ClientId = DeviceLoginClientId;
+            ClientId = PnPManagementShellClientId;
             Tenant = tokenResult.ParsedToken.Claims.FirstOrDefault(c => c.Type == "tid").Value;
             context.ExecutingWebRequest += (sender, args) =>
             {
@@ -550,7 +666,7 @@ namespace SharePointPnP.PowerShell.Commands.Base
                 }
                 catch (Exception ex)
                 {
-#if !ONPREMISES && !NETSTANDARD2_1
+#if !ONPREMISES && !PNPPSCORE
                     if ((ex is WebException || ex is NotSupportedException) && CurrentConnection.PSCredential != null)
                     {
                         // legacy auth?
@@ -564,7 +680,7 @@ namespace SharePointPnP.PowerShell.Commands.Base
                     {
 #endif
                         throw;
-#if !ONPREMISES && !NETSTANDARD2_1
+#if !ONPREMISES && !PNPPSCORE
                     }
 #endif
                 }
@@ -645,7 +761,7 @@ namespace SharePointPnP.PowerShell.Commands.Base
                 TelemetryClient.Context.Session.Id = Guid.NewGuid().ToString();
                 TelemetryClient.Context.Cloud.RoleInstance = "PnPPowerShell";
                 TelemetryClient.Context.Device.OperatingSystem = Environment.OSVersion.ToString();
-#if !NETSTANDARD2_1
+#if !PNPPSCORE
                 TelemetryClient.Context.GlobalProperties.Add("ServerLibraryVersion", serverLibraryVersion);
                 TelemetryClient.Context.GlobalProperties.Add("ServerVersion", serverVersion);
                 TelemetryClient.Context.GlobalProperties.Add("ConnectionMethod", initializationType.ToString());
@@ -655,7 +771,7 @@ namespace SharePointPnP.PowerShell.Commands.Base
                 TelemetryClient.Context.Properties.Add("ConnectionMethod", initializationType.ToString());
 #endif
                 var coreAssembly = Assembly.GetExecutingAssembly();
-#if !NETSTANDARD2_1
+#if !PNPPSCORE
                 TelemetryClient.Context.GlobalProperties.Add("Version", ((AssemblyFileVersionAttribute)coreAssembly.GetCustomAttribute(typeof(AssemblyFileVersionAttribute))).Version.ToString());
 #else
                 TelemetryClient.Context.Properties.Add("Version", ((AssemblyFileVersionAttribute)coreAssembly.GetCustomAttribute(typeof(AssemblyFileVersionAttribute))).Version.ToString());
@@ -668,7 +784,7 @@ namespace SharePointPnP.PowerShell.Commands.Base
 #elif SP2019
             TelemetryClient.Context.GlobalProperties.Add("Platform", "SP2019");
 #else
-#if !NETSTANDARD2_1
+#if !PNPPSCORE
                 TelemetryClient.Context.GlobalProperties.Add("Platform", "SPO");
 #else
                 TelemetryClient.Context.Properties.Add("Platform", "SPO");

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace SharePointPnP.PowerShell.Commands.Diagnostic
+namespace PnP.PowerShell.Commands.Diagnostic
 {
     public sealed class ResponseTimeStatistics
     {

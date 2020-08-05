@@ -1,9 +1,9 @@
 ﻿using System.Management.Automation;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.CmdletHelpAttributes;
 using System;
-using SharePointPnP.PowerShell.Commands.Properties;
+using PnP.PowerShell.Commands.Properties;
 
-namespace SharePointPnP.PowerShell.Commands.Base
+namespace PnP.PowerShell.Commands.Base
 {
     [Cmdlet(VerbsCommon.Get, "PnPConnection")]
     [CmdletHelp("Returns the current context",

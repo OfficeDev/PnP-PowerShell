@@ -1,9 +1,9 @@
-﻿using SharePointPnP.PowerShell.CmdletHelpAttributes;
+﻿using PnP.PowerShell.CmdletHelpAttributes;
 using Microsoft.SharePoint.Client;
-using SharePointPnP.PowerShell.Commands.Base;
+using PnP.PowerShell.Commands.Base;
 using System.Management.Automation;
 
-namespace SharePointPnP.PowerShell.Commands
+namespace PnP.PowerShell.Commands
 {
     [Cmdlet(VerbsCommon.Get, "PnPWebTemplates")]
     [CmdletHelp(@"Returns the available classic web templates", 

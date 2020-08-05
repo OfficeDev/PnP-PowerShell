@@ -1,10 +1,10 @@
 ﻿using System.Management.Automation;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.CmdletHelpAttributes;
 using System;
-using SharePointPnP.PowerShell.Commands.Properties;
+using PnP.PowerShell.Commands.Properties;
 using Microsoft.SharePoint.Client;
 
-namespace SharePointPnP.PowerShell.Commands.Base
+namespace PnP.PowerShell.Commands.Base
 {
     [Cmdlet(VerbsCommon.Get, "PnPAppAuthAccessToken")]
     [CmdletHelp("Returns the access token", 

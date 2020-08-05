@@ -5,7 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using Microsoft.SharePoint.Client;
 
-namespace SharePointPnP.PowerShell.Commands.Extensions
+namespace PnP.PowerShell.Commands.Extensions
 {
     public static class WebExtensions
     {

@@ -1,11 +1,12 @@
-﻿using SharePointPnP.PowerShell.CmdletHelpAttributes;
+﻿using PnP.PowerShell.CmdletHelpAttributes;
 using System;
 using System.Linq;
 using System.Management.Automation;
 using System.Reflection;
-using SharePointPnP.PowerShell.Commands.Provider;
+using PnP.PowerShell.Commands.Provider;
+using PnP.PowerShell.Commands.Model;
 
-namespace SharePointPnP.PowerShell.Commands.Base
+namespace PnP.PowerShell.Commands.Base
 {
     [Cmdlet(VerbsCommunications.Disconnect, "PnPOnline")]
     [CmdletHelp("Disconnects the context",
@@ -24,15 +25,18 @@ namespace SharePointPnP.PowerShell.Commands.Base
         protected override void ProcessRecord()
         {
             // If no specific connection has been passed in, take the connection from the current context
-            if(Connection == null)
+            if (Connection == null)
             {
                 Connection = PnPConnection.CurrentConnection;
             }
 #if !ONPREMISES
-            if(Connection?.Certificate != null)
+            if (Connection?.Certificate != null)
             {
-#if !NETSTANDARD2_1
-                PnPConnectionHelper.CleanupCryptoMachineKey(Connection.Certificate);
+#if !PNPPSCORE
+                if (Connection != null && Connection.DeleteCertificateFromCacheOnDisconnect)
+                {
+                    PnPConnectionHelper.CleanupCryptoMachineKey(Connection.Certificate);
+                }
 #endif
                 Connection.Certificate = null;
             }
@@ -51,11 +55,14 @@ namespace SharePointPnP.PowerShell.Commands.Base
                 throw new InvalidOperationException(Properties.Resources.NoConnectionToDisconnect);
             }
 
+            // clear credentials
+            PnPConnection.CurrentConnection = null;
+
             var provider = SessionState.Provider.GetAll().FirstOrDefault(p => p.Name.Equals(SPOProvider.PSProviderName, StringComparison.InvariantCultureIgnoreCase));
             if (provider != null)
             {
                 //ImplementingAssembly was introduced in Windows PowerShell 5.0.
-#if !NETSTANDARD2_1
+#if !PNPPSCORE
                 var drives = Host.Version.Major >= 5 ? provider.Drives.Where(d => d.Provider.Module.ImplementingAssembly.FullName == Assembly.GetExecutingAssembly().FullName) : provider.Drives;
 #else
                 var drives = Host.Version.Major >= 5 ? provider.Drives.Where(d => d.Provider.Module.Name == Assembly.GetExecutingAssembly().FullName) : provider.Drives;
@@ -69,21 +76,23 @@ namespace SharePointPnP.PowerShell.Commands.Base
 
         internal static bool DisconnectProvidedService(PnPConnection connection)
         {
-            connection.ClearTokens();
+            //connection.ClearTokens();
             Environment.SetEnvironmentVariable("PNPPSHOST", string.Empty);
             Environment.SetEnvironmentVariable("PNPPSSITE", string.Empty);
             if (connection == null)
             {
                 return false;
             }
-
+            //GraphToken.ClearCaches();
+            //OfficeManagementApiToken.ClearCaches();
+            GenericToken.ClearCaches();
             connection.Context = null;
             connection = null;
             return true;
         }
 
         internal static bool DisconnectCurrentService()
-        {            
+        {
             Environment.SetEnvironmentVariable("PNPPSHOST", string.Empty);
             Environment.SetEnvironmentVariable("PNPPSSITE", string.Empty);
 
@@ -96,8 +105,10 @@ namespace SharePointPnP.PowerShell.Commands.Base
                 PnPConnection.CurrentConnection.ClearTokens();
                 PnPConnection.CurrentConnection.Context = null;
                 PnPConnection.CurrentConnection = null;
+
+
                 return true;
-            }            
+            }
         }
     }
 }

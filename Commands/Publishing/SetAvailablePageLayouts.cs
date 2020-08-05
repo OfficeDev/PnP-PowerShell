@@ -1,4 +1,4 @@
-﻿using SharePointPnP.PowerShell.CmdletHelpAttributes;
+﻿using PnP.PowerShell.CmdletHelpAttributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.SharePoint.Client;
 
-namespace SharePointPnP.PowerShell.Commands.Publishing
+namespace PnP.PowerShell.Commands.Publishing
 {
     [Cmdlet(VerbsCommon.Set, "PnPAvailablePageLayouts")]
     [CmdletHelp("Sets the available page layouts for the current site",

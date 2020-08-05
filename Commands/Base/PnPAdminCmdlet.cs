@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Linq;
+using System.Management.Automation;
 using Microsoft.Online.SharePoint.TenantAdministration;
 using Microsoft.SharePoint.Client;
-using SharePointPnP.PowerShell.Commands.Enums;
-using Resources = SharePointPnP.PowerShell.Commands.Properties.Resources;
+using PnP.PowerShell.Commands.Enums;
+using Resources = PnP.PowerShell.Commands.Properties.Resources;
 
-namespace SharePointPnP.PowerShell.Commands.Base
+namespace PnP.PowerShell.Commands.Base
 {
     public abstract class PnPAdminCmdlet : PnPSharePointCmdlet
     {
@@ -39,6 +40,7 @@ namespace SharePointPnP.PowerShell.Commands.Base
                 throw new InvalidOperationException(Resources.NoSharePointConnection);
             }
 
+
             PnPConnection.CurrentConnection.CacheContext();
 
             if (PnPConnection.CurrentConnection.TenantAdminUrl != null &&
@@ -57,6 +59,7 @@ namespace SharePointPnP.PowerShell.Commands.Base
                 {
                     _baseUri = new Uri($"{uri.Scheme}://{uri.Authority}");
                 }
+                IsDeviceLogin(PnPConnection.CurrentConnection.TenantAdminUrl);
                 PnPConnection.CurrentConnection.CloneContext(PnPConnection.CurrentConnection.TenantAdminUrl);
             }
             else
@@ -69,7 +72,7 @@ namespace SharePointPnP.PowerShell.Commands.Base
                     _baseUri = new Uri($"{uri.Scheme}://{uri.Authority}");
 
                     var adminUrl = $"https://{uriParts[0]}-admin.{string.Join(".", uriParts.Skip(1))}";
-
+                    IsDeviceLogin(adminUrl);
                     PnPConnection.CurrentConnection.Context =
                         PnPConnection.CurrentConnection.CloneContext(adminUrl);
                 }
@@ -77,8 +80,19 @@ namespace SharePointPnP.PowerShell.Commands.Base
                 {
                     _baseUri =
                        new Uri(
-                           $"{uri.Scheme}://{uriParts[0].ToLower().Replace("-admin", "")}{(uriParts.Length > 1 ? $".{string.Join(".", uriParts.Skip(1))}" : string.Empty )}{(!uri.IsDefaultPort ? ":" + uri.Port : "")}");
+                           $"{uri.Scheme}://{uriParts[0].ToLower().Replace("-admin", "")}{(uriParts.Length > 1 ? $".{string.Join(".", uriParts.Skip(1))}" : string.Empty)}{(!uri.IsDefaultPort ? ":" + uri.Port : "")}");
 
+                }
+            }
+        }
+
+        private void IsDeviceLogin(string tenantAdminUrl)
+        {
+            if (PnPConnection.CurrentConnection.ConnectionMethod == Model.ConnectionMethod.DeviceLogin)
+            {
+                if (tenantAdminUrl != PnPConnection.CurrentConnection.Url)
+                {
+                    throw new PSInvalidOperationException($"You used a device login connection to authenticate to SharePoint. We do not support automatically switching context to the tenant administration site which is required to execute this cmdlet. Please use Connect-PnPOnline and connect to '{tenantAdminUrl}' with the appropriate connection parameters");
                 }
             }
         }

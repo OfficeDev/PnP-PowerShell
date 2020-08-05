@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SharePointPnP.PowerShell.Commands.Diagnostic
+namespace PnP.PowerShell.Commands.Diagnostic
 {
     [Flags]
     public enum MeasureResponseTimeMode

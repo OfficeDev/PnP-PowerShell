@@ -6,11 +6,11 @@ using System.Net;
 using System.Text;
 using Microsoft.SharePoint.Client;
 using OfficeDevPnP.Core.Utilities;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
-using SharePointPnP.PowerShell.Commands.Base;
-using SharePointPnP.PowerShell.Commands.Base.PipeBinds;
+using PnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.Commands.Base;
+using PnP.PowerShell.Commands.Base.PipeBinds;
 
-namespace SharePointPnP.PowerShell.Commands.WebParts
+namespace PnP.PowerShell.Commands.WebParts
 {
     [Cmdlet(VerbsCommon.Get, "PnPWebPartXml")]
     [CmdletHelp("Returns the web part XML of a web part registered on a site",

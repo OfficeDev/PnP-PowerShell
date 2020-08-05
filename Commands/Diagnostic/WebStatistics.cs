@@ -1,4 +1,4 @@
-﻿namespace SharePointPnP.PowerShell.Commands.Diagnostic
+﻿namespace PnP.PowerShell.Commands.Diagnostic
 {
     public class WebStatistics
     {

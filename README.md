@@ -1,4 +1,4 @@
-﻿# SharePointPnP.PowerShell Commands #
+﻿# PnP PowerShell  #
 
 ### Summary ###
 This solution contains a library of PowerShell commands that allows you to perform complex provisioning and artifact management actions towards SharePoint. The commands use a combination of CSOM and REST behind the scenes, and can work against both SharePoint Online as SharePoint On-Premises.

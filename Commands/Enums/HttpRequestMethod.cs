@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SharePointPnP.PowerShell.Commands.Enums
+namespace PnP.PowerShell.Commands.Enums
 {
     public enum HttpRequestMethod
     {

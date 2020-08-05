@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Management.Automation;
 using Microsoft.SharePoint.Client;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
-using SharePointPnP.PowerShell.Commands.Base.PipeBinds;
-using SharePointPnP.PowerShell.Commands.Enums;
+using PnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.Commands.Base.PipeBinds;
+using PnP.PowerShell.Commands.Enums;
 
-namespace SharePointPnP.PowerShell.Commands.Features
+namespace PnP.PowerShell.Commands.Features
 {
     [Cmdlet(VerbsLifecycle.Disable, "PnPFeature", SupportsShouldProcess = false)]
     [CmdletHelp("Disables a feature",

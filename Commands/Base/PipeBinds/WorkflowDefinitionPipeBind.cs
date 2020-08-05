@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.SharePoint.Client.WorkflowServices;
 
-namespace SharePointPnP.PowerShell.Commands.Base.PipeBinds
+namespace PnP.PowerShell.Commands.Base.PipeBinds
 {
     public sealed class WorkflowDefinitionPipeBind
     {

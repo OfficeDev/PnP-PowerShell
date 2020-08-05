@@ -1,22 +1,22 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
-namespace SharePointPnP.PowerShell.Commands.Model
+namespace PnP.PowerShell.Commands.Model
 {
     /// <summary>
     /// Information regarding the current status of a specific feature in an Office 365 service
     /// </summary>
     public class ManagementApiFeatureStatus
     {
-        [JsonProperty("FeatureDisplayName")]
+        [JsonPropertyName("FeatureDisplayName")]
         public string FeatureDisplayName { get; set; }
 
-        [JsonProperty("FeatureName")]
+        [JsonPropertyName("FeatureName")]
         public string FeatureName { get; set; }
 
-        [JsonProperty("FeatureServiceStatusDisplayName")]
+        [JsonPropertyName("FeatureServiceStatusDisplayName")]
         public string FeatureServiceStatusDisplayName { get; set; }
 
-        [JsonProperty("FeatureServiceStatus")]
+        [JsonPropertyName("FeatureServiceStatus")]
         public string FeatureServiceStatus { get; set; }
     }
 }

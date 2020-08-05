@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-namespace SharePointPnP.PowerShell.Commands.Model
+namespace PnP.PowerShell.Commands.Model
 {
     /// <summary>
     /// Contains a SharePoint JWT oAuth token

@@ -1,10 +1,10 @@
 ﻿using System.Management.Automation;
 using Microsoft.SharePoint.Client;
 using Microsoft.SharePoint.Client.Publishing;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
-using SharePointPnP.PowerShell.Commands.Base.PipeBinds;
+using PnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.Commands.Base.PipeBinds;
 
-namespace SharePointPnP.PowerShell.Commands.Publishing
+namespace PnP.PowerShell.Commands.Publishing
 {
     [Cmdlet(VerbsCommon.Get, "PnPPublishingImageRendition")]
     [CmdletHelp("Returns all image renditions or if Identity is specified a specific one",

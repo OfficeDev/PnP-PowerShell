@@ -8,7 +8,7 @@ using System.Text;
 using SecureString = System.Security.SecureString;
 using RuntimeHelpers = System.Runtime.CompilerServices.RuntimeHelpers;
 
-namespace SharePointPnP.PowerShell.Commands.Utilities
+namespace PnP.PowerShell.Commands.Utilities
 {
     internal class CertificateHelper
     {

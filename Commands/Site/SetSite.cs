@@ -3,14 +3,14 @@ using Microsoft.Online.SharePoint.TenantManagement;
 using Microsoft.SharePoint.Client;
 using OfficeDevPnP.Core;
 using OfficeDevPnP.Core.Entities;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
-using SharePointPnP.PowerShell.Commands.Base;
-using SharePointPnP.PowerShell.Commands.Utilities;
+using PnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.Commands.Base;
+using PnP.PowerShell.Commands.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Management.Automation;
 
-namespace SharePointPnP.PowerShell.Commands.Site
+namespace PnP.PowerShell.Commands.Site
 {
     [Cmdlet(VerbsCommon.Set, "PnPSite")]
     [CmdletHelp("Sets Site Collection properties.",
@@ -167,7 +167,7 @@ namespace SharePointPnP.PowerShell.Commands.Site
                     if (System.IO.File.Exists(LogoFilePath))
                     {
                         var bytes = System.IO.File.ReadAllBytes(LogoFilePath);
-#if !NETSTANDARD2_1
+#if !PNPPSCORE
                         var mimeType = System.Web.MimeMapping.GetMimeMapping(LogoFilePath);
 #else
                         var mimeType = "";

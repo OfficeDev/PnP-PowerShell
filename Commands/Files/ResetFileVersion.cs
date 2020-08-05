@@ -1,8 +1,8 @@
 ﻿using Microsoft.SharePoint.Client;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.CmdletHelpAttributes;
 using System.Management.Automation;
 
-namespace SharePointPnP.PowerShell.Commands.Files
+namespace PnP.PowerShell.Commands.Files
 {
     [Cmdlet(VerbsCommon.Reset, "PnPFileVersion")]
     [CmdletHelp("Resets a file to its previous version", Category = CmdletHelpCategory.Files, SupportedPlatform = CmdletSupportedPlatform.All)]

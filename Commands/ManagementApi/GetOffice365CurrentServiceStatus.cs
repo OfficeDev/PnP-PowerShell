@@ -1,13 +1,14 @@
 ﻿#if !ONPREMISES
 using System.Collections.Generic;
 using System.Management.Automation;
-using Newtonsoft.Json.Linq;
+using System.Net.Http;
 using OfficeDevPnP.Core.Framework.Graph;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
-using SharePointPnP.PowerShell.Commands.Base;
-using SharePointPnP.PowerShell.Commands.Model;
+using PnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.Commands.Base;
+using PnP.PowerShell.Commands.Model;
+using PnP.PowerShell.Commands.Utilities.REST;
 
-namespace SharePointPnP.PowerShell.Commands.ManagementApi
+namespace PnP.PowerShell.Commands.ManagementApi
 {
     [Cmdlet(VerbsCommon.Get, "PnPOffice365CurrentServiceStatus")]
     [CmdletHelp(
@@ -31,11 +32,12 @@ namespace SharePointPnP.PowerShell.Commands.ManagementApi
 
         protected override void ExecuteCmdlet()
         {
-            var response = GraphHttpClient.MakeGetRequestForString($"{ApiRootUrl}ServiceComms/CurrentStatus{(ParameterSpecified(nameof(Workload)) ? $"?$filter=Workload eq '{Workload.Value}'" : "")}", AccessToken);
-            var serviceStatusesJson = JObject.Parse(response);
-            var serviceStatuses = serviceStatusesJson["value"].ToObject<IEnumerable<ManagementApiServiceStatus>>();
+            var collection = GraphHelper.GetAsync<GraphCollection<ManagementApiServiceStatus>>(HttpClient, $"{ApiRootUrl}ServiceComms/CurrentStatus{(ParameterSpecified(nameof(Workload)) ? $"?$filter=Workload eq '{Workload.Value}'" : "")}", AccessToken, false).GetAwaiter().GetResult();
 
-            WriteObject(serviceStatuses, true);
+            if (collection != null)
+            {
+                WriteObject(collection.Items, true);
+            }
         }
     }
 }

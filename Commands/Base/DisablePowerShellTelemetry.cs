@@ -1,13 +1,13 @@
-﻿using SharePointPnP.PowerShell.CmdletHelpAttributes;
+﻿using PnP.PowerShell.CmdletHelpAttributes;
 using System;
-#if NETSTANDARD2_1
+#if PNPPSCORE
 using System.IdentityModel.Tokens.Jwt;
 #else
 using System.IdentityModel.Tokens;
 #endif
 using System.Management.Automation;
 
-namespace SharePointPnP.PowerShell.Commands.Base
+namespace PnP.PowerShell.Commands.Base
 {
     [Cmdlet(VerbsLifecycle.Disable, "PnPPowerShellTelemetry")]
     [CmdletHelp("Disables PnP PowerShell telemetry tracking",

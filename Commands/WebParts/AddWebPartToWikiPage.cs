@@ -3,10 +3,10 @@ using System.Management.Automation;
 using Microsoft.SharePoint.Client;
 using OfficeDevPnP.Core.Entities;
 using OfficeDevPnP.Core.Utilities;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.CmdletHelpAttributes;
 using File = System.IO.File;
 
-namespace SharePointPnP.PowerShell.Commands.WebParts
+namespace PnP.PowerShell.Commands.WebParts
 {
     [Cmdlet(VerbsCommon.Add, "PnPWebPartToWikiPage")]
     [CmdletHelp("Adds a web part to a wiki page in a specified table row and column",

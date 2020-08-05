@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: PnP PowerShell Discussions
+    url: https://github.com/pnp/pnp-powershell/discussions
+    about: Please ask and answer questions here.

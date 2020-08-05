@@ -1,11 +1,11 @@
 ﻿using System.Management.Automation;
 using Microsoft.SharePoint.Client;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
-using SharePointPnP.PowerShell.Commands.Base.PipeBinds;
+using PnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.Commands.Base.PipeBinds;
 using Microsoft.SharePoint.Client.WorkflowServices;
 using System.Collections.Generic;
 
-namespace SharePointPnP.PowerShell.Commands.Workflows
+namespace PnP.PowerShell.Commands.Workflows
 {
     [Cmdlet(VerbsLifecycle.Start, "PnPWorkflowInstance")]
     [CmdletHelp("Starts a SharePoint 2010/2013 workflow instance on a list item",

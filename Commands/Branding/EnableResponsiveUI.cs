@@ -1,9 +1,10 @@
-﻿using System;
+﻿#if !PNPPSCORE
+using System;
 using System.Management.Automation;
 using Microsoft.SharePoint.Client;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.CmdletHelpAttributes;
 
-namespace SharePointPnP.PowerShell.Commands.Branding
+namespace PnP.PowerShell.Commands.Branding
 {
     [Cmdlet(VerbsLifecycle.Enable, "PnPResponsiveUI")]
     [CmdletHelp("Activates the PnP Response UI Add-on",
@@ -25,3 +26,4 @@ namespace SharePointPnP.PowerShell.Commands.Branding
         }
     }
 }
+#endif

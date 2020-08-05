@@ -1,12 +1,12 @@
 ﻿using System.Management.Automation;
 using Microsoft.SharePoint.Client;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
-using SharePointPnP.PowerShell.Commands.Base.PipeBinds;
+using PnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.Commands.Base.PipeBinds;
 using System.Linq.Expressions;
 using System;
-using Resources = SharePointPnP.PowerShell.Commands.Properties.Resources;
+using Resources = PnP.PowerShell.Commands.Properties.Resources;
 
-namespace SharePointPnP.PowerShell.Commands.Lists
+namespace PnP.PowerShell.Commands.Lists
 {
     [Cmdlet(VerbsCommon.Get, "PnPList")]
     [CmdletHelp("Returns lists from SharePoint",
@@ -25,6 +25,10 @@ namespace SharePointPnP.PowerShell.Commands.Lists
         Code = "PS:> Get-PnPList -Identity Lists/Announcements",
         Remarks = "Returns a list with the given url",
         SortOrder = 3)]
+    [CmdletExample(
+        Code = @"PS:> Get-PnPList | Where-Object {$_.RootFolder.ServerRelativeUrl -like ""/lists/*""}",
+        Remarks = @"This examples shows how to do wildcard searches on the list URL. It returns all lists whose URL starts with ""/lists/"" This could also be used to search for strings inside of the URL.",
+        SortOrder = 4)]
     public class GetList : PnPWebRetrievalsCmdlet<List>
     {
         [Parameter(Mandatory = false, ValueFromPipeline = true, Position = 0, HelpMessage = "The ID, name or Url (Lists/MyList) of the list")]

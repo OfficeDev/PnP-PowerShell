@@ -1,9 +1,9 @@
 ﻿#if !ONPREMISES
 using Microsoft.SharePoint.Client;
-using SharePointPnP.PowerShell.Commands.Model;
+using PnP.PowerShell.Commands.Model;
 using System;
 
-namespace SharePointPnP.PowerShell.Commands.Base.PipeBinds
+namespace PnP.PowerShell.Commands.Base.PipeBinds
 {
     public sealed class ThemePipeBind
     {

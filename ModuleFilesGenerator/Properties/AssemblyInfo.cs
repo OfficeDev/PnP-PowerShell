@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("SharePointPnP.PowerShell.ModuleFilesGenerator")]
+[assembly: AssemblyTitle("PnP.PowerShell.ModuleFilesGenerator")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("SharePointPnP.PowerShell.ModuleFilesGenerator")]
+[assembly: AssemblyProduct("PnP.PowerShell.ModuleFilesGenerator")]
 [assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

@@ -2,11 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using System.Threading.Tasks;
+using System.Text.Json;
 using Microsoft.SharePoint.Client;
-using Newtonsoft.Json;
 
-namespace SharePointPnP.PowerShell.Commands.Utilities.REST
+namespace PnP.PowerShell.Commands.Utilities.REST
 {
     internal static class RestHelper
     {
@@ -14,7 +13,7 @@ namespace SharePointPnP.PowerShell.Commands.Utilities.REST
         {
             var returnValue = ExecuteGetRequest(context, url, select, filter, expand);
 
-            var returnObject = JsonConvert.DeserializeObject<T>(returnValue);
+            var returnObject = JsonSerializer.Deserialize<T>(returnValue, new JsonSerializerOptions() { IgnoreNullValues = true, PropertyNamingPolicy = JsonNamingPolicy.CamelCase });
             return returnObject;
         }
 
@@ -54,12 +53,6 @@ namespace SharePointPnP.PowerShell.Commands.Utilities.REST
             return returnValue;
         }
 
-        public static T ExecutePostRequest<T>(ClientContext context, string url, string select = null, string filter = null, string expand = null, Dictionary<string, string> additionalHeaders = null)
-        {
-            var returnValue = ExecutePostRequestInternal(context, url, null, select, filter, expand);
-            return JsonConvert.DeserializeObject<T>(returnValue.Content.ReadAsStringAsync().GetAwaiter().GetResult());
-        }
-
         public static T ExecutePostRequest<T>(ClientContext context, string url, string content, string select = null, string filter = null, string expand = null, Dictionary<string, string> additionalHeaders = null, string contentType = "application/json", uint? top = null)
         {
             HttpContent stringContent = null;
@@ -73,19 +66,7 @@ namespace SharePointPnP.PowerShell.Commands.Utilities.REST
             }
 
             var returnValue = ExecutePostRequestInternal(context, url, stringContent, select, filter, expand, additionalHeaders, top);
-            return JsonConvert.DeserializeObject<T>(returnValue.Content.ReadAsStringAsync().GetAwaiter().GetResult());
-        }
-
-        public static T ExecutePostRequest<T>(ClientContext context, string url, byte[] content, string select = null, string filter = null, string expand = null, Dictionary<string, string> additionalHeaders = null, uint? top = null)
-        {
-            var byteArrayContent = new ByteArrayContent(content);
-            var returnValue = ExecutePostRequestInternal(context, url, byteArrayContent, select, filter, expand, additionalHeaders, top);
-            return JsonConvert.DeserializeObject<T>(returnValue.Content.ReadAsStringAsync().GetAwaiter().GetResult());
-        }
-
-        public static HttpResponseMessage ExecutePostRequest(ClientContext context, string endPointUrl, string select = null, string filter = null, string expand = null, Dictionary<string, string> additionalHeaders = null, uint? top = null)
-        {
-            return ExecutePostRequestInternal(context, endPointUrl, null, select, filter, expand, additionalHeaders, top);
+            return JsonSerializer.Deserialize<T>(returnValue.Content.ReadAsStringAsync().GetAwaiter().GetResult(), new JsonSerializerOptions() { IgnoreNullValues = true, PropertyNamingPolicy = JsonNamingPolicy.CamelCase });
         }
 
         public static HttpResponseMessage ExecutePostRequest(ClientContext context, string endPointUrl, string content, string select = null, string filter = null, string expand = null, Dictionary<string, string> additionalHeaders = null, string contentType = "application/json", uint? top = null)
@@ -100,12 +81,6 @@ namespace SharePointPnP.PowerShell.Commands.Utilities.REST
                 stringContent.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse(contentType);
             }
             return ExecutePostRequestInternal(context, endPointUrl, stringContent, select, filter, expand, additionalHeaders, top);
-        }
-
-        public static HttpResponseMessage ExecutePostRequest(ClientContext context, string endPointUrl, byte[] content, string select = null, string filter = null, string expand = null, Dictionary<string, string> additionalHeaders = null)
-        {
-            var byteArrayContent = new ByteArrayContent(content);
-            return ExecutePostRequestInternal(context, endPointUrl, byteArrayContent, select, filter, expand, additionalHeaders);
         }
 
         private static HttpResponseMessage ExecutePostRequestInternal(ClientContext context, string endPointUrl, HttpContent content, string select = null, string filter = null, string expand = null, Dictionary<string, string> additionalHeaders = null, uint? top = null)
@@ -165,20 +140,7 @@ namespace SharePointPnP.PowerShell.Commands.Utilities.REST
             }
 
             var returnValue = ExecutePutRequestInternal(context, url, stringContent, select, filter, expand);
-            return JsonConvert.DeserializeObject<T>(returnValue.Content.ReadAsStringAsync().GetAwaiter().GetResult());
-        }
-
-        public static T ExecutePutRequest<T>(ClientContext context, string url, byte[] content, string select = null, string filter = null, string expand = null, Dictionary<string, string> additionalHeaders = null)
-        {
-            var byteArrayContent = new ByteArrayContent(content);
-            var returnValue = ExecutePutRequestInternal(context, url, byteArrayContent, select, filter, expand);
-            return JsonConvert.DeserializeObject<T>(returnValue.Content.ReadAsStringAsync().GetAwaiter().GetResult());
-        }
-
-
-        public static HttpResponseMessage ExecutePutRequest(ClientContext context, string endPointUrl, string select = null, string filter = null, string expand = null, Dictionary<string, string> additionalHeaders = null)
-        {
-            return ExecutePutRequestInternal(context, endPointUrl, null, select, filter, expand, additionalHeaders);
+            return JsonSerializer.Deserialize<T>(returnValue.Content.ReadAsStringAsync().GetAwaiter().GetResult(), new JsonSerializerOptions() { IgnoreNullValues = true, PropertyNamingPolicy = JsonNamingPolicy.CamelCase });
         }
 
         public static HttpResponseMessage ExecutePutRequest(ClientContext context, string endPointUrl, string content, string select = null, string filter = null, string expand = null, Dictionary<string, string> additionalHeaders = null, string contentType = null)
@@ -189,12 +151,6 @@ namespace SharePointPnP.PowerShell.Commands.Utilities.REST
                 stringContent.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse(contentType);
             }
             return ExecutePutRequestInternal(context, endPointUrl, stringContent, select, filter, expand, additionalHeaders);
-        }
-
-        public static HttpResponseMessage ExecutePutRequest(ClientContext context, string endPointUrl, byte[] content, string select = null, string filter = null, string expand = null, Dictionary<string, string> additionalHeaders = null)
-        {
-            var byteArrayContent = new ByteArrayContent(content);
-            return ExecutePutRequestInternal(context, endPointUrl, byteArrayContent, select, filter, expand, additionalHeaders);
         }
 
         private static HttpResponseMessage ExecutePutRequestInternal(ClientContext context, string endPointUrl, HttpContent content, string select = null, string filter = null, string expand = null, Dictionary<string, string> additionalHeaders = null)
@@ -250,20 +206,7 @@ namespace SharePointPnP.PowerShell.Commands.Utilities.REST
             }
 
             var returnValue = ExecuteMergeRequestInternal(context, url, stringContent, select, filter, expand);
-            return JsonConvert.DeserializeObject<T>(returnValue.Content.ReadAsStringAsync().GetAwaiter().GetResult());
-        }
-
-        public static T ExecuteMergeRequest<T>(ClientContext context, string url, byte[] content, string select = null, string filter = null, string expand = null, Dictionary<string, string> additionalHeaders = null)
-        {
-            var byteArrayContent = new ByteArrayContent(content);
-            var returnValue = ExecuteMergeRequestInternal(context, url, byteArrayContent, select, filter, expand);
-            return JsonConvert.DeserializeObject<T>(returnValue.Content.ReadAsStringAsync().GetAwaiter().GetResult());
-        }
-
-
-        public static HttpResponseMessage ExecuteMergeRequest(ClientContext context, string endPointUrl, string select = null, string filter = null, string expand = null, Dictionary<string, string> additionalHeaders = null)
-        {
-            return ExecuteMergeRequestInternal(context, endPointUrl, null, select, filter, expand, additionalHeaders);
+            return JsonSerializer.Deserialize<T>(returnValue.Content.ReadAsStringAsync().GetAwaiter().GetResult(), new JsonSerializerOptions() { IgnoreNullValues = true, PropertyNamingPolicy = JsonNamingPolicy.CamelCase });
         }
 
         public static HttpResponseMessage ExecuteMergeRequest(ClientContext context, string endPointUrl, string content, string select = null, string filter = null, string expand = null, Dictionary<string, string> additionalHeaders = null, string contentType = null)
@@ -274,12 +217,6 @@ namespace SharePointPnP.PowerShell.Commands.Utilities.REST
                 stringContent.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse(contentType);
             }
             return ExecuteMergeRequestInternal(context, endPointUrl, stringContent, select, filter, expand, additionalHeaders);
-        }
-
-        public static HttpResponseMessage ExecuteMergeRequest(ClientContext context, string endPointUrl, byte[] content, string select = null, string filter = null, string expand = null, Dictionary<string, string> additionalHeaders = null)
-        {
-            var byteArrayContent = new ByteArrayContent(content);
-            return ExecuteMergeRequestInternal(context, endPointUrl, byteArrayContent, select, filter, expand, additionalHeaders);
         }
 
         private static HttpResponseMessage ExecuteMergeRequestInternal(ClientContext context, string endPointUrl, HttpContent content, string select = null, string filter = null, string expand = null, Dictionary<string, string> additionalHeaders = null)

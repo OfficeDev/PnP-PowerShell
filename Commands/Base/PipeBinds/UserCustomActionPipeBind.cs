@@ -1,7 +1,7 @@
 ﻿using Microsoft.SharePoint.Client;
 using System;
 
-namespace SharePointPnP.PowerShell.Commands.Base.PipeBinds
+namespace PnP.PowerShell.Commands.Base.PipeBinds
 {
     /// <summary>
     /// Allows passing UserCustomAction objects in pipelines

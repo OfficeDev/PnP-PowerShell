@@ -2,11 +2,11 @@
 using System;
 using System.Management.Automation;
 using Microsoft.SharePoint.Client;
-using SharePointPnP.PowerShell.CmdletHelpAttributes;
-using SharePointPnP.PowerShell.Commands.Enums;
-using Resources = SharePointPnP.PowerShell.Commands.Properties.Resources;
+using PnP.PowerShell.CmdletHelpAttributes;
+using PnP.PowerShell.Commands.Enums;
+using Resources = PnP.PowerShell.Commands.Properties.Resources;
 
-namespace SharePointPnP.PowerShell.Commands.Search
+namespace PnP.PowerShell.Commands.Search
 {
     [Cmdlet(VerbsCommon.Set, "PnPSearchSettings")]
     [CmdletHelp("Sets search settings for a site",
@@ -37,14 +37,29 @@ namespace SharePointPnP.PowerShell.Commands.Search
         SortOrder = 5)]
 
     [CmdletExample(
+        Code = @"PS:> Set-PnPSearchSettings -SearchBoxPlaceholderText ""Search for contracts""",
+        Remarks = "Set a custom placeholder text in the search box for the site",
+        SortOrder = 6)]
+
+    [CmdletExample(
+        Code = @"PS:> Set-PnPSearchSettings -SearchBoxPlaceholderText """"",
+        Remarks = "Clear the custom placeholder text in the search box and revert to the default text",
+        SortOrder = 7)]
+
+    [CmdletExample(
+        Code = @"PS:> Set-PnPSearchSettings -SearchBoxPlaceholderText ""Search for contracts"" -Scope Site",
+        Remarks = "Set a custom placeholder text in the search box for the site collection",
+        SortOrder = 8)]
+
+    [CmdletExample(
         Code = @"PS:> Set-PnPSearchSettings -SearchScope Tenant",
         Remarks = "Set default behavior of the suite bar search box to show tenant wide results instead of site or hub scoped results",
-        SortOrder = 6)]
+        SortOrder = 9)]
 
     [CmdletExample(
         Code = @"PS:> Set-PnPSearchSettings -SearchScope Hub",
         Remarks = "Set default behavior of the suite bar search box to show hub results instead of site results on an associated hub site",
-        SortOrder = 7)]
+        SortOrder = 10)]
 
     public class SetSearchSettings : PnPWebCmdlet
     {
@@ -55,6 +70,10 @@ namespace SharePointPnP.PowerShell.Commands.Search
         [Parameter(Mandatory = false, ParameterSetName = ParameterAttribute.AllParameterSets,
             HelpMessage = "Set the URL where the search box should redirect to.")]
         public string SearchPageUrl;
+
+        [Parameter(Mandatory = false, ParameterSetName = ParameterAttribute.AllParameterSets,
+            HelpMessage = "Set the text to show in the search box.")]
+        public string SearchBoxPlaceholderText;
 
         [Parameter(Mandatory = false, ParameterSetName = ParameterAttribute.AllParameterSets,
             HelpMessage = "Set the search scope of the suite bar search box. Possible values: DefaultScope, Tenant, Hub, Site")]
@@ -72,6 +91,12 @@ namespace SharePointPnP.PowerShell.Commands.Search
             if (hasSearchPageUrl && SearchPageUrl == null)
             {
                 SearchPageUrl = string.Empty;
+            }
+
+            bool hasSearchPlaceholderText = ParameterSpecified(nameof(SearchBoxPlaceholderText));
+            if (hasSearchPlaceholderText && SearchBoxPlaceholderText == null)
+            {
+                SearchBoxPlaceholderText = string.Empty;
             }
 
             if (!Force && SearchBoxInNavBar.HasValue && SearchBoxInNavBar.Value == SearchBoxInNavBarType.Hidden)
@@ -109,6 +134,10 @@ namespace SharePointPnP.PowerShell.Commands.Search
                 {
                     ClientContext.Web.SetSiteCollectionSearchCenterUrl(SearchPageUrl);
                 }
+                if (hasSearchPlaceholderText)
+                {
+                    ClientContext.Site.SetSearchBoxPlaceholderText(SearchBoxPlaceholderText);
+                }
                 if (SearchScope.HasValue && ClientContext.Site.RootWeb.SearchScope != SearchScope.Value)
                 {
                     ClientContext.Site.RootWeb.SearchScope = SearchScope.Value;
@@ -124,6 +153,10 @@ namespace SharePointPnP.PowerShell.Commands.Search
                 if (hasSearchPageUrl)
                 {
                     ClientContext.Web.SetWebSearchCenterUrl(SearchPageUrl);
+                }
+                if (hasSearchPlaceholderText)
+                {
+                    ClientContext.Web.SetSearchBoxPlaceholderText(SearchBoxPlaceholderText);
                 }
                 if (SearchScope.HasValue && ClientContext.Web.SearchScope != SearchScope.Value)
                 {
