@@ -7,14 +7,14 @@ using PnP.PowerShell.CmdletHelpAttributes;
 
 namespace PnP.PowerShell.Commands.Search
 {
-    [Cmdlet(VerbsCommon.Get, "PnPSiteHistoricalVersionsStatus", DefaultParameterSetName = "Xml")]
-    [CmdletHelp("Returns information about the Historical Versions feature for the current site collection from the context. " +
-       "The document statistics are only updated periodically, check the next update time property (in UTC) to see when new data will be available.",
+    [Cmdlet(VerbsCommon.Get, "PnPSiteHistoricalVersionsStatus")]
+    [CmdletHelp("Returns summary crawl info about the Historical Versions feature for the current site collection from the context. " +
+        "This is a feature that makes past versions of documents searchable for eDiscovery when enabled.",
         SupportedPlatform = CmdletSupportedPlatform.Online,
         Category = CmdletHelpCategory.Search)]
     [CmdletExample(
         Code = @"PS:> Get-PnPSiteHistoricalVersionsStatus",
-        Remarks = "Returns the status of the feature as well as the number of documents processed for the site if the feature is enabled.",
+        Remarks = "Returns the count of documents with historical versions processed and the count of total documents with versions enabled on the site, as well as when these counts will be next updated (all times in UTC).",
         SortOrder = 1)]
     public class GetSiteHistoricalVersionsStatus : PnPWebCmdlet
     {
