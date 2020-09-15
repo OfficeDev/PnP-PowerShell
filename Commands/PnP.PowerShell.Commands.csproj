@@ -795,6 +795,7 @@
     <Compile Include="RecordsManagement\SetListRecordDeclaration.cs" />
     <Compile Include="Search\GetSearchCrawlLog.cs" />
     <Compile Include="Search\GetSearchSettings.cs" />
+    <Compile Include="Search\GetSiteHistoricalVersionsStatus.cs" />
     <Compile Include="Search\SetSearchSettings.cs" />
     <Compile Include="Enums\SearchSettingsScope.cs" />
     <Compile Include="SiteDesigns\GetSiteDesignTask.cs" />

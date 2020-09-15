@@ -56,6 +56,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 - Updated `Get/Set-PnPSearchSettings` with an option `-SearchBoxPlaceholderText` to set search placeholder text for the SPO nav bar search box 
 - Added Set-PnPTermGroup cmdlet to update an existing taxonomy term group.
 - Added Set-PnPTeamifyPromptHidden to hide the teamify prompt on a group connected Team Site (modern team site)
+- Added Get-PnPSiteHistoricalVersionsStatus to get information about the Historical Versions feature, a feature that makes past versions of documents searchable for eDiscovery when enabled
 
 ### Changed
 - Changed the client id of the application used behind the scenes when authenticating to a tenant where Legacy Authentication has been turned off. We now by default utilize the PnP Management Shell application. If you have not provided consent you will be prompted with a message on how to provide consent.
