@@ -7,6 +7,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## [3.28.2012.0]
 
+Important: this repository is now in read-only mode. We do not accept any pull requests on this repository anymore and ask you to create a pull request again https://github.com/pnp/powershell instead.
+
 ### Added
 
 ### Changed
